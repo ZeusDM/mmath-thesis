@@ -34,12 +34,11 @@ jobs:
           echo "TIMESTAMP=$(date '+%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
           echo "READABLE=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_OUTPUT
 
-      - name: Create Pre-release
+      - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ steps.timestamp.outputs.TIMESTAMP }}
           name: Draft - ${{ steps.timestamp.outputs.READABLE }}
-          prerelease: true  # This prevents notifications to followers
           files: thesis.pdf
           body: |
             Automated thesis build from commit ${{ github.sha }}
