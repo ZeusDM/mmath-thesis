@@ -32,7 +32,7 @@ jobs:
         id: timestamp
         run: |
           echo "TIMESTAMP=$(date '+%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
-          echo "READABLE=$(date '+%B %d, %Y at %I:%M %p')" >> $GITHUB_OUTPUT
+          echo "READABLE=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_OUTPUT
 
       - name: Create Pre-release
         uses: softprops/action-gh-release@v2
