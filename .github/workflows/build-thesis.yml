@@ -1,0 +1,41 @@
+name: Build Thesis
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allow manual triggering
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Thesis PDF
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/moderncv/debian-texlive-docker:main
+    env:
+      TZ: 'America/Toronto'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build PDF
+        run: |
+          # Build the thesis using latexmk
+          latexmk -lualatex thesis.tex
+
+      - name: Create Pre-release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-$(date '+%Y%m%d-%H%M%S')
+          name: Draft $(date '+%Y-%m-%d %H:%M:%S')
+          prerelease: true  # This prevents notifications to followers
+          files: thesis.pdf
+          body: |
+            Automated thesis build from commit ${{ github.sha }}
+            Built on: $(date '+%Y-%m-%d %H:%M:%S')
+          token: ${{ secrets.GITHUB_TOKEN }}
