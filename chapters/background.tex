@@ -103,7 +103,7 @@ Note that \(\rev(\alpha) = w_0 \permact \alpha\).
 	which we write as a product \(\pi \sigma^{-1}\).
 \end{remark}
 
-\section{Permuted-basement Macdonald polynomials}
+\section{Permuted-basement Macdonald polynomials as eigenfunctions}
 \label{sec:permuted basement def}
 
 We follow the exposition of \cite{Fer11} and the notation of \cite{Ale19}
@@ -122,6 +122,14 @@ a polynomial \(f(\mathbf{x})\) by permuting the variables,
 that is,
 \(\sigma (\mathbf{x}^{\alpha}) = \mathbf{x}^{\sigma \permact \alpha}\)
 for a composition \(\alpha\).
+For example, the permtutation \(\sigma = \window{2, 3, 1}\) sends the monomial \(x_1^2 x_2 = \mathbf{x}^{\composition{2, 1, 0}}\) to the monomial
+\begin{equation*}
+    \window{2, 3, 1} (x_1^2 x_2)
+    = \window{2, 3, 1}(\mathbf{x}^{\composition{2, 1, 0}})
+    = \mathbf{x}^{\window{2, 3, 1} \permact \composition{2, 1, 0}}
+    = \mathbf{x}^{\composition{0, 2, 1}}
+    = x_2^2 x_3.
+\end{equation*}
 
 The \vocab{Demazure--Lusztig operators}
 \(T_1\), \dots, \(T_{n-1}\) on \(\rationals(q, t)[\mathbf{x}]\)
@@ -136,7 +144,6 @@ and the operator \(g\) on \(\rationals(q, t)[\mathbf{x}]\) is defined by
 \end{equation*}
 For a reduced expression \( \sigma = s_{i_1} \cdots s_{i_k} \),
 we write \(T_\sigma\) to denote the composition \(T_{i_1} \circ \cdots \circ T_{i_k}\).
-
 The \vocab{Cherednik--Dunkl operators}
 \(Y_1\), \dots, \(Y_n\) on \(\rationals(q, t)[\mathbf{x}]\)
 are defined by,
