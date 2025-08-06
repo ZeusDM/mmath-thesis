@@ -6,6 +6,7 @@
 \newcommand{\href}[1]{#1} % does nothing, but defines the command so the print-optimized version will ignore \href tags (redefined by hyperref pkg).
 
 \usepackage{amsmath,amssymb,amstext}
+\usepackage[mathscr]{eucal}
 \usepackage{graphicx}
 \usepackage{xcolor}
 
@@ -56,6 +57,141 @@
     menucolor=menucolor,
     runcolor=runcolor
 }
+
+\usepackage[capitalize,nameinlink,noabbrev,nosort]{cleveref}
+
+% Adds hyperlink to title in bibliography
+\newbibmacro{string+doi}[1]{%
+	\iffieldundef{doi}{\iffieldundef{url}{#1}{\href{\thefield{url}}{#1}}}{\href{http://dx.doi.org/\thefield{doi}}{#1}}}	
+\DeclareFieldFormat[article]{title}{\usebibmacro{string+doi}{\mkbibquote{#1}}}
+\DeclareFieldFormat[thesis]{title}{\usebibmacro{string+doi}{\mkbibemph{#1}}}
+
+%%%%%%%%%%
+% Formatting
+%%%%%%%%%%
+
+\usepackage{enumitem} % Enumerations
+\setlist{noitemsep, topsep=0ex, labelsep=1em}
+\setlist[enumerate, 1]{label=(\Roman*), ref=(\Roman*), left=1em}
+
+\usepackage{booktabs} % Tables
+\usepackage{makecell} % Table cells
+\usepackage{subcaption} % Subfigures
+
+%%%%%%%%%%
+% Theorem Environments
+%%%%%%%%%%
+
+\usepackage{amsthm, thmtools}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+%%%%%%%%%%
+% Graphics
+%%%%%%%%%%
+
+\usepackage{tikz}
+\usetikzlibrary{calc, patterns, arrows, arrows.meta}
+\usepackage{ytableau}
+
+%%%%%%%%%%
+% Custom Macros
+%%%%%%%%%%
+
+\newcommand{\vocab}[1]{\textcolor{blue!50!black}{\emph{#1}}} % New vocabulary
+
+% Makes the default font sans-serif for math operators
+\DeclareSymbolFont{sansops}{T1}{\sfdefault}{m}{n}
+\SetSymbolFont{sansops}{bold}{T1}{\sfdefault}{b}{n}
+\makeatletter
+\renewcommand\operator@font{\mathgroup\symsansops}
+\makeatother
+
+\newcommand{\suchthat}{\,:\,}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\positives}{\integers_{>0}}
+\newcommand{\nonnegatives}{\integers_{\geq 0}}
+\newcommand{\rationals}{\mathbb{Q}}
+
+\newcommand{\permact}{\cdot}
+
+\newcommand{\sym}[1]{\mathscr{S}_{#1}} % The symmetric group
+\DeclareMathOperator{\adg}{\widehat{dg}}
+\DeclareMathOperator{\Leg}{Leg}
+\DeclareMathOperator{\Arm}{Arm}
+\DeclareMathOperator{\leftArm}{Arm\textsuperscript{left}}
+\DeclareMathOperator{\rightArm}{Arm\textsuperscript{right}}
+\DeclareMathOperator{\leg}{leg}
+\DeclareMathOperator{\arm}{arm}
+\DeclareMathOperator{\Fill}{F}
+\DeclareMathOperator{\NAF}{NAF}
+\DeclareMathOperator{\rev}{rev}
+\DeclareMathOperator{\inc}{inc}
+\DeclareMathOperator{\dec}{dec}
+\DeclareMathOperator{\content}{content}
+\DeclareMathOperator{\twinv}{twinv}
+
+\newcommand{\swap}[2][]{\mathfrak{t}_{#2}\ifx&#1&\else^{(#1)}\fi}
+\newcommand{\sswap}[2][]{\mathfrak{t}_{#2}\ifx&#1&\else^{[#1]}\fi}
+\newcommand{\esop}[2][]{\tilde\tau_{#2}\ifx&#1&\else^{(#1)}\fi}
+\newcommand{\prob}[1]{\operatorname{prob}_{#1}}
+
+\newcommand{\wt}[1][]{{\operatorname{wt}\ifx&#1&\else^{(#1)}\fi}}
+\newcommand{\wtqt}[1][]{{\operatorname{wt}_{q, t}\ifx&#1&\else^{(#1)}\fi}}
+\newcommand{\maj}[1][]{{\operatorname{maj}\ifx&#1&\else^{(#1)}\fi}}
+\newcommand{\coinv}[1][]{{\operatorname{coinv}\ifx&#1&\else^{(#1)}\fi}}
+\newcommand{\inv}[1][]{{\operatorname{inv}\ifx&#1&\else^{(#1)}\fi}}
+\newcommand{\Des}[1][]{{\operatorname{Des}\ifx&#1&\else^{(#1)}\fi}}
+\newcommand{\des}[1][]{{\operatorname{des}\ifx&#1&\else^{(#1)}\fi}}
+\newcommand{\dg}[1][]{{\operatorname{dg}\ifx&#1&\else^{(#1)}\fi}}
+
+\newcommand{\south}[1]{d(#1)}
+
+\newcommand{\algebra}{A}
+
+\newcommand{\atompoly}{\mathcal{A}}
+\newcommand{\keypoly}{\mathcal{K}}
+
+\DeclareMathOperator{\id}{id}
+
+% Interval macro: generates set {1, ..., n}
+\newcommand{\interval}[1]{[#1]}
+
+\usepackage{listofitems}
+\newcommand{\composition}[2][]{%
+	\def\temp{#2}\ifx\temp\empty%
+	\varnothing%
+	\else%
+	\readlist\thecycle{#2}%
+	\foreachitem\i\in\thecycle{\ifnum\icnt=1\else#1\fi\i}%
+	\fi%
+}
+
+\newcommand{\window}[2][,]{%
+	\left[
+	\readlist\thecycle{#2}%
+	\foreachitem\i\in\thecycle{\ifnum\icnt=1\else#1\fi\i}%
+	\right]
+}
+
+\newcommand{\ind}[2][]{%
+	\readlist\thecycle{#2}%
+	\chi_{%
+	\foreachitem\i\in\thecycle{\ifnum\icnt=1\else#1\fi\i}%
+	}
+}
+
 
 \usepackage[automake,toc,abbreviations]{glossaries-extra}
 
