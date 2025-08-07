@@ -118,7 +118,11 @@ In this section, we define multiple variations of Macdonald polynomials:
 
 \subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ}}
 
-\subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ} as orthogonal polynomials}
+\subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ}}
+
+\subsubsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ} as orthogonal polynomials}
+
+\cite{Mac88} 
 
 Define the scalar product \(\langle \cdot, \cdot \rangle_{(q, t)}\) on the ring of symmetric functions with coefficients in \(\rationals(q, t)\) by setting
 \begin{equation}
@@ -139,6 +143,20 @@ z_\lambda(q, t) = z_\lambda \prod_{i=1}^{\ell(\lambda)} \frac{1 - q^{\lambda_i}}
 \end{theorem}
 
 The functions \(P_\lambda\) are called the \vocab{symmetric Macdonald polynomials}.
+
+\subsubsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ} as eigenfunctions}
+
+\cite{Mac88} 
+
+For any polynomial \( f(x_1, \ldots, x_n) \) and \(1 \le i \le n\), define the \(q\)-shift operator \(T_{q,x_i}\) by
+\begin{equation}
+(T_{q,x_i} f)(x_1, \ldots, x_n) = f(x_1, \ldots, qx_i, \ldots, x_n).
+\end{equation}
+Then, the operator \( D \) is defined as
+\begin{equation}
+D = \sum_{i=1}^n \left( \prod_{j \ne i} \frac{t x_i - x_j}{x_i - x_j} \right) T_{q,x_i}.
+\end{equation}
+The operator \(D\) has distinct eigenfunction, and these eigenfunctions are the symmetric Macdonald polynomials \(P_\lambda(x_1, \ldots, x_n; q, t)\) where \(\lambda\) is a partition with at most \(n\) parts.
 
 \subsection{Permuted-basement Macdonald polynomials \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ} as eigenfunctions}
 \label{sec:permuted basement def}
