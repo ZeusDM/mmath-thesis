@@ -103,7 +103,24 @@ Note that \(\rev(\alpha) = w_0 \permact \alpha\).
 	which we write as a product \(\pi \sigma^{-1}\).
 \end{remark}
 
-\section{Permuted-basement Macdonald polynomials as eigenfunctions}
+\section{Algebraic definitions of multiple variations of Macdonald polynomials}
+
+In this section, we define multiple variations of Macdonald polynomials:
+\begin{itemize}
+    \item \(\tilde{H}_\mu\), the modified Macdonald polynomials,
+    \item \(J_\mu\), the integral form symmetric Macdonald polynomials,
+    \item \(P_\mu\), the symmetric Macdonald polynomials,
+    \item \(E_\alpha^\sigma\), the permuted-basement nonsymmetric Macdonald polynomials,
+    \item \(\mathcal{E}_\alpha^\sigma\), the integral form permuted-basement nonsymmetric Macdonald polynomials.
+\end{itemize}
+
+\subsection{Modified Macdonald polynomials \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ}}
+
+\subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ}}
+
+\subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ}}
+
+\subsection{Permuted-basement Macdonald polynomials \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ} as eigenfunctions}
 \label{sec:permuted basement def}
 
 We follow the exposition of \cite{Fer11} and the notation of \cite{Ale19}
@@ -311,7 +328,21 @@ is the nonsymmetric Macdonald polynomial \(E_{\rev(\alpha)}(\mathbf{x}; q, t)\).
 	\end{equation*}
 \end{example}
 
-\section{Non-attacking fillings}
+\subsection{Integral form permuted-basement Macdonald polynomials \texorpdfstring{\(\mathcal{E}_\alpha^\sigma\)}{Eασ}}
+
+\section{Combinatorial formulas}
+
+In this section, we provide combinatorial formulas for multiple variations of Macdonald polynomials:
+\begin{itemize}
+    \item \(\tilde{H}_\mu\), the modified Macdonald polynomials,
+    \item \(J_\mu\), the integral form symmetric Macdonald polynomials,
+    \item \(P_\mu\), the symmetric Macdonald polynomials,
+    \item \(E_\alpha^\beta\), the permuted-basement nonsymmetric Macdonald polynomials,
+    \item \(\mathcal{E}_\alpha^\beta\), the integral form permuted-basement nonsymmetric Macdonald polynomials.
+\end{itemize}
+
+
+\subsection{Fillings}
 
 The \vocab{skyline diagram} of a composition
 \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\)
@@ -475,13 +506,20 @@ In other words, two boxes are attacking if they are in one of the configurations
 	\label{fig:attacking}
 \end{figure}
 
-A \vocab{filling} of shape \(\alpha=\composition{\alpha_1,\ldots,\alpha_n}\) and basement \(\sigma \in \sym{n}\) is
+A \vocab{filling} of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\) is a function \(T \colon \dg(\alpha) \to \interval{n}\).
+Let \(\Fill(\alpha)\) denote the set of fillings of shape \(\alpha\).
+A filling \(T\in \Fill(\alpha)\)
+is \vocab{non-attacking} if \(T(u_1) \neq T(u_2)\) for all pairs of attacking boxes \(u_1\) and \(u_2\) in \(\dg(\alpha)\).
+Let \(\NAF(\alpha)\) denote the set of non-attacking fillings of shape \(\alpha\).
+
+In the augmented context,
+an \vocab{augmented filling} of shape \(\alpha=\composition{\alpha_1,\ldots,\alpha_n}\) and basement \(\sigma \in \sym{n}\) is
 a function \(T \colon \adg(\alpha) \to \interval{n}\) such that \(T(i, 0) = \sigma_i\) for all \(i \in \interval{n}\).
-Let \(\Fill(\alpha, \sigma)\) denote the set of fillings of shape \(\alpha\) and basement \(\sigma\).
-A filling \(T\in F(\alpha,\sigma)\)
+Let \(\Fill(\alpha, \sigma)\) denote the set of augmented fillings of shape \(\alpha\) and basement \(\sigma\).
+An augmented filling \(T\in \Fill(\alpha,\sigma)\)
 is  \vocab{non-attacking}
 if \(T(u_1) \neq T(u_2)\) for all pairs of attacking boxes \(u_1\) and \(u_2\) in \(\adg(\alpha)\).
-Let \(\NAF(\alpha, \sigma)\) denote the set of non-attacking fillings of shape \(\alpha\) and basement \(\sigma\).
+Let \(\NAF(\alpha, \sigma)\) denote the set of non-attacking augmented fillings of shape \(\alpha\) and basement \(\sigma\).
 See \Cref{fig:non-attacking-filling} for an example.
 
 \begin{figure}[htbp]
@@ -505,7 +543,7 @@ See \Cref{fig:non-attacking-filling} for an example.
 		\foreach \i [count = \j] in \filling{ \node at (B\j) {\i}; }
 	\end{tikzpicture}
 	\caption{
-		A non-attacking filling of
+		A non-attacking augmented filling of
 		shape \(\alpha = \composition{2, 2, 0, 1}\),
 		basement \(\sigma = \window{3, 1, 2, 4}\),
 		and \(\content(T) = \composition{1, 2, 0, 2}\).
@@ -513,14 +551,14 @@ See \Cref{fig:non-attacking-filling} for an example.
 	\label{fig:non-attacking-filling}
 \end{figure}
 
-The \vocab{content} of a filling \(T \in \NAF(\alpha, \sigma)\)
+The \vocab{content} of an augmented filling \(T \in \NAF(\alpha, \sigma)\)
 is the composition
 \(\content(T) = \composition{\beta_1, \beta_2, \ldots, \beta_n}\),
 where \(\beta_i = |\{u\in\dg(\alpha) : T(u)=i\}|\)
 is the number of boxes of \(T\) with label \(i\).
 Note that boxes in the basement do not contribute to the content.
 Let \(\NAF(\alpha, \sigma, \beta)\) denote
-the set of non-attacking fillings
+the set of non-attacking augmented fillings
 of shape \(\alpha\),
 basement \(\sigma\),
 and content \(\beta\).
@@ -535,7 +573,7 @@ that is,
 		0 & \text{otherwise}.
 	\end{cases}
 \end{equation*}
-Given a non-attacking filling \(T \in \NAF(\alpha, \sigma)\),
+Given a non-attacking augmented filling \(T \in \NAF(\alpha, \sigma)\),
 we say that a box \(u \in \dg(\alpha)\)
 is a \vocab{descent} in \(T\) if \(T(u) > T(\south{u})\).
 Let \(\Des(T) \subseteq \dg(\alpha)\) denote the set of descents in \(T\).
@@ -681,7 +719,7 @@ that \(a, b, c\) is cyclically weakly decreasing, that is,
 	\label{fig:indicator}
 \end{figure}
 
-Given a non-attacking filling \(T \in \NAF(\alpha, \sigma)\),
+Given a non-attacking augmented filling \(T \in \NAF(\alpha, \sigma)\),
 a triple \((u, v, w)\) in \(\adg(\alpha)\) is
 an \vocab{inversion triple} if \(\ind{T(u), T(v), T(w)} = 1\),
 and is a \vocab{coinversion triple} otherwise.
@@ -743,7 +781,7 @@ See \cref{fig:inversion-coinversion} for an example.
 	\end{tabular}
 	\caption{
 		We show all five triples of
-		the non-attacking filling \(T\) in \cref{fig:non-attacking-filling};
+		the non-attacking augmented filling \(T\) in \cref{fig:non-attacking-filling};
 		the first four are of type A, and the last one is of type B.
 		There are two inversion triples (orange)
 		and three coinversion triples (purple),
@@ -752,10 +790,16 @@ See \cref{fig:inversion-coinversion} for an example.
 	\label{fig:inversion-coinversion}
 \end{figure}
 
-\section{Tableau formula for permuted-basement Macdonald polynomials}
+\subsection{Modified Macdonald polynomials \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ} as tableaux generating functions}
+
+\subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ} as tableaux generating functions}
+
+\subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ} as tableaux generating functions}
+
+\subsection{Permuted-basement nonsymmetric Macdonald polynomials \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ} as tableaux generating functions}
 \label{sec:tableau-formula}
 
-For a non-attacking filling \(T \in \NAF(\alpha, \sigma)\),
+For a non-attacking augmented filling \(T \in \NAF(\alpha, \sigma)\),
 define the \(\mathbf{x}\)-weight as
 \begin{equation*}
 	\mathbf{x}^T = \mathbf{x}^{\content(T)} = \prod_{u \in \dg(\alpha)} x_{T(u)},
@@ -773,7 +817,7 @@ and the weight as
 	\wt(T) = \mathbf{x}^T \wtqt(T).
 \end{equation*}
 
-The \(q,t\)-weight of a filling is the product of the weights
+The \(q,t\)-weight of an augmented filling is the product of the weights
 contributed by the descents
 within each row and the inversions between every pair of rows.
 Let \(L = \max_i \alpha_i\) be the total number of rows.
@@ -790,7 +834,7 @@ the number of inversion triples in \(T\)
 within the pair of rows \(r\) and \(r + 1\).
 Then, the \(r\)\textsuperscript{th} component
 of the \(q, t\)-weight
-of a non-attacking filling \(T \in \NAF(\alpha, \sigma)\)
+of a non-attacking augmented filling \(T \in \NAF(\alpha, \sigma)\)
 is defined as
 \begin{equation}
 	\label{eq:rthcomponent}
@@ -806,7 +850,7 @@ yielding the decomposition
 \end{equation*}
 
 \begin{example}
-	Consider the non-attacking filling \(T\) in \cref{fig:non-attacking-filling}.
+	Consider the non-attacking augmented filling \(T\) in \cref{fig:non-attacking-filling}.
 	The \(\mathbf{x}\)-weight of \(T\) is
 	\begin{equation*}
 		\mathbf{x}^T = x_1x_2^2x_4^2.
@@ -836,11 +880,11 @@ yielding the decomposition
 
 \begin{example}
 	Let \(n = 4\), \(\alpha = \composition{1, 1, 0, 1}\) and \(\sigma = \window{2, 4, 1, 3}\).
-	The four non-attacking fillings in \(\NAF(\alpha, \sigma)\)
+	The four non-attacking augmented fillings in \(\NAF(\alpha, \sigma)\)
 	and their weights are shown in \cref{fig:fillings-1101-2413}.
 	Using \cref{thm:tableau-formula}, the permuted-basement Macdonald polynomial
 	\(E_{\composition{1, 1, 0, 1}}^{\window{2, 4, 1, 3}}(\mathbf{x}; q, t)\)
-	is the sum of the weights of these fillings,
+	is the sum of the weights of these augmented fillings,
 	agreeing with the computation in \cref{example:permuted-basement-macdonald-polynomial}.
 	\begin{figure}[htbp]
 		\ytableausetup{boxsize=0.5cm}
@@ -875,7 +919,7 @@ yielding the decomposition
 			&
 			\(x_1x_2x_3 \frac{t (1-t)}{1-qt^2}\)
 		\end{tabular}
-		\caption{All fillings in \(\NAF(\composition{1, 1, 0, 1}, \window{2, 4, 1, 3})\) and their weights.}
+		\caption{All augmented fillings in \(\NAF(\composition{1, 1, 0, 1}, \window{2, 4, 1, 3})\) and their weights.}
 		\label{fig:fillings-1101-2413}
 	\end{figure}
 \end{example}
