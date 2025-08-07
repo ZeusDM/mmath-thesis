@@ -118,7 +118,27 @@ In this section, we define multiple variations of Macdonald polynomials:
 
 \subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ}}
 
-\subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ}}
+\subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ} as orthogonal polynomials}
+
+Define the scalar product \(\langle \cdot, \cdot \rangle_{(q, t)}\) on the ring of symmetric functions with coefficients in \(\rationals(q, t)\) by setting
+\begin{equation}
+\langle p_\lambda, p_\mu \rangle_{(q, t)} = \delta_{\lambda\mu} z_\lambda(q, t)
+\end{equation}
+where \(p_\lambda\) is the power sum symmetric function and
+\begin{equation}
+z_\lambda(q, t) = z_\lambda \prod_{i=1}^{\ell(\lambda)} \frac{1 - q^{\lambda_i}}{1 - t^{\lambda_i}}.
+\end{equation}
+% If \(q, t\) are treated as real parameters lying in \( (0, 1) \), then the scalar product is positive definite.
+
+\begin{theorem}
+	There exists a unique family of symmetric functions \(P_\lambda = P_\lambda(\mathbf{x}; q, t)\) indexed by partitions \(\lambda\) such that:
+	\begin{itemize}
+	\item \( P_\lambda = m_\lambda + \sum_{\mu < \lambda} u_{\lambda\mu}(q, t) m_\mu \) with coefficients \( u_{\lambda\mu}(q, t) \in \rationals(q, t) \), and;
+	\item \( \langle P_\lambda, P_\mu \rangle_{(q, t)} = 0 \quad \text{if } \lambda \ne \mu \).
+	\end{itemize}
+\end{theorem}
+
+The functions \(P_\lambda\) are called the \vocab{symmetric Macdonald polynomials}.
 
 \subsection{Permuted-basement Macdonald polynomials \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ} as eigenfunctions}
 \label{sec:permuted basement def}
