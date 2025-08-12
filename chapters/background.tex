@@ -442,25 +442,43 @@ The extra row is called the \vocab{basement} of \(\adg(\alpha)\).
 	\label{fig:skyline}
 \end{figure}
 
-Let \(u = (i, r) \in \dg(\alpha)\).
-The \vocab{left-arm set},
-\vocab{right-arm set},
-and \vocab{arm set} of \(u\) are defined as
-\begin{align*}
-	\leftArm(u) & = \left\{
-		(i', r-1) \in \adg(\alpha)
-		\suchthat
-		i' < i \text{ and } \alpha_{i'} < \alpha_{i}
-	\right\},\\
-	\rightArm(u) & = \left\{
-		(i', r) \in \dg(\alpha)
-		\suchthat
-		i' > i \text{ and } \alpha_{i'} \leq \alpha_{i}
-	\right\}, \\
-	\Arm(u) & = \leftArm(u) \cup \rightArm(u).
-\end{align*}
-The \vocab{leg statistic} and \vocab{arm statistic} of \(u\) are defined as \(\leg(u) = \alpha_i-r\)
-and \(\arm(u) = \left|\Arm(u)\right|\).
+A box \(u = (i_u, r_u)\) \vocab{attacks} \(v = (i_v, r_v)\) in \(\adg(\alpha)\) if
+\(r_u = r_v\) and \(i_u < i_v\), that is, \(u\) and \(v\) are in the same row and \(u\) is to the left of \(v\); or
+\(r_v = r_u - 1\) and \(i_v < i_u\), that is, \(u\) is in the row directly above \(v\) and \(u\) is to the right of \(v\).
+Let \(\Attack(u) \subset \adg(\alpha)\) be the set of boxes attacked by \(u\).
+
+\begin{figure}[htbp]
+	\begin{equation*}
+		\vcenter{\hbox{
+				\begin{tikzpicture}[x=.5cm, y=.5cm]
+					\draw[black] (0, 0) rectangle (1, 1);
+					\node at (.5, .5) {\(u\)};
+					\node at (2, .5) {\(\cdots\)};
+					\draw[black] (3, 0) rectangle (4, 1);
+					\node at (3.5, .5) {\(v\)};
+				\end{tikzpicture}}}
+		\qquad \text{or} \qquad
+		\vcenter{\hbox{
+				\begin{tikzpicture}[x=.5cm, y=.5cm]
+					\draw[black, shift={(0,-.5)}] (0, 0) rectangle (1, 1);
+					\node at (.5, .5-.5) {\(v\)};
+					\node at (2, .5) {\(\cdots\)};
+					\draw[black, shift={(0,.5)}] (3, 0) rectangle (4, 1);
+					\node at (3.5, .5+.5) {\(u\)};
+				\end{tikzpicture}}}.
+	\end{equation*}
+	\caption{Configuration of attacking boxes in a same row (left) and in consecutive rows (right), with \(u\) and \(v\) labeled.}
+	\label{fig:attacking}
+\end{figure}
+
+Let \(u = (i, r) \in \adg(\alpha)\).
+The \vocab{leg set} of \(u\) is the set \(\Leg(u) \subset \adg(\alpha)\) of boxes above \(u\) in the same column, that is, \(\Leg(u) = \left\{ (i, r') \in \adg(\alpha) \suchthat r' > r \right\}\).
+The \vocab{leg statistic} of \(u\) is defined as \(\leg(u) = |\Leg(u)| = \alpha_i - r\).
+The \vocab{arm set} of \(u\) is the set \(\Arm(u) \subset \adg(\alpha)\) of boxes \(v\) attacked by \(u\) such that \(\leg(v) \leq \leg(u)\), that is,
+\begin{equation*}
+	\Arm(u) = \left\{ v \in \Attack(u) \suchthat \leg(v) \leq \leg(u) \right\}.
+\end{equation*}
+The \vocab{arm statistic} of \(u\) is defined as \(\arm(u) = |\Arm(u)|\).
 The box \vocab{south} of \(u = (i, r)\) is the box \(\south{u} = (i, r-1) \in \adg(\alpha)\), that is, the box directly below \(u\).
 See \cref{fig:leg-arm} for an example.
 
@@ -485,11 +503,11 @@ See \cref{fig:leg-arm} for an example.
 			{ },
 			{ },{ },{ },{ },
 			{ },{d},{u},{x},
-			{ },{ },{y},{ },
+			{ },{ },{z},{ },
 			{ },{ },{ },{ },{ },
-			{ },{ },{y},
+			{ },{ },{z},
 			{ },{ },
-			{ },{ },{y},{ }}
+			{ },{ },{z},{ }}
 
 		\foreach \i [count = \j] in \filling {
 			\if\i u
@@ -498,50 +516,23 @@ See \cref{fig:leg-arm} for an example.
 					\draw[pattern color=magenta, pattern=north east lines] (B\j) rectangle ++(1, 1);
 				\else\if\i x
 						\draw[pattern color=green!70!black, pattern=vertical lines] (B\j) rectangle ++(1, 1);
-					\else\if\i y
-							\draw[pattern color=blue, pattern=north west lines] (B\j) rectangle ++(1, 1);
-						\else\if\i d
-								\draw[pattern color=yellow!50!black, pattern=horizontal lines] (B\j) rectangle ++(1, 1);
-							\else
+					\else\if\i d
+							\draw[pattern color=yellow!50!black, pattern=horizontal lines] (B\j) rectangle ++(1, 1);
+						\else
 							\draw[fill=white] (B\j) rectangle ++(1, 1);
-						\fi\fi\fi\fi\fi
+						\fi\fi\fi\fi
 		}
 
 	\end{tikzpicture}
 	\caption{
-		We show set of boxes counted by \(\leg(u)\) (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=green!70!black, pattern=vertical lines] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,),
-		the left-arm set (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=magenta, pattern=north east lines] (0, 1) rectangle ++(1, 1); \end{tikzpicture}}\,),
-		the right-arm set (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=blue, pattern=north west lines] (3, 4) rectangle ++(1, 1); \end{tikzpicture}}\,),
+		The leg set (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=green!70!black, pattern=vertical lines] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,),
+		the arm set (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=magenta, pattern=north east lines] (0, 1) rectangle ++(1, 1); \end{tikzpicture}}\,),
 		and the south (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=yellow!50!black, pattern=horizontal lines] (1, 4) rectangle ++(1, 1); \end{tikzpicture}}\,)
 		of a box \(u = (8, 2)\) (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[fill=black] (5, 2) rectangle ++(1, 1); \end{tikzpicture}}\,)
 		in the augmented skyline diagram of \(\alpha = \composition{3, 2, 2, 4, 4, 0, 3, 3, 3, 4, 2, 1, 3}\).
 		Then \(\leg(u)=1\) and \(\arm(u)=5\).
 	}
 	\label{fig:leg-arm}
-\end{figure}
-
-Two boxes in the augmented diagram are \vocab{attacking} if they are in the same row, or if they are in consecutive rows
-and the boxes in the higher row is strictly to the right of the box in the lower row.
-In other words, two boxes are attacking if they are in one of the configurations shown in \cref{fig:attacking}.
-
-\begin{figure}[htbp]
-	\begin{equation*}
-		\vcenter{\hbox{
-				\begin{tikzpicture}[x=.5cm, y=.5cm]
-					\draw[black] (0, 0) rectangle (1, 1);
-					\node at (2, .5) {\(\cdots\)};
-					\draw[black] (3, 0) rectangle (4, 1);
-				\end{tikzpicture}}}
-		\qquad \text{or} \qquad
-		\vcenter{\hbox{
-				\begin{tikzpicture}[x=.5cm, y=.5cm]
-					\draw[black, shift={(0,-.5)}] (0, 0) rectangle (1, 1);
-					\node at (2, .5) {\(\cdots\)};
-					\draw[black, shift={(0,.5)}] (3, 0) rectangle (4, 1);
-				\end{tikzpicture}}}.
-	\end{equation*}
-	\caption{Configuration of attacking boxes in a same row (left) and in consecutive rows (right).}
-	\label{fig:attacking}
 \end{figure}
 
 A \vocab{filling} of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\) is a function \(T \colon \dg(\alpha) \to \interval{n}\).
