@@ -370,34 +370,19 @@ is the nonsymmetric Macdonald polynomial \(E_{\rev(\alpha)}(\mathbf{x}; q, t)\).
 
 \section{Combinatorial formulas for multiple variations of Macdonald polynomials}
 
-In this section, we provide combinatorial formulas for multiple variations of Macdonald polynomials:
-\begin{itemize}
-    \item \(\tilde{H}_\mu\), the modified Macdonald polynomials,
-    \item \(J_\mu\), the integral form symmetric Macdonald polynomials,
-    \item \(P_\mu\), the symmetric Macdonald polynomials,
-    \item \(E_\alpha^\beta\), the permuted-basement nonsymmetric Macdonald polynomials,
-    \item \(\mathcal{E}_\alpha^\beta\), the integral form permuted-basement nonsymmetric Macdonald polynomials.
-\end{itemize}
+\subsection{Non-augmented Fillings} \label{subsec:non-augmented-fillings}
 
-
-\subsection{Fillings}
-
-The \vocab{skyline diagram} of a composition
+The \vocab{(non-augmented) skyline diagram} of a composition
 \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\)
 is the set
 \begin{equation*}
 	\dg(\alpha) = \left\{ (i, r) \suchthat i \in \interval{n} \text{ and } r \in \interval{\alpha_i} \right\},
 \end{equation*}
 where the first coordinate indexes the columns and the second coordinate indexes the rows.
-The \vocab{augmented skyline diagram} of a composition
-\(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\)
-is the set
-\begin{equation*}
-	\adg(\alpha) = \dg(\alpha) \cup \left\{ (i, 0) \suchthat i \in \interval{n} \right\},
-\end{equation*}
-where an extra row is added at the bottom of the skyline diagram of \(\alpha\).
-The extra row is called the \vocab{basement} of \(\adg(\alpha)\).
-\Cref{fig:skyline} provides an example of a skyline diagram and an augmented skyline diagram.
+In \cref{subsec:augmented-fillings}, we will define the \vocab{augmented skyline diagram} of a composition, hence the optional term \emph{non-augmented} is used when the distinction is necessary.
+The elements of \(\dg(\alpha)\) are called \vocab{boxes}.
+We draw the box \((i, r)\) as a square in column \(i\) and row \(r\).
+\Cref{fig:skyline} provides an example of a skyline diagram.
 
 \begin{figure}[htbp]
 	\centering
@@ -411,41 +396,24 @@ The extra row is called the \vocab{basement} of \(\adg(\alpha)\).
 							\draw[black] (\column, \row) rectangle (\column + 1, \row + 1);
 						\fi
 					}
-				\node at (\column + .5, -.5) {\(\scriptstyle \column\)};
+				\node at (\column + .5, .5) {\(\scriptstyle \column\)};
 			}
-		\foreach \row in {0, 1, 2, 3}{
-				\node at (0, \row + .5) {\(\scriptstyle \row\)};
-			}
-	\end{tikzpicture}
-	\qquad\qquad
-	\begin{tikzpicture}[x=.5cm, y=.5cm]
-		\foreach \height [count = \column] in {2, 3, 0, 1, 2, 0}{
-				\foreach \row in {0,...,\height}{
-						\ifnum \row = 0
-							\draw[black,pattern=north east lines] (\column, \row) rectangle (\column + 1, \row + 1);
-						\else
-							\draw[black] (\column, \row) rectangle (\column + 1, \row + 1);
-						\fi
-					}
-				\node at (\column + .5, -.5) {\(\scriptstyle \column\)};
-			}
-		\foreach \row in {0, 1, 2, 3}{
-				\node at (0, \row + .5) {\(\scriptstyle \row\)};
+		\foreach \row in {1, 2, 3}{
+				\node at (.5, \row + .5) {\(\scriptstyle \row\)};
 			}
 	\end{tikzpicture}
 	\caption{
-		The skyline diagram (left) and
-		the augmented skyline diagram (right)
-		of \(\alpha = \composition{2, 3, 0, 1, 2, 0}\).
-		The basement of the augmented skyline diagram is shaded.
+		The skyline diagram 
+		of the composition \(\alpha = \composition{2, 3, 0, 1, 2, 0}\).
 	}
 	\label{fig:skyline}
 \end{figure}
 
-A box \(u = (i_u, r_u)\) \vocab{attacks} \(v = (i_v, r_v)\) in \(\adg(\alpha)\) if
+A box \(u = (i_u, r_u)\) \vocab{attacks} \(v = (i_v, r_v)\) in \(\dg(\alpha)\) if
 \(r_u = r_v\) and \(i_u < i_v\), that is, \(u\) and \(v\) are in the same row and \(u\) is to the left of \(v\); or
 \(r_v = r_u - 1\) and \(i_v < i_u\), that is, \(u\) is in the row directly above \(v\) and \(u\) is to the right of \(v\).
-Let \(\Attack(u) \subset \adg(\alpha)\) be the set of boxes attacked by \(u\).
+\Cref{fig:attacking} illustrates the two configurations in which a box \(u\) attacks a box \(v\).
+Let \(\Attack(u) \subset \dg(\alpha)\) be the set of boxes attacked by \(u\).
 
 \begin{figure}[htbp]
 	\begin{equation*}
@@ -467,19 +435,21 @@ Let \(\Attack(u) \subset \adg(\alpha)\) be the set of boxes attacked by \(u\).
 					\node at (3.5, .5+.5) {\(u\)};
 				\end{tikzpicture}}}.
 	\end{equation*}
-	\caption{Configuration of attacking boxes in a same row (left) and in consecutive rows (right), with \(u\) and \(v\) labeled.}
+	\caption{Configurations in which a box \(u\) attacks a box \(v\): either in the same row (left), or in consecutive rows (right). }
 	\label{fig:attacking}
 \end{figure}
 
-Let \(u = (i, r) \in \adg(\alpha)\).
-The \vocab{leg set} of \(u\) is the set \(\Leg(u) \subset \adg(\alpha)\) of boxes above \(u\) in the same column, that is, \(\Leg(u) = \left\{ (i, r') \in \adg(\alpha) \suchthat r' > r \right\}\).
-The \vocab{leg statistic} of \(u\) is defined as \(\leg(u) = |\Leg(u)| = \alpha_i - r\).
-The \vocab{arm set} of \(u\) is the set \(\Arm(u) \subset \adg(\alpha)\) of boxes \(v\) attacked by \(u\) such that \(\leg(v) \leq \leg(u)\), that is,
+Let \(u = (i, r) \in \dg(\alpha)\).
+The \vocab{leg set} of \(u\) is the set \(\Leg(u) \subset \dg(\alpha)\) of boxes above \(u\) in the same column, that is, \(\Leg(u) = \left\{ (i, r') \in \dg(\alpha) \suchthat r' > r \right\}\).
+The \vocab{leg statistic} of \(u\) is defined as \(\leg(u) = \left|\Leg(u)\right| = \alpha_i - r\).
+The \vocab{arm set} of \(u\) is the set \(\Arm(u) \subset \dg(\alpha)\) of boxes \(v\) attacked by \(u\) such that \(\leg(v) \leq \leg(u)\), that is,
 \begin{equation*}
 	\Arm(u) = \left\{ v \in \Attack(u) \suchthat \leg(v) \leq \leg(u) \right\}.
 \end{equation*}
-The \vocab{arm statistic} of \(u\) is defined as \(\arm(u) = |\Arm(u)|\).
-The box \vocab{south} of \(u = (i, r)\) is the box \(\south{u} = (i, r-1) \in \adg(\alpha)\), that is, the box directly below \(u\).
+The \vocab{arm statistic} of \(u\) is defined as \(\arm(u) = \left|\Arm(u)\right|\).
+The box \vocab{south} of \(u = (i, r)\) is the box \(\south{u} = (i, r-1) \in \dg(\alpha)\), that is, the box directly below \(u\).
+If \(r = 1\), then \(\south{u}\) is still defined (in row \(0\)),
+but it is not in \(\dg(\alpha)\).
 See \cref{fig:leg-arm} for an example.
 
 \begin{figure}[htbp]
@@ -528,9 +498,8 @@ See \cref{fig:leg-arm} for an example.
 		The leg set (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=green!70!black, pattern=vertical lines] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,),
 		the arm set (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=magenta, pattern=north east lines] (0, 1) rectangle ++(1, 1); \end{tikzpicture}}\,),
 		and the south (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=yellow!50!black, pattern=horizontal lines] (1, 4) rectangle ++(1, 1); \end{tikzpicture}}\,)
-		of a box \(u = (8, 2)\) (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[fill=black] (5, 2) rectangle ++(1, 1); \end{tikzpicture}}\,)
-		in the augmented skyline diagram of \(\alpha = \composition{3, 2, 2, 4, 4, 0, 3, 3, 3, 4, 2, 1, 3}\).
-		Then \(\leg(u)=1\) and \(\arm(u)=5\).
+		of a box \(u = (8, 3)\) (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[fill=black] (5, 2) rectangle ++(1, 1); \end{tikzpicture}}\,)
+		in the skyline diagram of \(\alpha = \composition{4, 3, 3, 5, 5, 1, 4, 4, 4, 5, 3, 2, 4}\) with \(\leg(u)=1\) and \(\arm(u)=5\).
 	}
 	\label{fig:leg-arm}
 \end{figure}
@@ -539,17 +508,17 @@ A \vocab{filling} of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\)
 Let \(\Fill(\alpha)\) denote the set of fillings of shape \(\alpha\).
 A filling \(T\in \Fill(\alpha)\)
 is \vocab{non-attacking} if \(T(u_1) \neq T(u_2)\) for all pairs of attacking boxes \(u_1\) and \(u_2\) in \(\dg(\alpha)\).
+The \vocab{content} of an filling \(T \in \NAF(\alpha)\)
+is the composition
+\(\content(T) = \composition{\beta_1, \beta_2, \ldots, \beta_n}\),
+where \(\beta_i = |\{u\in\dg(\alpha) : T(u)=i\}|\)
+is the number of boxes of \(T\) with label \(i\).
 Let \(\NAF(\alpha)\) denote the set of non-attacking fillings of shape \(\alpha\).
-
-In the augmented context,
-an \vocab{augmented filling} of shape \(\alpha=\composition{\alpha_1,\ldots,\alpha_n}\) and basement \(\sigma \in \sym{n}\) is
-a function \(T \colon \adg(\alpha) \to \interval{n}\) such that \(T(i, 0) = \sigma_i\) for all \(i \in \interval{n}\).
-Let \(\Fill(\alpha, \sigma)\) denote the set of augmented fillings of shape \(\alpha\) and basement \(\sigma\).
-An augmented filling \(T\in \Fill(\alpha,\sigma)\)
-is  \vocab{non-attacking}
-if \(T(u_1) \neq T(u_2)\) for all pairs of attacking boxes \(u_1\) and \(u_2\) in \(\adg(\alpha)\).
-Let \(\NAF(\alpha, \sigma)\) denote the set of non-attacking augmented fillings of shape \(\alpha\) and basement \(\sigma\).
-See \Cref{fig:non-attacking-filling} for an example.
+Let \(\NAF(\alpha, \beta)\) denote
+the set of non-attacking fillings
+of shape \(\alpha\)
+and content \(\beta\).
+See \Cref{fig:non-attacking-filling} for an example of a non-attacking filling.
 
 \begin{figure}[htbp]
     \centering
@@ -572,27 +541,20 @@ See \Cref{fig:non-attacking-filling} for an example.
 		\foreach \i [count = \j] in \filling{ \node at (B\j) {\i}; }
 	\end{tikzpicture}
 	\caption{
-		A non-attacking augmented filling of
-		shape \(\alpha = \composition{2, 2, 0, 1}\),
-		basement \(\sigma = \window{3, 1, 2, 4}\),
-		and \(\content(T) = \composition{1, 2, 0, 2}\).
+		A non-attacking filling of
+		shape \(\alpha = \composition{3, 3, 1, 2}\)
+		with \(\content(T) = \composition{2, 3, 1, 3}\).
 	}
 	\label{fig:non-attacking-filling}
 \end{figure}
 
-The \vocab{content} of an augmented filling \(T \in \NAF(\alpha, \sigma)\)
-is the composition
-\(\content(T) = \composition{\beta_1, \beta_2, \ldots, \beta_n}\),
-where \(\beta_i = |\{u\in\dg(\alpha) : T(u)=i\}|\)
-is the number of boxes of \(T\) with label \(i\).
-Note that boxes in the basement do not contribute to the content.
-Let \(\NAF(\alpha, \sigma, \beta)\) denote
-the set of non-attacking augmented fillings
-of shape \(\alpha\),
-basement \(\sigma\),
-and content \(\beta\).
+Recall that boxes in row \(0\), which are not in \(\dg(\alpha)\),
+can be obtained as the south of boxes in row \(1\).
+By convention, if \(w\) is a box in row \(0\),
+then we define \(T(w) = \infty\),
+a symbol that is larger than any integer in \(\interval{n}\).
 
-Given \(a, b \in \interval{n}\),
+Given \(a, b \in \interval{n} \cup \{\infty\}\),
 let \(\ind{a, b}\) be the indicator function of \(a > b\),
 that is,
 \begin{equation*}
@@ -602,14 +564,19 @@ that is,
 		0 & \text{otherwise}.
 	\end{cases}
 \end{equation*}
-Given a non-attacking augmented filling \(T \in \NAF(\alpha, \sigma)\),
+
+Given a filling \(T \in \Fill(\alpha)\),
 we say that a box \(u \in \dg(\alpha)\)
-is a \vocab{descent} in \(T\) if \(T(u) > T(\south{u})\).
+is a \vocab{descent} in \(T\) if \(\ind{T(u), T(\south{u})} = 1\),
+that is, if \( T(u) > T(\south{u}) \).
+Note that boxes in row \(1\) are never descents,
+since the label of the south of a box in row \(1\) is always \(\infty\), by convention.
 Let \(\Des(T) \subseteq \dg(\alpha)\) denote the set of descents in \(T\).
+
 The \vocab{major index} of \(T\) is
 \begin{equation*}
 	\maj(T)
-	= \sum_{u \in \Des(T)} \leg(u) + 1.
+	= \sum_{u \in \Des(T)} \left( \leg(u) + 1 \right).
 \end{equation*}
 See \cref{fig:major-index} for an example.
 \begin{figure}[htbp]
@@ -645,16 +612,13 @@ See \cref{fig:major-index} for an example.
 	\label{fig:major-index}
 \end{figure}
 
-A \vocab{triple} is an ordered tuple \((u, v, w)\) of boxes in \(\adg(\alpha)\)
-such that \(w = \south{u}\) and \(v \in \Arm(u)\).
+A \vocab{triple} is an ordered tuple \((u, v, w)\) of boxes
+such that \(u \in \dg(\alpha)\), \(v \in \Arm(u)\), and \(w = \south{u}\).
 If \(v\) is to the right of \(u\) in the same row as \(u\),
-% arxiv:2503.06051v1 listed the types as type I and type II in the INCORRECT order that HHL08 followed.
-% it seems that the best practice nowadays is to call them type A and type B, following Hag25 and Ale19.
 then the triple is of \vocab{type A},
 and if \(v\) is to the left of \(u\) in the row directly below \(u\),
-then the triple is of \vocab{type B}.
-% We might choose to added the following footnote to clarify the terminology of "type A" and "type B" triples.
-% \footnote{They are called \vocab{type II} and \vocab{type I}, respectively, in \cite{HHL08} and \cite{Fer11}. This is not related to Cartan types \(A_n\) and \(B_n\).}
+then the triple is of \vocab{type B}.%
+\footnote{They are called \vocab{type II} and \vocab{type I}, respectively, in \cite{HHL08} and \cite{Fer11}. This is not related to Cartan types \(A_n\) and \(B_n\).}
 The configurations of the boxes \(u\), \(v\), and \(w\)
 when the tuple \((u, v, w)\) is of type A or type B are shown in \cref{fig:triples}.
 Note that if \(\alpha\) is a partition, there are no triples of type B.
@@ -682,18 +646,24 @@ Note that if \(\alpha\) is a partition, there are no triples of type B.
 	\label{fig:triples}
 \end{figure}
 
-We define the \vocab{inversion} and \vocab{coinversion} statistics,
-following \cite[Section~3]{HHL08}.
-Given \(a, b, c \in \interval{n}\), such that \(a \neq b\) and \(b \neq c\), define
+Note that the definition above allows for \(u\) to be in row \(1\),
+which means that \(w\) is in row \(0\) and not in \(\dg(\alpha)\).
+A triple that has \(u\) in row \(1\) is called a \vocab{degenerate triple}.
+A degenerate triple is always of type A, since \(v \in \Arm(u) \subset \dg(\alpha)\), and therefore cannot be in row \(0\).
+
+% We define the \vocab{inversion} and \vocab{coinversion} statistics,
+% following \cite[Section~3]{HHL08}.
+Given \(a, b, c \in \interval{n}\), define
 \begin{equation*}
 	\ind{a, b, c} = \ind{a, b} + \ind{b, c} - \ind{a, c} \in \{0, 1\}.
 \end{equation*}
 Note that \(\ind{a,b,c}\in\{0,1\}\)
-since it is not possible for \(\ind{a,b}=\ind{b,c}=1-\ind{a,c}\).
+since it is not possible for \(\ind{a,b} = \ind{b,c} = 1 - \ind{a,c}\).
 
 Equivalently,
 \(\ind{a, b, c}\) is the indicator function of the statement
-that \(a, b, c\) is cyclically weakly decreasing, that is,
+that \(a, b, c\) is cyclically weakly decreasing, where the earlier of two equal entries is considered smaller.
+That is,
 \(\ind{a, b, c} = 1\) if and only if
 \begin{equation*}
 	a > b > c \quad \text{or} \quad b > c \geq a \quad \text{or} \quad c \geq a > b.
@@ -704,56 +674,64 @@ that \(a, b, c\) is cyclically weakly decreasing, that is,
 	\centering
 	\begin{tikzpicture}
 		\draw[black] (0, 0) circle (1);
-		\node[circle, fill=white] at (90:1) {\(3\)};
-		\node[circle, fill=white] at (-30:1) {\(2\)};
-		\node[circle, fill=white] at (-150:1) {\(1\)};
-		\draw[->, green!60!black] (90:.6) arc (90:-150:.6);
+		\node[rectangle, fill=white] at (90:1) {\(a = 3\)};
+		\node[rectangle, fill=white] at (-30:1) {\(b = 2\)};
+		\node[rectangle, fill=white] at (-150:1) {\(c = 1\)};
+		\draw[->, green!60!black] (90:.4) arc (90:-150:.4);
 		\node[green!60!black] at (0, -1.5) {\(\ind{3, 2, 1} = 1\)};
-	\end{tikzpicture}
+	\end{tikzpicture} \hspace{1cm}
 	\begin{tikzpicture}
 		\draw[black] (0, 0) circle (1);
-		\node[circle, fill=white] at (90:1) {\(1\)};
-		\node[circle, fill=white] at (-30:1) {\(3\)};
-		\node[circle, fill=white] at (-150:1) {\(2\)};
-		\draw[->, green!60!black, rotate=-120] (90:.6) arc (90:-150:.6);
+		\node[rectangle, fill=white] at (90:1) {\(a = 1\)};
+		\node[rectangle, fill=white] at (-30:1) {\(b = 3\)};
+		\node[rectangle, fill=white] at (-150:1) {\(c = 2\)};
+		\draw[->, green!60!black, rotate=-120] (90:.4) arc (90:-150:.4);
 		\node[green!60!black] at (0, -1.5) {\(\ind{1, 3, 2} = 1\)};
-	\end{tikzpicture}
+	\end{tikzpicture} \hspace{1cm}
 	\begin{tikzpicture}
 		\draw (0, 0) circle (1);
-		\node[circle, fill=white] at (90:1) {\(2\)};
-		\node[circle, fill=white] at (-30:1) {\(3\)};
-		\node[circle, fill=white] at (-150:1) {\(2\)};
-		\draw[->, green!60!black, rotate=-120] (90:.6) arc (90:-150:.6);
+		\node[rectangle, fill=white] at (90:1) {\(a = 2\)};
+		\node[rectangle, fill=white] at (-30:1) {\(b = 3\)};
+		\node[rectangle, fill=white] at (-150:1) {\(c = 2\)};
+		\draw[->, green!60!black, rotate=-120] (90:.4) arc (90:-150:.4);
 		\node[green!60!black] at (0, -1.5) {\(\ind{2, 3, 2} = 1\)};
-	\end{tikzpicture}
+	\end{tikzpicture} \\
 	\begin{tikzpicture}
 		\draw[black] (0, 0) circle (1);
-		\node[circle, fill=white] at (90:1) {\(2\)};
-		\node[circle, fill=white] at (-30:1) {\(1\)};
-		\node[circle, fill=white] at (-150:1) {\(2\)};
-		\draw[->, green!60!black, rotate=120] (90:.6) arc (90:-150:.6);
+		\node[rectangle, fill=white] at (90:1) {\(a = 2\)};
+		\node[rectangle, fill=white] at (-30:1) {\(b = 1\)};
+		\node[rectangle, fill=white] at (-150:1) {\(c = 2\)};
+		\draw[->, green!60!black, rotate=120] (90:.4) arc (90:-150:.4);
 		\node[green!60!black] at (0, -1.5) {\(\ind{2, 1, 2} = 1\)};
-	\end{tikzpicture}
+	\end{tikzpicture} \hspace{1cm}
 	\begin{tikzpicture}
 		\draw[black] (0, 0) circle (1);
-		\node[circle, fill=white] at (90:1) {\(1\)};
-		\node[circle, fill=white] at (-30:1) {\(2\)};
-		\node[circle, fill=white] at (-150:1) {\(3\)};
+		\node[rectangle, fill=white] at (90:1) {\(a = 1\)};
+		\node[rectangle, fill=white] at (-30:1) {\(b = 2\)};
+		\node[rectangle, fill=white] at (-150:1) {\(c = 3\)};
 		\draw[->, red!60!black] (105:.3) arc (105:-180:.3);
 		\draw[red!60!black] (.3,.3) -- (-.3,-.3);
 		\draw[red!60!black] (.3,-.3) -- (-.3,.3);
 		\node[red!60!black] at (0, -1.5) {\(\ind{1, 2, 3} = 0\)};
+	\end{tikzpicture} \hspace{1cm}
+	\begin{tikzpicture}
+		\draw[black] (0, 0) circle (1);
+		\node[rectangle, fill=white] at (90:1) {\(a = 2\)};
+		\node[rectangle, fill=white] at (-30:1) {\(b = 2\)};
+		\node[rectangle, fill=white] at (-150:1) {\(c = 3\)};
+		\draw[->, red!60!black] (105:.3) arc (105:-180:.3);
+		\draw[red!60!black] (.3,.3) -- (-.3,-.3);
+		\draw[red!60!black] (.3,-.3) -- (-.3,.3);
+		\node[red!60!black] at (0, -1.5) {\(\ind{2, 2, 3} = 0\)};
 	\end{tikzpicture}
 	\caption{Examples of the indicator function \(\ind{a, b, c}\).}
 	\label{fig:indicator}
 \end{figure}
 
-Given a non-attacking augmented filling \(T \in \NAF(\alpha, \sigma)\),
-a triple \((u, v, w)\) in \(\adg(\alpha)\) is
+Given a filling \(T \in \Fill(\alpha)\),
+a triple \((u, v, w)\) in \(\dg(\alpha)\) is
 an \vocab{inversion triple} if \(\ind{T(u), T(v), T(w)} = 1\),
 and is a \vocab{coinversion triple} otherwise.
-Note that \(T(v) \neq T(u)\) and \(T(v) \neq T(w)\)
-since \(v\) attacks both \(u\) and \(w\).
 Let \(\inv(T)\) and \(\coinv(T)\) denote
 the number of inversion triples and coinversion triples in \(T\),
 respectively.
@@ -810,7 +788,7 @@ See \cref{fig:inversion-coinversion} for an example.
 	\end{tabular}
 	\caption{
 		We show all five triples of
-		the non-attacking augmented filling \(T\) in \cref{fig:non-attacking-filling};
+		the filling \(T\) in \cref{fig:non-attacking-filling};
 		the first four are of type A, and the last one is of type B.
 		There are two inversion triples (orange)
 		and three coinversion triples (purple),
@@ -818,6 +796,8 @@ See \cref{fig:inversion-coinversion} for an example.
 	}
 	\label{fig:inversion-coinversion}
 \end{figure}
+
+\subsection{Augmented Fillings} \label{subsec:augmented-fillings}
 
 \subsection{Modified Macdonald polynomials \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ} as tableaux generating functions}
 
