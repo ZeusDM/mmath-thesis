@@ -135,13 +135,16 @@
 \DeclareMathOperator{\rightArm}{Arm\textsuperscript{right}}
 \DeclareMathOperator{\leg}{leg}
 \DeclareMathOperator{\arm}{arm}
-\DeclareMathOperator{\Fill}{F}
-\DeclareMathOperator{\NAF}{NAF}
 \DeclareMathOperator{\rev}{rev}
 \DeclareMathOperator{\inc}{inc}
 \DeclareMathOperator{\dec}{dec}
 \DeclareMathOperator{\content}{content}
 \DeclareMathOperator{\twinv}{twinv}
+
+% \DeclareMathOperator{\Fill}{F}
+\newcommand{\Fill}[1][]{\operatorname{F}\ifx&#1&\else_{#1}\fi}
+% \DeclareMathOperator{\NAF}{NAF}
+\newcommand{\NAF}[1][]{\operatorname{NAF}\ifx&#1&\else_{#1}\fi}
 
 \newcommand{\swap}[2][]{\mathfrak{t}_{#2}\ifx&#1&\else^{(#1)}\fi}
 \newcommand{\sswap}[2][]{\mathfrak{t}_{#2}\ifx&#1&\else^{[#1]}\fi}
