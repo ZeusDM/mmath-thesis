@@ -828,10 +828,18 @@ Let \(\Fill[\mathcal{A}](\alpha, \sigma)\) denote the set of augmented fillings 
 The non-attacking condition for augmented fillings is defined as in \cref{subsec:non-augmented-fillings}.
 Let \(\NAF[\mathcal{A}](\alpha, \sigma) \subseteq \Fill[\mathcal{A}](\alpha, \sigma)\) denote the set of non-attacking augmented fillings of shape \(\alpha\), basement \(\sigma\), and labels in \(\mathcal{A}\).
 
-Note that, for \(\mathcal{A} = \interval{n}\), 
-the non-attacking condition for augmented non-attacking fillings
-implies that the basement \(\sigma\) is a permutation of \(\interval{n}\).
-For general augmented fillings, the definition allows for repeated or negative entries in the basement, however the applications in this thesis only require the case of a permutation basement.
+Note that the non-attacking condition implies that the basement \(\sigma\) of a non-attacking augmented filling with labels in \(\interval{n}\) is a permutation of \(\interval{n}\).
+For (possibly attacking) augmented fillings with labels in \(\interval{n}\) or \(\interval{n}_\pm\), the definition allows for repeated or negative entries in the basement.
+However, the applications in this work only require the case of a permutation basement, that is, positive and distinct entries in the basement.
+
+The definitions of content, descents, and major index for augmented fillings are as in \cref{subsec:non-augmented-fillings}.
+Note that boxes in row \(1\) can be descents, since the label of the south of a box in row \(1\) is now given by the basement, rather than being \(\infty\) by convention.
+However, boxes in row \(0\) are never descents, since they do not have a south.
+
+A triple is defined as in \cref{subsec:non-augmented-fillings}.
+Since boxes in row \(0\) do not have a south, \(u\) cannot be in row \(0\).
+Thus, triples in augmented fillings can never be degenerate.
+The definitions of inversion triples, coinversion triples, and the statistics \(\inv(T)\) and \(\coinv(T)\) for augmented fillings are as in \cref{subsec:non-augmented-fillings}.
 
 \subsection{Modified Macdonald polynomials \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ} as tableaux generating functions}
 
