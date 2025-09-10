@@ -894,130 +894,17 @@ The equivalence between equations \Cref{eq:J-NAF-signed} and \Cref{eq:J-NAF-unsi
 \subsection{Permuted-basement nonsymmetric Macdonald polynomials \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ} as tableaux generating functions}
 \label{sec:tableau-formula}
 
-For a non-attacking augmented filling \(T \in \NAF(\alpha, \sigma)\),
-define the \(\mathbf{x}\)-weight as
+Recall that the permuted-basement nonsymmetric Macdonald polynomials \(E_\alpha^\sigma\) are a family of polynomials indexed by a composition \(\alpha\) and a permutation \(\sigma\).
+
+\cite[Definition~4.4.2]{Fer11} give a tableau formula for permuted-basement Macdonald polynomials \(E_\alpha^\sigma\) as
 \begin{equation*}
-	\mathbf{x}^T = \mathbf{x}^{\content(T)} = \prod_{u \in \dg(\alpha)} x_{T(u)},
-\end{equation*}
-the \(q, t\)-weight as
-\begin{equation*}
-	\wtqt(T)
-	=
+	E^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
+	\sum_{T \in \NAF(\alpha, \sigma)}
+	\mathbf{x}^{\content(T)}
 	q^{\maj(T)} t^{\coinv(T)}
 	\prod_{\substack{u \in \dg(\alpha) \\ T(u) \neq T(\south{u})}}
-	\frac{1 - t}{1 - q^{1 + \leg(u)} t^{1 + \arm(u)}},
+	\frac{1 - t}{1 - q^{1 + \leg(u)} t^{1 + \arm(u)}}.
 \end{equation*}
-and the weight as
-\begin{equation*}
-	\wt(T) = \mathbf{x}^T \wtqt(T).
-\end{equation*}
-
-The \(q,t\)-weight of an augmented filling is the product of the weights
-contributed by the descents
-within each row and the inversions between every pair of rows.
-Let \(L = \max_i \alpha_i\) be the total number of rows.
-For \(0\leq r\leq L-1\),
-define \(\dg[r]{(\alpha)}\) as
-the set of boxes in the \(r\)\textsuperscript{th} row of \(\dg(\alpha)\).
-Then, define
-\begin{equation*}
-	\maj[r + 1](T) = \sum_{u \in \Des[r + 1](T)} \leg(u) + 1,
-\end{equation*}
-where \(\Des[r+1](T)=\Des(T)\cap \dg[r+1]{(\alpha)}\).
-Also, define \(\coinv[r, r+1](T)\) as
-the number of inversion triples in \(T\)
-within the pair of rows \(r\) and \(r + 1\).
-Then, the \(r\)\textsuperscript{th} component
-of the \(q, t\)-weight
-of a non-attacking augmented filling \(T \in \NAF(\alpha, \sigma)\)
-is defined as
-\begin{equation}
-	\label{eq:rthcomponent}
-	\wtqt[r](T) =
-	q^{\maj[r + 1](T)}
-	t^{\coinv[r, r + 1](T)}
-	\prod_{\substack{u \in \dg[r + 1]{(\alpha)} \\ T(u) \neq T(\south{u})}}
-	\frac{1 - t}{1 - q^{1 + \leg(u)} t^{1 + \arm(u)}},
-\end{equation}
-yielding the decomposition
-\begin{equation*}
-	\wtqt(T) = \prod_{r = 0}^{L-1} \wtqt[r](T).
-\end{equation*}
-
-\begin{example}
-	Consider the non-attacking augmented filling \(T\) in \cref{fig:non-attacking-filling}.
-	The \(\mathbf{x}\)-weight of \(T\) is
-	\begin{equation*}
-		\mathbf{x}^T = x_1x_2^2x_4^2.
-	\end{equation*}
-	The \(0\)\textsuperscript{th} and \(1\)\textsuperscript{st} components
-	of the \(q, t\)-weight of \(T\) are
-	\begin{equation*}
-		\wtqt[0](T) = \frac{ q^2 t^2 (1-t)^2 }{ (1 - q^2t^3) (1 - q^2t^2)},
-		\qquad \text{ and } \qquad
-		\wtqt[1](T) = \frac{ q^2 t^1 (1-t)^2 }{ (1 - qt^2) (1 - qt)}.
-	\end{equation*}
-	Then the \(q, t\)-weight of \(T\) is \(\wtqt(T)=\wtqt[0](T)\wtqt[1](T)\),
-	and the weight of \(T\) is
-	\begin{equation*}
-		\wt(T) = x_1x_2^2x_4^2 \frac{ q^4 t^3 (1-t)^4 }{ (1 - q^2t^3) (1 - q^2t^2) (1 - qt^2) (1 - qt)}.
-	\end{equation*}
-\end{example}
-
-\begin{theorem}[{\cite[Definition~4.4.2]{Fer11}}]
-	\label{thm:tableau-formula}
-	For \(\alpha=\composition{\alpha_1,\ldots,\alpha_n}\) and \(\sigma\in\sym{n}\),
-	the permuted-basement Macdonald polynomial \(E_\alpha^\sigma\) is given by
-	\begin{equation*}
-		E^{\sigma}_{\alpha}(\mathbf{x}; q, t) = \sum_{T \in \NAF(\alpha, \sigma)} \wt(T).
-	\end{equation*}
-\end{theorem}
-
-\begin{example}
-	Let \(n = 4\), \(\alpha = \composition{1, 1, 0, 1}\) and \(\sigma = \window{2, 4, 1, 3}\).
-	The four non-attacking augmented fillings in \(\NAF(\alpha, \sigma)\)
-	and their weights are shown in \cref{fig:fillings-1101-2413}.
-	Using \cref{thm:tableau-formula}, the permuted-basement Macdonald polynomial
-	\(E_{\composition{1, 1, 0, 1}}^{\window{2, 4, 1, 3}}(\mathbf{x}; q, t)\)
-	is the sum of the weights of these augmented fillings,
-	agreeing with the computation in \cref{example:permuted-basement-macdonald-polynomial}.
-	\begin{figure}[htbp]
-		\ytableausetup{boxsize=0.5cm}
-		\renewcommand{\arraystretch}{2}
-		\setlength{\tabcolsep}{1em}
-		\begin{tabular}{cccc}
-			\begin{ytableau}
-				2 & 4 & \none & 3 \\
-				2 & 4 & 1 & 3 \\
-			\end{ytableau}
-			&
-			\begin{ytableau}
-				1 & 4 & \none & 3 \\
-				2 & 4 & 1 & 3 \\
-			\end{ytableau}
-			&
-			\begin{ytableau}
-				4 & 1 & \none & 3 \\
-				2 & 4 & 1 & 3 \\
-			\end{ytableau}
-			&
-			\begin{ytableau}
-				2 & 1 & \none & 3 \\
-				2 & 4 & 1 & 3 \\
-			\end{ytableau}
-			\\
-			\(x_2x_3x_4\)
-			&
-			\(x_1x_3x_4 \frac{1 - t}{1 - qt^3}\)
-			&
-			\(x_1x_3x_4 \frac{qt^2 (1 - t)^2}{(1 - q t^3)(1 - q t^2)}\)
-			&
-			\(x_1x_2x_3 \frac{t (1-t)}{1-qt^2}\)
-		\end{tabular}
-		\caption{All augmented fillings in \(\NAF(\composition{1, 1, 0, 1}, \window{2, 4, 1, 3})\) and their weights.}
-		\label{fig:fillings-1101-2413}
-	\end{figure}
-\end{example}
 
 \section{Probabilistic bijections}
 
