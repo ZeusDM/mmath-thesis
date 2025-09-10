@@ -4,3 +4,93 @@ This chapter draws upon the research presented in:
 \begin{quote}
     \fullcite{DM25}.
 \end{quote}
+
+\section{Probabilistic bijections}
+
+Probabilistic bijections,
+also referred to as \emph{bijectivization} or \emph{coupling} by \cite{BP19},
+generalize weight-preserving bijections.
+We follow the exposition given in~\cite{AF22}.
+
+\begin{definition}[Probability map]
+	Let \(\algebra\) be an algebra.
+	Let \(\mathbf{T}\) and \(\mathbf{U}\) be sets.
+	A \vocab{probability map} from \(\mathbf{T}\) to \(\mathbf{U}\) is
+	a function \(\prob{} \colon \mathbf{T} \times \mathbf{U} \to \algebra\) such that
+	\begin{equation*}
+		\sum_{U \in\mathbf{U}} \prob{}(T, U) = 1
+	\end{equation*}
+	for every \(T \in \mathbf{T}\).
+\end{definition}
+
+Note that these do not formally correspond to probability maps
+in the sense of probability theory
+because the values of \(\prob{}\)
+are not required to be in the interval \([0, 1]\) or even real numbers.
+
+\begin{definition}[Probabilistic bijection {\cite{AF22}}]\label{def:prob}
+	Let \(\algebra\) be an algebra.
+	Let \(\mathbf{T}\) and \(\mathbf{U}\) be finite sets
+	equipped with weight functions
+	\(\wt_{\mathbf{T}} \colon \mathbf{T} \to \algebra\) and
+	\(\wt_{\mathbf{U}} \colon \mathbf{U} \to \algebra\).
+	A \vocab{probabilistic bijection} between
+	\( (\mathbf{T}, \wt_{\mathbf{T}}) \) and
+	\( (\mathbf{U}, \wt_{\mathbf{U}}) \) is
+	a pair of probability maps
+	\(\prob{\mathbf{T}} \colon \mathbf{T} \times \mathbf{U} \to \algebra\) and
+	\(\prob{\mathbf{U}} \colon \mathbf{U} \times \mathbf{T} \to \algebra\)
+	such that
+	\begin{equation*}
+		\wt_{\mathbf{T}}(T) \prob{\mathbf{T}}(T, U)
+		= \wt_{\mathbf{U}}(U) \prob{\mathbf{U}}(U, T)
+	\end{equation*}
+	for every \(T \in \mathbf{T}\) and \(U \in \mathbf{U}\).
+\end{definition}
+
+A weight-preserving bijection \( f \colon \mathbf{T} \to \mathbf{U} \)
+canonically induces a probabilistic bijection
+between \((\mathbf{T}, \wt_{\mathbf{T}})\) and \((\mathbf{U}, \wt_{\mathbf{U}})\)
+by setting
+\begin{equation*}
+	\prob{\mathbf{T}}(T, U) = \prob{\mathbf{U}}(U, T) =
+	\begin{cases}
+		1 & \text{if } f(T) = U, \\
+		0 & \text{otherwise},
+	\end{cases}
+\end{equation*}
+explaining the choice of terminology.
+Moreover, as shown in \cref{proposition:equal-weight-sum},
+this generalization retains a key property of weight-preserving bijections:
+the sum of the weights of \(\mathbf{T}\) and of \(\mathbf{U}\) are equal.
+
+\begin{proposition}
+	\label{proposition:equal-weight-sum}
+	Let \(\prob{\mathbf{T}} \colon \mathbf{T} \times \mathbf{U} \to \algebra\)
+	and \(\prob{\mathbf{U}} \colon \mathbf{U} \times \mathbf{T} \to \algebra\)
+	form a probabilistic bijection between
+	\( (\mathbf{T}, \wt_{\mathbf{T}}) \) and
+	\( (\mathbf{U}, \wt_{\mathbf{U}}) \).
+	Then,
+	\begin{equation*}
+		\sum_{T \in \mathbf{T}} \wt(T) = \sum_{U \in\mathbf{U}} \wt(U).
+	\end{equation*}
+\end{proposition}
+
+\begin{proof}
+	We compute
+	\begin{align*}
+		\sum_{T \in \mathbf{T}} \wt_{\mathbf{T}}(T)
+		&= \sum_{T \in \mathbf{T}} \sum_{U \in \mathbf{U}}
+			\wt_{\mathbf{T}}(T) \prob{\mathbf{T}}(T, U) \\
+		&= \sum_{U \in \mathbf{U}} \sum_{T \in \mathbf{T}}
+			\wt_{\mathbf{U}}(U) \prob{\mathbf{U}}(U, T)
+		= \sum_{U \in \mathbf{U}} \wt_{\mathbf{U}}(U). \qedhere
+	\end{align*}
+\end{proof}
+
+A Markov-theoretical interpretation of a probabilistic bijection is that
+it defines a bipartite Markov chain on the state space \( \mathbf{T} \cup \mathbf{U} \)
+with transition probabilities given by the function \( \prob{} \) under a specific balance condition.
+In the case of \cref{def:prob}, this condition is detailed balance,
+but a probabilistic bijection can also be defined using a more general balance condition.
