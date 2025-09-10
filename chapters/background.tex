@@ -843,7 +843,51 @@ The definitions of inversion triples, coinversion triples, and the statistics \(
 
 \subsection{Modified Macdonald polynomials \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ} as tableaux generating functions}
 
+Recall that the Modified Macdonald polynomials \(\tilde{H}_\mu\) are a family of polynomials indexed by partitions \(\mu\).
+
+In \cite{HHL05}, \citeauthor{HHL05} give a combinatorial formula for \(\tilde{H}_\mu\) as 
+\begin{equation}
+	\tilde{H}_\mu(\mathbf{x}; q, t) =
+	\sum_{T \in \Fill[\positives](\mu)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T,
+\end{equation}
+where \(\Fill[\positives](\mu)\) is the set of fillings of shape \(\mu\) with labels in the positive integers \(\positives\).
+
+In \cite{HHL08}, \citeauthor{HHL08} show that the set may be changed to \(\Fill[\positives](\alpha)\) for any rearrangement \(\alpha\) of \(\mu\), and the formula still holds.
+
 \subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ} as tableaux generating functions}
+
+Recall that the Integral form Macdonald polynomials \(J_\mu\) are a family of polynomials indexed by partitions \(\mu\).
+
+There are three closely related tableaux formulas for \(J_\mu\):
+one over all fillings using the signed alphabet \(\interval{n}_\pm\),
+\begin{equation} \label{eq:J-Fill-signed}
+	J_\mu(\mathbf{x}; q, t)
+	= \sum_{T \in \Fill[\interval{n}_\pm](\mu)} \mathbf{x}^T
+	q^{\maj(T)}
+	t^{\coinv(T)}
+	(-t)^{\operatorname{neg}(T)},
+\end{equation}
+where \(\operatorname{neg}(T)\) denotes the number of negative entries in \(T\);
+one over all non-attacking fillings using the signed alphabet \(\interval{n}_\pm\),
+\begin{equation} \label{eq:J-NAF-signed}
+	J_\mu(\mathbf{x}; q, t)
+	= \sum_{T \in \NAF[\interval{n}_\pm](\mu)} \mathbf{x}^T
+	q^{\maj(T)}
+	t^{\coinv(T)}
+	(-t)^{\operatorname{neg}(T)};
+\end{equation}
+and another one over all non-attacking fillings using the unsigned alphabet \(\interval{n}\),
+\begin{equation} \label{eq:J-NAF-unsigned}
+	J_\mu(\mathbf{x}; q, t)
+	= \sum_{T \in \NAF[\interval{n}](\mu)} \mathbf{x}^T
+	q^{\maj(T)} t^{\coinv(T)}
+	\prod_{\substack{u \in \dg(\mu) \\ T(u) \neq T(\south{u})}}
+	\frac{1 - t}{1 - q^{1 + \leg(u)} t^{1 + \arm(u)}}.
+\end{equation}
+
+The equivalence between equations \Cref{eq:J-Fill-signed} and \Cref{eq:J-NAF-signed} is obtained via a sign-reversing involution on the set of attacking signed fillings.
+The equivalence between equations \Cref{eq:J-NAF-signed} and \Cref{eq:J-NAF-unsigned} is obtained by grouping all signed fillings that differ only by signs.
+
 
 \subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ} as tableaux generating functions}
 
