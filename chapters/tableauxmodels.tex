@@ -95,7 +95,9 @@ That is, in an unsigned alphabet,
 
 In signed alphabets, \(\ind{a, b, c}\) indicates whether \(a, b, c\) is cyclically decreasing, where the earlier of two equal positive entries is considered smaller than the later one, and the earlier of two equal negative entries is considered larger than the later one.
 
-\section{Non-augmented Fillings} \label{subsec:non-augmented-fillings}
+\section{Fillings} \label{sec:fillings}
+
+\subsection{Non-augmented Fillings} \label{subsec:non-augmented-fillings}
 
 The \vocab{(non-augmented) skyline diagram} of a composition
 \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\)
@@ -433,7 +435,7 @@ See \cref{fig:inversion-coinversion} for an example.
 	\label{fig:inversion-coinversion}
 \end{figure}
 
-\section{Augmented Fillings} \label{subsec:augmented-fillings}
+\subsection{Augmented Fillings} \label{subsec:augmented-fillings}
 
 In the context of augmented fillings,
 we either take the unsigned alphabet \(\mathcal{A} = \interval{n}\),
@@ -471,7 +473,9 @@ Since boxes in row \(0\) do not have a south, \(u\) cannot be in row \(0\).
 Thus, triples in augmented fillings can never be degenerate.
 The definitions of inversion triples, coinversion triples, and the statistics \(\inv(T)\) and \(\coinv(T)\) for augmented fillings are as in \cref{subsec:non-augmented-fillings}.
 
-\section{Modified Macdonald polynomials \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ} as tableaux generating functions}
+\section{Combinatorial models for Macdonald polynomials}
+
+\subsection{Modified Macdonald polynomials \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ} as tableaux generating functions}
 
 Recall that the Modified Macdonald polynomials \(\tilde{H}_\mu\) are a family of polynomials indexed by partitions \(\mu\).
 
@@ -484,7 +488,7 @@ where \(\Fill[\positives](\mu)\) is the set of fillings of shape \(\mu\) with la
 
 In \cite{HHL08}, \citeauthor{HHL08} show that the set may be changed to \(\Fill[\positives](\alpha)\) for any rearrangement \(\alpha\) of \(\mu\), and the formula still holds.
 
-\section{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ} as tableaux generating functions}
+\subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ} as tableaux generating functions}
 
 Recall that the integral form Macdonald polynomials \(J_\mu\) are a family of polynomials indexed by partitions \(\mu\).
 
@@ -521,7 +525,7 @@ The equivalence between equations \Cref{eq:J-Fill-signed} and \Cref{eq:J-NAF-sig
 The equivalence between equations \Cref{eq:J-NAF-signed} and \Cref{eq:J-NAF-unsigned} is obtained by grouping all signed fillings that differ only by signs.
 
 
-\section{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ} as tableaux generating functions}
+\subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ} as tableaux generating functions}
 
 Recall that the symmetric Macdonald polynomials \(P_\mu\) are a family of polynomials indexed by partitions \(\mu\).
 The integral form Macdonald polynomials \(J_\mu\) is a scalar multiple of \(P_\mu\), with relationship given by
@@ -543,7 +547,7 @@ Therefore, from \Cref{eq:J-NAF-unsigned}, we obtain a tableaux formula for \(P_\
 	\frac{1 - t}{1 - q^{1 + \leg(u)} t^{1 + \arm(u)}}.
 \end{equation}
 
-\section{Permuted-basement nonsymmetric Macdonald polynomials \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ} as tableaux generating functions}
+\subsection{Permuted-basement nonsymmetric Macdonald polynomials \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ} as tableaux generating functions}
 \label{sec:tableau-formula}
 
 Recall that the permuted-basement nonsymmetric Macdonald polynomials \(E_\alpha^\sigma\) are a family of polynomials indexed by a composition \(\alpha\) and a permutation \(\sigma\).
@@ -558,7 +562,7 @@ Recall that the permuted-basement nonsymmetric Macdonald polynomials \(E_\alpha^
 	\frac{1 - t}{1 - q^{1 + \leg(u)} t^{1 + \arm(u)}}.
 \end{equation}
 
-\section{Integral form permuted-basement nonsymmetric Macdonald polynomials \texorpdfstring{\(\mathcal{E}_\alpha^\sigma\)}{Eασ} as tableaux generating functions}
+\subsection{Integral form permuted-basement nonsymmetric Macdonald polynomials \texorpdfstring{\(\mathcal{E}_\alpha^\sigma\)}{Eασ} as tableaux generating functions}
 
 Recall that the integral form permuted-basement nonsymmetric Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\) are a family of polynomials indexed by a composition \(\alpha\) and a permutation \(\sigma\).
 The integral form permuted-basement nonsymmetric Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\) is a scalar multiple of \(E_\alpha^\sigma\), with relationship given by
