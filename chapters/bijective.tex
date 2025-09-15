@@ -1,1 +1,58 @@
 \chapter{Bijective combinatorics for Macdonald polynomials} \label{chap:bijective}
+
+In this chapter, we describe \cite{KLO22}'s bijection between
+\begin{equation*}
+    \Fill[\mathcal{A}](\mu) \quad \text{and} \quad \Fill[\mathcal{A}](s_i \permact \mu),
+\end{equation*}
+which preserves the statistics $\inv$ and $\maj$.
+
+The existence of this bijection implies that 
+\begin{equation}
+    \tilde{H}_\mu[X;q,t] = \tilde{H}_{s_i \permact \mu}[X;q,t],
+\end{equation}
+and by applying this result repeatedly, we obtain
+\begin{equation}
+    \tilde{H}_{\mu}[X;q,t] = \tilde{H}_{\alpha}[X;q,t],
+\end{equation}
+where $\alpha$ is a rearrangement of the partition $\mu$.
+
+\section{The bijection}
+
+Let \(T \in \Fill(\alpha)\).
+Let \(i \in [n-1]\) be such that \(\alpha_i > \alpha_{i+1}\).
+
+We derive a filling \(U \in \Fill(s_i \alpha)\) derived from \(T\).
+Any column different from \(i\) and \(i+1\) in \(T\) is copied to \(U\) without changes. The entries of \(T\) in columns \(i\) and rows \([1,\dots,\alpha_i]\), \(\alpha_i\) are copied to column \(i+1\) of \(U\), in the same rows. What remains is to determine the entries in columns \(i\) and \(i+1\) of \(U\) in rows \([1,\dots,\alpha_i]\).
+
+Assign a coin value of \(\phi \in \{\phi,\psi\}\) to row \(1\). For \(r\) ranging from \(1\) to \(\alpha_i\), do the following:
+
+Assume \(r \neq \alpha_{i+1}\).
+Let \(a = T(i,r+1)\), \(b = T(i+1,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).  
+
+\textbf{Case I:} If \(\ind{a, c} + \ind{b, c} - \ind{a, d} - \ind{b, d} \neq 0\) (cases 3, 4, 9, 10 in \cite{KLO22}),
+assign the temporary label ``C'' to row \(r\) and  
+assign the coin value of row \(r+1\) as the same coin value as row \(r\) if \(\chi_{ab} = \chi_{cd}\) (3,9), and as the opposite coin value as row \(r\) if \(\chi_{ab} \neq \chi_{cd}\) (4,10).
+
+\textbf{Case II:} If \(\ind{a, c} = \ind{a, d} = \ind{b, c} = \ind{b, d}\) (cases 1, 2, 11, 12 in \cite{KLO22}):
+assign the label ``N'' (resp.\ ``S'') to row \(r\) if the coin value of row \(r\) is \(\phi\) (resp.\ \(\psi\)), and  
+assign the coin value \(\phi\) to row \(r+1\).
+
+\textbf{Case III:} If \(\ind{a, c} = \ind{b, c} \neq \ind{a, d} = \ind{b, d}\) (cases 7, 8 in \cite{KLO22}):
+assign the label ``S'' (resp.\ ``N'') to row \(r\) if the coin value of row \(r\) is \(\phi\) (resp.\ \(\psi\)), and  
+assign the coin value of \(\phi\) to row \(r+1\).
+
+\textbf{Case IV:} If \(\ind{a, c} = \ind{a, d} \neq \ind{b, c} = \ind{b, d}\) (cases 5, 6 in \cite{KLO22}):
+assign the label ``N'' (resp.\ ``S'') to row \(r\) if the coin value of row \(r\) is \(\phi\) (resp.\ \(\psi\)), and
+assign the coin value of \(\psi\) to row \(r+1\).
+
+Assume \(r = \alpha_{i+1}\).
+Let \(a = T(i,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
+
+\textbf{Base case I:} If \(\ind{a, c} \neq \ind{a, d}\), assign the label ``S'' (resp.\ ``N'') to row \(r\) if the coin value of row \(r\) is \(\phi\) (resp.\ \(\psi\)).
+
+\textbf{Base case II:} If \(\ind{a, c} = \ind{a, d}\), assign the label ``N'' (resp.\ ``S'') to row \(r\) if the coin value of row \(r\) is \(\phi\) (resp.\ \(\psi\)).
+
+Now, for each row temporarily labeled ``C'', replace its label with the label of the closest row above (i.e., with greater row index) that is not labeled ``C''.
+Finally,
+for a row \(r\) with label ``N'', set \(U(i,r) = T(i,r)\) and \(U(i+1,r) = T(i+1,r)\), and
+for a row \(r\) with label ``S'', set \(U(i,r) = T(i+1,r)\) and \(U(i+1,r) = T(i,r)\).
