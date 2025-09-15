@@ -18,13 +18,36 @@ where $\alpha$ is a rearrangement of the partition $\mu$.
 
 \section{The bijection}
 
+In this section, we define the bijection \(\phi \colon \Fill(\alpha) \to \Fill(s_i \alpha)\) from \cite{KLO22} that preserves the statistics \(\inv\) and \(\maj\).
+As an auxiliary construction,
+we also define another bijection \(\psi \colon \Fill(s_i \alpha) \to \Fill(\alpha)\) that changes the statistics \(\inv\) and \(\maj\) in a controlled way.
+The manner in which \(\psi\) changes the statistics is specified in \Cref{thm:...}.
+This auxiliary bijection \(\psi\) will also be important in a later section.
+
+Without loss of generality, we restrict to the case \(\alpha_{i} > \alpha_{i+1}\), as the case \(\alpha_i < \alpha_{i+1}\) is symmetric.
+
+Both of \(\phi\) and \(\psi\) follow a very rigid structure.
+If a filling \(T \in \Fill(\alpha)\) is mapped to a filling \(U \in \Fill(s_i \alpha)\) by one of these maps, then
+\begin{itemize}
+    \item \(T(j, r) = U(j, r)\) for all \(j \in \interval{n} \setminus \{i, i+1\}\) and all \(r \in \interval{\alpha_j}\),
+    that is, all columns except \(i\) and \(i+1\) are identical in \(T\) and \(U\);
+    \item \(T(i, r) = U(i+1, r)\) for all \(r \in \interval{\alpha_{i+1} + 1, \alpha_i}\),
+    that is, the topmost \(\alpha_i - \alpha_{i+1}\) entries in column \(i\) of \(T\) are copied to the topmost \(\alpha_i - \alpha_{i+1}\) entries in column \(i+1\) of \(U\);
+    \item \(\{ T(i, r), T(i+1, r) \} = \{ U(i, r), U(i+1, r) \}\) for all \(r \in \interval{\alpha_{i+1}}\),
+    that is, the entries in rows \(1, \dots, \alpha_{i+1}\) of columns \(i\) and \(i+1\) in \(T\) and \(U\) are the same, but they might be in the same positions or in swapped positions.
+\end{itemize}
+
+Given these restrictions, the only freedom we have in defining \(\phi\) and \(\psi\) is to decide, for each \(r \in \interval{\alpha_{i+1}}\), whether to swap the entries in row \(r\) of columns \(i\) and \(i+1\) or not.
+In other words, the only freedom we have is to decide, for each \(r \in \interval{\alpha_{i+1}}\), whether to set
+\begin{equation*}
+    (U(i,r), U(i+1,r)) = (T(i,r), T(i+1,r)) \quad \text{or} \quad (U(i,r), U(i+1,r)) = (T(i+1,r), T(i,r)).
+\end{equation*}
+
 Let \(T \in \Fill(\alpha)\).
 Let \(i \in [n-1]\) be such that \(\alpha_i > \alpha_{i+1}\).
+If you want to compute \(U = \phi(T)\), assign a coin value of \(\phi \in \{\phi,\psi\}\) to row \(1\); if you want to compute \(U = \psi(T)\), assign a coin value of \(\psi \in \{\phi,\psi\}\) to row \(1\).
 
-We derive a filling \(U \in \Fill(s_i \alpha)\) derived from \(T\).
-Any column different from \(i\) and \(i+1\) in \(T\) is copied to \(U\) without changes. The entries of \(T\) in columns \(i\) and rows \([1,\dots,\alpha_i]\), \(\alpha_i\) are copied to column \(i+1\) of \(U\), in the same rows. What remains is to determine the entries in columns \(i\) and \(i+1\) of \(U\) in rows \([1,\dots,\alpha_i]\).
-
-Assign a coin value of \(\phi \in \{\phi,\psi\}\) to row \(1\). For \(r\) ranging from \(1\) to \(\alpha_i\), do the following:
+For \(r\) ranging from \(1\) to \(\alpha_i\), do the following:
 
 Assume \(r \neq \alpha_{i+1}\).
 Let \(a = T(i,r+1)\), \(b = T(i+1,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).  
