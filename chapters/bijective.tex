@@ -57,7 +57,7 @@ in the second case, we say they are \vocab{swapped}.
   }%
 }
 
-\paragraph{Algorithm.}
+\paragraph{Iterative algorithm.}
 Let \(T \in \Fill(\alpha)\) with \(\alpha_i > \alpha_{i+1}\).
 We describe the algorithm to compute \(U = \phi(T)\) or \(U = \psi(T)\).
 The algorithm uses a \vocab{coin} with two sides, \(\coinphi\) and \(\coinpsi\), as a bookkeeping device.
@@ -69,7 +69,7 @@ A label of \(\mathtt{N}\) means the entries in row \(r\) of columns \(i\) and \(
 a label of \(\mathtt{S}\) means they are \emph{swapped};
 and a label of \(\mathtt{C}\) indicates that the behavior for row \(r\) should \emph{copy} the behavior for the row above it.
 
-We process the rows sequentially from row \(1\) up to row \(\alpha_i\).
+We process the rows iteratively from row \(1\) up to row \(\alpha_i\).
 For each \(r \in \{1,2,\dots,\alpha_{i+1}-1\}\),
 let \( a = T(i,r+1)\), \(b = T(i+1,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
 \begin{description}
@@ -125,6 +125,19 @@ Finally, build \(U\) row by row:
     \footnote{Note that since row \(\alpha_{i+1}\) is always labeled \(\mathtt{N}\) or \(\mathtt{S}\), there is always a nearest row above it labeled \(\mathtt{N}\) or \(\mathtt{S}\).}
 \end{itemize}
 
+\paragraph{Recursive algorithm.}
+The algorithm above may be described recursively in terms of the labels, instead of iteratively.
+
+Let \(T \in \Fill(\alpha)\) with \(\alpha_i > \alpha_{i+1}\).
+Assign the coin value of row \(1\) to be \(\coinphi\) if computing \(U = \phi(T)\), or \(\coinpsi\) if computing \(U = \psi(T)\).
+If column \(i+1\) consists of a single entry, then assign the label of this row according to Base~I or~II.
+Otherwise, assign the label of row \(1\) according one of Cases~I--IV,
+and at the same time determine the coin value to be used for the next row.
+Remove the first row to obtain the sub-filling \(T'\), and apply the algorithm recursively to \(T'\) with this new coin value, obtaining the labels for rows \(2,\dots,\alpha_{i+1}\).
+Once all labels are determined, construct \(U\) in a final pass by applying the rules for \(\mathtt{N},\mathtt{S},\mathtt{C}\) as before.
+
+It is straightforward to verify that both the iterative and recursive descriptions of the algorithm are equivalent.
+This recursive interpretation is particularly useful for proving properties about the bijections \(\phi\) and \(\psi\), as it allows us to use induction on the number of rows in the filling.
 
 \section{Properties of the bijections \texorpdfstring{\(\phi\)}{𝜙} and \texorpdfstring{\(\psi\)}{𝜓}}
 
