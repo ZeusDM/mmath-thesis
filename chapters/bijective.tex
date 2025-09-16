@@ -42,6 +42,8 @@ In other words, the only freedom we have is to decide, for each \(r \in \interva
 \begin{equation*}
     (U(i,r), U(i+1,r)) = (T(i,r), T(i+1,r)) \quad \text{or} \quad (U(i,r), U(i+1,r)) = (T(i+1,r), T(i,r)).
 \end{equation*}
+In the first case, we say the entries of \(T\) and \(U\) in row \(r\) of columns \(i\) and \(i+1\) are \vocab{not swapped};
+in the second case, we say they are \vocab{swapped}.
 
 \newcommand{\coinphi}{%
   \tikz[baseline=(char.base)]{
@@ -59,13 +61,13 @@ In other words, the only freedom we have is to decide, for each \(r \in \interva
 Let \(T \in \Fill(\alpha)\) with \(\alpha_i > \alpha_{i+1}\).
 We describe the algorithm to compute \(U = \phi(T)\) or \(U = \psi(T)\).
 The algorithm uses a \vocab{coin} with two sides, \(\coinphi\) and \(\coinpsi\), as a bookkeeping device.
-Each row \(r\) is, at some point, assigned a \vocab{coin value} in \(\{\coinphi, \coinpsi\}\).
+Each row from \(1\) to \(\alpha_{i+1} - 1\) is, at some point of the algorithm, assigned a \vocab{coin value} in \(\{\coinphi, \coinpsi\}\).
 Initially, assign the coin value of row \(1\) to be \(\coinphi\) if computing \(U = \phi(T)\), or \(\coinpsi\) if computing \(U = \psi(T)\).
 
-In addition to the coin value, each row \(r\) is labeled from \(\{\mathtt{N}, \mathtt{S}, \mathtt{C}\}\).
-A label of \(\mathtt{N}\) means the entries in row \(r\) of columns \(i\) and \(i+1\) are \emph{not} swapped; 
-a label of \(\mathtt{S}\) means they are \emph{swapped}; 
-and a label of \(\mathtt{C}\) indicates that the assignment for row \(r\) should \emph{copy} the assignment of the row above it.
+In addition to the coin value, each row from \(1\) to \(\alpha_{i+1}\) is labeled from \(\{\mathtt{N}, \mathtt{S}, \mathtt{C}\}\).
+A label of \(\mathtt{N}\) means the entries in row \(r\) of columns \(i\) and \(i+1\) in \(T\) and \(U\) are \emph{not} swapped;
+a label of \(\mathtt{S}\) means they are \emph{swapped};
+and a label of \(\mathtt{C}\) indicates that the behavior for row \(r\) should \emph{copy} the behavior for the row above it.
 
 We process the rows sequentially from row \(1\) up to row \(\alpha_i\).
 For each \(r \in \{1,2,\dots,\alpha_{i+1}-1\}\),
@@ -74,30 +76,30 @@ let \( a = T(i,r+1)\), \(b = T(i+1,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
     \item[Case I.] If 
     \(\ind{a,c} + \ind{b,c} - \ind{a,d} - \ind{b,d} \neq 0\)  
     (cases 3,4,9,10 in \cite{KLO22}),  
-    then label row \(r\) with \(\mathtt{C}\).
-    For row \(r+1\), keep the same coin value if \(\chi_{ab} = \chi_{cd}\) (cases 3,9),
-    or flip the coin value (i.e., switch between \(\coinphi\) and \(\coinpsi\)) if \(\chi_{ab} \neq \chi_{cd}\) (cases 4,10).
+    then assign row \(r\) the label \(\mathtt{C}\).
+    Assign row \(r+1\) the coin value of row \(r\) if \(\chi_{ab} = \chi_{cd}\) (cases 3,9),
+    and assign row \(r+1\) the opposite coin value of row \(r\) if \(\chi_{ab} \neq \chi_{cd}\) (cases 4,10).
     
     \item[Case II.] If 
     \(\ind{a,c} = \ind{a,d} = \ind{b,c} = \ind{b,d}\)  
     (cases 1,2,11,12),  
     then label row \(r\) with \(\mathtt{N}\) if its coin value is \(\coinphi\),
-    or with \(\mathtt{S}\) if its coin value is \(\coinpsi\).
-    Assign row \(r+1\) coin value \(\coinphi\).
+    and with \(\mathtt{S}\) if its coin value is \(\coinpsi\).
+    Assign row \(r+1\) the coin value \(\coinphi\).
     
     \item[Case III.] If 
     \(\ind{a,c} = \ind{b,c} \neq \ind{a,d} = \ind{b,d}\)  
     (cases 7,8),  
     then label row \(r\) with \(\mathtt{S}\) if its coin value is \(\coinphi\),
     or with \(\mathtt{N}\) if its coin value is \(\coinpsi\).
-    Assign row \(r+1\) coin value \(\coinphi\).
+    Assign row \(r+1\) the coin value \(\coinphi\).
     
     \item[Case IV.] If 
     \(\ind{a,c} = \ind{a,d} \neq \ind{b,c} = \ind{b,d}\)  
     (cases 5,6),  
     then label row \(r\) with \(\mathtt{N}\) if its coin value is \(\coinphi\),
     or with \(\mathtt{S}\) if its coin value is \(\coinpsi\).
-    Assign row \(r+1\) coin value \(\coinpsi\).
+    Assign row \(r+1\) the coin value \(\coinpsi\).
 \end{description}
 
 Finally, we process row \(r = \alpha_{i+1}\) (the last row of column \(i+1\)) as follows.
