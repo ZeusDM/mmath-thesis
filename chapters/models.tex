@@ -451,8 +451,12 @@ where the first coordinate indexes the columns and the second coordinate indexes
 The boxes in row \(0\) are collectively called the \vocab{basement}.
 
 The attacking relation, leg set, arm set, leg statistic, arm statistic in \(\adg(\alpha)\) are defined as in \cref{subsec:non-augmented-fillings}.
-For these definitions, the boxes in row \(0\) behave just like the boxes in \(\dg(\alpha)\).
-The box south of a box in row \(0\) is not defined.
+For these definitions, the boxes in row \(0\) of \(\adg(\alpha)\) behave just like the other boxes in \(\adg(\alpha)\).
+
+However, they behave differently for the definition of the south of a box.
+Given a box \(u = (i, r)\), if \(r \geq 1\), the \vocab{south} of \(u\) is the box \(\south{u} = (i, r-1)\), while if \(r = 0\), then \(\south{u}\) is not defined.
+Note that the south of a box in row \(1\) of \(\adg(\alpha)\) is also a box in \(\adg(\alpha)\), unlike in \Cref{subsec:non-augmented-fillings} where the south of a box in row \(1\) is not in \(\dg(\alpha)\).
+We also remark that the south of a box in row \(0\) is not a box in row \(-1\) outside \(\adg(\alpha)\), but rather is simply undefined.
 
 An \vocab{augmented filling} of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\), basement \(\sigma = \composition{\sigma_1, \ldots, \sigma_n}\), and labels in an alphabet \(\mathcal{A}\) is a function \(T \colon \adg(\alpha) \to \mathcal{A}\) such that \(T(i, 0) = \sigma_i\) for all \(i \in \interval{n}\).
 
@@ -468,9 +472,9 @@ The definitions of content, descents, and major index for augmented fillings are
 Note that boxes in row \(1\) can be descents, since the label of the south of a box in row \(1\) is now given by the basement, rather than being \(\infty\) by convention.
 However, boxes in row \(0\) are never descents, since they do not have a south.
 
-A triple is defined as in \cref{subsec:non-augmented-fillings}.
+A triple \((u, v, w)\) is defined as in \cref{subsec:non-augmented-fillings}.
 Since boxes in row \(0\) do not have a south, \(u\) cannot be in row \(0\).
-Thus, triples in augmented fillings can never be degenerate.
+There is no concept of a degenerate triple in augmented fillings.
 The definitions of inversion triples, coinversion triples, and the statistics \(\inv(T)\) and \(\coinv(T)\) for augmented fillings are as in \cref{subsec:non-augmented-fillings}.
 
 \section{Combinatorial models for Macdonald polynomials}
