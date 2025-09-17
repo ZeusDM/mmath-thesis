@@ -21,7 +21,7 @@ where $\alpha$ is a rearrangement of the partition $\mu$.
 In this section, we define the bijection \(\phi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) from \cite{KLO22} that preserves the statistics \(\inv\) and \(\maj\).
 As an auxiliary construction,
 we also define another bijection \(\psi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) that changes the statistics \(\inv\) and \(\maj\) in a controlled way.
-The manner in which \(\psi\) changes the statistics is specified in \Cref{thm:phi-psi-properties}.
+The manner in which \(\psi\) changes the statistics is specified in \Cref{thm:psi-maj-inv}.
 This auxiliary bijection \(\psi\) will also be important in a later section.
 Without loss of generality, we restrict to the case \(\alpha_{i} > \alpha_{i+1}\).
 
@@ -69,7 +69,7 @@ and a label of \(\mathtt{C}\) indicates that the behavior for row \(r\) should \
 
 We process the rows iteratively from row \(1\) up to row \(\alpha_i\).
 For each \(r \in \{1,2,\dots,\alpha_{i+1}-1\}\),
-let \( a = T(i,r+1)\), \(b = T(i+1,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
+let \( a = T(i,r+1)\), \(b = T(i+1,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).\todo{Explain why the there are only these four cases.}
 \begin{description}
     \item[Case I.] If 
     \(\ind{a,c} + \ind{b,c} - \ind{a,d} - \ind{b,d} \neq 0\)  
@@ -123,6 +123,8 @@ Finally, build \(U\) row by row:
     \footnote{Note that since row \(\alpha_{i+1}\) is always labeled \(\mathtt{N}\) or \(\mathtt{S}\), there is always a nearest row above it labeled \(\mathtt{N}\) or \(\mathtt{S}\).}
 \end{itemize}
 
+\todo{Add an example of the iterative algorithm.}
+
 \paragraph{Recursive algorithm.}
 The algorithm above may be described recursively in terms of the labels, instead of iteratively.
 
@@ -137,14 +139,24 @@ Once all labels are determined, construct \(U\) in a final pass by applying the 
 It is straightforward to verify that both the iterative and recursive descriptions of the algorithm are equivalent.
 This recursive interpretation is particularly useful for proving properties about the bijections \(\phi\) and \(\psi\), as it allows us to use induction on the number of rows in the filling.
 
+\todo{Add an example of the recursive algorithm.}
+
+\todo{Add the block structure interpretation of the bijection.}
+
 \section{Properties of the bijections \texorpdfstring{\(\phi\)}{𝜙} and \texorpdfstring{\(\psi\)}{𝜓}}
 
-\begin{theorem}[\cite{KLO22}] \label{thm:phi-psi-properties}
+\begin{proposition}
     The maps \(\phi\) and \(\psi\) are bijections.
-    The bijection \(\phi\) preserves the statistics \(\inv\) and \(\maj\), that is, for all \(T \in \Fill(\alpha)\), if \(U = \phi(T)\), then
+\end{proposition}
+
+\begin{theorem}[\cite{KLO22}] \label{thm:phi-maj-inv}
+    The bijection \(\phi\) preserves the statistics \(\inv\) and \(\maj\); that is, for all \(T \in \Fill(\alpha)\), if \(U = \phi(T)\), then
     \begin{equation*}
         \inv(T) = \inv(U) \quad \text{and} \quad \maj(T) = \maj(U).
     \end{equation*}
+\end{theorem}
+
+\begin{theorem}[\cite{KLO22}] \label{thm:psi-maj-inv}
     The bijection \(\psi\) modifies the statistics \(\inv\) and \(\maj\) in a specific way. For any \(T \in \Fill(\alpha)\) and \(U = \psi(T)\), we have
     \begin{itemize}
         \item if \(\ind{{T(i,1)},{T(i+1,1)}} = 1\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 1\), then
@@ -174,3 +186,14 @@ This recursive interpretation is particularly useful for proving properties abou
     \end{itemize}
     where \(L = \leg(...)\) and \(A = \arm(...)\).
 \end{theorem}
+
+\begin{proof}[Proof of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv}]
+    We prove both theorems simultaneously, by induction on the number of rows in the filling.
+    The base case of a single row is straightforward to verify.
+    For the inductive step, we use the recursive description of the algorithm.
+    The full proof is given in \cite{KLO22}. \todo{This is a placeholder. Write the full proof, that parallels the proof in \cite{KLO22}.}
+\end{proof}
+
+\begin{proof}[Alternative proof of \Cref{thm:phi-maj-inv}]
+    \todo{Write the proof using the block structure.}
+\end{proof}
