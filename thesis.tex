@@ -125,6 +125,19 @@
 \marginparsep=\dimexpr \marginparsep + .1in\relax
 \marginparwidth=\dimexpr \marginparwidth + 2.2in\relax
 
+% Draw a vertical line at the original page boundary
+\usepackage{tikzpagenodes}
+\usepackage{atbegshi}
+\AtBeginShipout{%
+  \AtBeginShipoutUpperLeft{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \draw[gray!60, dashed, line width=0.7pt]
+        ([xshift=8.5in,yshift=0pt]current page.north west) -- 
+        ([xshift=8.5in,yshift=-\paperheight]current page.north west);
+    \end{tikzpicture}%
+  }
+}
+
 %%%%%%%%%%
 % Custom Macros
 %%%%%%%%%%
