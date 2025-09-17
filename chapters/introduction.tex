@@ -1,3 +1,25 @@
 \chapter{Introduction} \label{chap:introduction}
 
-\section{Structure of the thesis}
+\todo{Write introduction}
+
+\section*{Structure of the thesis}
+
+The remainder of this thesis is organized into four chapters. \todo{Some things here are kinda vague, but it's a nice placeholder for now.}
+
+\Cref{chap:polynomials} introduces Macdonald polynomials from an algebraic perspective.
+We define several variations of Macdonald polynomials including the modified Macdonald polynomials $\tilde{H}_\mu$, the integral form symmetric Macdonald polynomials $J_\mu$, the symmetric Macdonald polynomials $P_\mu$, and the permuted-basement Macdonald polynomials $E_\alpha^\sigma$.
+Readers interested primarily in the combinatorial aspects may safely skip this chapter, as alternate combinatorial descriptions of these polynomials are provided in \Cref{chap:models}.
+
+\Cref{chap:models} introduces a combinatorial framework for studying Macdonald polynomials.  
+The central objects are fillings, considered in several variations.  
+Each version of the Macdonald polynomials defined in \Cref{chap:polynomials} is then realized as a weighted generating function over an appropriate class of fillings.
+The weights are expressed in terms of two key statistics on fillings: the major index (\(\maj\)) and the inversion number (\(\inv\)).
+
+\Cref{chap:bijective} presents bijective results for Macdonald polynomials.
+On the first part of this chapter, following the work of \cite{KLO22}, we describe the bijection between fillings $\Fill(\mu)$ and $\Fill(s_i \cdot \mu)$ that preserves the statistics $\inv$ and $\maj$.
+This bijection implies that $\tilde{H}_\mu(\mathbf{x};q,t) = \tilde{H}_{s_i \cdot \mu}(\mathbf{x};q,t)$, and by repeated application shows that the modified Macdonald polynomials are invariant under rearrangements of the partition.
+On the second part of this chapter, we adapt the bijection to the setting of permuted-basement Macdonald polynomials $E_\alpha^\sigma(\mathbf{x};q,t)$, to obtain an identity for these polynomials.
+
+\Cref{chap:probabilistic} extends the bijective methods to a probabilistic setting.
+We introduce the concept of probabilistic bijections as a generalization of weight-preserving bijections, which can also be used to prove identities between generating functions.
+We explore their applications to Macdonald polynomials by proving that \(E_\alpha^\sigma(\mathbf{x};q,t) = E_\alpha^{\sigma s_i}(\mathbf{x};q,t)\) when $\alpha_i = \alpha_{i+1}$.
