@@ -55,6 +55,16 @@ in the second case, we say they are \vocab{swapped}.
   }%
 }
 
+\newcommand{\labelS}{\tikz[baseline=(char.base)]{
+    \node[draw=green!70!black, fill=green!20, rounded corners=2pt, inner sep=2pt] (char) {\texttt{S}};
+}}
+\newcommand{\labelN}{\tikz[baseline=(char.base)]{
+    \node[draw=red!70!black, fill=red!20, rounded corners=2pt, inner sep=2pt] (char) {\texttt{N}};
+}}
+\newcommand{\labelC}{\tikz[baseline=(char.base)]{
+    \node[draw=orange!80!black, fill=orange!20, rounded corners=2pt, inner sep=2pt] (char) {\texttt{C}};
+}}
+
 \paragraph{Iterative algorithm.}
 Let \(T \in \Fill(\alpha)\) with \(\alpha_i > \alpha_{i+1}\).
 We describe the algorithm to compute \(U = \phi(T)\) or \(U = \psi(T)\).
@@ -62,10 +72,10 @@ The algorithm uses a \vocab{coin} with two sides, \(\coinphi\) and \(\coinpsi\),
 Each row from \(1\) to \(\alpha_{i+1} - 1\) is, at some point of the algorithm, assigned a \vocab{coin value} in \(\{\coinphi, \coinpsi\}\).
 Initially, assign the coin value of row \(1\) to be \(\coinphi\) if computing \(U = \phi(T)\), or \(\coinpsi\) if computing \(U = \psi(T)\).
 
-In addition to the coin value, each row from \(1\) to \(\alpha_{i+1}\) is labeled from \(\{\mathtt{N}, \mathtt{S}, \mathtt{C}\}\).
-A label of \(\mathtt{N}\) means the entries in row \(r\) of columns \(i\) and \(i+1\) in \(T\) and \(U\) are \emph{not} swapped;
-a label of \(\mathtt{S}\) means they are \emph{swapped};
-and a label of \(\mathtt{C}\) indicates that the behavior for row \(r\) should \emph{copy} the behavior for the row above it.
+In addition to the coin value, each row from \(1\) to \(\alpha_{i+1}\) is labeled from \(\{\labelN, \labelS, \labelC\}\).
+A label of \(\labelN\) means the entries in row \(r\) of columns \(i\) and \(i+1\) in \(T\) and \(U\) are \emph{not} swapped;
+a label of \(\labelS\) means they are \emph{swapped};
+and a label of \(\labelC\) indicates that the behavior for row \(r\) should \emph{copy} the behavior for the row above it.
 
 We process the rows iteratively from row \(1\) up to row \(\alpha_i\).
 For each \(r \in \{1,2,\dots,\alpha_{i+1}-1\}\),
@@ -74,29 +84,26 @@ let \( a = T(i,r+1)\), \(b = T(i+1,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
     \item[Case I.] If 
     \(\ind{a,c} + \ind{b,c} - \ind{a,d} - \ind{b,d} \neq 0\)  
     (cases 3,4,9,10 in \cite{KLO22}),  
-    then assign row \(r\) the label \(\mathtt{C}\).
+    then assign row \(r\) the label \(\labelC\).
     Assign row \(r+1\) the coin value of row \(r\) if \(\chi_{ab} = \chi_{cd}\) (cases 3,9),
     and assign row \(r+1\) the opposite coin value of row \(r\) if \(\chi_{ab} \neq \chi_{cd}\) (cases 4,10).
-    
-    \item[Case II.] If 
-    \(\ind{a,c} = \ind{a,d} = \ind{b,c} = \ind{b,d}\)  
-    (cases 1,2,11,12),  
-    then label row \(r\) with \(\mathtt{N}\) if its coin value is \(\coinphi\),
-    and with \(\mathtt{S}\) if its coin value is \(\coinpsi\).
+
+    \item[Case II.] If
+    \(\ind{a,c} = \ind{a,d} = \ind{b,c} = \ind{b,d}\)
+    (cases 1,2,11,12),
+    then label row \(r\) with \(\labelN\) (resp.~\(\labelS\)) if its coin value is \(\coinphi\) (resp.~\(\coinpsi\)).
     Assign row \(r+1\) the coin value \(\coinphi\).
     
     \item[Case III.] If 
     \(\ind{a,c} = \ind{b,c} \neq \ind{a,d} = \ind{b,d}\)  
     (cases 7,8),  
-    then label row \(r\) with \(\mathtt{S}\) if its coin value is \(\coinphi\),
-    or with \(\mathtt{N}\) if its coin value is \(\coinpsi\).
+    then label row \(r\) with \(\labelS\) (resp.~\(\labelN\)) if its coin value is \(\coinphi\) (resp.~\(\coinpsi\)).
     Assign row \(r+1\) the coin value \(\coinphi\).
     
-    \item[Case IV.] If 
-    \(\ind{a,c} = \ind{a,d} \neq \ind{b,c} = \ind{b,d}\)  
-    (cases 5,6),  
-    then label row \(r\) with \(\mathtt{N}\) if its coin value is \(\coinphi\),
-    or with \(\mathtt{S}\) if its coin value is \(\coinpsi\).
+    \item[Case IV.] If
+    \(\ind{a,c} = \ind{a,d} \neq \ind{b,c} = \ind{b,d}\)
+    (cases 5,6),
+    then label row \(r\) with \(\labelN\) (resp.~\(\labelS\)) if its coin value is \(\coinphi\) (resp.~\(\coinpsi\)).
     Assign row \(r+1\) the coin value \(\coinpsi\).
 \end{description}
 
@@ -105,22 +112,20 @@ Let \( a = T(i,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
 
 \begin{description}
     \item[Base I.] If \(\ind{a,c} \neq \ind{a,d}\), then label row \(r\) with
-    \(\mathtt{S}\) if its coin value is \(\coinphi\),
-    or with \(\mathtt{N}\) if its coin value is \(\coinpsi\).
-    
+    \(\labelS\) (resp.~\(\labelN\)) if its coin value is \(\coinphi\) (resp.~\(\coinpsi\)).
+
     \item[Base II.] If \(\ind{a,c} = \ind{a,d}\), then label row \(r\) with
-    \(\mathtt{N}\) if its coin value is \(\coinphi\),
-    or with \(\mathtt{S}\) if its coin value is \(\coinpsi\).
+    \(\labelN\) (resp.~\(\labelS\)) if its coin value is \(\coinphi\) (resp.~\(\coinpsi\)).
 \end{description}
 
 Finally, build \(U\) row by row:
 \begin{itemize}
-    \item If row \(r\) is labeled \(\mathtt{N}\), set 
+    \item If row \(r\) is labeled \(\labelN\), set
     \(U(i,r) = T(i,r)\), \(U(i+1,r) = T(i+1,r)\).
-    \item If row \(r\) is labeled \(\mathtt{S}\), set 
+    \item If row \(r\) is labeled \(\labelS\), set
     \(U(i,r) = T(i+1,r)\), \(U(i+1,r) = T(i,r)\).
-    \item If row \(r\) is labeled \(\mathtt{C}\), then use the same assignment rule as the nearest row above it labeled \(\mathtt{N}\) or \(\mathtt{S}\).%
-    \footnote{Note that since row \(\alpha_{i+1}\) is always labeled \(\mathtt{N}\) or \(\mathtt{S}\), there is always a nearest row above it labeled \(\mathtt{N}\) or \(\mathtt{S}\).}
+    \item If row \(r\) is labeled \(\labelC\), then use the same assignment rule as the nearest row above it labeled \(\labelN\) or \(\labelS\).%
+    \footnote{Note that since row \(\alpha_{i+1}\) is always labeled \(\labelN\) or \(\labelS\), there is always a nearest row above it labeled \(\labelN\) or \(\labelS\).}
 \end{itemize}
 
 \todo{Add an example of the iterative algorithm.}
@@ -134,7 +139,7 @@ If column \(i+1\) consists of a single entry, then assign the label of this row 
 Otherwise, assign the label of row \(1\) according one of Cases~I--IV,
 and at the same time determine the coin value to be used for the next row.
 Remove the first row to obtain the sub-filling \(T'\), and apply the algorithm recursively to \(T'\) with this new coin value, obtaining the labels for rows \(2,\dots,\alpha_{i+1}\).
-Once all labels are determined, construct \(U\) in a final pass by applying the rules for \(\mathtt{N},\mathtt{S},\mathtt{C}\) as before.
+Once all labels are determined, construct \(U\) in a final pass by applying the rules for \(\labelN,\labelS,\labelC\) as before.
 
 It is straightforward to verify that both the iterative and recursive descriptions of the algorithm are equivalent.
 This recursive interpretation is particularly useful for proving properties about the bijections \(\phi\) and \(\psi\), as it allows us to use induction on the number of rows in the filling.
