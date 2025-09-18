@@ -4,36 +4,48 @@
 
 An \vocab{unsigned alphabet} \(\mathcal{A}\) is a totally ordered set.
 We write \(\ind{a, b}\) to denote the indicator function of \(a > b\).
-Usually, we take \(\mathcal{A} = [n]\) or \(\mathcal{A} = \positives\).
+Some unsigned alphabets we use are \(\positives = \{1, 2, 3, \ldots\}\)
+and its subalphabet \(\interval{n} = \{1, 2, \ldots, n\}\).
 
-A \vocab{signed alphabet} \(\mathcal{A}_\pm\) is a total oder on the disjoint union of two copies of a set \(\mathcal{A}\), a \vocab{positive} copy \(\mathcal{A}_+\) and a \vocab{negative} copy \(\mathcal{A}_-\).
+A \vocab{signed alphabet} \(\mathcal{A}_\pm\) is a
+total order on the disjoint union of two copies of a set \(\mathcal{A}\),
+a \vocab{positive} copy \(\mathcal{A}_+\) and a \vocab{negative} copy \(\mathcal{A}_-\).
 We write \(\ind{a, b}\) to denote the indicator function of \(a > b\) or \(a = b \in \mathcal{A}_-\).
-Given an element \(a \in \mathcal{A}\), we denote its positive copy by \(a \in \mathcal{A}_+\) and its negative copy by \(\bar{a} \in \mathcal{A}_-\),
-and we say that \(a \in \mathcal{A}\) is the \vocab{absolute value} of \(a \in \mathcal{A}_+\) and \(\bar{a} \in \mathcal{A}_-\), denoted \(|a| = |\bar{a}| = a\).
+Given an element \(a \in \mathcal{A}\),
+we denote its positive copy by \(a \in \mathcal{A}_+\)
+and its negative copy by \(\bar{a} \in \mathcal{A}_-\),
+and we say that \(a \in \mathcal{A}\) is
+the \vocab{absolute value} of \(a \in \mathcal{A}_+\) and of \(\bar{a} \in \mathcal{A}_-\),
+denoted by \(|a| = |\bar{a}| = a\).
 Some signed alphabets we use are \(\integers_\pm\), with the total order
 \begin{equation*}
 	1 < \bar{1} < 2 < \bar{2} < 3 < \bar{3} < \cdots,
 \end{equation*}
 and its subalphabet \([n]_\pm\).
 
-In both unsigned and signed alphabets,
+For both unsigned and signed alphabets, define
 \begin{equation*}
 	\ind{a, b, c} = \ind{a, b} + \ind{b, c} - \ind{a, c}.
 \end{equation*}
-We have \(\ind{a, b, c} \in \{0, 1\}\) since it is impossible for \(\ind{a, b} = \ind{b, c} = 1 - \ind{a, c}\).
+We have \(\ind{a, b, c} \in \{0, 1\}\)
+since it is impossible for \(\ind{a, b} = \ind{b, c} = 1 - \ind{a, c}\).
 
-We will also use the symbol \(\infty\) to denote an element larger than any element in \(\mathcal{A}\), so that \(\ind{a, \infty} = 1\) and \(\ind{\infty, a} = 0\) for all \(a \in \mathcal{A}\).
+We will also use the symbol \(\infty\) to denote
+an element larger than any element in \(\mathcal{A}\),
+so that \(\ind{a, \infty} = 1\) and \(\ind{\infty, a} = 0\) for all \(a \in \mathcal{A}\).
 Note that \(\infty\) is not an element of \(\mathcal{A}\).
 
 Here's one way to think about \(\ind{a, b, c}\).
 For an unsigned alphabet,
-\(\ind{a, b, c}\) indicates whether \(a, b, c\) is cyclically weakly decreasing, where the earlier of two equal entries is considered smaller than the later one.
+\(\ind{a, b, c}\) indicates whether \(a, b, c\) is cyclically weakly decreasing,
+where the earlier of two equal entries is considered smaller than the later one.
 That is, in an unsigned alphabet,
 \(\ind{a, b, c} = 1\) if and only if
 \begin{equation*}
 	a > b > c \quad \text{or} \quad b > c \geq a \quad \text{or} \quad c \geq a > b.
 \end{equation*}
 \Cref{fig:indicator} provides examples of the indicator function \(\ind{a, b, c}\).
+\todo{This figure could be improved, especially in regard to equal entries.}
 
 \begin{figure}[htbp]
 	\centering
@@ -89,7 +101,7 @@ That is, in an unsigned alphabet,
 		\draw[red!60!black] (.3,-.3) -- (-.3,.3);
 		\node[red!60!black] at (0, -1.5) {\(\ind{2, 2, 3} = 0\)};
 	\end{tikzpicture}
-	\caption{Examples of the indicator function \(\ind{a, b, c}\).}
+	\caption{Examples of the indicator function \(\ind{a, b, c}\) for an unsigned alphabet.}
 	\label{fig:indicator}
 \end{figure}
 
