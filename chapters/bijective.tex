@@ -79,10 +79,13 @@ and a label of \(\labelC\) indicates that the behavior for row \(r\) should \emp
 
 We process the rows iteratively from row \(1\) up to row \(\alpha_i\).
 For each \(r \in \{1,2,\dots,\alpha_{i+1}-1\}\),
-let \( a = T(i,r+1)\), \(b = T(i+1,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).\todo{Explain why the there are only these four cases.}
+let \( a = T(i,r+1)\), \(b = T(i+1,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
+Note that \(\ind{a, d} = \ind{b, c} \neq \ind{a, c} = \ind{b, d}\) is impossible by transitivity,
+thus \( \ind{a,d} + \ind{b,c} - \ind{a,c} - \ind{b,d} \in \{1, 0, -1\} \).
+
 \begin{description}
     \item[Case I.] If 
-    \(\ind{a,c} + \ind{b,c} - \ind{a,d} - \ind{b,d} \neq 0\)  
+    \(\ind{a,d} + \ind{b,c} - \ind{a,c} - \ind{b,d} = \pm 1\),
     (cases 3,4,9,10 in \cite{KLO22}),  
     then assign row \(r\) the label \(\labelC\).
     Assign row \(r+1\) the coin value of row \(r\) if \(\chi_{ab} = \chi_{cd}\) (cases 3,9),
@@ -118,14 +121,16 @@ Let \( a = T(i,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
     \(\labelN\) (resp.~\(\labelS\)) if its coin value is \(\coinphi\) (resp.~\(\coinpsi\)).
 \end{description}
 
+\todo{There's a way to compactify these cases into overlapping conditions, which would also encompass the base cases.}
+
 Finally, build \(U\) row by row:
 \begin{itemize}
     \item If row \(r\) is labeled \(\labelN\), set
-    \(U(i,r) = T(i,r)\), \(U(i+1,r) = T(i+1,r)\).
+    \(U(i,r) = T(i,r)\) and \(U(i+1,r) = T(i+1,r)\).
     \item If row \(r\) is labeled \(\labelS\), set
-    \(U(i,r) = T(i+1,r)\), \(U(i+1,r) = T(i,r)\).
-    \item If row \(r\) is labeled \(\labelC\), then use the same assignment rule as the nearest row above it labeled \(\labelN\) or \(\labelS\).%
-    \footnote{Note that since row \(\alpha_{i+1}\) is always labeled \(\labelN\) or \(\labelS\), there is always a nearest row above it labeled \(\labelN\) or \(\labelS\).}
+    \(U(i,r) = T(i+1,r)\) and \(U(i+1,r) = T(i,r)\).
+    \item If row \(r\) is labeled \(\labelC\), then use the same rule as the nearest row above it labeled \(\labelN\) or \(\labelS\).
+    Note that since row \(\alpha_{i+1}\) is always labeled \(\labelN\) or \(\labelS\), there is always a nearest row above it labeled \(\labelN\) or \(\labelS\).
 \end{itemize}
 
 \todo{Add an example of the iterative algorithm.}
