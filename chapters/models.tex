@@ -45,7 +45,6 @@ That is, in an unsigned alphabet,
 	a > b > c \quad \text{or} \quad b > c \geq a \quad \text{or} \quad c \geq a > b.
 \end{equation*}
 \Cref{fig:indicator} provides examples of the indicator function \(\ind{a, b, c}\).
-\todo{This figure could be improved, especially in regard to equal entries.}
 
 \begin{figure}[htbp]
 	\centering
@@ -152,7 +151,8 @@ A box \(u = (i_u, r_u)\) \vocab{attacks} \(v = (i_v, r_v)\) in \(\dg(\alpha)\) i
 \(r_u = r_v\) and \(i_u < i_v\), that is, \(u\) and \(v\) are in the same row and \(u\) is to the left of \(v\); or
 \(r_v = r_u - 1\) and \(i_v < i_u\), that is, \(u\) is in the row directly above \(v\) and \(u\) is to the right of \(v\).
 \Cref{fig:attacking} illustrates the two configurations in which a box \(u\) attacks a box \(v\).
-Let \(\Attack(u) \subset \dg(\alpha)\) be the set of boxes attacked by \(u\).
+Let \(\Attack_{\dg(\alpha)}(u) \subset \dg(\alpha)\) be the set of boxes attacked by \(u\).
+When there is no ambiguity, we may simply write \(\Attack(u)\).
 
 \begin{figure}[htbp]
 	\begin{equation*}
@@ -179,13 +179,14 @@ Let \(\Attack(u) \subset \dg(\alpha)\) be the set of boxes attacked by \(u\).
 \end{figure}
 
 Let \(u = (i, r) \in \dg(\alpha)\).
-The \vocab{leg set} of \(u\) is the set \(\Leg(u) \subset \dg(\alpha)\) of boxes above \(u\) in the same column, that is, \(\Leg(u) = \left\{ (i, r') \in \dg(\alpha) \suchthat r' > r \right\}\).
-The \vocab{leg statistic} of \(u\) is defined as \(\leg(u) = \left|\Leg(u)\right| = \alpha_i - r\).
-The \vocab{arm set} of \(u\) is the set \(\Arm(u) \subset \dg(\alpha)\) of boxes \(v\) attacked by \(u\) such that \(\leg(v) \leq \leg(u)\), that is,
+The \vocab{leg set} of \(u\) is the set \(\Leg_{\dg(\alpha)}(u) \subset \dg(\alpha)\) of boxes above \(u\) in the same column, that is, \(\Leg_{\dg(\alpha)}(u) = \left\{ (i, r') \in \dg(\alpha) \suchthat r' > r \right\}\).
+The \vocab{leg statistic} of \(u\) is defined as \(\leg_{\dg(\alpha)}(u) = \left|\Leg_{\dg(\alpha)}(u)\right| = \alpha_i - r\).
+The \vocab{arm set} of \(u\) is the set \(\Arm_{\dg(\alpha)}(u) \subset \dg(\alpha)\) of boxes \(v\) attacked by \(u\) such that \(\leg_{\dg(\alpha)}(v) \leq \leg_{\dg(\alpha)}(u)\), that is,
 \begin{equation*}
-	\Arm(u) = \left\{ v \in \Attack(u) \suchthat \leg(v) \leq \leg(u) \right\}.
+	\Arm_{\dg(\alpha)}(u) = \left\{ v \in \Attack_{\dg(\alpha)}(u) \suchthat \leg_{\dg(\alpha)}(v) \leq \leg_{\dg(\alpha)}(u) \right\}.
 \end{equation*}
-The \vocab{arm statistic} of \(u\) is defined as \(\arm(u) = \left|\Arm(u)\right|\).
+The \vocab{arm statistic} of \(u\) is defined as \(\arm_{\dg(\alpha)}(u) = \left|\Arm_{\dg(\alpha)}(u)\right|\).
+When there is no ambiguity, we may simply write \(\Leg(u)\), \(\leg(u)\), \(\Arm(u)\), and \(\arm(u)\).
 The box \vocab{south} of \(u = (i, r)\) is the box \(\south{u} = (i, r-1)\), that is, the box directly below \(u\).
 If \(r > 1\), then \(\south{u} \in \dg(\alpha)\); while if \(r = 1\), then \(\south{u}\) is still defined (in row \(0\)),
 but it is not in \(\dg(\alpha)\).
@@ -194,50 +195,54 @@ See \cref{fig:leg-arm} for an example of the leg set, arm set, and south of a bo
 \begin{figure}[htbp]
     \centering
 	\begin{tikzpicture}[x=.5cm, y=.5cm]
-		\def\shape{3, 2, 2, 4, 4, 0, 3, 3, 3, 4, 2, 1, 3}
-		\xdef\reading{0}
-		\foreach \height [count = \column] in \shape{
-			\foreach \row in {0,...,\height}{
-					\pgfmathparse{int(\reading + 1)}
-					\xdef\reading{\pgfmathresult}
-					\coordinate (B\reading) at (\column, \row);
-				}
-		}
-		\def\filling{
-			{ },{ },{ },{ },
-			{ },{z},{ },
-			{ },{z},{ },
-			{ },{ },{ },{ },{ },
-			{ },{ },{ },{ },{ },
-			{ },
-			{ },{ },{ },{ },
-			{ },{d},{u},{x},
-			{ },{ },{z},{ },
-			{ },{ },{ },{ },{ },
-			{ },{ },{z},
-			{ },{ },
-			{ },{ },{z},{ }}
+		\def\shape{4, 3, 3, 5, 5, 1, 4, 4, 4, 5, 3, 2, 4}
+			\xdef\reading{0}
+			\foreach \height [count = \column] in \shape{
+				\foreach \row in {1,...,\height}{
+						\pgfmathparse{int(\reading + 1)}
+						\xdef\reading{\pgfmathresult}
+						\coordinate (B\reading) at (\column, \row);
+					}
+			}
+			\def\filling{
+				{ },{y},{ },{ },
+				{ },{z},{ },
+				{ },{z},{ },
+				{ },{y},{ },{ },{ },
+				{ },{y},{ },{ },{ },
+				{ },
+				{ },{y},{ },{ },
+				{ },{d},{u},{x},
+				{ },{ },{z},{ },
+				{ },{ },{y},{ },{ },
+				{ },{ },{z},
+				{ },{ },
+				{ },{ },{z},{ }}
 
-		\foreach \i [count = \j] in \filling {
-			\if\i u
-				\draw[fill=black] (B\j) rectangle ++(1, 1);
-			\else\if\i z
-					\draw[pattern color=magenta, pattern=north east lines] (B\j) rectangle ++(1, 1);
-				\else\if\i x
-						\draw[pattern color=green!70!black, pattern=vertical lines] (B\j) rectangle ++(1, 1);
-					\else\if\i d
-							\draw[pattern color=yellow!50!black, pattern=horizontal lines] (B\j) rectangle ++(1, 1);
-						\else
-							\draw[fill=white] (B\j) rectangle ++(1, 1);
-						\fi\fi\fi\fi
-		}
+			\foreach \i [count = \j] in \filling {
+				\if\i u
+					\draw[fill=black] (B\j) rectangle ++(1, 1);
+				\else\if\i z
+						\draw[pattern color=cyan, pattern=horizontal lines] (B\j) rectangle ++(1, 1);
+						\draw[pattern color=magenta, pattern=north east lines] (B\j) rectangle ++(1, 1);
+					\else\if\i x
+							\draw[pattern color=green!70!black, pattern=vertical lines] (B\j) rectangle ++(1, 1);
+						\else\if\i d
+								\draw[pattern color=yellow!50!black, pattern=dots] (B\j) rectangle ++(1, 1);
+							\else\if\i y
+									\draw[pattern color=cyan, pattern=horizontal lines] (B\j) rectangle ++(1, 1);
+								\else
+									\draw[fill=white] (B\j) rectangle ++(1, 1);
+								\fi\fi\fi\fi\fi
+			}
 
 	\end{tikzpicture}
 	\caption{
 		The leg set (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=green!70!black, pattern=vertical lines] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,),
 		the arm set (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=magenta, pattern=north east lines] (0, 1) rectangle ++(1, 1); \end{tikzpicture}}\,),
-		and the south (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=yellow!50!black, pattern=horizontal lines] (1, 4) rectangle ++(1, 1); \end{tikzpicture}}\,)
-		of a box \(u = (8, 3)\) (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[fill=black] (5, 2) rectangle ++(1, 1); \end{tikzpicture}}\,)
+		the attacked set (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=cyan, pattern=horizontal lines] (0, 1) rectangle ++(1, 1); \end{tikzpicture}}\,),
+		and the south (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=yellow!50!black, pattern=dots] (1, 4) rectangle ++(1, 1); \end{tikzpicture}}\,)
+		of the box \(u = (8, 3)\) (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[fill=black] (5, 2) rectangle ++(1, 1); \end{tikzpicture}}\,)
 		in the skyline diagram of \(\alpha = \composition{4, 3, 3, 5, 5, 1, 4, 4, 4, 5, 3, 2, 4}\) with \(\leg(u)=1\) and \(\arm(u)=5\).
 	}
 	\label{fig:leg-arm}
@@ -246,11 +251,11 @@ See \cref{fig:leg-arm} for an example of the leg set, arm set, and south of a bo
 A \vocab{filling} of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\) with labels in an alphabet \(\mathcal{A}\) is a function \(T \colon \dg(\alpha) \to \mathcal{A}\).
 Let \(\Fill[\mathcal{A}](\alpha)\) denote the set of fillings of shape \(\alpha\) with labels in \(\mathcal{A}\).
 A filling \(T\in \Fill[\mathcal{A}](\alpha)\)
-is \vocab{non-attacking} if \(T(u_1) \neq T(u_2)\) for all pairs of attacking boxes \(u_1\) and \(u_2\) in \(\dg(\alpha)\).
+is \vocab{non-attacking} if \(T(u) \neq T(v)\) whenever \(u\) attacks \(v\) in \(\dg(\alpha)\).
 Let \(\NAF[\mathcal{A}](\alpha) \subseteq \Fill[\mathcal{A}](\alpha)\) denote the set of non-attacking fillings of shape \(\alpha\) with labels in \(\mathcal{A}\).
 
 The \vocab{content} of a filling \(T\) with labels in the unsigned alphabet \(\mathcal{A} = \interval{n}\) or \(\mathcal{A} = \positives\) is the composition \(\beta = \content(T)\) where \(\beta_i\) is the number of occurrences of the label \(i\) in \(T\).
-The \vocab{content} of a filling \(T\) with labels in the signed alphabet \(\mathcal{A}_\pm = [n]_\pm\) or \(\mathcal{A}_\pm = \integers_\pm\) is the composition \(\beta = \content(T)\) where \(\beta_i\) is the number of occurrences of the label \(i\) or \(\bar{i}\) in \(T\).
+The \vocab{content} of a filling \(T\) with labels in the signed alphabet \(\mathcal{A}_\pm = [n]_\pm\) or \(\mathcal{A}_\pm = \integers_\pm\) is the composition \(\beta = \content(T)\) where \(\beta_i\) is the number of occurrences of the label \(i\) or \(\bar{i}\) in \(T\), i.e., the number of entries of \(T\) whose absolute value is \(i\).
 In both contexts, we let
 \[
 	\mathbf{x}^T = \mathbf{x}^{\content(T)} = \prod_{i} x_i^{\beta_i}.
@@ -339,11 +344,17 @@ See \cref{fig:major-index} for an example.
 
 A \vocab{triple} is an ordered tuple \((u, v, w)\) of boxes
 such that \(u \in \dg(\alpha)\), \(v \in \Arm(u)\), and \(w = \south{u}\).
+The total number of triples in \(\dg(\alpha)\) is
+\begin{equation*}
+	\sum_{u \in \dg(\alpha)} \arm(u).
+\end{equation*}
 If \(v\) is to the right of \(u\) in the same row as \(u\),
 then the triple is of \vocab{type A},
 and if \(v\) is to the left of \(u\) in the row directly below \(u\),
 then the triple is of \vocab{type B}.%
-\footnote{This is not related to Cartan types \(A_n\) and \(B_n\). They are called \vocab{type II} and \vocab{type I}, respectively, in \cite{HHL08} and \cite{Fer11}.}
+\footnote{This is not related to Cartan types \(A_n\) and \(B_n\).
+In \cite{HHL08} and \cite{Fer11},
+they are called \vocab{type II} and \vocab{type I}, respectively.}
 The configurations of the boxes \(u\), \(v\), and \(w\)
 when the tuple \((u, v, w)\) is of type A or type B are shown in \cref{fig:triples}.
 Note that if \(\alpha\) is a partition, there are no triples of type B.
@@ -385,8 +396,14 @@ and is a \vocab{coinversion triple} otherwise.
 Let \(\inv(T)\) and \(\coinv(T)\) denote
 the number of inversion triples and coinversion triples in \(T\),
 respectively.
+% We denote by \(\InversionTriples(T)\) and \(\CoinversionTriples(T)\) the sets of inversion triples and coinversion triples in \(T\), respectively, so that \(\inv(T) = |\InversionTriples(T)|\) and \(\coinv(T) = |\CoinversionTriples(T)|\).
 % It is straightforward to check that these definitions of inversion triples
 % are equivalent to those in \cite{Ale19} and \cite{CMW22}.
+We have
+\begin{equation} \label{eq:inv-plus-coinv}
+	\inv(T) + \coinv(T) = \sum_{u \in \dg(\alpha)} \arm(u),
+\end{equation}
+the total number of triples in \(\dg(\alpha)\).
 See \cref{fig:inversion-coinversion} for an example.
 
 \begin{figure}[htbp]
@@ -447,7 +464,26 @@ See \cref{fig:inversion-coinversion} for an example.
 	\label{fig:inversion-coinversion}
 \end{figure}
 
-\todo{Add alternative description of \(\inv(T)\) and \(\coinv(T)\) in terms of inversion pairs.}
+There is another interpretation of \(\inv(T)\) and \(\coinv(T)\), in terms of inversion pairs.
+An \vocab{inversion pair} in a filling \(T\) is a pair \(\{u, v\}\) of boxes in \(\dg(\alpha)\) such that \(u\) attacks \(v\) and \(\ind{T(u), T(v)} = 1\).
+Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
+
+\begin{proposition}[{\cite[739]{HHL05}}] \label{prop:inv-via-inversion-pairs}
+	Let \(T \in \Fill(\alpha)\).
+	Then
+	\begin{equation*}
+		\inv(T) = \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u).
+	\end{equation*}
+\end{proposition}
+
+\todo{Write short proof of alternate description of \(\inv(T)\).}
+
+\Cref{prop:inv-via-inversion-pairs} gives an alternative description of \(\inv(T)\).
+Together with \Cref{eq:inv-plus-coinv}, we also obtain an alternative description of \(\coinv(T)\) by
+\begin{equation*}
+	\coinv(T) = \sum_{u \in \dg(\alpha)} \arm(u) - \inv(T)
+	= \sum_{u \in \dg(\alpha) \setminus \Des(T)} \arm(u) - \left|\InversionPairs(T)\right|.
+\end{equation*}
 
 \subsection{Augmented Fillings} \label{subsec:augmented-fillings}
 
@@ -467,7 +503,14 @@ The boxes in row \(0\) are collectively called the \vocab{basement}.
 The attacking relation, leg set, arm set, leg statistic, arm statistic in \(\adg(\alpha)\) are defined as in \cref{subsec:non-augmented-fillings}.
 For these definitions, the boxes in row \(0\) of \(\adg(\alpha)\) behave just like the other boxes in \(\adg(\alpha)\).
 
-However, they behave differently for the definition of the south of a box.
+Since boxes in row \(0\) are now part of the diagram, subtle differences arise.
+For example, for \(u = (i, r) \in \adg(\alpha)\),
+we have \(\Attack_{\adg(\alpha)}(u) = \Attack_{\dg(\alpha)}(u)\) if \(r \geq 2\).
+However, if \(r = 1\), then \(\Attack_{\adg(\alpha)}(u)\) may contain boxes in row \(0\) that are not in \(\Attack_{\dg(\alpha)}(u)\).
+A similar comment applies to \(\Arm_{\adg(\alpha)}(u)\) and \(\Arm_{\dg(\alpha)}(u)\), and consequently to \(\arm_{\adg(\alpha)}(u)\) and \(\arm_{\dg(\alpha)}(u)\).
+Therefore, one must pay attention to which diagram is being used when computing these sets and statistics for a box in row \(1\).
+
+The definition of the south of a box is slightly different in the augmented setting.
 Given a box \(u = (i, r)\), if \(r \geq 1\), the \vocab{south} of \(u\) is the box \(\south{u} = (i, r-1)\), while if \(r = 0\), then \(\south{u}\) is not defined.
 Note that the south of a box in row \(1\) of \(\adg(\alpha)\) is also a box in \(\adg(\alpha)\), unlike in \Cref{subsec:non-augmented-fillings} where the south of a box in row \(1\) is not in \(\dg(\alpha)\).
 We also remark that the south of a box in row \(0\) is not a box in row \(-1\) outside \(\adg(\alpha)\), but rather is simply undefined.
@@ -490,8 +533,35 @@ A triple \((u, v, w)\) is defined as in \cref{subsec:non-augmented-fillings}.
 Since boxes in row \(0\) do not have a south, \(u\) cannot be in row \(0\).
 There is no concept of a degenerate triple in augmented fillings.
 The definitions of inversion triples, coinversion triples, and the statistics \(\inv(T)\) and \(\coinv(T)\) for augmented fillings are as in \cref{subsec:non-augmented-fillings}.
+In the augmented setting, the total number of triples in \(\adg(\alpha)\) is
+\begin{equation} \label{eq:total-triples-augmented}
+	\sum_{u \in \dg(\alpha)} \arm_{\adg(\alpha)}(u)
+\end{equation}
+Note that this sum does not include boxes \(u\) in row \(0\).
+We remark that this sum may be different from \(\sum_{u \in \dg(\alpha)} \arm_{\dg(\alpha)}(u)\) from \cref{subsec:non-augmented-fillings}, since the arm statistic for boxes in row \(1\) may be different in the two settings.
 
-\todo{Add alternative description of \(\inv(T)\) and \(\coinv(T)\) in terms of inversion pairs.}
+Similarly to \cref{subsec:non-augmented-fillings},
+there is another interpretation of \(\inv(T)\) and \(\coinv(T)\), in terms of inversion pairs.
+An \vocab{inversion pair} in an augmented filling \(T\) is a pair \(\{u, v\}\) of boxes with \(u \in \dg(\alpha)\) and \(v \in \adg(\alpha)\) such that \(u\) attacks \(v\) and \(\ind{T(u), T(v)} = 1\).
+Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
+
+\begin{proposition}[{\cite[739]{HHL05}}] \label{prop:inv-via-inversion-pairs-augmented}
+	Let \(T \in \Fill(\alpha)\).
+	Then
+	\begin{equation*}
+		\inv(T) = \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u).
+	\end{equation*}
+\end{proposition}
+
+\todo{Write short proof of alternate description of \(\inv(T)\).}
+
+\Cref{prop:inv-via-inversion-pairs-augmented} gives an alternative description of \(\inv(T)\).
+Together with \Cref{eq:total-triples-augmented}, we also obtain an alternative description of \(\coinv(T)\) by
+\begin{equation*}
+	\coinv(T) = \sum_{u \in \dg(\alpha)} \arm(u) - \inv(T)
+	= \sum_{u \in \dg(\alpha) \setminus \Des(T)} \arm(u) - \left|\InversionPairs(T)\right|.
+\end{equation*}
+
 
 \section{Combinatorial models for Macdonald polynomials}
 
