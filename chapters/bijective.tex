@@ -65,7 +65,7 @@ in the second case, we say they are \vocab{swapped}.
     \node[draw=orange!80!black, fill=orange!20, rounded corners=2pt, inner sep=2pt] (char) {\texttt{C}};
 }}
 
-\paragraph{Iterative algorithm.}
+\subsection{Iterative algorithm.}
 Let \(T \in \Fill(\alpha)\) with \(\alpha_i > \alpha_{i+1}\).
 We describe the algorithm to compute \(U = \phi(T)\) or \(U = \psi(T)\).
 The algorithm uses a \vocab{coin} with two sides, \(\coinphi\) and \(\coinpsi\), as a bookkeeping device.
@@ -135,7 +135,7 @@ Finally, build \(U\) row by row:
 
 \todo{Add an example of the iterative algorithm.}
 
-\paragraph{Recursive algorithm.}
+\subsection{Recursive algorithm.}
 The algorithm above may be described recursively in terms of the labels, instead of iteratively.
 
 Let \(T \in \Fill(\alpha)\) with \(\alpha_i > \alpha_{i+1}\).
@@ -150,6 +150,8 @@ It is straightforward to verify that both the iterative and recursive descriptio
 This recursive interpretation is particularly useful for proving properties about the bijections \(\phi\) and \(\psi\), as it allows us to use induction on the number of rows in the filling.
 
 \todo{Add an example of the recursive algorithm.}
+
+\subsection{Block structure interpretation.}
 
 \todo{Add the block structure interpretation of the bijection.}
 
