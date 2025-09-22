@@ -1,5 +1,8 @@
 \chapter{Macdonald polynomials} \label{chap:polynomials}
 
+\todo{Add chapter introduction explaining the overall structure and goals.}
+\todo{Include a brief roadmap of the different polynomial variants covered.}
+
 Throughout this chapter, let \(n\) be a nonnegative integer.
 
 \section{Permutations and compositions}
@@ -72,7 +75,7 @@ Note that \(\rev(\alpha) = w_0 \permact \alpha\).
 \end{example}
 
 \begin{figure}[htbp]
-    \centering
+	\centering
 	\begin{tikzpicture}[x=.4cm, y=-.5cm]
 		\node[anchor=east] at (0.7, 0) {\(\alpha = \)};
 		\foreach \i [count = \j] in {3, 1, 0, 2, 2, 0}{
@@ -90,7 +93,7 @@ Note that \(\rev(\alpha) = w_0 \permact \alpha\).
 	\caption{
 		The left action of \(\pi = \window{3, 1, 2, 4, 6, 5}\)
 		on \(\alpha = \composition{3, 1, 0, 2, 2, 0}\).
-		}
+	}
 	\label{fig:left-action-on-composition}
 \end{figure}
 
@@ -103,60 +106,80 @@ Note that \(\rev(\alpha) = w_0 \permact \alpha\).
 	which we write as a product \(\pi \sigma^{-1}\).
 \end{remark}
 
+\section{Symmetric functions}
+
+\todo[caption={Write section on symmetric functions.}]{Add a section on symmetric functions background, if needed: what even to include in it?
+	Perhaps a discussion about finitely many variables vs infinitely many variables is relevant.
+	Plethystic notation might be included as well.}
+
+\subsection{Plethystic notation}
+
 \section{Algebraic definitions of multiple variations of Macdonald polynomials}
 
 In this section, we define multiple variations of Macdonald polynomials:
+\todo[caption={Reorder algebraic definitions of Macdonald polynomials.}]{This is the order that makes the most sense for the combinatorial models, but perhaps not for this chapter. Maybe change the order here?}
 \begin{itemize}
-    \item \(\tilde{H}_\mu\), the modified Macdonald polynomials,
-    \item \(J_\mu\), the integral form symmetric Macdonald polynomials,
-    \item \(P_\mu\), the symmetric Macdonald polynomials,
-    \item \(E_\alpha^\sigma\), the permuted-basement nonsymmetric Macdonald polynomials,
-    \item \(\mathcal{E}_\alpha^\sigma\), the integral form permuted-basement nonsymmetric Macdonald polynomials.
+	\item \(\tilde{H}_\mu\), the modified Macdonald polynomials,
+	\item \(J_\mu\), the integral form symmetric Macdonald polynomials,
+	\item \(P_\mu\), the symmetric Macdonald polynomials,
+	\item \(E_\alpha^\sigma\), the permuted-basement nonsymmetric Macdonald polynomials,
+	\item \(\mathcal{E}_\alpha^\sigma\), the integral form permuted-basement nonsymmetric Macdonald polynomials.
 \end{itemize}
 
 \subsection{Modified Macdonald polynomials \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ}}
 
+\todo{Add definition of modified Macdonald polynomials \(\tilde{H}_\mu\).}
+\todo{Include examples of \(\tilde{H}_\mu\).}
+
 \subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ}}
+
+\todo{Define integral form symmetric Macdonald polynomials \(J_\mu\).}
+\todo{Include examples of \(J_\mu\).}
 
 \subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ}}
 
 \subsubsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ} as orthogonal polynomials}
 
-\cite{Mac88} 
+% \cite{Mac88} 
 
 Define the scalar product \(\langle \cdot, \cdot \rangle_{(q, t)}\) on the ring of symmetric functions with coefficients in \(\rationals(q, t)\) by setting
 \begin{equation}
-\langle p_\lambda, p_\mu \rangle_{(q, t)} = \delta_{\lambda\mu} z_\lambda(q, t)
+	\langle p_\lambda, p_\mu \rangle_{(q, t)} = \delta_{\lambda\mu} z_\lambda(q, t)
 \end{equation}
 where \(p_\lambda\) is the power sum symmetric function and
 \begin{equation}
-z_\lambda(q, t) = z_\lambda \prod_{i=1}^{\ell(\lambda)} \frac{1 - q^{\lambda_i}}{1 - t^{\lambda_i}}.
+	z_\lambda(q, t) = z_\lambda \prod_{i=1}^{\ell(\lambda)} \frac{1 - q^{\lambda_i}}{1 - t^{\lambda_i}}.
 \end{equation}
+\todo{Define $z_\lambda$ explicitly.}
 % If \(q, t\) are treated as real parameters lying in \( (0, 1) \), then the scalar product is positive definite.
 
 \begin{theorem}
 	There exists a unique family of symmetric functions \(P_\lambda = P_\lambda(\mathbf{x}; q, t)\) indexed by partitions \(\lambda\) such that:
 	\begin{itemize}
-	\item \( P_\lambda = m_\lambda + \sum_{\mu < \lambda} u_{\lambda\mu}(q, t) m_\mu \) with coefficients \( u_{\lambda\mu}(q, t) \in \rationals(q, t) \), and;
-	\item \( \langle P_\lambda, P_\mu \rangle_{(q, t)} = 0 \quad \text{if } \lambda \ne \mu \).
+		\item \( P_\lambda = m_\lambda + \sum_{\mu < \lambda} u_{\lambda\mu}(q, t) m_\mu \) with coefficients \( u_{\lambda\mu}(q, t) \in \rationals(q, t) \), and;
+		\item \( \langle P_\lambda, P_\mu \rangle_{(q, t)} = 0 \quad \text{if } \lambda \ne \mu \).
 	\end{itemize}
 \end{theorem}
 
 The functions \(P_\lambda\) are called the \vocab{symmetric Macdonald polynomials}.
 
+\todo{Include examples of \(P_\mu\) as orthogonal polynomials.}
+
 \subsubsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ} as eigenfunctions}
 
-\cite{Mac88} 
+% \cite{Mac88} 
 
 For any polynomial \( f(x_1, \ldots, x_n) \) and \(1 \le i \le n\), define the \(q\)-shift operator \(T_{q,x_i}\) by
 \begin{equation}
-(T_{q,x_i} f)(x_1, \ldots, x_n) = f(x_1, \ldots, qx_i, \ldots, x_n).
+	(T_{q,x_i} f)(x_1, \ldots, x_n) = f(x_1, \ldots, qx_i, \ldots, x_n).
 \end{equation}
 Then, the operator \( D \) is defined as
 \begin{equation}
-D = \sum_{i=1}^n \left( \prod_{j \ne i} \frac{t x_i - x_j}{x_i - x_j} \right) T_{q,x_i}.
+	D = \sum_{i=1}^n \left( \prod_{j \ne i} \frac{t x_i - x_j}{x_i - x_j} \right) T_{q,x_i}.
 \end{equation}
 The operator \(D\) has distinct eigenfunction, and these eigenfunctions are the symmetric Macdonald polynomials \(P_\lambda(x_1, \ldots, x_n; q, t)\) where \(\lambda\) is a partition with at most \(n\) parts.
+
+\todo{Include examples of \(P_\mu\) as eigenfunctions.}
 
 \subsection{Permuted-basement Macdonald polynomials \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ} as eigenfunctions}
 \label{sec:permuted basement def}
@@ -179,11 +202,11 @@ that is,
 for a composition \(\alpha\).
 For example, the permtutation \(\sigma = \window{2, 3, 1}\) sends the monomial \(x_1^2 x_2 = \mathbf{x}^{\composition{2, 1, 0}}\) to the monomial
 \begin{equation*}
-    \window{2, 3, 1} (x_1^2 x_2)
-    = \window{2, 3, 1}(\mathbf{x}^{\composition{2, 1, 0}})
-    = \mathbf{x}^{\window{2, 3, 1} \permact \composition{2, 1, 0}}
-    = \mathbf{x}^{\composition{0, 2, 1}}
-    = x_2^2 x_3.
+	\window{2, 3, 1} (x_1^2 x_2)
+	= \window{2, 3, 1}(\mathbf{x}^{\composition{2, 1, 0}})
+	= \mathbf{x}^{\window{2, 3, 1} \permact \composition{2, 1, 0}}
+	= \mathbf{x}^{\composition{0, 2, 1}}
+	= x_2^2 x_3.
 \end{equation*}
 
 The \vocab{Demazure--Lusztig operators}
@@ -218,8 +241,8 @@ for each \(i \in \interval{n}\),
 	\end{equation*}
 	where
 	\(
-		k_i = |\{ j \in \interval{i-1} \suchthat \alpha_j > \alpha_i \}|
-			+ |\{ j \in \interval{i+1, n} \suchthat \alpha_j \geq \alpha_i \}|
+	k_i = |\{ j \in \interval{i-1} \suchthat \alpha_j > \alpha_i \}|
+	+ |\{ j \in \interval{i+1, n} \suchthat \alpha_j \geq \alpha_i \}|
 	\).
 \end{definition}
 
@@ -240,7 +263,7 @@ for each \(i \in \interval{n}\),
 	the coefficient of \(x_1 x_3 x_4\) is \(1\), and
 	\begin{align*}
 		Y_1 E_{\composition{1, 0, 1, 1}} & = q^{-1} t^{2} E_{\composition{1, 0, 1, 1}}, &
-		Y_2 E_{\composition{1, 0, 1, 1}} & = q^{0}  t^{3} E_{\composition{1, 0, 1, 1}}, \\
+		Y_2 E_{\composition{1, 0, 1, 1}} & = q^{0}  t^{3} E_{\composition{1, 0, 1, 1}},   \\
 		Y_3 E_{\composition{1, 0, 1, 1}} & = q^{-1} t^{1} E_{\composition{1, 0, 1, 1}}, &
 		Y_4 E_{\composition{1, 0, 1, 1}} & = q^{-1} t^{0} E_{\composition{1, 0, 1, 1}}.
 	\end{align*}
@@ -269,13 +292,13 @@ The following definition is a reformulation based on \cite[Corollary 16]{Ale19} 
 	\end{equation*}
 	where
 	\(
-		\twinv(\alpha, \sigma) =
-		\left| \{
-			(i, j) \suchthat
-			i < j \text{ and }
-			\alpha_i \geq \alpha_j \text{ and }
-			\sigma_i < \sigma_j
-		\} \right|
+	\twinv(\alpha, \sigma) =
+	\left| \{
+	(i, j) \suchthat
+	i < j \text{ and }
+	\alpha_i \geq \alpha_j \text{ and }
+	\sigma_i < \sigma_j
+	\} \right|
 	\).
 \end{definition}
 
@@ -309,9 +332,9 @@ is the nonsymmetric Macdonald polynomial \(E_{\rev(\alpha)}(\mathbf{x}; q, t)\).
 	so the Demazure--Lusztig operator \(T_{\rev(\sigma)}\) is given by \(T_2 T_1 T_3\).
 	We compute
 	\(
-		\twinv(\alpha, \sigma) =
-		\twinv(\composition{1, 1, 0, 1}, \window{2, 4, 1, 3}) =
-		|\{(1, 2), (1, 4)\}| = 2
+	\twinv(\alpha, \sigma) =
+	\twinv(\composition{1, 1, 0, 1}, \window{2, 4, 1, 3}) =
+	|\{(1, 2), (1, 4)\}| = 2
 	\).
 	Therefore,
 	the permuted-basement Macdonald polynomial
@@ -335,6 +358,7 @@ is the nonsymmetric Macdonald polynomial \(E_{\rev(\alpha)}(\mathbf{x}; q, t)\).
 \end{example}
 
 \begin{example}
+	\label{example:permuted-basement-macdonald-polynomial-2}
 	Let \(n = 4\),
 	\(\alpha = \composition{1, 1, 0, 1}\),
 	and \(\tau = \window{4, 2, 1, 3}\).
@@ -342,9 +366,9 @@ is the nonsymmetric Macdonald polynomial \(E_{\rev(\alpha)}(\mathbf{x}; q, t)\).
 	so the Demazure--Lusztig operator \(T_{\rev(\tau)}\) is given by \(T_2 T_1\).
 	We compute
 	\(
-		\twinv(\alpha, \tau) =
-		\twinv(\composition{1, 1, 0, 1}, \window{4, 2, 1, 3}) =
-		|\{(1, 4)\}| = 1
+	\twinv(\alpha, \tau) =
+	\twinv(\composition{1, 1, 0, 1}, \window{4, 2, 1, 3}) =
+	|\{(1, 4)\}| = 1
 	\).
 	Therefore, the permuted-basement Macdonald polynomial
 	\(E_{\composition{1, 1, 0, 1}}^{\window{4, 2, 1, 3}}(\mathbf{x}; q, t)\)
@@ -366,4 +390,19 @@ is the nonsymmetric Macdonald polynomial \(E_{\rev(\alpha)}(\mathbf{x}; q, t)\).
 	\end{equation*}
 \end{example}
 
+Note that the computations in \Cref{example:permuted-basement-macdonald-polynomial} and \Cref{example:permuted-basement-macdonald-polynomial-2} yield the same result, which exemplifies a property that will be explored in \Cref{chap:probabilistic}.
+
+\begin{theorem}[{\cite{Fer11}}]
+	Let \(\sigma\) be a permutation in \(\sym{n}\).
+	The set of permuted-basement Macdonald polynomials
+	\begin{equation}
+		\{ E_\alpha^\sigma(\mathbf{x}; q, t) \suchthat
+		\alpha \text{ is a composition of length } n \}
+	\end{equation}
+	is a basis of \(\rationals(q, t)[\mathbf{x}]\).
+\end{theorem}
+
 \subsection{Integral form permuted-basement Macdonald polynomials \texorpdfstring{\(\mathcal{E}_\alpha^\sigma\)}{Eασ}}
+
+\todo{Define integral form permuted-basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\).}
+\todo{Include examples of \(\mathcal{E}_\alpha^\sigma\).}
