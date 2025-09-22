@@ -1,9 +1,9 @@
 \chapter{Bijective combinatorics for Macdonald polynomials} \label{chap:bijective}
 
 In this chapter, we describe \cite{KLO22}'s bijection between
-\begin{equation*}
+\begin{equation}
     \Fill[\mathcal{A}](\mu) \quad \text{and} \quad \Fill[\mathcal{A}](s_i \permact \mu),
-\end{equation*}
+\end{equation}
 which preserves the statistics $\inv$ and $\maj$.
 
 The existence of this bijection implies that 
@@ -37,9 +37,9 @@ If a filling \(T \in \Fill(\alpha)\) is mapped to a filling \(U \in \Fill(s_i \p
 \end{itemize}
 
 Given these restrictions, the only freedom we have in defining \(\phi\) and \(\psi\) is to decide, for each \(r \in \interval{\alpha_{i+1}}\), whether to set
-\begin{equation*}
+\begin{equation}
     \big(U(i,r), U(i+1,r)\big) = \big(T(i,r), T(i+1,r)\big) \text{ or } \big(U(i,r), U(i+1,r)\big) = \big(T(i+1,r), T(i,r)\big).
-\end{equation*}
+\end{equation}
 In the first case, we say the entries of \(T\) and \(U\) in row \(r\) of columns \(i\) and \(i+1\) are \vocab{not swapped};
 in the second case, we say they are \vocab{swapped}.
 
@@ -163,38 +163,38 @@ This recursive interpretation is particularly useful for proving properties abou
 
 \begin{theorem}[\cite{KLO22}] \label{thm:phi-maj-inv}
     The bijection \(\phi\) preserves the statistics \(\inv\) and \(\maj\); that is, for all \(T \in \Fill(\alpha)\), if \(U = \phi(T)\), then
-    \begin{equation*}
+    \begin{equation}
         \inv(T) = \inv(U) \quad \text{and} \quad \maj(T) = \maj(U).
-    \end{equation*}
+    \end{equation}
 \end{theorem}
 
 \begin{theorem}[\cite{KLO22}] \label{thm:psi-maj-inv}
     The bijection \(\psi\) modifies the statistics \(\inv\) and \(\maj\) in a specific way. For any \(T \in \Fill(\alpha)\) and \(U = \psi(T)\), we have
     \begin{itemize}
         \item if \(\ind{{T(i,1)},{T(i+1,1)}} = 1\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 1\), then
-        \begin{equation*}
+        \begin{equation}
             \maj(T) = \maj(U) - (L+1)
             \quad \text{and} \quad
             \inv(T) = \inv(U) + A,
-        \end{equation*}
+        \end{equation}
         \item if \(\ind{{T(i,1)},{T(i+1,1)}} = 1\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 0\), then
-        \begin{equation*}
+        \begin{equation}
             \maj(T) = \maj(U)
             \quad \text{and} \quad
             \inv(T) = \inv(U) + 1,
-        \end{equation*}
+        \end{equation}
         \item if \(\ind{{T(i,1)},{T(i+1,1)}} = 0\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 1\), then
-        \begin{equation*}
+        \begin{equation}
             \maj(T) = \maj(U)
             \quad \text{and} \quad
             \inv(T) = \inv(U) - 1,
-        \end{equation*}
+        \end{equation}
         \item and if \(\ind{{T(i,1)},{T(i+1,1)}} = 0\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 0\), then
-        \begin{equation*}
+        \begin{equation}
             \maj(T) = \maj(U) + (L+1)
             \quad \text{and} \quad
             \inv(T) = \inv(U) - A,
-        \end{equation*}
+        \end{equation}
     \end{itemize}
     where \(L = \leg(...)\) and \(A = \arm(...)\).
 \end{theorem}

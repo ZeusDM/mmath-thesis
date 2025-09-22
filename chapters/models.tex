@@ -18,15 +18,15 @@ and we say that \(a \in \mathcal{A}\) is
 the \vocab{absolute value} of \(a \in \mathcal{A}_+\) and of \(\bar{a} \in \mathcal{A}_-\),
 denoted by \(|a| = |\bar{a}| = a\).
 Some signed alphabets we use are \(\integers_\pm\), with the total order
-\begin{equation*}
+\begin{equation}
 	1 < \bar{1} < 2 < \bar{2} < 3 < \bar{3} < \cdots,
-\end{equation*}
+\end{equation}
 and its subalphabet \([n]_\pm\).
 
 For both unsigned and signed alphabets, define
-\begin{equation*}
+\begin{equation}
 	\ind{a, b, c} = \ind{a, b} + \ind{b, c} - \ind{a, c}.
-\end{equation*}
+\end{equation}
 We have \(\ind{a, b, c} \in \{0, 1\}\)
 since it is impossible for \(\ind{a, b} = \ind{b, c} = 1 - \ind{a, c}\).
 
@@ -41,9 +41,9 @@ For an unsigned alphabet,
 where the earlier of two equal entries is considered smaller than the later one.
 That is, in an unsigned alphabet,
 \(\ind{a, b, c} = 1\) if and only if
-\begin{equation*}
+\begin{equation}
 	a > b > c \quad \text{or} \quad b > c \geq a \quad \text{or} \quad c \geq a > b.
-\end{equation*}
+\end{equation}
 \Cref{fig:indicator} provides examples of the indicator function \(\ind{a, b, c}\).
 
 \begin{figure}[htbp]
@@ -113,9 +113,9 @@ In signed alphabets, \(\ind{a, b, c}\) indicates whether \(a, b, c\) is cyclical
 The \vocab{(non-augmented) skyline diagram} of a composition
 \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\)
 is the set
-\begin{equation*}
+\begin{equation}
 	\dg(\alpha) = \left\{ (i, r) \suchthat i \in \interval{n} \text{ and } r \in \interval{\alpha_i} \right\},
-\end{equation*}
+\end{equation}
 where the first coordinate indexes the columns and the second coordinate indexes the rows.
 In \cref{subsec:augmented-fillings}, we will define the \vocab{augmented skyline diagram} of a composition, hence the optional term \emph{non-augmented} is used when the distinction is necessary.
 The elements of \(\dg(\alpha)\) are called \vocab{boxes}.
@@ -155,7 +155,7 @@ Let \(\Attack_{\dg(\alpha)}(u) \subset \dg(\alpha)\) be the set of boxes attacke
 When there is no ambiguity, we may simply write \(\Attack(u)\).
 
 \begin{figure}[htbp]
-	\begin{equation*}
+	\begin{equation}
 		\vcenter{\hbox{
 				\begin{tikzpicture}[x=.5cm, y=.5cm]
 					\draw[black] (0, 0) rectangle (1, 1);
@@ -173,7 +173,7 @@ When there is no ambiguity, we may simply write \(\Attack(u)\).
 					\draw[black, shift={(0,.5)}] (3, 0) rectangle (4, 1);
 					\node at (3.5, .5+.5) {\(u\)};
 				\end{tikzpicture}}}.
-	\end{equation*}
+	\end{equation}
 	\caption{Configurations in which a box \(u\) attacks a box \(v\): either in the same row (left), or in consecutive rows (right). }
 	\label{fig:attacking}
 \end{figure}
@@ -182,9 +182,9 @@ Let \(u = (i, r) \in \dg(\alpha)\).
 The \vocab{leg set} of \(u\) is the set \(\Leg_{\dg(\alpha)}(u) \subset \dg(\alpha)\) of boxes above \(u\) in the same column, that is, \(\Leg_{\dg(\alpha)}(u) = \left\{ (i, r') \in \dg(\alpha) \suchthat r' > r \right\}\).
 The \vocab{leg statistic} of \(u\) is defined as \(\leg_{\dg(\alpha)}(u) = \left|\Leg_{\dg(\alpha)}(u)\right| = \alpha_i - r\).
 The \vocab{arm set} of \(u\) is the set \(\Arm_{\dg(\alpha)}(u) \subset \dg(\alpha)\) of boxes \(v\) attacked by \(u\) such that \(\leg_{\dg(\alpha)}(v) \leq \leg_{\dg(\alpha)}(u)\), that is,
-\begin{equation*}
+\begin{equation}
 	\Arm_{\dg(\alpha)}(u) = \left\{ v \in \Attack_{\dg(\alpha)}(u) \suchthat \leg_{\dg(\alpha)}(v) \leq \leg_{\dg(\alpha)}(u) \right\}.
-\end{equation*}
+\end{equation}
 The \vocab{arm statistic} of \(u\) is defined as \(\arm_{\dg(\alpha)}(u) = \left|\Arm_{\dg(\alpha)}(u)\right|\).
 When there is no ambiguity, we may simply write \(\Leg(u)\), \(\leg(u)\), \(\Arm(u)\), and \(\arm(u)\).
 The box \vocab{south} of \(u = (i, r)\) is the box \(\south{u} = (i, r-1)\), that is, the box directly below \(u\).
@@ -303,11 +303,11 @@ Note that boxes in row \(1\) are never descents,
 since the label of the south of a box in row \(1\) is always \(\infty\), by convention.
 Let \(\Des(T) \subseteq \dg(\alpha)\) denote the set of descents in \(T\).
 The \vocab{major index} of \(T\) is
-\begin{equation*}
+\begin{equation}
 	\maj(T)
 	= \sum_{u \in \Des(T)} \left( \leg(u) + 1 \right)
 	= \sum_{u \in \dg(\alpha)} \ind{T(u), T(\south{u})} \left( \leg(u) + 1 \right).
-\end{equation*}
+\end{equation}
 See \cref{fig:major-index} for an example.
 \begin{figure}[htbp]
 	\centering
@@ -345,9 +345,9 @@ See \cref{fig:major-index} for an example.
 A \vocab{triple} is an ordered tuple \((u, v, w)\) of boxes
 such that \(u \in \dg(\alpha)\), \(v \in \Arm(u)\), and \(w = \south{u}\).
 The total number of triples in \(\dg(\alpha)\) is
-\begin{equation*}
+\begin{equation}
 	\sum_{u \in \dg(\alpha)} \arm(u).
-\end{equation*}
+\end{equation}
 If \(v\) is to the right of \(u\) in the same row as \(u\),
 then the triple is of \vocab{type A},
 and if \(v\) is to the left of \(u\) in the row directly below \(u\),
@@ -471,19 +471,19 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 \begin{proposition}[{\cite[739]{HHL05}}] \label{prop:inv-via-inversion-pairs}
 	Let \(T \in \Fill(\alpha)\).
 	Then
-	\begin{equation*}
+	\begin{equation}
 		\inv(T) = \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u).
-	\end{equation*}
+	\end{equation}
 \end{proposition}
 
 \todo{Write short proof of alternate description of \(\inv(T)\).}
 
 \Cref{prop:inv-via-inversion-pairs} gives an alternative description of \(\inv(T)\).
 Together with \Cref{eq:inv-plus-coinv}, we also obtain an alternative description of \(\coinv(T)\) by
-\begin{equation*}
+\begin{equation}
 	\coinv(T) = \sum_{u \in \dg(\alpha)} \arm(u) - \inv(T)
 	= \sum_{u \in \dg(\alpha) \setminus \Des(T)} \arm(u) - \left|\InversionPairs(T)\right|.
-\end{equation*}
+\end{equation}
 
 \subsection{Augmented Fillings} \label{subsec:augmented-fillings}
 
@@ -494,9 +494,9 @@ or the signed alphabet \(\mathcal{A}_\pm = [n]_\pm\).
 The \vocab{augmented skyline diagram} of a composition
 \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\)
 is the set
-\begin{equation*}
+\begin{equation}
 	\adg(\alpha) = \dg(\alpha) \cup \{(i, 0) \suchthat i \in \interval{n}\},
-\end{equation*}
+\end{equation}
 which is obtained from \(\dg(\alpha)\) by adding an extra row of \(n\) boxes below row \(1\),
 called the \vocab{row \(0\)} or the \vocab{basement}.
 \Cref{fig:augmented-skyline} provides an example of an augmented skyline diagram.
@@ -574,19 +574,19 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 \begin{proposition}[{\cite[739]{HHL05}}] \label{prop:inv-via-inversion-pairs-augmented}
 	Let \(T \in \Fill(\alpha)\).
 	Then
-	\begin{equation*}
+	\begin{equation}
 		\inv(T) = \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u).
-	\end{equation*}
+	\end{equation}
 \end{proposition}
 
 \todo{Write short proof of alternate description of \(\inv(T)\).}
 
 \Cref{prop:inv-via-inversion-pairs-augmented} gives an alternative description of \(\inv(T)\).
 Together with \Cref{eq:total-triples-augmented}, we also obtain an alternative description of \(\coinv(T)\) by
-\begin{equation*}
+\begin{equation}
 	\coinv(T) = \sum_{u \in \dg(\alpha)} \arm(u) - \inv(T)
 	= \sum_{u \in \dg(\alpha) \setminus \Des(T)} \arm(u) - \left|\InversionPairs(T)\right|.
-\end{equation*}
+\end{equation}
 
 
 \section{Combinatorial models for Macdonald polynomials}

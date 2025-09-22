@@ -17,9 +17,9 @@ We follow the exposition given in~\cite{AF22}.
 	Let \(\mathbf{T}\) and \(\mathbf{U}\) be sets.
 	A \vocab{probability map} from \(\mathbf{T}\) to \(\mathbf{U}\) is
 	a function \(\prob{} \colon \mathbf{T} \times \mathbf{U} \to \algebra\) such that
-	\begin{equation*}
+	\begin{equation}
 		\sum_{U \in\mathbf{U}} \prob{}(T, U) = 1
-	\end{equation*}
+	\end{equation}
 	for every \(T \in \mathbf{T}\).
 \end{definition}
 
@@ -41,10 +41,10 @@ are not required to be in the interval \([0, 1]\) or even real numbers.
 	\(\prob{\mathbf{T}} \colon \mathbf{T} \times \mathbf{U} \to \algebra\) and
 	\(\prob{\mathbf{U}} \colon \mathbf{U} \times \mathbf{T} \to \algebra\)
 	such that
-	\begin{equation*}
+	\begin{equation}
 		\wt_{\mathbf{T}}(T) \prob{\mathbf{T}}(T, U)
 		= \wt_{\mathbf{U}}(U) \prob{\mathbf{U}}(U, T)
-	\end{equation*}
+	\end{equation}
 	for every \(T \in \mathbf{T}\) and \(U \in \mathbf{U}\).
 \end{definition}
 
@@ -52,13 +52,13 @@ A weight-preserving bijection \( f \colon \mathbf{T} \to \mathbf{U} \)
 canonically induces a probabilistic bijection
 between \((\mathbf{T}, \wt_{\mathbf{T}})\) and \((\mathbf{U}, \wt_{\mathbf{U}})\)
 by setting
-\begin{equation*}
+\begin{equation}
 	\prob{\mathbf{T}}(T, U) = \prob{\mathbf{U}}(U, T) =
 	\begin{cases}
 		1 & \text{if } f(T) = U, \\
 		0 & \text{otherwise},
 	\end{cases}
-\end{equation*}
+\end{equation}
 explaining the choice of terminology.
 Moreover, as shown in \cref{proposition:equal-weight-sum},
 this generalization retains a key property of weight-preserving bijections:
@@ -72,21 +72,21 @@ the sum of the weights of \(\mathbf{T}\) and of \(\mathbf{U}\) are equal.
 	\( (\mathbf{T}, \wt_{\mathbf{T}}) \) and
 	\( (\mathbf{U}, \wt_{\mathbf{U}}) \).
 	Then,
-	\begin{equation*}
+	\begin{equation}
 		\sum_{T \in \mathbf{T}} \wt(T) = \sum_{U \in\mathbf{U}} \wt(U).
-	\end{equation*}
+	\end{equation}
 \end{proposition}
 
 \begin{proof}
 	We compute
-	\begin{align*}
+	\begin{align}
 		\sum_{T \in \mathbf{T}} \wt_{\mathbf{T}}(T)
 		&= \sum_{T \in \mathbf{T}} \sum_{U \in \mathbf{U}}
 			\wt_{\mathbf{T}}(T) \prob{\mathbf{T}}(T, U) \\
 		&= \sum_{U \in \mathbf{U}} \sum_{T \in \mathbf{T}}
 			\wt_{\mathbf{U}}(U) \prob{\mathbf{U}}(U, T)
 		= \sum_{U \in \mathbf{U}} \wt_{\mathbf{U}}(U). \qedhere
-	\end{align*}
+	\end{align}
 \end{proof}
 
 A Markov-theoretical interpretation of a probabilistic bijection is that
