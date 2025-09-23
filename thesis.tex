@@ -39,6 +39,13 @@
 \usepackage[style=alphabetic,backend=biber,backref=true]{biblatex}
 \addbibresource{references.bib}
 
+% Add arxiv marking to the label of arXiv references
+\DeclareFieldFormat[misc]{labelalpha}{%
+  \iffieldequalstr{eprinttype}{arxiv}
+    {#1\textsuperscript{\(\chi\)}}
+    {#1}%
+}
+
 \usepackage{hyperref}
 \definecolor{linkcolor}{HTML}{800006}
 \definecolor{citecolor}{HTML}{2E7E2A}
