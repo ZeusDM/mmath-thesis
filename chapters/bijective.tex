@@ -409,3 +409,96 @@ The map \(U = \psi(T) \in \Fill(s_i \permact \alpha)\) is defined in the same wa
 \begin{proof}[Alternative proof of \Cref{thm:phi-maj-inv}]
     \todo{Write the proof using the block structure.}
 \end{proof}
+
+\section{Application to permuted-basement Macdonald polynomials}
+
+\todo{Write the section on the three-term identity for permuted-basement Macdonald polynomials.}
+
+\begin{theorem}[equivalent to {\cite[Proposition~17]{Ale19}}]\label{thm:Ale10:prop17}
+    Let \(\alpha=\alpha_1\cdots\alpha_n\) be a composition such that \(\alpha_i<\alpha_{i+1}\) and \(\sigma\in S_n\) such that \(\sigma_i = \sigma_{i+1} + 1\). Then
+    \begin{equation}
+        E_{s_i\alpha}^\sigma(X;q;t)
+        =
+        E_{\alpha}^{\sigma s_i}(X;q;t)
+        +
+        \frac{1-t}{1-q^{L+1}t^{A}}
+        E_{\alpha}^\sigma(X;q;t)
+    \end{equation}
+    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_i+1)\in\dg(\alpha)\).
+\end{theorem}
+
+We extend this result to any \(\sigma_i>\sigma_{i+1}\).
+In the \(q=0\) case, these results are found in \cite[Proposition~5.5]{AS19}.
+
+\begin{theorem}\label{thm:three-term-v1}
+For a composition \(\alpha=\alpha_1\cdots\alpha_n\) with \(\alpha_i<\alpha_{i+1}\) and \(\sigma\in S_n\) such that \(\sigma_i>\sigma_{i+1}\), we have
+    \begin{equation} \label{eq:three-term-v1}
+        E_{s_i\alpha}^\sigma(X;q;t)=E_{\alpha}^{\sigma s_i}(X;q;t)+t^{\phi(\alpha,\sigma,i)}\frac{1-t}{1-q^{L+1}t^{A}}E_{\alpha}^\sigma(X;q;t)
+    \end{equation}
+    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_i+1)\in\dg(\alpha)\), and
+    \begin{equation}
+        \phi(\alpha,\sigma,i)=\twinv(\alpha,\sigma)-\twinv(s_i\alpha,\sigma).
+    \end{equation}
+\end{theorem}
+
+% \begin{proof}[Algebraic proof]
+%     By \cref{thm:Ale}, if $\alpha_i<\alpha_{i+1}$ and $\sigma_i=\sigma_{i+1}+1$, we have
+%     \begin{equation}
+%         E_{s_i\alpha}^{\sigma}=E_\alpha^{\sigma s_i}+\frac{1-t}{1-q^{1+L}t^A}E_\alpha^{\sigma}.
+%     \end{equation}
+%     In particular, for $\sigma=w_0$, we have
+%     \begin{align}
+%         E_{s_i\alpha}^{w_0}&=E_\alpha^{w_0 s_i}+\frac{1-t}{1-q^{1+L}t^A}E_\alpha^{w_0}\nonumber\\
+%         &=T_{n-i}E_\alpha^{w_0}+\frac{1-t}{1-q^{1+L}t^A}E_\alpha^{w_0}\label{eq:w0}
+%     \end{align}
+%     by \eqref{eq:Ti}, since $\twinv(\alpha,w_0s_i)=0$. By \eqref{eq:Ti}, applying $t^{-\twinv(s_i\alpha,\sigma)}T_{\rev(\sigma)}$ to the left hand side gives
+%     \begin{equation}
+%         t^{-\twinv(s_i\alpha,\sigma)}T_{\rev(\sigma)} E_{s_i\alpha}^{w_0}=E_{s_i\alpha}^\sigma.
+%     \end{equation}
+%     Now assume $\alpha_i<\alpha_{i+1}$ and $\sigma_i>\sigma_{i+1}$, which implies $\ell(\sigma)>\ell(\sigma s_i)$ and thus $T_{\rev(\sigma s_i)}=T_{\rev(\sigma)}T_{n-i}$. Applying $t^{-\twinv(s_i\alpha,\sigma)}T_{\rev(\sigma)}$ to the right hand side of \eqref{eq:w0} gives
+%     \begin{align}
+%         E_{s_i\alpha}^\sigma&=t^{-\twinv(s_i\alpha,\sigma)}T_{\rev(\sigma)}T_{n-i}E_\alpha^{w_0}
+%         +t^{-\twinv(s_i\alpha,\sigma)}\frac{1-t}{1-q^{1+L}t^A}T_{\rev(\sigma)}E_\alpha^{w_0}\nonumber\\
+%         &=E_\alpha^{\sigma s_i}+t^{\twinv(\alpha,\sigma)-\twinv(s_i\alpha,\sigma)}\frac{1-t}{1-q^{1+L}t^A}E_\alpha^\sigma \label{eq:f2}
+%     \end{align}
+% 
+%     The final equality \eqref{eq:f2} is obtained by comparing with \eqref{eq:Ti}, using the fact that $\twinv(s_i\alpha,\sigma)=\twinv(\alpha,\sigma s_i)$ when $(s_i\alpha)_i>(s_i \alpha)_{i+1}$ and $\sigma_i>\sigma_{i+1}$.
+% \end{proof}
+
+Using the integral forms \(\mathcal{E}_\alpha^\sigma(X;q;t)\) instead of the non-integral forms \(E_\alpha^\sigma(X;q;t)\), \Cref{eq:three-term-v1} is equivalent to
+\begin{equation} \label{eq:three-term-v1-integral}
+    \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{s_i \permact \alpha}^\sigma
+    = 
+    \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_\alpha^{\sigma s_i} 
+    +
+    t^{\phi(\alpha,\sigma,i)} (1 - t) \mathcal{E}_\alpha^\sigma.
+\end{equation}
+
+% and one over all augmented fillings using the signed alphabet \(\interval{n}_\pm\),
+% \begin{equation} \label{eq:calE-Fill-signed}
+% 	\mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
+% 	\sum_{T \in \Fill[\interval{n}_\pm](\alpha, \sigma)}
+% 	\mathbf{x}^{\content(T)}
+% 	q^{\maj(T)} t^{\coinv(T)}
+% 	(-t)^{\operatorname{neg}(T)}.
+% \end{equation}
+
+Recall that the integral forms have a combinatorial formula in terms of augmented fillings using the signed alphabet \(\interval{n}_\pm\), as given in \Cref{eq:calE-Fill-signed}:
+\begin{equation*}
+    \mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
+    \sum_{T \in \Fill[\interval{n}_\pm](\alpha, \sigma)}
+    \mathbf{x}^{\content(T)}
+    q^{\maj(T)} t^{\coinv(T)}
+    (-t)^{\operatorname{neg}(T)}.
+    \tag{\ref{eq:calE-Fill-signed}}
+\end{equation*}
+
+For the purposes of this section, let \(\wt(T) = \mathbf{x}^{\content(T)} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}\), for an augmented signed filling \(T\).
+
+We create a bijection that proves \Cref{eq:three-term-v1-integral} combinatorially.
+Essentially, this bijection is 
+\begin{equation}
+    T \mapsto \{\phi(T), \psi(T)\}.
+\end{equation}
+
+\todo{Finish writing this section, with a better narrative.}
