@@ -153,7 +153,207 @@ This recursive interpretation is particularly useful for proving properties abou
 
 \subsection{Block structure algorithm}
 
-\todo{Add the block structure interpretation of the bijection.}
+\todo[caption={Improve the block structure interpretation of the bijection.}]{Improve block structure interpretation of the bijection. I need to distinguish more clearly between ``defining a new bijection'' vs.\ ``reinterpreting the existing bijection''. Right now, there's a weird mix of both.
+
+I guess I can define blocks, and then after that I perform the bijection with the iterative algorithm, and see what happens to the blocks.}
+
+There's another meaningful way to interpret the bijections \( \phi \) and \( \psi \).
+Of course, it can't be too different from the previous two interpretations, since they are all describing the same bijections,
+but it offers yet another perspective that may be useful in certain contexts.
+
+When processing row \(r\), note that Case~I is the only case where the label of row \(r\) is \(\labelC\).
+A label of \(\labelC\) means that the swapping behavior of row \(r\) is the same as the swapping behavior of row \(r + 1\), that is, if rows \(r\) and \(r + 1\) of \(T\) are
+\begin{equation}
+    \begin{pmatrix}
+        T(i,r+1) & T(i+1,r+1) \\
+        T(i,r) & T(i+1,r) 
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix},
+\end{equation}
+then there are two possibilities for rows \(r\) and \(r + 1\) of \(U\) (where \(U = \phi(T)\) or \(U = \psi(T)\)), namely
+\begin{equation}
+    \begin{pmatrix}
+        U(i,r+1) & U(i+1,r+1) \\
+        U(i,r) & U(i+1,r)
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix}
+    \quad \text{or} \quad
+    \begin{pmatrix}
+        U(i,r+1) & U(i+1,r+1) \\
+        U(i,r) & U(i+1,r)
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        b & a \\
+        d & c
+    \end{pmatrix}.
+\end{equation}
+Note that the relevant contribution to \(\inv\) of this section of the filling \(T\) is \(\ind{a, b, c}\), from a Type A triple.
+The relevant contribution to \(\inv\) of this section of the filling \(U\) is either \(\in{b, c, d}\) (first case) or \(\ind{a, d, c}\) (second case), from a Type B triple.
+However, condition \(\ind{a,d} + \ind{b,c} - \ind{a,c} - \ind{b,d} = \pm 1\) implies that
+\begin{equation}
+    \ind{a, b, c} = \ind{b, c, d} = \ind{a, d, c}.
+\end{equation}
+This means, in vague words, that the contribution to \(\inv\) from this section of the filling is the same in \(T\) and \(U\), regardless of whether rows \(r\) and \(r + 1\) are swapped or not.
+
+Let's formalize this idea.
+For \(r \in \interval{\alpha_{i+1} - 1}\),
+we say that two adjacent rows \(r\) and \(r + 1\) of \(T\) are \vocab{intertwined} if they satisfy Case~I, that is, if
+\begin{equation}
+    \ind{T(i,r+1), T(i+1,r)} + \ind{T(i+1,r+1), T(i,r)} - \ind{T(i,r+1), T(i,r)} - \ind{T(i+1,r+1), T(i+1,r)} = \pm 1.
+\end{equation}
+The interval of rows \(\interval{\alpha_{i+1}}\) is uniquely partitioned into intervals, called \vocab{blocks}, such that two consecutive rows in the same block are intertwined, and two consecutive rows in different blocks are not intertwined.
+\Cref{fig:blocks} shows a filling and its blocks.
+ 
+\begin{figure}[htbp]
+    \centering
+	\begin{tikzpicture}[scale=.5]
+		\node at (-0.5, 7.5) {\tiny \(7\)};
+		\node at (-0.5, 6.5) {\tiny \(6\)};
+		\node at (-0.5, 5.5) {\tiny \(5\)};
+		\node at (-0.5, 4.5) {\tiny \(4\)};
+		\node at (-0.5, 3.5) {\tiny \(3\)};
+		\node at (-0.5, 2.5) {\tiny \(2\)};
+		\node at (-0.5, 1.5) {\tiny \(1\)};
+		\node[anchor=north] at (0.5, 1) {\(\scriptstyle i\)};
+		\node[anchor=north] at (1.5, 1) {\(\scriptstyle i+1\)};
+		\draw (0, 7) rectangle ++(1, 1);
+		\draw (1, 6) rectangle ++(1, 1)[fill=gray!50];
+		\draw (0, 6) rectangle ++(1, 1)[fill=gray!50];
+		\draw (1, 5) rectangle ++(1, 1)[fill=gray!50];
+		\draw (0, 5) rectangle ++(1, 1)[fill=gray!50];
+		\draw (1, 4) rectangle ++(1, 1);
+		\draw (0, 4) rectangle ++(1, 1);
+		\draw (1, 3) rectangle ++(1, 1);
+		\draw (0, 3) rectangle ++(1, 1);
+		\draw (1, 2) rectangle ++(1, 1);
+		\draw (0, 2) rectangle ++(1, 1);
+		\draw (1, 1) rectangle ++(1, 1)[fill=gray!50];
+		\draw (0, 1) rectangle ++(1, 1)[fill=gray!50];
+		\node at (0.5, 7.5) {\(3\)};
+		\node at (1.5, 6.5) {\(5\)};
+		\node at (0.5, 6.5) {\(1\)};
+		\node at (1.5, 5.5) {\(2\)};
+		\node at (0.5, 5.5) {\(4\)};
+		\node at (1.5, 4.5) {\(8\)};
+		\node at (0.5, 4.5) {\(5\)};
+		\node at (1.5, 3.5) {\(6\)};
+		\node at (0.5, 3.5) {\(1\)};
+		\node at (1.5, 2.5) {\(7\)};
+		\node at (0.5, 2.5) {\(3\)};
+		\node at (1.5, 1.5) {\(6\)};
+		\node at (0.5, 1.5) {\(4\)};
+		\draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 5.1) -- (2, 6.9) node[midway, anchor=west, xshift=10pt] {third block};
+		\draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 2.1) -- (2, 4.9) node[midway, anchor=west, xshift=10pt] {second block};
+		\draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 1.1) -- (2, 1.9) node[midway, anchor=west, xshift=10pt] {first block};
+	\end{tikzpicture}
+	\caption{Columns \(i\) and \(i+1\) of a filling \(T\) with three blocks.}
+	\label{fig:blocks}
+\end{figure}
+
+We define \(U = \phi(T) \in \Fill(s_i \permact \alpha)\).
+Just like before, it suffices to define, for each row \(r \in \interval{\alpha_{i+1}}\), whether the entries in row \(r\) of columns \(i\) and \(i+1\) of \(T\) and \(U\) are swapped or not swapped.
+
+For each block, we either copy the block as-is to \(U\), or we swap the two columns of the block when copying it to \(U\).
+Let's focus on a block of \(T\).
+Let \(a\) and \(b\) be the entries in columns \(i\) and \(i+1\) of the top row of the block, respectively.
+Let \(c\) and \(d\) be the entries in columns \(i\) and \(i+1\) of the bottom row of the block, respectively.
+Let \(e_1\) and \(e_2\) be the entries in columns \(i\) and \(i+1\) of the row immediately above the block, respectively.
+In the case that the block is the topmost block, we leave \(e_2\) undefined.
+Let \(f_1\) and \(f_2\) be the entries in columns \(i\) and \(i+1\) of the row immediately below the block, respectively.
+In the case that the block is the bottommost block, we take \(f_1 = f_2 = \infty\).
+ 
+\begin{figure}[htbp]
+    \centering
+	\begin{tikzpicture}[scale=.5]
+		\draw (0, 0) rectangle ++(1, 1);
+		\draw (1, 0) rectangle ++(1, 1);
+		\draw[fill=gray!50] (0, 1) rectangle ++(1, 1);
+		\draw[fill=gray!50] (1, 1) rectangle ++(1, 1);
+		\fill[gray!50] (0, 2) rectangle ++(2, 2);
+		\node at (1, 3.25) {\(\vdots\)};
+		\draw[fill=gray!50] (0, 4) rectangle ++(1, 1);
+		\draw[fill=gray!50] (1, 4) rectangle ++(1, 1);
+		\draw (0, 5) rectangle ++(1, 1);
+		\draw (1, 5) rectangle ++(1, 1);
+		\node at (0.5, 5.5) {\(e_1\)};
+		\node at (1.5, 5.5) {\(e_2\)};
+		\node at (0.5, 4.5) {\(a\)};
+		\node at (1.5, 4.5) {\(b\)};
+		\node at (0.5, 1.5) {\(c\)};
+		\node at (1.5, 1.5) {\(d\)};
+		\node at (0.5, 0.5) {\(f_1\)};
+		\node at (1.5, 0.5) {\(f_2\)};
+	\end{tikzpicture}
+	\caption{A block of a filling \(T\), with the entries \(a, b, c, d, e_1, e_2, f_1, f_2\) indicated.}
+	\label{fig:general-block}
+\end{figure}
+
+Since the rows containing \(f_1, f_2\) and \(c, d\) are not intertwined, \(\ind{c, d, f_1} = \ind{c, d, f_2}\).
+We denote this common value by \(\ind{c, d, f_\bullet}\).
+Similarly, since the rows containing \(a, b\) and \(e_1, e_2\) are not intertwined, \(\ind{e_1, a, b} = \ind{e_2, a, b}\).
+We denote this common value by \(\ind{e_\bullet, a, b}\).
+
+If \(\ind{c, d, f_\bullet} = \ind{e_\bullet, a, b}\), then we copy the block as-is to \(U\).
+Otherwise, if \(\ind{c, d, f_\bullet} \neq \ind{e_\bullet, a, b}\), we copy the column \(i\) of the block to column \(i+1\) in \(U\) and the column \(i+1\) of the block to column \(i\) in \(U\), keeping the entries in the same rows.
+
+\Cref{fig:output-filling} shows the result of this procedure with the filling from \Cref{fig:blocks} as the input.
+
+\begin{figure}[htbp]
+    \centering
+	\begin{tikzpicture}[scale=.5]
+		\node at (-0.5, 7.5) {\tiny \(7\)};
+		\node at (-0.5, 6.5) {\tiny \(6\)};
+		\node at (-0.5, 5.5) {\tiny \(5\)};
+		\node at (-0.5, 4.5) {\tiny \(4\)};
+		\node at (-0.5, 3.5) {\tiny \(3\)};
+		\node at (-0.5, 2.5) {\tiny \(2\)};
+		\node at (-0.5, 1.5) {\tiny \(1\)};
+		\node[anchor=north] at (0.5, 1) {\(\scriptstyle i\)};
+		\node[anchor=north] at (1.5, 1) {\(\scriptstyle i+1\)};
+		\draw (1, 7) rectangle ++(1, 1);
+		\draw (1, 6) rectangle ++(1, 1)[fill=gray!50];
+		\draw (0, 6) rectangle ++(1, 1)[fill=gray!50];
+		\draw (1, 5) rectangle ++(1, 1)[fill=gray!50];
+		\draw (0, 5) rectangle ++(1, 1)[fill=gray!50];
+		\draw (1, 4) rectangle ++(1, 1);
+		\draw (0, 4) rectangle ++(1, 1);
+		\draw (1, 3) rectangle ++(1, 1);
+		\draw (0, 3) rectangle ++(1, 1);
+		\draw (1, 2) rectangle ++(1, 1);
+		\draw (0, 2) rectangle ++(1, 1);
+		\draw (1, 1) rectangle ++(1, 1)[fill=gray!50];
+		\draw (0, 1) rectangle ++(1, 1)[fill=gray!50];
+		\node at (1.5, 7.5) {\(3\)};
+		\node at (1.5, 6.5) {\(5\)};
+		\node at (0.5, 6.5) {\(1\)};
+		\node at (1.5, 5.5) {\(2\)};
+		\node at (0.5, 5.5) {\(4\)};
+		\node at (1.5, 4.5) {\(5\)};
+		\node at (0.5, 4.5) {\(8\)};
+		\node at (1.5, 3.5) {\(1\)};
+		\node at (0.5, 3.5) {\(6\)};
+		\node at (1.5, 2.5) {\(3\)};
+		\node at (0.5, 2.5) {\(7\)};
+		\node at (1.5, 1.5) {\(6\)};
+		\node at (0.5, 1.5) {\(4\)};
+		\draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 5.1) -- (2, 6.9) node[midway, anchor=west, xshift=10pt] {unchanged, since \(\ind{4, 2, 5} = 1 = \ind{3, 1, 5}\)};
+		\draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 2.1) -- (2, 4.9) node[midway, anchor=west, xshift=10pt] {swapped, since \(\ind{2, 5, 8} = 0 \neq 1 = \ind{3, 7, 4}\)};
+		\draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 1.1) -- (2, 1.9) node[midway, anchor=west, xshift=10pt] {unchanged, since \(\ind{4, 6, \infty} = 0 = \ind{7, 4, 6}\)};
+	\end{tikzpicture}
+	\caption{Columns \(i\) and \(i+1\) of the filling \(U\) derived from the filling \(T\) in \cref{fig:blocks}.}
+	\label{fig:output-filling}
+\end{figure}
+
+The map \(U = \psi(T) \in \Fill(s_i \permact \alpha)\) is defined in the same way, except that the bottommost block does the opposite of what it would do in the case of \(\phi\).
 
 \section{Properties of the bijections \texorpdfstring{\(\phi\)}{𝜙} and \texorpdfstring{\(\psi\)}{𝜓}}
 
