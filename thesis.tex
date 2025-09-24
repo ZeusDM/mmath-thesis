@@ -139,6 +139,10 @@
 \marginparsep=\dimexpr \marginparsep + .1in\relax
 \marginparwidth=\dimexpr \marginparwidth + 2.2in\relax
 
+% Silence warnings about todo notes in margin
+\usepackage{silence}
+\WarningFilter{latex}{Marginpar on page}
+
 % Draw a vertical line at the original page boundary
 \usepackage{tikzpagenodes}
 \usepackage{atbegshi}
