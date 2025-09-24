@@ -1,5 +1,11 @@
-\documentclass[letterpaper,12pt,titlepage,twoside]{book}
+\documentclass[letterpaper,12pt,titlepage,openright,oneside]{book}
 %\documentclass[letterpaper,12pt,titlepage,openright,twoside,final]{book}
+
+% Have openright to work with oneside option
+\makeatletter
+\def\cleardoublepage{\clearpage\ifodd\c@page\else
+    \hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi}
+\makeatother
 
 \setlength{\marginparwidth}{0pt}
 \setlength{\marginparsep}{0pt}
