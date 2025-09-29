@@ -463,8 +463,8 @@ See \cref{fig:inversion-coinversion} for an example.
 		We show all five triples of
 		the filling \(T\) in \cref{fig:non-attacking-filling};
 		the first four are of type A, and the last one is of type B.
-		There are two inversion triples (orange)
-		and three coinversion triples (purple),
+		There are two inversion triples (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[fill=orange!70!white] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,)
+		and three coinversion triples (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[fill=purple!50!white] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,),
 		which gives \(\inv(T) = 2\) and \(\coinv(T) = 3\).
 	}
 	\label{fig:inversion-coinversion}
@@ -506,6 +506,7 @@ is the set
 which is obtained from \(\dg(\alpha)\) by adding an extra row of \(n\) boxes below row \(1\),
 called the \vocab{row \(0\)} or the \vocab{basement}.
 \Cref{fig:augmented-skyline} provides an example of an augmented skyline diagram.
+Augmented skyline diagrams are always be drawn with the basement shaded in gray to distinguish them from non-augmented skyline diagrams.
 
 \begin{figure}[htbp]
 	\centering
@@ -527,7 +528,8 @@ called the \vocab{row \(0\)} or the \vocab{basement}.
 	\end{tikzpicture}
 	\caption{
 		The augmented skyline diagram 
-		of the composition \(\alpha = \composition{2, 3, 0, 1, 2, 0}\), with the basement (row~0) shaded in gray.
+		of the composition \(\alpha = \composition{2, 3, 0, 1, 2, 0}\).
+		The basement (row~\(0\)) is shaded in gray (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[fill=gray!30] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,).
 	}
 	\label{fig:augmented-skyline}
 \end{figure}
@@ -543,17 +545,55 @@ Note that the south of a box in row \(1\) of \(\adg(\alpha)\) is also a box in \
 We also remark that the south of a box in row \(0\) is not a box in row \(-1\) outside \(\adg(\alpha)\), but rather is simply undefined.
 
 An \vocab{augmented filling} of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\), basement \(\sigma = \composition{\sigma_1, \ldots, \sigma_n}\), and labels in an alphabet \(\mathcal{A}\) is a function \(T \colon \adg(\alpha) \to \mathcal{A}\) such that \(T(i, 0) = \sigma_i\) for all \(i \in \interval{n}\).
-
 Let \(\Fill[\mathcal{A}](\alpha, \sigma)\) denote the set of augmented fillings of shape \(\alpha\), basement \(\sigma\), and labels in \(\mathcal{A}\).
 The non-attacking condition for augmented fillings is defined as in \cref{subsec:non-augmented-fillings}.
 Let \(\NAF[\mathcal{A}](\alpha, \sigma) \subseteq \Fill[\mathcal{A}](\alpha, \sigma)\) denote the set of non-attacking augmented fillings of shape \(\alpha\), basement \(\sigma\), and labels in \(\mathcal{A}\).
 
-Note that the non-attacking condition implies that the basement \(\sigma\) of a non-attacking augmented filling with labels in \(\interval{n}\) is a permutation of \(\interval{n}\).
+See \Cref{fig:non-attacking-augmented-filling} for an example of a non-attacking augmented filling.
+Augmented fillings are always drawn with the basement shaded in gray to distinguish them from non-augmented fillings.
+
+\begin{figure}[htbp]
+    \centering
+	\begin{tikzpicture}[x=.5cm, y=.5cm]
+		\def\shape{3, 3, 0, 1, 2}
+		\def\filling{
+			2, 3, 1, 5,
+			1, 1, 2, 4,
+			3, 
+			5, 5,
+			4, 4, 4}
+		\edef\reading{0}
+		\foreach \height [count = \column] in \shape{
+			\foreach \row in {0,...,\height}{
+				\pgfmathparse{int(\reading + 1)}
+				\xdef\reading{\pgfmathresult}
+				\ifnum \row = 0
+					\fill[gray!30] (\column, \row) rectangle (\column + 1, \row + 1);
+				\fi
+				\draw[black] (\column, \row) rectangle (\column + 1, \row + 1);
+				\coordinate (B\reading) at (\column + .5, \row + .5);
+			}
+		}
+		\foreach \i [count = \j] in \filling{ \node at (B\j) {\i}; }
+	\end{tikzpicture}
+	\caption{
+		A non-attacking augmented filling of
+		shape \(\alpha = \composition{3, 3, 0, 1, 2}\) and
+		basement \(\sigma = \composition{2, 1, 3, 5, 4}\),
+		with labels in \(\interval{5}\).
+		The basement is shaded in gray (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[fill=gray!30] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,).
+	}
+	\label{fig:non-attacking-augmented-filling}
+\end{figure}
+
+Note that the non-attacking condition implies that, for a non-attacking augmented filling with labels in \(\interval{n}\), the entries \(\sigma_1, \ldots, \sigma_n\) in the basement are distinct.
+Therefore, the basement \(\sigma\) can be identified with a permutation of \(\interval{n}\).
 For (possibly attacking) augmented fillings with labels in \(\interval{n}\) or \(\interval{n}_\pm\), the definition allows for repeated or negative entries in the basement.
 However, the applications in this work only require the case of a permutation basement, that is, positive and distinct entries in the basement.
 
 The \vocab{content} of an augmented filling \(T\) is the composition \(\beta = \content(T)\) where \(\beta_i\) is the number of boxes \(u \in \dg(\alpha)\) such that \(T(u) = i\) if \(\mathcal{A} = \interval{n}\), or such that \(|T(u)| = i\) if \(\mathcal{A} = \interval{n}_\pm\).
 Note that boxes in row \(0\) are not counted in the content.
+For example, the augmented filling \(T\) in \cref{fig:non-attacking-augmented-filling} has content \(\content(T) = \composition{2, 1, 1, 2, 3}\) and \(\mathbf{x}^T = \mathbf{x}^{\content(T)} = x_1^2 x_2^1 x_3^1 x_4^2 x_5^3\).
 
 The definitions of descents, and major index for augmented fillings are as in \cref{subsec:non-augmented-fillings}.
 Note that boxes in row \(1\) can be descents, since the label of the south of a box in row \(1\) is now given by the basement, rather than being \(\infty\) by convention.
