@@ -639,7 +639,7 @@ Together with \Cref{eq:total-triples-augmented}, we also obtain an alternative d
 
 If we didn't shade the basement in gray,
 it would be easy to mistake an augmented filling for a non-augmented filling.
-This would lead to mistakes in computing the statistics \(\maj\), \(\inv\), and \(\coinv\).
+This would lead to mistakes in computing the statistics \(\inv\) and \(\coinv\).
 However, the mistakes would be systematic, and we can quantify them.
 In a later chapter, we will use this difference create a bijection for non-attacking fillings using a bijection for augmented fillings.
 
@@ -705,7 +705,10 @@ See \cref{fig:augmented-to-non-augmented} for an example.
 	\label{fig:augmented-to-non-augmented}
 \end{figure}
 
-Define 
+It's straightforward to check that \(\maj(T) = \maj(T')\).
+
+However, \(\inv(T)\) and \(\coinv(T)\) may differ from \(\inv(T')\) and \(\coinv(T')\), respectively.
+We define new statistics \(\operatorname{syminv}\) and \(\operatorname{symcoinv}\) on augmented fillings by
 \begin{equation}
 	\operatorname{syminv}(T) = \inv(T')
 	\quad \text{and} \quad
