@@ -253,43 +253,49 @@ Let \(\Fill[\mathcal{A}](\alpha)\) denote the set of (non-augmented) fillings of
 A filling \(T\in \Fill[\mathcal{A}](\alpha)\)
 is \vocab{non-attacking} if \(T(u) \neq T(v)\) whenever \(u\) attacks \(v\) in \(\dg(\alpha)\).
 Let \(\NAF[\mathcal{A}](\alpha) \subseteq \Fill[\mathcal{A}](\alpha)\) denote the set of non-attacking fillings of shape \(\alpha\) with labels in \(\mathcal{A}\).
-
-The \vocab{content} of a filling \(T\) with labels in the unsigned alphabets \(\positives\) or \(\interval{n}\) is the composition \(\beta = \content(T)\) where \(\beta_i\) is the number of occurrences of the label \(i\) in \(T\).
-The \vocab{content} of a filling \(T\) with labels in the signed alphabets \(\integers_\pm\) or \(\interval{n}_\pm\) is the composition \(\beta = \content(T)\) where \(\beta_i\) is the number of occurrences of the label \(i\) or \(\bar{i}\) in \(T\), i.e., the number of entries of \(T\) whose absolute value is \(i\).
-In both contexts, we let
-\[
-	\mathbf{x}^T = \mathbf{x}^{\content(T)} = \prod_{i} x_i^{\beta_i}.
-\]
-
 See \Cref{fig:non-attacking-filling} for an example of a non-attacking filling.
 
 \begin{figure}[htbp]
     \centering
 	\begin{tikzpicture}[x=.5cm, y=.5cm]
-		\def\shape{2, 2, 0, 1}
+		\def\shape{3, 3, 0, 1, 2}
 		\def\filling{
-			3, 1, 2,
+			3, 1, 5,
 			1, 2, 4,
-			2,
+			5,
 			4, 4}
 		\edef\reading{0}
 		\foreach \height [count = \column] in \shape{
-			\foreach \row in {0,...,\height}{
+			\ifnum\height>0
+				\foreach \row in {1,...,\height}{
 					\pgfmathparse{int(\reading + 1)}
 					\xdef\reading{\pgfmathresult}
 					\draw[black] (\column, \row) rectangle (\column + 1, \row + 1);
 					\coordinate (B\reading) at (\column + .5, \row + .5);
 				}
+			\fi
+			\ifnum\height=0
+				\draw[black] (\column, 1) -- (\column + 1, 1);
+			\fi
 		}
 		\foreach \i [count = \j] in \filling{ \node at (B\j) {\i}; }
 	\end{tikzpicture}
 	\caption{
 		A non-attacking filling of
-		shape \(\alpha = \composition{3, 3, 1, 2}\)
-		with \(\content(T) = \composition{2, 3, 1, 3}\).
+		shape \(\alpha = \composition{3, 3, 0, 1, 2}\)
+		with labels in \(\interval{5}\).
 	}
 	\label{fig:non-attacking-filling}
 \end{figure}
+
+The \vocab{content} of a filling \(T\) with labels in the unsigned alphabets \(\positives\) or \(\interval{n}\) is the composition \(\beta = \content(T)\) where \(\beta_i\) is the number of boxes \(u \in \dg(\alpha)\) such that \(T(u) = i\).
+The \vocab{content} of a filling \(T\) with labels in the signed alphabets \(\integers_\pm\) or \(\interval{n}_\pm\) is the composition \(\beta = \content(T)\) where \(\beta_i\) is the number of boxes \(u \in \dg(\alpha)\) such that \(|T(u)| = i\).
+In both contexts, we let
+\[
+	\mathbf{x}^T = \mathbf{x}^{\content(T)} = \prod_{i} x_i^{\beta_i}.
+\]
+
+For example, the filling \(T\) in \cref{fig:non-attacking-filling} has content \(\content(T) = \composition{2, 1, 1, 2, 3}\) and \(\mathbf{x}^T = \mathbf{x}^{\content(T)} = x_1^2 x_2^1 x_3^1 x_4^2 x_5^3\).
 
 Recall that boxes in row \(0\), which are not in \(\dg(\alpha)\),
 can be obtained as the south of boxes in row \(1\).
@@ -526,15 +532,10 @@ called the \vocab{row \(0\)} or the \vocab{basement}.
 	\label{fig:augmented-skyline}
 \end{figure}
 
-The attacking relation, leg set, arm set, leg statistic, arm statistic in \(\adg(\alpha)\) are defined as in \cref{subsec:non-augmented-fillings}.
-For these definitions, the boxes in row \(0\) of \(\adg(\alpha)\) behave just like the other boxes in \(\adg(\alpha)\).
-
-Since boxes in row \(0\) are now part of the diagram, subtle differences arise.
-For example, for \(u = (i, r) \in \adg(\alpha)\),
-we have \(\Attack_{\adg(\alpha)}(u) = \Attack_{\dg(\alpha)}(u)\) if \(r \geq 2\).
-However, if \(r = 1\), then \(\Attack_{\adg(\alpha)}(u)\) may contain boxes in row \(0\) that are not in \(\Attack_{\dg(\alpha)}(u)\).
-A similar comment applies to \(\Arm_{\adg(\alpha)}(u)\) and \(\Arm_{\dg(\alpha)}(u)\), and consequently to \(\arm_{\adg(\alpha)}(u)\) and \(\arm_{\dg(\alpha)}(u)\).
-Therefore, one must pay attention to which diagram is being used when computing these sets and statistics for a box in row \(1\).
+The attacking relation, leg set, arm set, leg statistic, and arm statistic in \(\adg(\alpha)\) are defined as in \cref{subsec:non-augmented-fillings}, with boxes in row \(0\) treated like any other boxes.
+However, since row \(0\) is now part of the diagram, there are subtle differences: for \(u = (i, r) \in \adg(\alpha)\), if \(r \geq 2\), then \(\Attack_{\adg(\alpha)}(u) = \Attack_{\dg(\alpha)}(u)\) and \(\arm_{\adg(\alpha)}(u) = \arm_{\dg(\alpha)}(u)\); but if \(r = 1\), \(\Attack_{\adg(\alpha)}(u)\) and \(\Arm_{\adg(\alpha)}(u)\) may include boxes in row \(0\) not present in the non-augmented case.
+Thus, extra attention is needed when computing these sets and statistics for boxes in row \(1\), as they may differ depending on whether \(\dg(\alpha)\) or \(\adg(\alpha)\) is used.
+If we need to distinguish between the two settings, we use the subscripts \(\dg(\alpha)\) or \(\adg(\alpha)\) to indicate which diagram is being used.
 
 The definition of the south of a box is slightly different in the augmented setting.
 Given a box \(u = (i, r)\), if \(r \geq 1\), the \vocab{south} of \(u\) is the box \(\south{u} = (i, r-1)\), while if \(r = 0\), then \(\south{u}\) is not defined.
@@ -551,7 +552,10 @@ Note that the non-attacking condition implies that the basement \(\sigma\) of a 
 For (possibly attacking) augmented fillings with labels in \(\interval{n}\) or \(\interval{n}_\pm\), the definition allows for repeated or negative entries in the basement.
 However, the applications in this work only require the case of a permutation basement, that is, positive and distinct entries in the basement.
 
-The definitions of content, descents, and major index for augmented fillings are as in \cref{subsec:non-augmented-fillings}.
+The \vocab{content} of an augmented filling \(T\) is the composition \(\beta = \content(T)\) where \(\beta_i\) is the number of boxes \(u \in \dg(\alpha)\) such that \(T(u) = i\) if \(\mathcal{A} = \interval{n}\), or such that \(|T(u)| = i\) if \(\mathcal{A} = \interval{n}_\pm\).
+Note that boxes in row \(0\) are not counted in the content.
+
+The definitions of descents, and major index for augmented fillings are as in \cref{subsec:non-augmented-fillings}.
 Note that boxes in row \(1\) can be descents, since the label of the south of a box in row \(1\) is now given by the basement, rather than being \(\infty\) by convention.
 However, boxes in row \(0\) are never descents, since they do not have a south.
 
