@@ -635,6 +635,133 @@ Together with \Cref{eq:total-triples-augmented}, we also obtain an alternative d
 
 \todo[caption={Define \(\operatorname{syminv}\) and \(\operatorname{symcoinv}\).}]{Add \(\operatorname{syminv}\) and \(\operatorname{symcoinv}\), which are the \(\inv\) and \(\coinv\) statistics that one would get by interpreting an augmented filling of shape \(\alpha\) as a non-augmented filling of shape \(\alpha + (1, 1, \dots, 1)\).}
 
+\subsection{Mistaking augmented fillings for non-augmented fillings}
+
+If we didn't shade the basement in gray,
+it would be easy to mistake an augmented filling for a non-augmented filling.
+This would lead to mistakes in computing the statistics \(\maj\), \(\inv\), and \(\coinv\).
+However, the mistakes would be systematic, and we can quantify them.
+In a later chapter, we will use this difference create a bijection for non-attacking fillings using a bijection for augmented fillings.
+
+Let \(T \in \Fill[\mathcal{A}](\alpha, \sigma)\) be an augmented filling of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\), basement \(\sigma = \composition{\sigma_1, \ldots, \sigma_n}\), and labels in an alphabet \(\mathcal{A}\).
+Let \(T' \in \Fill[\mathcal{A}](\alpha')\) be the non-augmented filling of shape \(\alpha' = \composition{(\alpha_1 + 1), \ldots, (\alpha_n + 1)}\) defined by \(T'(i, r) = T(i, r - 1)\) for all \((i, r) \in \dg(\alpha')\).
+See \cref{fig:augmented-to-non-augmented} for an example.
+
+\begin{figure}[htbp]
+    \centering
+	\begin{tikzpicture}[x=.5cm, y=.5cm]
+		\def\shape{3, 3, 0, 1, 2}
+		\def\filling{
+			2, 3, 1, 5,
+			1, 1, 2, 4,
+			3, 
+			5, 5,
+			4, 4, 4}
+		\edef\reading{0}
+		\foreach \height [count = \column] in \shape{
+			\foreach \row in {0,...,\height}{
+				\pgfmathparse{int(\reading + 1)}
+				\xdef\reading{\pgfmathresult}
+				\ifnum \row = 0
+					\fill[gray!30] (\column, \row) rectangle (\column + 1, \row + 1);
+				\fi
+				\draw[black] (\column, \row) rectangle (\column + 1, \row + 1);
+				\coordinate (B\reading) at (\column + .5, \row + .5);
+			}
+		}
+		\foreach \i [count = \j] in \filling{ \node at (B\j) {\i}; }
+		\foreach \row in {0, 1, 2, 3}{ \node at (.5, \row + .5) {\(\scriptstyle \row\)}; }
+	\end{tikzpicture}
+	\hspace{1cm}
+	\begin{tikzpicture}[x=.5cm, y=.5cm]
+		\def\shape{4, 4, 1, 2, 3}
+		\def\filling{
+			2, 3, 1, 5,
+			1, 1, 2, 4,
+			3, 
+			5, 5,
+			4, 4, 4}
+		\edef\reading{0}
+		\foreach \height [count = \column] in \shape{
+			\foreach \row in {1,...,\height}{
+				\pgfmathparse{int(\reading + 1)}
+				\xdef\reading{\pgfmathresult}
+				\draw[black] (\column, \row) rectangle (\column + 1, \row + 1);
+				\coordinate (B\reading) at (\column + .5, \row + .5);
+			}
+		}
+		\foreach \i [count = \j] in \filling{ \node at (B\j) {\i}; }
+		\foreach \row in {1, 2, 3, 4}{ \node at (.5, \row + .5) {\(\scriptstyle \row\)}; }
+	\end{tikzpicture}
+	\caption{
+		An augmented filling \(T\) of
+		shape \(\alpha = \composition{3, 3, 0, 1, 2}\) and
+		basement \(\sigma = \composition{2, 1, 3, 5, 4}\),
+		with labels in \(\interval{5}\) (left);
+		and the corresponding non-augmented filling \(T'\) of
+		shape \(\alpha' = \composition{4, 4, 1, 2, 3}\)
+		(with labels in \(\interval{5}\)) obtained by ignoring the basement (right).
+	}
+	\label{fig:augmented-to-non-augmented}
+\end{figure}
+
+Define 
+\begin{equation}
+	\operatorname{syminv}(T) = \inv(T')
+	\quad \text{and} \quad
+	\operatorname{symcoinv}(T) = \coinv(T').
+\end{equation}
+
+\begin{proposition}
+	Let \(T \in \Fill[\mathcal{A}](\alpha, \sigma)\) be an augmented filling of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\), basement \(\sigma = \composition{\sigma_1, \ldots, \sigma_n}\).
+	Then,
+	\begin{equation}
+		\operatorname{syminv}(T)
+		= \inv(T) +
+		\left| \left\{ (i, j) \suchthat 1 \leq i < j \leq n \text{ and } \alpha_i \geq \alpha_j \text{ and } \ind{\sigma_i, \sigma_j} = 1 \right\} \right|
+	\end{equation}
+	and
+	\begin{equation}
+		\operatorname{symcoinv}(T)
+		= \coinv(T) +
+		\left| \left\{ (i, j) \suchthat 1 \leq i < j \leq n \text{ and } \alpha_i \geq \alpha_j \text{ and } \ind{\sigma_i, \sigma_j} = 0 \right\} \right|.
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Consider a triple \((u, v, w)\) in \(\adg(\alpha)\).
+	Define \(u' = u + (0, 1)\), \(v' = v + (0, 1)\), and \(w' = w + (0, 1)\).
+	Then, \((u', v', w')\) is a triple in \(\dg(\alpha')\).
+	Note that all triples \((u', v', w')\) such that \(u'\) is not in row \(1\) are obtained in this way from triples \((u, v, w)\) in \(\adg(\alpha)\).
+	Moreover, \((u, v, w)\) is an inversion triple in \(T\) if and only if \((u', v', w')\) is an inversion triple in \(T'\).
+	Therefore,
+	\begin{equation} \label{eq:inv-prime-not-row-1}
+		\left| \{ \text{inversion triples } (u', v', w') \text{ in } T' \suchthat u' \text{ is not in row } 1 \} \right|
+		= \inv(T),
+	\end{equation}
+	and similarly,
+	\begin{equation} \label{eq:coinv-prime-not-row-1}
+		\left| \{ \text{coinversion triples } (u', v', w') \text{ in } T' \suchthat u' \text{ is not in row } 1 \} \right|
+		= \coinv(T).
+	\end{equation}
+
+	Now, consider triples \((u', v', w')\) in \(\dg(\alpha')\) such that \(u'\) is in row \(1\).
+	This is equivalent to \(u' = (i, 1)\) for some \(i \in \interval{n}\), and \(v' = (j, 1)\) for some \(j \in \interval{n}\) such that \(j > i\) and \(\alpha'_i \geq \alpha'_j\).
+	This is an inversion triple in \(T'\) if and only if \(\ind{\sigma_i, \sigma_j, \infty} = 1\), which is equivalent to \(\ind{\sigma_i, \sigma_j} = 1\).
+	Therefore,
+	\begin{multline} \label{eq:inv-prime-row-1}
+		\left| \{ \text{inversion triples } (u', v', w') \text{ in } T' \suchthat u' \text{ is in row } 1 \} \right| = \\
+		= \left| \left\{ (i, j) \suchthat 1 \leq i < j \leq n \text{ and } \alpha_i \geq \alpha_j \text{ and } \ind{\sigma_i, \sigma_j} = 1 \right\} \right|,
+	\end{multline}
+	and similarly,
+	\begin{multline} \label{eq:coinv-prime-row-1}
+		\left| \{ \text{coinversion triples } (u', v', w') \text{ in } T' \suchthat u' \text{ is in row } 1 \} \right| = \\
+		= \left| \left\{{(i, j) \suchthat 1 \leq i < j \leq n \text{ and } \alpha_i \geq \alpha_j \text{ and } \ind{\sigma_i, \sigma_j} = 0} \right\} \right|.
+	\end{multline}
+
+	The results follow by adding \Cref{eq:inv-prime-not-row-1} and \Cref{eq:inv-prime-row-1}, and adding \Cref{eq:coinv-prime-not-row-1} and \Cref{eq:coinv-prime-row-1}.
+\end{proof}
+
 \section{Combinatorial models for Macdonald polynomials}
 
 \subsection{Modified Macdonald polynomials \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ} as tableaux generating functions}
