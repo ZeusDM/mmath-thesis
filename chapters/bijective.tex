@@ -2,21 +2,90 @@
 
 \todo{Write all of the polynomial identities in the introduction of this chapter.}
 
-In this chapter, we describe \cite{KLO22}'s bijection between
-\begin{equation}
-    \Fill[\mathcal{A}](\mu) \quad \text{and} \quad \Fill[\mathcal{A}](s_i \permact \mu),
-\end{equation}
-which preserves the statistics $\inv$ and $\maj$.
+% In this chapter, we describe \cite{KLO22}'s bijection between
+% \begin{equation}
+%     \Fill[\mathcal{A}](\mu) \quad \text{and} \quad \Fill[\mathcal{A}](s_i \permact \mu),
+% \end{equation}
+% which preserves the statistics $\inv$ and $\maj$.
+% 
+% The existence of this bijection implies that 
+% \begin{equation}
+%     \tilde{H}_\mu[X;q,t] = \tilde{H}_{s_i \permact \mu}[X;q,t],
+% \end{equation}
+% and by applying this result repeatedly, we obtain
+% \begin{equation}
+%     \tilde{H}_{\mu}[X;q,t] = \tilde{H}_{\alpha}[X;q,t],
+% \end{equation}
+% where $\alpha$ is a rearrangement of the partition $\mu$.
 
-The existence of this bijection implies that 
-\begin{equation}
-    \tilde{H}_\mu[X;q,t] = \tilde{H}_{s_i \permact \mu}[X;q,t],
+In the first part of this chapter, we follow \cite{KLO22}'s argument to prove \Cref{thm:tildeH-rearrangement},
+which was established in \cite{HHL08}.
+\begin{theorem} \label{thm:tildeH-rearrangement}
+    Let \(\mu\) be a partition and \(\alpha\) be a rearrangement of \(\mu\).
+    Then
+    \begin{equation}
+        \tilde{H}_{\mu}(\mathbf{x}; q, t) = \tilde{H}_{\alpha}(\mathbf{x}; q, t).
+    \end{equation}
+\end{theorem}
+This is done by constructing a bijection \(\phi\) between \(\Fill(\alpha)\) and \(\Fill(s_i \permact \alpha)\) that preserves the statistics \(\inv\) and \(\maj\), for all \(i\) such that \(\alpha_i > \alpha_{i+1}\).
+
+In the second part of this chapter,
+we prove \Cref{thm:three-term-a,thm:three-term-b}, which are the three-term identities for permuted-basement Macdonald polynomials.
+\begin{theorem} \label{thm:three-term-a}
+    Let \(i \in \interval{n-1}\),
+    \(\alpha = \composition{\alpha_1, \dots, \alpha_n}\) be a composition with \(\alpha_i < \alpha_{i+1}\),
+    and \(\sigma = \window{\sigma_1, \dots, \sigma_n} \in \sym{n}\) be a permutation with \(\sigma_i > \sigma_{i+1}\).
+    Then, we have
+    \begin{equation} \label{eq:three-term-a}
+        E_{s_i \permact \alpha}^\sigma(\mathbf{x}; q, t)
+        =
+        E_\alpha^\sigma(\mathbf{x}; q, t)
+        +
+        t^{\twinv(\alpha, \sigma) - \twinv(s_i \permact \alpha, \sigma)}
+        \frac{1 - t}{1 - q^{L+1} t^{A}}
+        E_\alpha^{s_i \sigma}(\mathbf{x}; q, t),
+    \end{equation}
+    where \(L = \leg(x)\) and \(A = \arm(x)\) for \(x = (i+1, \alpha_i + 1) \in \dg(\alpha)\).
+\end{theorem}
+\begin{theorem} \label{thm:three-term-b}
+    Let \(i \in \interval{n-1}\),
+    \(\alpha = \composition{\alpha_1, \dots, \alpha_n}\) be a composition with \(\alpha_i < \alpha_{i+1}\),
+    and \(\sigma = \window{\sigma_1, \dots, \sigma_n} \in \sym{n}\) be a permutation with \(\sigma_i < \sigma_{i+1}\).
+    Then, we have
+    \begin{equation} \label{eq:three-term-b}
+        E_{s_i \permact \alpha}^\sigma(\mathbf{x}; q, t)
+        =
+        E_\alpha^\sigma(\mathbf{x}; q, t)
+        +
+        (q^{L+1} t^A)
+        t^{\twinv(\alpha, \sigma) - \twinv(s_i \permact \alpha, \sigma)}
+        \frac{1 - t}{1 - q^{L+1} t^{A}}
+        E_\alpha^{s_i \sigma}(\mathbf{x}; q, t),
+    \end{equation}
+    where \(L = \leg(x)\) and \(A = \arm(x)\) for \(x = (i+1, \alpha_i + 1) \in \dg(\alpha)\).
+\end{theorem}
+
+\Cref{eq:three-term-a,eq:three-term-b} can be equivalently rewritten using the integral form permuted-basement Macdonald polynomials instead of the non-integral form,
+respectively, as
+\begin{equation} \label{eq:three-term-a-integral}
+    \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{s_i \permact \alpha}^\sigma
+    = 
+    \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_\alpha^{\sigma s_i} 
+    +
+    t^{\phi(\alpha,\sigma,i)} (1 - t) \mathcal{E}_\alpha^\sigma
 \end{equation}
-and by applying this result repeatedly, we obtain
-\begin{equation}
-    \tilde{H}_{\mu}[X;q,t] = \tilde{H}_{\alpha}[X;q,t],
+and
+\begin{equation} \label{eq:three-term-b-integral}
+    \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{s_i \permact \alpha}^\sigma
+    = 
+    q^{L+1} t^{A} \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_\alpha^{\sigma s_i} 
+    +
+    (q^{L+1} t^{A})
+    t^{\phi(\alpha,\sigma,i)} (1 - t) \mathcal{E}_\alpha^\sigma.
 \end{equation}
-where $\alpha$ is a rearrangement of the partition $\mu$.
+
+We use the same bijection \(\phi\) on non-augmented fillings (as well as an auxiliary bijection \(\psi\)) as a building block for a bijection on augmented fillings.
+This new bijection is then used to prove \Cref{eq:three-term-a-integral,eq:three-term-b-integral}, and hence \Cref{eq:three-term-a,eq:three-term-b}.
 
 \section{The bijection}
 
