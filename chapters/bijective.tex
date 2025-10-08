@@ -428,6 +428,17 @@ The map \(U = \psi(T) \in \Fill(s_i \permact \alpha)\) is defined in the same wa
     \todo{Write the proof using the block structure.}
 \end{proof}
 
+\begin{theorem} \label{thm:tildeH-rearrangement}
+    Let \(\mu\) be a partition and \(\alpha\) be a rearrangement of \(\mu\).
+    Then
+    \begin{equation}
+        \sum_{T \in \Fill[\positives](\mu)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T
+        =
+        \sum_{T \in \Fill[\positives](\alpha)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T,
+    \end{equation}
+    where \(\Fill[\positives](\mu)\) (resp. \(\Fill[\positives](\alpha)\)) is the set of fillings of shape \(\mu\) (resp. \(\alpha\)) with labels in the positive integers \(\positives\).
+\end{theorem}
+
 \section{Application to permuted-basement Macdonald polynomials}
 
 \todo{Write the section on the three-term identity for permuted-basement Macdonald polynomials.}
@@ -648,7 +659,7 @@ For the purposes of this section, let \(\wt(T) = \mathbf{x}^{\content(T)} q^{\ma
     \end{multline}
 \end{proof}
 
-\begin{corollary} \label{cor:three-term-bijective}
+\begin{corollary} \label{cor:three-term-a}
     Let \(\alpha\) be a composition such that \(\alpha_i > \alpha_{i+1}\) and \(\sigma \in S_n\) such that \(\sigma_i > \sigma_{i+1}\).
     Then,
     \begin{equation}
@@ -665,15 +676,51 @@ For the purposes of this section, let \(\wt(T) = \mathbf{x}^{\content(T)} q^{\ma
     This follows by summing the equation in \Cref{lem:three-term-bijective} over all \(T \in \Fill(\alpha, \sigma)\).
 \end{proof}
 
-\begin{corollary} \label{cor:three-term-non-integral}
+\begin{theorem} \label{thm:three-term-a-non-integral}
     Let \(\alpha\) be a composition such that \(\alpha_i > \alpha_{i+1}\) and \(\sigma \in S_n\) such that \(\sigma_i > \sigma_{i+1}\).
     Then,
     \begin{equation}
         E_{\alpha}^\sigma(X;q;t)=E_{s_i \permact \alpha}^{\sigma s_i}(X;q;t)+t^{\rho(\alpha,\sigma,i)}\frac{1-t}{1-q^{L+1}t^{A}}E_{s_i \permact \alpha}^\sigma(X;q;t)
     \end{equation}
     where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_{i+1} +1)\in\dg(s_i \permact \alpha)\), and  \( \rho(\alpha,\sigma,i)=\twinv(s_i \permact \alpha,\sigma)-\twinv(\alpha,\sigma)\).
-\end{corollary}
+\end{theorem}
 
 \begin{proof}
     This follows from \Cref{cor:three-term-bijective} by dividing both sides of \Cref{eq:three-term-v1-integral} by the appropriate factors to convert the integral forms to non-integral forms.
 \end{proof}
+
+% -------
+
+\begin{corollary} \label{cor:three-term-b}
+    Let \(i \in \interval{n-1}\),
+    \(\alpha = \composition{\alpha_1, \dots, \alpha_n}\) be a composition with \(\alpha_i < \alpha_{i+1}\),
+    and \(\sigma = \window{\sigma_1, \dots, \sigma_n} \in \sym{n}\) be a permutation with \(\sigma_i < \sigma_{i+1}\).
+    Then, we have
+    \begin{equation}
+        \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{s_i \permact \alpha}^\sigma
+        = 
+        \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_{\alpha}^{\sigma} 
+        +
+        (q^{L+1} t^A) (1 - t) t^{\twinv(\alpha, \sigma) - \twinv(s_i \permact \alpha, \sigma)}
+        \mathcal{E}_{\alpha}^{s_i \sigma},
+    \end{equation}
+    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_i +1)\in\dg(\alpha)\).
+\end{corollary}
+
+\begin{theorem} \label{thm:three-term-b-non-integral}
+    Let \(i \in \interval{n-1}\),
+    \(\alpha = \composition{\alpha_1, \dots, \alpha_n}\) be a composition with \(\alpha_i < \alpha_{i+1}\),
+    and \(\sigma = \window{\sigma_1, \dots, \sigma_n} \in \sym{n}\) be a permutation with \(\sigma_i < \sigma_{i+1}\).
+    Then, we have
+    \begin{equation} \label{eq:three-term-b}
+        E_{s_i \permact \alpha}^\sigma(\mathbf{x}; q, t)
+        =
+        E_\alpha^\sigma(\mathbf{x}; q, t)
+        +
+        (q^{L+1} t^A)
+        t^{\twinv(\alpha, \sigma) - \twinv(s_i \permact \alpha, \sigma)}
+        \frac{1 - t}{1 - q^{L+1} t^{A}}
+        E_\alpha^{s_i \sigma}(\mathbf{x}; q, t),
+    \end{equation}
+    where \(L = \leg(x)\) and \(A = \arm(x)\) for \(x = (i+1, \alpha_i + 1) \in \dg(\alpha)\).
+\end{theorem}
