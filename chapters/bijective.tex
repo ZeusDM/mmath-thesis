@@ -33,7 +33,7 @@ that for any partition \(\mu\) and any rearrangement \(\alpha\) of \(\mu\),
     =
     \sum_{T \in \Fill[\positives](\alpha)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T.
 \end{equation}
-The sum over \(T \in \Fill[\positives](\mu)\) is the celebrated combinatorial formula for \(\tilde{H}_\mu(\mathbf{x}; q, t)\) from \cite{HHL05}.
+The sum over \(\Fill[\positives](\mu)\) is the celebrated combinatorial formula for \(\tilde{H}_\mu(\mathbf{x}; q, t)\) from \cite{HHL05} (see \Cref{subsec:modified-macdonald}).
 In \cite{HHL08}, the rearrangement property was established by proving that the sum over \(T \in \Fill[\positives](\mu)\) is equal to \(\tilde{H}_\mu(\mathbf{x}; q, t)\), essentially copying the argument from \cite{HHL05} to the new setting.
 
 Here, we present a direct bijective proof of \Cref{eq:tildeH-rearrangement}, without going through \(\tilde{H}_\mu(\mathbf{x}; q, t)\). 
@@ -44,7 +44,7 @@ We present two constructions of the bijection \(\phi\).
 The first construction is something with blocks,
 and the second construction is an iterative algorithm from \cite{KLO22}, which we present in a clearer and more systematic form than the original exposition.
 Each construction has its own advantages and disadvantages, and we present both for completeness.
-We prove that both algorithms coincide in \Cref{...},
+We prove that both algorithms coincide in ...,
 and then prove \Cref{thm:phi-maj-inv} in two different ways,
 one for each construction.
 \todo{There are ``two levels'' in which I am making improvements from \cite{KLO22}: the first is finding an entirely new way of getting to the bijection (through blocks), and the second is rewriting their algorithm in a clearer way. I feel like these two different ``improvements'' are getting confused in this sentence.}
@@ -57,7 +57,7 @@ pair of three-term identities for permuted-basement Macdonald polynomials \(E_\a
 
 We use the same bijection \(\phi\) on non-augmented fillings (as well as an auxiliary bijection \(\psi\)) as a building block for a bijection on augmented fillings.
 
-\section{The bijection}
+\section{Bijections on non-augmented fillings and the rearrangement property of \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ}} \label{sec:bijective-non-augmented}
 
 In this section, we define the bijection \(\phi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) from \cite{KLO22} that preserves the statistics \(\inv\) and \(\maj\).
 As an auxiliary construction,
@@ -67,81 +67,54 @@ This auxiliary bijection \(\psi\) will also be important in a later section.
 Without loss of generality, we restrict to the case \(\alpha_{i} > \alpha_{i+1}\).
 
 Both of \(\phi\) and \(\psi\) follow a very rigid structure.
-If a filling \(T \in \Fill(\alpha)\) is mapped to a filling \(U \in \Fill(s_i \permact \alpha)\) by one of these maps, then
+If a non-augmented filling \(T \in \Fill(\alpha)\) is mapped to a filling \(U \in \Fill(s_i \permact \alpha)\) by one of these maps, then:
 \begin{itemize}
-    \item \(T(j, r) = U(j, r)\) for all \(j \in \interval{n} \setminus \{i, i+1\}\) and all \(r \in \interval{\alpha_j}\),
-    that is, all columns except \(i\) and \(i+1\) are identical in \(T\) and \(U\);
-    \item \(T(i, r) = U(i+1, r)\) for all \(r \in \interval{\alpha_{i+1} + 1, \alpha_i}\),
-    that is, the topmost \(\alpha_i - \alpha_{i+1}\) entries in column \(i\) of \(T\) are copied to the topmost \(\alpha_i - \alpha_{i+1}\) entries in column \(i+1\) of \(U\);
-    \item \(\{ T(i, r), T(i+1, r) \} = \{ U(i, r), U(i+1, r) \}\) for all \(r \in \interval{\alpha_{i+1}}\),
-    that is, the entries in rows \(1, \dots, \alpha_{i+1}\) of columns \(i\) and \(i+1\) in \(T\) and \(U\) are the same, but they might be in the same positions or in swapped positions.
+    \item all columns except \(i\) and \(i+1\) are identical in \(T\) and \(U\), that is,
+    \begin{equation} \label{eq:restriction-other-columns}
+        T(j, r) = U(j, r) \quad \text{for all } j \in \interval{n} \setminus \{i, i+1\} \text{ and all } r \in \interval{\alpha_j};
+    \end{equation}
+    \item the topmost \(\alpha_i - \alpha_{i+1}\) entries in column \(i\) of \(T\) are copied to the topmost \(\alpha_i - \alpha_{i+1}\) entries in column \(i+1\) of \(U\), that is,
+    \begin{equation} \label{eq:restriction-top-entries}
+        T(i, r) = U(i+1, r) \quad \text{for all } r \in \interval{\alpha_{i+1} + 1, \alpha_i};
+    \end{equation}
+    \item the entries in rows \(1, \dots, \alpha_{i+1}\) of columns \(i\) and \(i+1\) in \(T\) and \(U\) are the same, but they might be in the same positions or in swapped positions, that is,
+    \begin{equation} \label{eq:restriction-swap-per-row}
+        \{ T(i, r), T(i+1, r) \} = \{ U(i, r), U(i+1, r) \} \quad \text{for all } r \in \interval{\alpha_{i+1}}.
+    \end{equation}
 \end{itemize}
 
-Given these restrictions, the only freedom we have in defining \(\phi\) and \(\psi\) is to decide, for each \(r \in \interval{\alpha_{i+1}}\), whether to set
+Given these restrictions, the only remaining freedom in determining \(\phi\) and \(\psi\) is to decide, for each \(r \in \interval{\alpha_{i+1}}\), whether to set
 \begin{equation}
     \big(U(i,r), U(i+1,r)\big) = \big(T(i,r), T(i+1,r)\big) \text{ or } \big(U(i,r), U(i+1,r)\big) = \big(T(i+1,r), T(i,r)\big).
 \end{equation}
 In the first case, we say the entries of \(T\) and \(U\) in row \(r\) of columns \(i\) and \(i+1\) are \vocab{not swapped};
 in the second case, we say they are \vocab{swapped}.
+Below, we present two different algorithms to decide, for each \(r \in \interval{\alpha_{i+1}}\), whether the entries in row \(r\) of columns \(i\) and \(i+1\) are swapped or not swapped.
 
-\subsection{Block structure algorithm}
+\subsection{Block structure algorithm} \label{subsec:block-structure}
 
-\todo[caption={Improve the block structure interpretation of the bijection.}]{Improve block structure interpretation of the bijection. I need to distinguish more clearly between ``defining a new bijection'' vs.\ ``reinterpreting the existing bijection''. Right now, there's a weird mix of both.
+\begin{proposition} \label{prop:odd-ind-magic}
+    Let \(a, b, c, d \in \mathcal{A}\) be four elements of an alphabet \(\mathcal{A}\).
+    The following statements are equivalent:
+    \begin{enumerate}
+        \item \label{item:odd-ind}
+        \(\ind{a, d} + \ind{b, c} - \ind{a, c} - \ind{b, d} = \pm 1\);
+        \item \label{item:triple-equal-ind}
+        \(\ind{a, b, c} = \ind{b, c, d} = \ind{a, d, c}\) and \(a \neq b\) and \(c \neq d\);
+    \end{enumerate}
+\end{proposition}
 
-I guess I can define blocks, and then after that I perform the bijection with the iterative algorithm, and see what happens to the blocks.}
+\begin{proof}
+    It suffices to check all possible relative orders of \(a, b, c, d\) (including equalities).
+    Computational verification shows that the two statements are equivalent.
+    \todo{Attempt find a neater proof.}
+\end{proof}
 
-There's another meaningful way to interpret the bijections \( \phi \) and \( \psi \).
-Of course, it can't be too different from the previous two interpretations, since they are all describing the same bijections,
-but it offers yet another perspective that may be useful in certain contexts.
+Let \(r \in \interval{\alpha_{i+1} - 1}\).
+Let \( a = T(i,r+1)\), \(b = T(i+1,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
+We say that rows \(r\) and \(r + 1\) of \(T\) are \vocab{intertwined} if \(a, b, c, d\) satisfy the equivalent conditions of \Cref{prop:odd-ind-magic}.
+Otherwise, we say that rows \(r\) and \(r + 1\) of \(T\) are \vocab{not intertwined}.
 
-When processing row \(r\), note that Case~I is the only case where the label of row \(r\) is \(\labelC\).
-A label of \(\labelC\) means that the swapping behavior of row \(r\) is the same as the swapping behavior of row \(r + 1\), that is, if rows \(r\) and \(r + 1\) of \(T\) are
-\begin{equation}
-    \begin{pmatrix}
-        T(i,r+1) & T(i+1,r+1) \\
-        T(i,r) & T(i+1,r) 
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-        a & b \\
-        c & d
-    \end{pmatrix},
-\end{equation}
-then there are two possibilities for rows \(r\) and \(r + 1\) of \(U\) (where \(U = \phi(T)\) or \(U = \psi(T)\)), namely
-\begin{equation}
-    \begin{pmatrix}
-        U(i,r+1) & U(i+1,r+1) \\
-        U(i,r) & U(i+1,r)
-    \end{pmatrix}
-    \quad
-    \in
-    \quad
-    \left\{
-    \begin{pmatrix}
-        a & b \\
-        c & d
-    \end{pmatrix}
-    ,\quad
-    \begin{pmatrix}
-        b & a \\
-        d & c
-    \end{pmatrix}
-    \right\}.
-\end{equation}
-Note that the relevant contribution to \(\inv\) of this section of the filling \(T\) is \(\ind{a, b, c}\), from a Type A triple.
-The relevant contribution to \(\inv\) of this section of the filling \(U\) is either \(\in{b, c, d}\) (first case) or \(\ind{a, d, c}\) (second case), from a Type B triple.
-However, condition \(\ind{a,d} + \ind{b,c} - \ind{a,c} - \ind{b,d} = \pm 1\) implies that
-\begin{equation}
-    \ind{a, b, c} = \ind{b, c, d} = \ind{a, d, c}.
-\end{equation}
-This means, in vague words, that the contribution to \(\inv\) from this section of the filling is the same in \(T\) and \(U\), regardless of whether rows \(r\) and \(r + 1\) are swapped or not.
-
-Let's formalize this idea.
-For \(r \in \interval{\alpha_{i+1} - 1}\),
-we say that two adjacent rows \(r\) and \(r + 1\) of \(T\) are \vocab{intertwined} if they satisfy Case~I, that is, if
-\begin{equation}
-    \ind{T(i,r+1), T(i+1,r)} + \ind{T(i+1,r+1), T(i,r)} - \ind{T(i,r+1), T(i,r)} - \ind{T(i+1,r+1), T(i+1,r)} = \pm 1.
-\end{equation}
 The interval of rows \(\interval{\alpha_{i+1}}\) is uniquely partitioned into intervals, called \vocab{blocks}, such that two consecutive rows in the same block are intertwined, and two consecutive rows in different blocks are not intertwined.
 \Cref{fig:blocks} shows a filling and its blocks.
  
@@ -191,11 +164,19 @@ The interval of rows \(\interval{\alpha_{i+1}}\) is uniquely partitioned into in
 	\label{fig:blocks}
 \end{figure}
 
-We define \(U = \phi(T) \in \Fill(s_i \permact \alpha)\).
-Just like before, it suffices to define, for each row \(r \in \interval{\alpha_{i+1}}\), whether the entries in row \(r\) of columns \(i\) and \(i+1\) of \(T\) and \(U\) are swapped or not swapped.
+Let's interpret the intertwining condition via~\Cref{item:triple-equal-ind} of \Cref{prop:odd-ind-magic}.
+The number \(\ind{a, b, c}\) is the indicator of whether the triple \((i, r+1), (i+1, r+1), (i, r)\) is a Type A inversion triple in \(T\).
+The number \(\ind{b, c, d}\) is the indicator of whether the triple \((i+1, r+1), (i, r), (i+1, r)\) is a Type B inversion triple in \(U\) if rows \(r\) and \(r + 1\) are not swapped.
+The number \(\ind{a, d, c}\) is the indicator of whether the triple \((i, r+1), (i+1, r), (i, r)\) is a Type B inversion triple in \(U\) if rows \(r\) and \(r + 1\) are swapped.
 
-For each block, we either copy the block as-is to \(U\), or we swap the two columns of the block when copying it to \(U\).
-Let's focus on a block of \(T\).
+Therefore,
+if we require that rows in the same block are either all swapped or all not swapped in \(U\),
+then we guarantee that the number of inversion triples within each block is the same in \(T\) and \(U\), regardless of whether the block is swapped or not swapped.
+
+The remaining freedom is to decide, for each block, whether to swap it or not swap it.
+We use this freedom to attempt to guarantee that the number of inversion triples between different blocks is also the same in \(T\) and \(U\).
+
+Consider a block of \(T\).
 Let \(a\) and \(b\) be the entries in columns \(i\) and \(i+1\) of the top row of the block, respectively.
 Let \(c\) and \(d\) be the entries in columns \(i\) and \(i+1\) of the bottom row of the block, respectively.
 Let \(e_1\) and \(e_2\) be the entries in columns \(i\) and \(i+1\) of the row immediately above the block, respectively.
@@ -234,10 +215,24 @@ We denote this common value by \(\ind{c, d, f_\bullet}\).
 Similarly, since the rows containing \(a, b\) and \(e_1, e_2\) are not intertwined, \(\ind{e_1, a, b} = \ind{e_2, a, b}\).
 We denote this common value by \(\ind{e_\bullet, a, b}\).
 
-If \(\ind{c, d, f_\bullet} = \ind{e_\bullet, a, b}\), then we copy the block as-is to \(U\).
-Otherwise, if \(\ind{c, d, f_\bullet} \neq \ind{e_\bullet, a, b}\), we copy the column \(i\) of the block to column \(i+1\) in \(U\) and the column \(i+1\) of the block to column \(i\) in \(U\), keeping the entries in the same rows.
+\begin{definition}[The bijection \(\phi\) via blocks]
+    Let \(T \in \Fill(\alpha)\).
+    We define \(U = \phi(T) \in \Fill(s_i \permact \alpha)\)
+    by requiring \Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row} and requiring that, for each block of \(T\),
+    the rows of the block are swapped in \(U\) if and only if \(\ind{c, d, f_\bullet} \neq \ind{e_\bullet, a, b}\),
+    where \(a, b, c, d, e_\bullet, f_\bullet\) are as defined above.
+\end{definition}
 
-\Cref{fig:output-filling} shows the result of this procedure with the filling from \Cref{fig:blocks} as the input.
+\begin{definition}[The bijection \(\psi\) via blocks]
+    Let \(T \in \Fill(\alpha)\).
+    We define \(U = \psi(T) \in \Fill(s_i \permact \alpha)\)
+    by requiring \Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row} and requiring that, for each block of \(T\) except the bottommost one,
+    the rows of the block are swapped in \(U\) if and only if \(\ind{c, d, f_\bullet} \neq \ind{e_\bullet, a, b}\),
+    and that the rows of the bottommost block are swapped in \(U\) if and only if \(\ind{c, d, f_\bullet} = \ind{e_\bullet, a, b}\),
+    where \(a, b, c, d, e_\bullet, f_\bullet\) are as defined above.
+\end{definition}
+
+\Cref{fig:output-filling} shows the image of the filling in \Cref{fig:blocks} under the map \(\phi\), following this definition.
 
 \begin{figure}[htbp]
     \centering
@@ -285,7 +280,18 @@ Otherwise, if \(\ind{c, d, f_\bullet} \neq \ind{e_\bullet, a, b}\), we copy the 
 	\label{fig:output-filling}
 \end{figure}
 
-The map \(U = \psi(T) \in \Fill(s_i \permact \alpha)\) is defined in the same way, except that the bottommost block does the opposite of what it would do in the case of \(\phi\).
+In \Cref{prop:phi-psi-bijections,thm:phi-maj-inv}, we prove that \(\phi\) is a bijection that preserves \(\content\), \(\inv\), and \(\maj\).
+Let's highlight the parts that are straightforward from the definition via blocks.
+
+It is straightforward to verify that both \(\phi\) and \(\psi\) are bijections, since the the block structure of \(T\) is the same as that of \(U = \phi(T)\) or \(U = \psi(T)\), and the swapping condition can be reversed to recover \(T\) from \(U\).
+\Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row} guarantee that \(\content(T) = \content(U)\).
+
+Moreover, it is straightforward to verify that the number of inversion triples within columns \(i\) and \(i+1\) is the same in \(T\) and \(\phi(T)\), since the number of inversion triples within each block is preserved, and the choice of swapping or not swapping each block is made precisely to ensure that the number of inversion triples between different blocks is also preserved.
+It is not hard to see that this implies that \(\inv(T) = \inv(\phi(T))\).
+
+The fact that \(\maj(T) = \maj(\phi(T))\) is less straightforward,
+since we haven't made any direct attempt to control the major index in our definition of \(\phi\).
+We prove this in \Cref{thm:phi-maj-inv}.
 
 \subsection{Iterative algorithm}
 Let \(T \in \Fill(\alpha)\) with \(\alpha_i > \alpha_{i+1}\).
@@ -374,9 +380,9 @@ This recursive interpretation is particularly useful for proving properties abou
 \todo{Add an example of the recursive algorithm.}
 
 
-\section{Properties of the bijections \texorpdfstring{\(\phi\)}{𝜙} and \texorpdfstring{\(\psi\)}{𝜓}}
+\subsection{Properties of the bijections \texorpdfstring{\(\phi\)}{𝜙} and \texorpdfstring{\(\psi\)}{𝜓}}
 
-\begin{proposition}
+\begin{proposition} \label{prop:phi-psi-bijections}
     The maps \(\phi\) and \(\psi\) are bijections.
 \end{proposition}
 
@@ -440,7 +446,7 @@ This recursive interpretation is particularly useful for proving properties abou
     where \(\Fill[\positives](\mu)\) (resp. \(\Fill[\positives](\alpha)\)) is the set of fillings of shape \(\mu\) (resp. \(\alpha\)) with labels in the positive integers \(\positives\).
 \end{theorem}
 
-\section{Application to permuted-basement Macdonald polynomials}
+\section{Bijections on augmented fillings and a three-term identity for \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ}} \label{sec:bijective-augmented}
 
 \todo{Write the section on the three-term identity for permuted-basement Macdonald polynomials.}
 
