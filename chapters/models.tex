@@ -288,13 +288,15 @@ See \Cref{fig:non-attacking-filling} for an example of a non-attacking filling.
 	\label{fig:non-attacking-filling}
 \end{figure}
 
-The \vocab{content} of a filling \(T\) with labels in the unsigned alphabets \(\positives\) or \(\interval{n}\) is the composition \(\beta = \content(T)\) where \(\beta_i\) is the number of boxes \(u \in \dg(\alpha)\) such that \(T(u) = i\).
-The \vocab{content} of a filling \(T\) with labels in the signed alphabets \(\integers_\pm\) or \(\interval{n}_\pm\) is the composition \(\beta = \content(T)\) where \(\beta_i\) is the number of boxes \(u \in \dg(\alpha)\) such that \(|T(u)| = i\).
-In both contexts, we let
+The \vocab{content} of a filling \(T\) with labels in an unsigned alphabet \(\mathcal{A}\) is the multiset \(\content(T)\) whose elements are the labels \(a \in \mathcal{A}\), with multiplicity equal to the number of boxes \(u \in \dg(\alpha)\) such that \(T(u) = a\).
+The \vocab{content} of a filling \(T\) with labels in a signed alphabet \(\mathcal{A}_\pm\) is the multiset \(\content(T)\) whose elements are the positive values \(a \in \mathcal{A}_+\), with multiplicity equal to the number of boxes \(u \in \dg(\alpha)\) such that \(|T(u)| = a\).
+
+When the alphabet is \(\positives\), \(\integers_\pm\), \(\interval{n}\), or \([n]_\pm\),
+the content can be identified with the composition \(\beta = \content(T)\) where \(\beta_i\) is the multiplicity of \(i\) in \(\content(T)\).
+We define
 \[
 	\mathbf{x}^T = \mathbf{x}^{\content(T)} = \prod_{i} x_i^{\beta_i}.
 \]
-
 For example, the filling \(T\) in \cref{fig:non-attacking-filling} has content \(\content(T) = \composition{2, 1, 1, 2, 3}\) and \(\mathbf{x}^T = \mathbf{x}^{\content(T)} = x_1^2 x_2^1 x_3^1 x_4^2 x_5^3\).
 
 Recall that boxes in row \(0\), which are not in \(\dg(\alpha)\),
@@ -633,9 +635,9 @@ Together with \Cref{eq:total-triples-augmented}, we also obtain an alternative d
 	= \sum_{u \in \dg(\alpha) \setminus \Des(T)} \arm(u) - \left|\InversionPairs(T)\right|.
 \end{equation}
 
-\todo[caption={Define \(\operatorname{syminv}\) and \(\operatorname{symcoinv}\).}]{Add \(\operatorname{syminv}\) and \(\operatorname{symcoinv}\), which are the \(\inv\) and \(\coinv\) statistics that one would get by interpreting an augmented filling of shape \(\alpha\) as a non-augmented filling of shape \(\alpha + (1, 1, \dots, 1)\).}
+\todo[caption={Define \(\syminv\) and \(\symcoinv\).}]{Add \(\syminv\) and \(\symcoinv\), which are the \(\inv\) and \(\coinv\) statistics that one would get by interpreting an augmented filling of shape \(\alpha\) as a non-augmented filling of shape \(\alpha + (1, 1, \dots, 1)\).}
 
-\subsection{Mistaking augmented fillings for non-augmented fillings}
+\subsection{Mistaking augmented fillings for non-augmented fillings} \label{subsec:augmented-to-non-augmented}
 
 If we didn't shade the basement in gray,
 it would be easy to mistake an augmented filling for a non-augmented filling.
@@ -708,24 +710,24 @@ See \cref{fig:augmented-to-non-augmented} for an example.
 It's straightforward to check that \(\maj(T) = \maj(T')\).
 
 However, \(\inv(T)\) and \(\coinv(T)\) may differ from \(\inv(T')\) and \(\coinv(T')\), respectively.
-We define new statistics \(\operatorname{syminv}\) and \(\operatorname{symcoinv}\) on augmented fillings by
+We define new statistics \(\syminv\) and \(\symcoinv\) on augmented fillings by
 \begin{equation}
-	\operatorname{syminv}(T) = \inv(T')
+	\syminv(T) = \inv(T')
 	\quad \text{and} \quad
-	\operatorname{symcoinv}(T) = \coinv(T').
+	\symcoinv(T) = \coinv(T').
 \end{equation}
 
 \begin{proposition}
 	Let \(T \in \Fill[\mathcal{A}](\alpha, \sigma)\) be an augmented filling of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\), basement \(\sigma = \composition{\sigma_1, \ldots, \sigma_n}\).
 	Then,
 	\begin{equation}
-		\operatorname{syminv}(T)
+		\syminv(T)
 		= \inv(T) +
 		\left| \left\{ (i, j) \suchthat 1 \leq i < j \leq n \text{ and } \alpha_i \geq \alpha_j \text{ and } \ind{\sigma_i, \sigma_j} = 1 \right\} \right|
 	\end{equation}
 	and
 	\begin{equation}
-		\operatorname{symcoinv}(T)
+		\symcoinv(T)
 		= \coinv(T) +
 		\left| \left\{ (i, j) \suchthat 1 \leq i < j \leq n \text{ and } \alpha_i \geq \alpha_j \text{ and } \ind{\sigma_i, \sigma_j} = 0 \right\} \right|.
 	\end{equation}

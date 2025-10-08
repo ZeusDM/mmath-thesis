@@ -2,35 +2,44 @@
 
 \todo{Write all of the polynomial identities in the introduction of this chapter.}
 
-% In this chapter, we describe \cite{KLO22}'s bijection between
-% \begin{equation}
-%     \Fill[\mathcal{A}](\mu) \quad \text{and} \quad \Fill[\mathcal{A}](s_i \permact \mu),
-% \end{equation}
-% which preserves the statistics $\inv$ and $\maj$.
-% 
-% The existence of this bijection implies that 
-% \begin{equation}
-%     \tilde{H}_\mu[X;q,t] = \tilde{H}_{s_i \permact \mu}[X;q,t],
-% \end{equation}
-% and by applying this result repeatedly, we obtain
-% \begin{equation}
-%     \tilde{H}_{\mu}[X;q,t] = \tilde{H}_{\alpha}[X;q,t],
-% \end{equation}
-% where $\alpha$ is a rearrangement of the partition $\mu$.
-
-In the first part of this chapter, we follow \cite{KLO22}'s argument to prove \Cref{thm:tildeH-rearrangement},
-which was established in \cite{HHL08}.
+In the first part of this chapter,
+we prove a rearrangement property of the modified Macdonald polynomials \(\tilde{H}_\mu(\mathbf{x}; q, t)\),
+\Cref{thm:tildeH-rearrangement}, through a bijective argument.
+% we follow \cite{KLO22}'s argument to prove \Cref{thm:tildeH-rearrangement}, which was established in \cite{HHL08}.
 \begin{theorem} \label{thm:tildeH-rearrangement}
     Let \(\mu\) be a partition and \(\alpha\) be a rearrangement of \(\mu\).
     Then
     \begin{equation}
-        \tilde{H}_{\mu}(\mathbf{x}; q, t) = \tilde{H}_{\alpha}(\mathbf{x}; q, t).
+        \sum_{T \in \Fill[\positives](\mu)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T
+        =
+        \sum_{T \in \Fill[\positives](\alpha)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T,
     \end{equation}
+    where \(\Fill[\positives](\mu)\) (resp. \(\Fill[\positives](\alpha)\)) is the set of fillings of shape \(\mu\) (resp. \(\alpha\)) with labels in the positive integers \(\positives\).
 \end{theorem}
-This is done by constructing a bijection \(\phi\) between \(\Fill(\alpha)\) and \(\Fill(s_i \permact \alpha)\) that preserves the statistics \(\inv\) and \(\maj\), for all \(i\) such that \(\alpha_i > \alpha_{i+1}\).
+This result was already established in \cite{HHL08},
+by using that \cite{HHL05} proves that the left hand side is equal to \(\tilde{H}_\mu(\mathbf{x}; q, t)\),
+and \cite{HHL08} argues that the same argument applies to the right hand side, which hence is also equal to \(\tilde{H}_\mu(\mathbf{x}; q, t)\).
+
+Here, we present a different purely combinatorial proof of \Cref{thm:tildeH-rearrangement}, by showing \Cref{lem:bijection-preserves-maj-inv} below.
+
+\begin{lemma} \label{lem:bijection-preserves-maj-inv}
+    Let \(\mathcal{A}\) be an alphabet, signed or unsigned.
+    There exists a bijection \(\phi \colon \Fill[\mathcal{A}](\alpha) \to \Fill[\mathcal{A}](s_i \permact \alpha)\) that preserves \(\content\), \(\inv\), and \(\maj\).
+    \todo{Actually, I kinda need to say that it preserves the multiset of entries, because I want to use it for signed fillings too.}
+\end{lemma}
+
+We present two constructions of the bijection \(\phi\).
+The first construction is something with blocks,
+and the second construction is an iterative algorithm, a reinterpretation of the algorithm in \cite{KLO22}.
+Each construction has its own advantages and disadvantages, and we present both for completeness.
+We prove that both algorithms coincide in \Cref{...},
+and then prove \Cref{lem:bijection-preserves-maj-inv} in two different ways,
+one for each construction.
+
+An auxiliary bijection \(\psi \colon \Fill[\mathcal{A}](\alpha) \to \Fill[\mathcal{A}](s_i \permact \alpha)\) is also defined, that preserves \(\content\) but changes \(\inv\) and \(\maj\) in a controlled way.
 
 In the second part of this chapter,
-we prove \Cref{thm:three-term-a,thm:three-term-b}, which are the three-term identities for permuted-basement Macdonald polynomials.
+we prove a pair of three-term identities for permuted-basement Macdonald polynomials \(E_\alpha^\sigma(\mathbf{x}; q, t)\), in \Cref{thm:three-term-a,thm:three-term-b}.
 \begin{theorem} \label{thm:three-term-a}
     Let \(i \in \interval{n-1}\),
     \(\alpha = \composition{\alpha_1, \dots, \alpha_n}\) be a composition with \(\alpha_i < \alpha_{i+1}\),
@@ -72,7 +81,7 @@ respectively, as
     = 
     \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_\alpha^{\sigma s_i} 
     +
-    t^{\phi(\alpha,\sigma,i)} (1 - t) \mathcal{E}_\alpha^\sigma
+    t^{\rho(\alpha,\sigma,i)} (1 - t) \mathcal{E}_\alpha^\sigma
 \end{equation}
 and
 \begin{equation} \label{eq:three-term-b-integral}
@@ -81,7 +90,7 @@ and
     q^{L+1} t^{A} \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_\alpha^{\sigma s_i} 
     +
     (q^{L+1} t^{A})
-    t^{\phi(\alpha,\sigma,i)} (1 - t) \mathcal{E}_\alpha^\sigma.
+    t^{\rho(\alpha,\sigma,i)} (1 - t) \mathcal{E}_\alpha^\sigma.
 \end{equation}
 
 We use the same bijection \(\phi\) on non-augmented fillings (as well as an auxiliary bijection \(\psi\)) as a building block for a bijection on augmented fillings.
@@ -503,11 +512,11 @@ In the \(q=0\) case, these results are found in \cite[Proposition~5.5]{AS19}.
 \begin{theorem}\label{thm:three-term-v1}
 For a composition \(\alpha=\alpha_1\cdots\alpha_n\) with \(\alpha_i<\alpha_{i+1}\) and \(\sigma\in S_n\) such that \(\sigma_i>\sigma_{i+1}\), we have
     \begin{equation} \label{eq:three-term-v1}
-        E_{s_i\alpha}^\sigma(X;q;t)=E_{\alpha}^{\sigma s_i}(X;q;t)+t^{\phi(\alpha,\sigma,i)}\frac{1-t}{1-q^{L+1}t^{A}}E_{\alpha}^\sigma(X;q;t)
+        E_{s_i\alpha}^\sigma(X;q;t)=E_{\alpha}^{\sigma s_i}(X;q;t)+t^{\rho(\alpha,\sigma,i)}\frac{1-t}{1-q^{L+1}t^{A}}E_{\alpha}^\sigma(X;q;t)
     \end{equation}
     where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_i+1)\in\dg(\alpha)\), and
     \begin{equation}
-        \phi(\alpha,\sigma,i)=\twinv(\alpha,\sigma)-\twinv(s_i\alpha,\sigma).
+        \rho(\alpha,\sigma,i)=\twinv(\alpha,\sigma)-\twinv(s_i\alpha,\sigma).
     \end{equation}
 \end{theorem}
 
@@ -541,7 +550,7 @@ Using the integral forms \(\mathcal{E}_\alpha^\sigma(X;q;t)\) instead of the non
     = 
     \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_\alpha^{\sigma s_i} 
     +
-    t^{\phi(\alpha,\sigma,i)} (1 - t) \mathcal{E}_\alpha^\sigma.
+    t^{\rho(\alpha,\sigma,i)} (1 - t) \mathcal{E}_\alpha^\sigma.
 \end{equation}
 
 % and one over all augmented fillings using the signed alphabet \(\interval{n}_\pm\),
@@ -565,10 +574,94 @@ Recall that the integral forms have a combinatorial formula in terms of augmente
 
 For the purposes of this section, let \(\wt(T) = \mathbf{x}^{\content(T)} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}\), for an augmented signed filling \(T\).
 
-We create a bijection that proves \Cref{eq:three-term-v1-integral} combinatorially.
-Essentially, this bijection is 
-\begin{equation}
-    T \mapsto \{\phi(T), \psi(T)\}.
-\end{equation}
+Recall from \Cref{subsec:augmented-to-non-augmented} that any augmented filling \(T \in \Fill(\alpha, \sigma)\) may be identified with a non-augmented filling \(T' \in \Fill(\alpha + \mathbf{1})\) by moving each box one unit up.
+This identification preserves \(\content\), \(\maj\), but changes \(\inv\) and \(\coinv\) by a constant depending only on \(\alpha\) and \(\sigma\).
+We defined \(\symcoinv(T) = \coinv(T')\) and \(\syminv(T) = \inv(T')\).
 
-\todo{Finish writing this section, with a better narrative.}
+We can apply \(\phi\) to \(T'\) to obtain \(U' = \phi(T') \in \Fill(s_i \permact (\alpha + \mathbf{1}))\), and then identify \(U'\) with an augmented filling \(U\) of shape \(s_i \permact \alpha\).
+Note that \(\phi\) might or might not change the entries in positions \((i,1)\) and \((i+1,1)\) of \(T'\),
+so the basement of \(U\) might be \(\sigma\) or \(\sigma s_i\).
+
+Define the injection \(\phi \colon \Fill[\interval{n}_\pm](\alpha, \sigma) \to \Fill[\interval{n}_\pm](s_i \permact \alpha, \sigma) \cup \Fill[\interval{n}_\pm](s_i \permact \alpha, \sigma s_i)\) by applying the bijection \(\phi\) to the non-augmented filling \(T'\) corresponding to \(T\), and then identifying the result with an augmented filling \(U\).
+Similarly, define the injection \(\psi \colon \Fill[\interval{n}_\pm](\alpha, \sigma) \to \Fill[\interval{n}_\pm](s_i \permact \alpha, \sigma) \cup \Fill[\interval{n}_\pm](s_i \permact \alpha, \sigma s_i)\) by applying the bijection \(\psi\) to the non-augmented filling \(T'\) corresponding to \(T\), and then identifying the result with an augmented filling \(U\).
+
+We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv}.
+\begin{corollary} \label{cor:phi-symcoinv}
+    For any \(T \in \Fill[\interval{n}_\pm](\alpha, \sigma)\) and \(U = \phi(T)\), we have
+    \begin{equation}
+        \symcoinv(T) = \symcoinv(U)
+        \quad \text{and} \quad
+        \maj(T) = \maj(U).
+    \end{equation}
+\end{corollary}
+
+\begin{corollary} \label{cor:psi-symcoinv}
+    For any \(T \in \Fill[\interval{n}_\pm](\alpha, \sigma)\) and \(U = \psi(T)\), we have
+    \begin{itemize}
+        \item if \(\ind{{T(i,1)},{T(i+1,1)}} = 1\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 1\), then
+        \begin{equation}
+            \maj(T) = \maj(U) - (L+1)
+            \quad \text{and} \quad
+            \symcoinv(T) = \symcoinv(U) + A,
+        \end{equation}
+        \item if \(\ind{{T(i,1)},{T(i+1,1)}} = 1\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 0\), then
+        \begin{equation}
+            \maj(T) = \maj(U)
+            \quad \text{and} \quad
+            \symcoinv(T) = \symcoinv(U) + 1,
+        \end{equation}
+        \item if \(\ind{{T(i,1)},{T(i+1,1)}} = 0\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 1\), then
+        \begin{equation}
+            \maj(T) = \maj(U)
+            \quad \text{and} \quad
+            \symcoinv(T) = \symcoinv(U) - 1,
+        \end{equation}
+        \item and if \(\ind{{T(i,1)},{T(i+1,1)}} = 0\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 0\), then
+        \begin{equation}
+            \maj(T) = \maj(U) + (L+1)
+            \quad \text{and} \quad
+            \symcoinv(T) = \symcoinv(U) - A,
+        \end{equation}
+    \end{itemize}
+    where \(L = \leg(...)\) and \(A = \arm(...)\).
+\end{corollary}
+
+\begin{definition}
+    Define \(f \colon \Fill(\alpha, \sigma) \to \Fill(s_i \permact \alpha, \sigma)\)
+    and \(g \colon \Fill(\alpha, \sigma) \to \Fill(s_i \permact \alpha, \sigma s_i)\) by
+    \begin{equation}
+        f(T) =
+        \begin{cases}
+            \phi(T), & \text{if } \phi(T) \in {\Fill(s_i \permact \alpha, \sigma)}, \\
+            \psi(T), & \text{if } \psi(T) \in {\Fill(s_i \permact \alpha, \sigma)},
+        \end{cases}
+        \quad \text{and} \quad
+        g(T) =
+        \begin{cases}
+            \phi(T), & \text{if } \phi(T) \in {\Fill(s_i \permact \alpha, \sigma s_i)}, \\
+            \psi(T), & \text{if } \psi(T) \in {\Fill(s_i \permact \alpha, \sigma s_i)}.
+        \end{cases}
+    \end{equation}
+\end{definition}
+
+% \begin{equation} \label{eq:three-term-a-integral}
+%     \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{s_i \permact \alpha}^\sigma
+%     = 
+%     \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_\alpha^{\sigma s_i} 
+%     +
+%     t^{\rho(\alpha,\sigma,i)} (1 - t) \mathcal{E}_\alpha^\sigma
+% \end{equation}
+
+\begin{lemma}
+    Assume that \(\alpha_i < \alpha_{i+1}\) and \(\sigma_i > \sigma_{i+1}\).
+    Let \(T\) be an augmented filling in \(\Fill(s_i \permact \alpha, \sigma)\).
+    Let \(U = f(T)\) and \(V = g(T)\).
+    Then
+    \begin{equation}
+        \left( 1 - q^{L+1} t^{A + 1} \right) \wt(T)
+        =
+        \left( 1 - q^{L+1} t^{A} \right) \wt(U)
+        +
+        t^{\rho(\alpha,\sigma,i)} (1 - t) \wt(V).
+    \end{equation}
+\end{lemma}
