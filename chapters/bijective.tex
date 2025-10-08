@@ -494,69 +494,69 @@ The map \(U = \psi(T) \in \Fill(s_i \permact \alpha)\) is defined in the same wa
 \todo{Write the section on the three-term identity for permuted-basement Macdonald polynomials.}
 
 \begin{theorem}[equivalent to {\cite[Proposition~17]{Ale19}}]\label{thm:Ale10:prop17}
-    Let \(\alpha=\alpha_1\cdots\alpha_n\) be a composition such that \(\alpha_i<\alpha_{i+1}\) and \(\sigma\in S_n\) such that \(\sigma_i = \sigma_{i+1} + 1\). Then
+    Let \(\alpha=\alpha_1\cdots\alpha_n\) be a composition such that \(\alpha_i > \alpha_{i+1}\) and \(\sigma\in S_n\) such that \(\sigma_i = \sigma_{i+1} + 1\). Then
     \begin{equation}
-        E_{s_i\alpha}^\sigma(X;q;t)
+        E_{\alpha}^\sigma(X;q;t)
         =
-        E_{\alpha}^{\sigma s_i}(X;q;t)
+        E_{s_i \permact \alpha}^{\sigma s_i}(X;q;t)
         +
         \frac{1-t}{1-q^{L+1}t^{A}}
-        E_{\alpha}^\sigma(X;q;t)
+        E_{s_i \permact \alpha}^\sigma(X;q;t)
     \end{equation}
-    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_i+1)\in\dg(\alpha)\).
+    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_{i+1} +1)\in\dg(s_i \permact \alpha)\).
 \end{theorem}
 
 We extend this result to any \(\sigma_i>\sigma_{i+1}\).
 In the \(q=0\) case, these results are found in \cite[Proposition~5.5]{AS19}.
 
 \begin{theorem}\label{thm:three-term-v1}
-For a composition \(\alpha=\alpha_1\cdots\alpha_n\) with \(\alpha_i<\alpha_{i+1}\) and \(\sigma\in S_n\) such that \(\sigma_i>\sigma_{i+1}\), we have
+For a composition \(\alpha=\alpha_1\cdots\alpha_n\) with \(\alpha_i > \alpha_{i+1}\) and \(\sigma\in S_n\) such that \(\sigma_i>\sigma_{i+1}\), we have
     \begin{equation} \label{eq:three-term-v1}
-        E_{s_i\alpha}^\sigma(X;q;t)=E_{\alpha}^{\sigma s_i}(X;q;t)+t^{\rho(\alpha,\sigma,i)}\frac{1-t}{1-q^{L+1}t^{A}}E_{\alpha}^\sigma(X;q;t)
+        E_{\alpha}^\sigma(X;q;t)=E_{s_i \permact \alpha}^{\sigma s_i}(X;q;t)+t^{\rho(\alpha,\sigma,i)}\frac{1-t}{1-q^{L+1}t^{A}}E_{s_i \permact \alpha}^\sigma(X;q;t)
     \end{equation}
-    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_i+1)\in\dg(\alpha)\), and
+    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_{i+1} +1)\in\dg(s_i \permact \alpha)\), and
     \begin{equation}
-        \rho(\alpha,\sigma,i)=\twinv(\alpha,\sigma)-\twinv(s_i\alpha,\sigma).
+        \rho(\alpha,\sigma,i)=\twinv(s_i \permact \alpha,\sigma)-\twinv(\alpha,\sigma).
     \end{equation}
 \end{theorem}
 
 % \begin{proof}[Algebraic proof]
-%     By \cref{thm:Ale}, if $\alpha_i<\alpha_{i+1}$ and $\sigma_i=\sigma_{i+1}+1$, we have
+%     By \cref{thm:Ale}, if $\alpha_i > \alpha_{i+1}$ and $\sigma_i=\sigma_{i+1}+1$, we have
 %     \begin{equation}
-%         E_{s_i\alpha}^{\sigma}=E_\alpha^{\sigma s_i}+\frac{1-t}{1-q^{1+L}t^A}E_\alpha^{\sigma}.
+%         E_{\alpha}^{\sigma}=E_{s_i \permact \alpha}^{\sigma s_i}+\frac{1-t}{1-q^{1+L}t^A}E_{s_i \permact \alpha}^{\sigma}.
 %     \end{equation}
 %     In particular, for $\sigma=w_0$, we have
 %     \begin{align}
-%         E_{s_i\alpha}^{w_0}&=E_\alpha^{w_0 s_i}+\frac{1-t}{1-q^{1+L}t^A}E_\alpha^{w_0}\nonumber\\
-%         &=T_{n-i}E_\alpha^{w_0}+\frac{1-t}{1-q^{1+L}t^A}E_\alpha^{w_0}\label{eq:w0}
+%         E_{\alpha}^{w_0}&=E_{s_i \permact \alpha}^{w_0 s_i}+\frac{1-t}{1-q^{1+L}t^A}E_{s_i \permact \alpha}^{w_0}\nonumber\\
+%         &=T_{n-i}E_{s_i \permact \alpha}^{w_0}+\frac{1-t}{1-q^{1+L}t^A}E_{s_i \permact \alpha}^{w_0}\label{eq:w0}
 %     \end{align}
-%     by \eqref{eq:Ti}, since $\twinv(\alpha,w_0s_i)=0$. By \eqref{eq:Ti}, applying $t^{-\twinv(s_i\alpha,\sigma)}T_{\rev(\sigma)}$ to the left hand side gives
+%     by \eqref{eq:Ti}, since $\twinv(s_i \permact \alpha,w_0s_i)=0$. By \eqref{eq:Ti}, applying $t^{-\twinv(\alpha,\sigma)}T_{\rev(\sigma)}$ to the left hand side gives
 %     \begin{equation}
-%         t^{-\twinv(s_i\alpha,\sigma)}T_{\rev(\sigma)} E_{s_i\alpha}^{w_0}=E_{s_i\alpha}^\sigma.
+%         t^{-\twinv(\alpha,\sigma)}T_{\rev(\sigma)} E_{\alpha}^{w_0}=E_{\alpha}^\sigma.
 %     \end{equation}
-%     Now assume $\alpha_i<\alpha_{i+1}$ and $\sigma_i>\sigma_{i+1}$, which implies $\ell(\sigma)>\ell(\sigma s_i)$ and thus $T_{\rev(\sigma s_i)}=T_{\rev(\sigma)}T_{n-i}$. Applying $t^{-\twinv(s_i\alpha,\sigma)}T_{\rev(\sigma)}$ to the right hand side of \eqref{eq:w0} gives
+%     Now assume $\alpha_i > \alpha_{i+1}$ and $\sigma_i>\sigma_{i+1}$, which implies $\ell(\sigma)>\ell(\sigma s_i)$ and thus $T_{\rev(\sigma s_i)}=T_{\rev(\sigma)}T_{n-i}$. Applying $t^{-\twinv(\alpha,\sigma)}T_{\rev(\sigma)}$ to the right hand side of \eqref{eq:w0} gives
 %     \begin{align}
-%         E_{s_i\alpha}^\sigma&=t^{-\twinv(s_i\alpha,\sigma)}T_{\rev(\sigma)}T_{n-i}E_\alpha^{w_0}
-%         +t^{-\twinv(s_i\alpha,\sigma)}\frac{1-t}{1-q^{1+L}t^A}T_{\rev(\sigma)}E_\alpha^{w_0}\nonumber\\
-%         &=E_\alpha^{\sigma s_i}+t^{\twinv(\alpha,\sigma)-\twinv(s_i\alpha,\sigma)}\frac{1-t}{1-q^{1+L}t^A}E_\alpha^\sigma \label{eq:f2}
+%         E_{\alpha}^\sigma&=t^{-\twinv(\alpha,\sigma)}T_{\rev(\sigma)}T_{n-i}E_{s_i \permact \alpha}^{w_0}
+%         +t^{-\twinv(\alpha,\sigma)}\frac{1-t}{1-q^{1+L}t^A}T_{\rev(\sigma)}E_{s_i \permact \alpha}^{w_0}\nonumber\\
+%         &=E_{s_i \permact \alpha}^{\sigma s_i}+t^{\twinv(s_i \permact \alpha,\sigma)-\twinv(\alpha,\sigma)}\frac{1-t}{1-q^{1+L}t^A}E_{s_i \permact \alpha}^\sigma \label{eq:f2}
 %     \end{align}
 % 
-%     The final equality \eqref{eq:f2} is obtained by comparing with \eqref{eq:Ti}, using the fact that $\twinv(s_i\alpha,\sigma)=\twinv(\alpha,\sigma s_i)$ when $(s_i\alpha)_i>(s_i \alpha)_{i+1}$ and $\sigma_i>\sigma_{i+1}$.
+%     The final equality \eqref{eq:f2} is obtained by comparing with \eqref{eq:Ti}, using the fact that $\twinv(\alpha,\sigma)=\twinv(s_i \permact \alpha,\sigma s_i)$ when $(\alpha)_i>(\alpha)_{i+1}$ and $\sigma_i>\sigma_{i+1}$.
 % \end{proof}
 
-Using the integral forms \(\mathcal{E}_\alpha^\sigma(X;q;t)\) instead of the non-integral forms \(E_\alpha^\sigma(X;q;t)\), \Cref{eq:three-term-v1} is equivalent to
+Using the integral forms \(\mathcal{E}_{s_i \permact \alpha}^\sigma(X;q;t)\) instead of the non-integral forms \(E_{s_i \permact \alpha}^\sigma(X;q;t)\), \Cref{eq:three-term-v1} is equivalent to
 \begin{equation} \label{eq:three-term-v1-integral}
-    \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{s_i \permact \alpha}^\sigma
+    \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{\alpha}^\sigma
     = 
-    \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_\alpha^{\sigma s_i} 
+    \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_{s_i \permact \alpha}^{\sigma s_i} 
     +
-    t^{\rho(\alpha,\sigma,i)} (1 - t) \mathcal{E}_\alpha^\sigma.
+    t^{\rho(\alpha,\sigma,i)} (1 - t) \mathcal{E}_{s_i \permact \alpha}^\sigma.
 \end{equation}
 
 % and one over all augmented fillings using the signed alphabet \(\interval{n}_\pm\),
 % \begin{equation} \label{eq:calE-Fill-signed}
-% 	\mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
-% 	\sum_{T \in \Fill[\interval{n}_\pm](\alpha, \sigma)}
+% 	\mathcal{E}^{\sigma}_{s_i \permact \alpha}(\mathbf{x}; q, t) =
+% 	\sum_{T \in \Fill[\interval{n}_\pm](s_i \permact \alpha, \sigma)}
 % 	\mathbf{x}^{\content(T)}
 % 	q^{\maj(T)} t^{\coinv(T)}
 % 	(-t)^{\operatorname{neg}(T)}.
@@ -564,30 +564,28 @@ Using the integral forms \(\mathcal{E}_\alpha^\sigma(X;q;t)\) instead of the non
 
 Recall that the integral forms have a combinatorial formula in terms of augmented fillings using the signed alphabet \(\interval{n}_\pm\), as given in \Cref{eq:calE-Fill-signed}:
 \begin{equation*}
-    \mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
-    \sum_{T \in \Fill[\interval{n}_\pm](\alpha, \sigma)}
+    \mathcal{E}^{\sigma}_{s_i \permact \alpha}(\mathbf{x}; q, t) =
+    \sum_{T \in \Fill[\interval{n}_\pm](s_i \permact \alpha, \sigma)}
     \mathbf{x}^{\content(T)}
     q^{\maj(T)} t^{\coinv(T)}
     (-t)^{\operatorname{neg}(T)}.
     \tag{\ref{eq:calE-Fill-signed}}
 \end{equation*}
 
-For the purposes of this section, let \(\wt(T) = \mathbf{x}^{\content(T)} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}\), for an augmented signed filling \(T\).
-
-Recall from \Cref{subsec:augmented-to-non-augmented} that any augmented filling \(T \in \Fill(\alpha, \sigma)\) may be identified with a non-augmented filling \(T' \in \Fill(\alpha + \mathbf{1})\) by moving each box one unit up.
-This identification preserves \(\content\), \(\maj\), but changes \(\inv\) and \(\coinv\) by a constant depending only on \(\alpha\) and \(\sigma\).
+Recall from \Cref{subsec:augmented-to-non-augmented} that any augmented filling \(T \in \Fill(s_i \permact \alpha, \sigma)\) may be identified with a non-augmented filling \(T' \in \Fill(s_i \permact \alpha + \mathbf{1})\) by moving each box one unit up.
+This identification preserves \(\content\), \(\maj\), but changes \(\inv\) and \(\coinv\) by a constant depending only on \(s_i \permact \alpha\) and \(\sigma\).
 We defined \(\symcoinv(T) = \coinv(T')\) and \(\syminv(T) = \inv(T')\).
 
-We can apply \(\phi\) to \(T'\) to obtain \(U' = \phi(T') \in \Fill(s_i \permact (\alpha + \mathbf{1}))\), and then identify \(U'\) with an augmented filling \(U\) of shape \(s_i \permact \alpha\).
+We can apply \(\phi\) to \(T'\) to obtain \(U' = \phi(T') \in \Fill(s_i \permact (s_i \permact \alpha + \mathbf{1}))\), and then identify \(U'\) with an augmented filling \(U\) of shape \(\alpha\).
 Note that \(\phi\) might or might not change the entries in positions \((i,1)\) and \((i+1,1)\) of \(T'\),
 so the basement of \(U\) might be \(\sigma\) or \(\sigma s_i\).
 
-Define the injection \(\phi \colon \Fill[\interval{n}_\pm](\alpha, \sigma) \to \Fill[\interval{n}_\pm](s_i \permact \alpha, \sigma) \cup \Fill[\interval{n}_\pm](s_i \permact \alpha, \sigma s_i)\) by applying the bijection \(\phi\) to the non-augmented filling \(T'\) corresponding to \(T\), and then identifying the result with an augmented filling \(U\).
-Similarly, define the injection \(\psi \colon \Fill[\interval{n}_\pm](\alpha, \sigma) \to \Fill[\interval{n}_\pm](s_i \permact \alpha, \sigma) \cup \Fill[\interval{n}_\pm](s_i \permact \alpha, \sigma s_i)\) by applying the bijection \(\psi\) to the non-augmented filling \(T'\) corresponding to \(T\), and then identifying the result with an augmented filling \(U\).
+Define the injection \(\phi \colon \Fill(s_i \permact \alpha, \sigma) \to \Fill(\alpha, \sigma) \cup \Fill(\alpha, \sigma s_i)\) by applying the bijection \(\phi\) to the non-augmented filling \(T'\) corresponding to \(T\), and then identifying the result with an augmented filling \(U\).
+Similarly, define the injection \(\psi \colon \Fill(s_i \permact \alpha, \sigma) \to \Fill(\alpha, \sigma) \cup \Fill(\alpha, \sigma s_i)\) by applying the bijection \(\psi\) to the non-augmented filling \(T'\) corresponding to \(T\), and then identifying the result with an augmented filling \(U\).
 
 We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv}.
 \begin{corollary} \label{cor:phi-symcoinv}
-    For any \(T \in \Fill[\interval{n}_\pm](\alpha, \sigma)\) and \(U = \phi(T)\), we have
+    For any \(T \in \Fill(\alpha, \sigma)\) and \(U = \phi(T)\), we have
     \begin{equation}
         \symcoinv(T) = \symcoinv(U)
         \quad \text{and} \quad
@@ -596,34 +594,34 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
 \end{corollary}
 
 \begin{corollary} \label{cor:psi-symcoinv}
-    For any \(T \in \Fill[\interval{n}_\pm](\alpha, \sigma)\) and \(U = \psi(T)\), we have
+    For any \(T \in \Fill(\alpha, \sigma)\) and \(U = \psi(T) \in \Fill(s_i \permact \alpha, \pi)\), we have
     \begin{itemize}
-        \item if \(\ind{{T(i,1)},{T(i+1,1)}} = 1\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 1\), then
+        \item if \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 1\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 1\), then
         \begin{equation}
             \maj(T) = \maj(U) - (L+1)
             \quad \text{and} \quad
-            \symcoinv(T) = \symcoinv(U) + A,
+            \symcoinv(T) = \symcoinv(U) - A,
         \end{equation}
-        \item if \(\ind{{T(i,1)},{T(i+1,1)}} = 1\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 0\), then
-        \begin{equation}
-            \maj(T) = \maj(U)
-            \quad \text{and} \quad
-            \symcoinv(T) = \symcoinv(U) + 1,
-        \end{equation}
-        \item if \(\ind{{T(i,1)},{T(i+1,1)}} = 0\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 1\), then
+        \item if \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 1\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 0\), then
         \begin{equation}
             \maj(T) = \maj(U)
             \quad \text{and} \quad
             \symcoinv(T) = \symcoinv(U) - 1,
         \end{equation}
-        \item and if \(\ind{{T(i,1)},{T(i+1,1)}} = 0\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 0\), then
+        \item if \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 0\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 1\), then
+        \begin{equation}
+            \maj(T) = \maj(U)
+            \quad \text{and} \quad
+            \symcoinv(T) = \symcoinv(U) + 1,
+        \end{equation}
+        \item and if \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 0\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 0\), then
         \begin{equation}
             \maj(T) = \maj(U) + (L+1)
             \quad \text{and} \quad
-            \symcoinv(T) = \symcoinv(U) - A,
+            \symcoinv(T) = \symcoinv(U) + A,
         \end{equation}
     \end{itemize}
-    where \(L = \leg(...)\) and \(A = \arm(...)\).
+    where \(L = \leg(u)\) and \(A = \arm(u)\) for \(u = (i+1, \alpha_{i+1} + 1) \in \dg(s_i \permact \alpha)\).
 \end{corollary}
 
 \begin{definition}
@@ -632,29 +630,31 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
     \begin{equation}
         f(T) =
         \begin{cases}
-            \phi(T), & \text{if } \phi(T) \in {\Fill(s_i \permact \alpha, \sigma)}, \\
-            \psi(T), & \text{if } \psi(T) \in {\Fill(s_i \permact \alpha, \sigma)},
+            \phi(T), & \text{if } \phi(T) \in {\Fill(\alpha, \sigma)}, \\
+            \psi(T), & \text{if } \psi(T) \in {\Fill(\alpha, \sigma)},
         \end{cases}
         \quad \text{and} \quad
         g(T) =
         \begin{cases}
-            \phi(T), & \text{if } \phi(T) \in {\Fill(s_i \permact \alpha, \sigma s_i)}, \\
-            \psi(T), & \text{if } \psi(T) \in {\Fill(s_i \permact \alpha, \sigma s_i)}.
+            \phi(T), & \text{if } \phi(T) \in {\Fill(\alpha, \sigma s_i)}, \\
+            \psi(T), & \text{if } \psi(T) \in {\Fill(\alpha, \sigma s_i)}.
         \end{cases}
     \end{equation}
 \end{definition}
 
 % \begin{equation} \label{eq:three-term-a-integral}
-%     \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{s_i \permact \alpha}^\sigma
+%     \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{\alpha}^\sigma
 %     = 
-%     \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_\alpha^{\sigma s_i} 
+%     \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_{s_i \permact \alpha}^{\sigma s_i} 
 %     +
-%     t^{\rho(\alpha,\sigma,i)} (1 - t) \mathcal{E}_\alpha^\sigma
+%     t^{\rho(\alpha,\sigma,i)} (1 - t) \mathcal{E}_{s_i \permact \alpha}^\sigma
 % \end{equation}
 
-\begin{lemma}
-    Assume that \(\alpha_i < \alpha_{i+1}\) and \(\sigma_i > \sigma_{i+1}\).
-    Let \(T\) be an augmented filling in \(\Fill(s_i \permact \alpha, \sigma)\).
+For the purposes of this section, let \(\wt(T) = \mathbf{x}^{\content(T)} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}\), for an augmented signed filling \(T\).
+
+\begin{lemma} \label{lem:three-term-bijective}
+    Assume that \(\alpha_i>\alpha_{i+1}\) and \(\sigma_i > \sigma_{i+1}\).
+    Let \(T\) be an augmented filling in \(\Fill(\alpha, \sigma)\).
     Let \(U = f(T)\) and \(V = g(T)\).
     Then
     \begin{equation}
@@ -665,3 +665,76 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
         t^{\rho(\alpha,\sigma,i)} (1 - t) \wt(V).
     \end{equation}
 \end{lemma}
+
+\begin{proof}
+    If \(U = \phi(T)\) and \(V = \psi(T)\),
+    then \(\wt(U) = \wt(T)\) by \Cref{cor:phi-symcoinv},
+    and \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} q^{L+1} t^{A} \wt(T)\) by \Cref{cor:psi-symcoinv}.
+    Thus,
+    \begin{multline}
+        \left( 1 - q^{L+1} t^{A} \right) \wt(U)
+        +
+        t^{\rho(\alpha,\sigma,i)} (1 - t) \wt(V)
+        = \\
+        \begin{aligned}
+        &=
+        \left( 1 - q^{L+1} t^{A} \right) \wt(T)
+        +
+        t^{\rho(\alpha,\sigma,i)} (1 - t) t^{-\rho(\alpha,\sigma,i)} q^{L+1} t^{A} \wt(T) \\
+        &=
+        \left( 1 - q^{L+1} t^{A} + (1 - t) q^{L+1} t^{A + 1} \right) \wt(T) \\
+        &=
+        \left( 1 - q^{L+1} t^{A + 1} \right) \wt(T).
+        \end{aligned}
+    \end{multline}
+    If \(U = \psi(T)\) and \(V = \phi(T)\),
+    then \(\wt(U) = t \wt(T)\) by \Cref{cor:psi-symcoinv},
+    and \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} \wt(T)\) by \Cref{cor:phi-symcoinv}.
+    Thus,
+    \begin{multline}
+        \left( 1 - q^{L+1} t^{A} \right) \wt(U)
+        +
+        t^{\rho(\alpha,\sigma,i)} (1 - t) \wt(V)
+        = \\
+        \begin{aligned}
+        &=
+        \left( 1 - q^{L+1} t^{A} \right) t \wt(T)
+        +
+        t^{\rho(\alpha,\sigma,i)} (1 - t) t^{-\rho(\alpha,\sigma,i)} \wt(T) \\
+        &=
+        \left( t - q^{L+1} t^{A + 1} + 1 - t \right) \wt(T) \\
+        &=
+        \left( 1 - q^{L+1} t^{A + 1} \right) \wt(T).
+        \end{aligned}
+    \end{multline}
+\end{proof}
+
+\begin{corollary} \label{cor:three-term-bijective}
+    Let \(\alpha\) be a composition such that \(\alpha_i > \alpha_{i+1}\) and \(\sigma \in S_n\) such that \(\sigma_i > \sigma_{i+1}\).
+    Then,
+    \begin{equation}
+        \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{\alpha}^\sigma
+        = 
+        \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_{s_i \permact \alpha}^{\sigma s_i} 
+        +
+        t^{\rho(\alpha,\sigma,i)} (1 - t) \mathcal{E}_{s_i \permact \alpha}^\sigma,
+    \end{equation}
+    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_{i+1} +1)\in\dg(s_i \permact \alpha)\), and \( \rho(\alpha,\sigma,i)=\twinv(s_i \permact \alpha,\sigma)-\twinv(\alpha,\sigma)\).
+\end{corollary}
+
+\begin{proof}
+    This follows by summing the equation in \Cref{lem:three-term-bijective} over all \(T \in \Fill(\alpha, \sigma)\).
+\end{proof}
+
+\begin{corollary} \label{cor:three-term-non-integral}
+    Let \(\alpha\) be a composition such that \(\alpha_i > \alpha_{i+1}\) and \(\sigma \in S_n\) such that \(\sigma_i > \sigma_{i+1}\).
+    Then,
+    \begin{equation}
+        E_{\alpha}^\sigma(X;q;t)=E_{s_i \permact \alpha}^{\sigma s_i}(X;q;t)+t^{\rho(\alpha,\sigma,i)}\frac{1-t}{1-q^{L+1}t^{A}}E_{s_i \permact \alpha}^\sigma(X;q;t)
+    \end{equation}
+    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_{i+1} +1)\in\dg(s_i \permact \alpha)\), and  \( \rho(\alpha,\sigma,i)=\twinv(s_i \permact \alpha,\sigma)-\twinv(\alpha,\sigma)\).
+\end{corollary}
+
+\begin{proof}
+    This follows from \Cref{cor:three-term-bijective} by dividing both sides of \Cref{eq:three-term-v1-integral} by the appropriate factors to convert the integral forms to non-integral forms.
+\end{proof}
