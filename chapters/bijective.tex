@@ -293,12 +293,16 @@ The fact that \(\maj(T) = \maj(\phi(T))\) is less straightforward,
 since we haven't made any direct attempt to control the major index in our definition of \(\phi\).
 We prove this in \Cref{thm:phi-maj-inv}.
 
-\subsection{Iterative algorithm}
+\subsection{Row-by-row algorithm} \label{subsec:row-by-row}
+It turns out that the bijections \(\phi\) and \(\psi\) are the same as the bijections defined in \cite{KLO22}.
+We now present the algorithm from \cite{KLO22} in a clearer and more systematic form than the original exposition. \todo{Kinda passive-aggressive phrasing. But I do want to highlight that sanitizing the exposition is one of my contributions.}
+
 Let \(T \in \Fill(\alpha)\) with \(\alpha_i > \alpha_{i+1}\).
 We describe the algorithm to compute \(U = \phi(T)\) or \(U = \psi(T)\).
 The algorithm uses a \vocab{coin} with two sides, \(\coinphi\) and \(\coinpsi\), as a bookkeeping device.
 Each row from \(1\) to \(\alpha_{i+1} - 1\) is, at some point of the algorithm, assigned a \vocab{coin value} in \(\{\coinphi, \coinpsi\}\).
 Initially, assign the coin value of row \(1\) to be \(\coinphi\) if computing \(U = \phi(T)\), or \(\coinpsi\) if computing \(U = \psi(T)\).
+\todo[caption={Coins and labels can be changed.}]{For anyone reading this: the colored \(\coinphi\), \(\coinpsi\), \(\labelN\), \(\labelS\), \(\labelC\) are defined as \LaTeX\ macros, so if the colors are jarring, they can be changed easily.}
 
 In addition to the coin value, each row from \(1\) to \(\alpha_{i+1}\) is labeled from \(\{\labelN, \labelS, \labelC\}\).
 A label of \(\labelN\) means the entries in row \(r\) of columns \(i\) and \(i+1\) in \(T\) and \(U\) are \emph{not} swapped;
@@ -363,8 +367,7 @@ Finally, build \(U\) row by row:
 
 \todo{Add an example of the iterative algorithm.}
 
-\subsection{Recursive algorithm}
-The algorithm above may be described recursively in terms of the labels, instead of iteratively.
+The row-by-row algorithm may be described recursively instead of iteratively.
 
 Let \(T \in \Fill(\alpha)\) with \(\alpha_i > \alpha_{i+1}\).
 Assign the coin value of row \(1\) to be \(\coinphi\) if computing \(U = \phi(T)\), or \(\coinpsi\) if computing \(U = \psi(T)\).
@@ -379,6 +382,11 @@ This recursive interpretation is particularly useful for proving properties abou
 
 \todo{Add an example of the recursive algorithm.}
 
+\subsection{Equivalence of the two definitions} \label{subsec:equivalence-of-definitions}
+
+We now show that the two definitions of \(\phi\) and \(\psi\) given in \Cref{subsec:block-structure,subsec:row-by-row} are equivalent.
+We do so by applying the row-by-row algorithm and obsercing what happens to each block.
+\todo{Write this proof.}
 
 \subsection{Properties of the bijections \texorpdfstring{\(\phi\)}{𝜙} and \texorpdfstring{\(\psi\)}{𝜓}}
 
