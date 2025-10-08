@@ -3,98 +3,37 @@
 \todo{Write all of the polynomial identities in the introduction of this chapter.}
 
 In the first part of this chapter,
-we prove a rearrangement property of the modified Macdonald polynomials \(\tilde{H}_\mu(\mathbf{x}; q, t)\),
-\Cref{thm:tildeH-rearrangement}, through a bijective argument.
-% we follow \cite{KLO22}'s argument to prove \Cref{thm:tildeH-rearrangement}, which was established in \cite{HHL08}.
-\begin{theorem} \label{thm:tildeH-rearrangement}
-    Let \(\mu\) be a partition and \(\alpha\) be a rearrangement of \(\mu\).
-    Then
-    \begin{equation}
-        \sum_{T \in \Fill[\positives](\mu)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T
-        =
-        \sum_{T \in \Fill[\positives](\alpha)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T,
-    \end{equation}
-    where \(\Fill[\positives](\mu)\) (resp. \(\Fill[\positives](\alpha)\)) is the set of fillings of shape \(\mu\) (resp. \(\alpha\)) with labels in the positive integers \(\positives\).
-\end{theorem}
-This result was already established in \cite{HHL08},
-by using that \cite{HHL05} proves that the left hand side is equal to \(\tilde{H}_\mu(\mathbf{x}; q, t)\),
-and \cite{HHL08} argues that the same argument applies to the right hand side, which hence is also equal to \(\tilde{H}_\mu(\mathbf{x}; q, t)\).
+we study a rearrangement property of the modified Macdonald polynomials \(\tilde{H}_\mu(\mathbf{x}; q, t)\),
+\Cref{thm:tildeH-rearrangement},
+that for any partition \(\mu\) and any rearrangement \(\alpha\) of \(\mu\),
+\begin{equation} \label{eq:tildeH-rearrangement}
+    \sum_{T \in \Fill[\positives](\mu)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T
+    =
+    \sum_{T \in \Fill[\positives](\alpha)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T.
+\end{equation}
+The sum over \(T \in \Fill[\positives](\mu)\) is the celebrated combinatorial formula for \(\tilde{H}_\mu(\mathbf{x}; q, t)\) from \cite{HHL05}.
+In \cite{HHL08}, the rearrangement property was established by proving that the sum over \(T \in \Fill[\positives](\mu)\) is equal to \(\tilde{H}_\mu(\mathbf{x}; q, t)\), essentially copying the argument from \cite{HHL05} to the new setting.
 
-Here, we present a different purely combinatorial proof of \Cref{thm:tildeH-rearrangement}, by showing \Cref{lem:bijection-preserves-maj-inv} below.
-
-\begin{lemma} \label{lem:bijection-preserves-maj-inv}
-    Let \(\mathcal{A}\) be an alphabet, signed or unsigned.
-    There exists a bijection \(\phi \colon \Fill[\mathcal{A}](\alpha) \to \Fill[\mathcal{A}](s_i \permact \alpha)\) that preserves \(\content\), \(\inv\), and \(\maj\).
-    \todo{Actually, I kinda need to say that it preserves the multiset of entries, because I want to use it for signed fillings too.}
-\end{lemma}
+Here, we present a direct bijective proof of \Cref{eq:tildeH-rearrangement}, without going through \(\tilde{H}_\mu(\mathbf{x}; q, t)\). 
+The key step is \Cref{thm:phi-maj-inv},
+that guarantees the existence of a bijection \(\phi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) that preserves \(\content\), \(\inv\), and \(\maj\).
 
 We present two constructions of the bijection \(\phi\).
 The first construction is something with blocks,
-and the second construction is an iterative algorithm, a reinterpretation of the algorithm in \cite{KLO22}.
+and the second construction is an iterative algorithm from \cite{KLO22}, which we present in a clearer and more systematic form than the original exposition.
 Each construction has its own advantages and disadvantages, and we present both for completeness.
 We prove that both algorithms coincide in \Cref{...},
-and then prove \Cref{lem:bijection-preserves-maj-inv} in two different ways,
+and then prove \Cref{thm:phi-maj-inv} in two different ways,
 one for each construction.
+\todo{There are ``two levels'' in which I am making improvements from \cite{KLO22}: the first is finding an entirely new way of getting to the bijection (through blocks), and the second is rewriting their algorithm in a clearer way. I feel like these two different ``improvements'' are getting confused in this sentence.}
 
-An auxiliary bijection \(\psi \colon \Fill[\mathcal{A}](\alpha) \to \Fill[\mathcal{A}](s_i \permact \alpha)\) is also defined, that preserves \(\content\) but changes \(\inv\) and \(\maj\) in a controlled way.
+An auxiliary bijection \(\psi \colon \Fill[\mathcal{A}](\alpha) \to \Fill[\mathcal{A}](s_i \permact \alpha)\) is also defined, that preserves \(\content\) but changes \(\inv\) and \(\maj\) in a controlled way, as specified in \Cref{thm:psi-maj-inv}.
 
 In the second part of this chapter,
-we prove a pair of three-term identities for permuted-basement Macdonald polynomials \(E_\alpha^\sigma(\mathbf{x}; q, t)\), in \Cref{thm:three-term-a,thm:three-term-b}.
-\begin{theorem} \label{thm:three-term-a}
-    Let \(i \in \interval{n-1}\),
-    \(\alpha = \composition{\alpha_1, \dots, \alpha_n}\) be a composition with \(\alpha_i < \alpha_{i+1}\),
-    and \(\sigma = \window{\sigma_1, \dots, \sigma_n} \in \sym{n}\) be a permutation with \(\sigma_i > \sigma_{i+1}\).
-    Then, we have
-    \begin{equation} \label{eq:three-term-a}
-        E_{s_i \permact \alpha}^\sigma(\mathbf{x}; q, t)
-        =
-        E_\alpha^\sigma(\mathbf{x}; q, t)
-        +
-        t^{\twinv(\alpha, \sigma) - \twinv(s_i \permact \alpha, \sigma)}
-        \frac{1 - t}{1 - q^{L+1} t^{A}}
-        E_\alpha^{s_i \sigma}(\mathbf{x}; q, t),
-    \end{equation}
-    where \(L = \leg(x)\) and \(A = \arm(x)\) for \(x = (i+1, \alpha_i + 1) \in \dg(\alpha)\).
-\end{theorem}
-\begin{theorem} \label{thm:three-term-b}
-    Let \(i \in \interval{n-1}\),
-    \(\alpha = \composition{\alpha_1, \dots, \alpha_n}\) be a composition with \(\alpha_i < \alpha_{i+1}\),
-    and \(\sigma = \window{\sigma_1, \dots, \sigma_n} \in \sym{n}\) be a permutation with \(\sigma_i < \sigma_{i+1}\).
-    Then, we have
-    \begin{equation} \label{eq:three-term-b}
-        E_{s_i \permact \alpha}^\sigma(\mathbf{x}; q, t)
-        =
-        E_\alpha^\sigma(\mathbf{x}; q, t)
-        +
-        (q^{L+1} t^A)
-        t^{\twinv(\alpha, \sigma) - \twinv(s_i \permact \alpha, \sigma)}
-        \frac{1 - t}{1 - q^{L+1} t^{A}}
-        E_\alpha^{s_i \sigma}(\mathbf{x}; q, t),
-    \end{equation}
-    where \(L = \leg(x)\) and \(A = \arm(x)\) for \(x = (i+1, \alpha_i + 1) \in \dg(\alpha)\).
-\end{theorem}
-
-\Cref{eq:three-term-a,eq:three-term-b} can be equivalently rewritten using the integral form permuted-basement Macdonald polynomials instead of the non-integral form,
-respectively, as
-\begin{equation} \label{eq:three-term-a-integral}
-    \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{s_i \permact \alpha}^\sigma
-    = 
-    \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_\alpha^{\sigma s_i} 
-    +
-    t^{\rho(\alpha,\sigma,i)} (1 - t) \mathcal{E}_\alpha^\sigma
-\end{equation}
-and
-\begin{equation} \label{eq:three-term-b-integral}
-    \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{s_i \permact \alpha}^\sigma
-    = 
-    q^{L+1} t^{A} \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_\alpha^{\sigma s_i} 
-    +
-    (q^{L+1} t^{A})
-    t^{\rho(\alpha,\sigma,i)} (1 - t) \mathcal{E}_\alpha^\sigma.
-\end{equation}
+we prove \Cref{thm:three-term-a-non-integral,thm:three-term-b-non-integral},
+pair of three-term identities for permuted-basement Macdonald polynomials \(E_\alpha^\sigma(\mathbf{x}; q, t)\), \(E_{s_i \permact \alpha}^\sigma(\mathbf{x}; q, t)\), and \(E_{s_i \permact \alpha}^{\sigma s_i}(\mathbf{x}; q, t)\).
 
 We use the same bijection \(\phi\) on non-augmented fillings (as well as an auxiliary bijection \(\psi\)) as a building block for a bijection on augmented fillings.
-This new bijection is then used to prove \Cref{eq:three-term-a-integral,eq:three-term-b-integral}, and hence \Cref{eq:three-term-a,eq:three-term-b}.
 
 \section{The bijection}
 
