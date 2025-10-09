@@ -99,14 +99,68 @@ Below, we present two different algorithms to decide, for each \(r \in \interval
     \begin{enumerate}
         \item \label{item:odd-ind}
         \(\ind{a, d} + \ind{b, c} - \ind{a, c} - \ind{b, d} = \pm 1\);
+        % \(\ind{b, c, d} = \ind{a, d, c}\) and \(c \neq d\);
         \item \label{item:triple-equal-ind}
         \(\ind{a, b, c} = \ind{b, c, d} = \ind{a, d, c}\) and \(a \neq b\) and \(c \neq d\);
     \end{enumerate}
 \end{proposition}
 
 \begin{proof}
-    It suffices to check all possible relative orders of \(a, b, c, d\) (including equalities).
-    Computational verification shows that the two statements are equivalent.
+    Computational verification shows that both statements are satisfied for exactly the same relative configurations of \(a, b, c, d\), namely one of the following \(40\) configurations:
+    \[
+    \begin{array}{llll}
+    a \overset{+}{=} c > b \overset{+}{=} d, &
+    a \overset{-}{=} c > b \overset{-}{=} d, &
+    b \overset{+}{=} d > a \overset{+}{=} c, &
+    b \overset{-}{=} d > a \overset{-}{=} c, \\[4pt]
+
+    a \overset{+}{=} c > b > d, &
+    a \overset{-}{=} c > d > b, &
+    b > a \overset{-}{=} c > d, &
+    b > d > a \overset{+}{=} c, \\[4pt]
+
+    d > a \overset{+}{=} c > b, &
+    d > b > a \overset{-}{=} c, &
+    a \overset{+}{=} d > b \overset{+}{=} c, &
+    a \overset{-}{=} d > b \overset{-}{=} c, \\[4pt]
+
+    b \overset{+}{=} c > a \overset{+}{=} d, &
+    b \overset{-}{=} c > a \overset{-}{=} d, &
+    a > b \overset{-}{=} c > d, &
+    a > d > b \overset{+}{=} c, \\[4pt]
+
+    b \overset{+}{=} c > a > d, &
+    b \overset{-}{=} c > d > a, &
+    d > a > b \overset{-}{=} c, &
+    d > b \overset{+}{=} c > a, \\[4pt]
+
+    a \overset{+}{=} d > b > c, &
+    a \overset{-}{=} d > c > b, &
+    b > a \overset{-}{=} d > c, &
+    b > c > a \overset{+}{=} d, \\[4pt]
+
+    c > a \overset{+}{=} d > b, &
+    c > b > a \overset{-}{=} d, &
+    a > b \overset{-}{=} d > c, &
+    a > c > b \overset{+}{=} d, \\[4pt]
+
+    b \overset{+}{=} d > a > c, &
+    b \overset{-}{=} d > c > a, &
+    c > a > b \overset{-}{=} d, &
+    c > b \overset{+}{=} d > a, \\[4pt]
+
+    a > c > b > d, &
+    a > d > b > c, &
+    b > c > a > d, &
+    b > d > a > c, \\[4pt]
+
+    c > a > d > b, &
+    c > b > d > a, &
+    d > a > c > b, &
+    d > b > c > a,
+    \end{array}
+    \]
+    where \(x \overset{+}{=} y\) means \(x = y \in \mathcal{A}_+\) and \(x \overset{-}{=} y\) means \(x = y \in \mathcal{A}_-\).
     \todo{Attempt find a neater proof.}
 \end{proof}
 
