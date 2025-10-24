@@ -52,6 +52,11 @@ such that \(p_i \neq p_{i+1}\) for \(i\in[k-1]\), written as
 	} = p_1^{m_1} p_2^{m_2} \ldots p_k^{m_k}.
 \end{equation}
 
+The \vocab{conjugate} of a partition \(\lambda\) is the partition \(\lambda'\) defined by
+\begin{equation}
+	\lambda'_i = |\{ j \suchthat \lambda_j \geq i \}|.
+\end{equation}
+
 Given a permutation \(\pi \in \sym{n}\) and a composition \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\),
 the \vocab{left action} of \(\pi\) on \(\alpha\) is the composition
 \(\pi \permact \alpha = \composition{\alpha_{\pi^{-1}(1)}, \alpha_{\pi^{-1}(2)}, \ldots, \alpha_{\pi^{-1}(n)}}\).
@@ -109,6 +114,9 @@ Note that \(\rev(\alpha) = w_0 \permact \alpha\).
 \section{Symmetric functions and plethystic notation}
 
 We assume basic familiarity with the ring of symmetric functions in countably infinitely many variables \(\mathbf{x} = (x_1, x_2, \ldots)\) with coefficients in a field \(F\) of characteristic zero.
+This includes important families of symmetric functions,
+such as the power sum symmetric functions \(p_k\),
+and the Schur functions \(s_\lambda\).
 We refer the reader to \cite[Chapter~7]{EC2} for a comprehensive introduction to this topic.
 We take \(F = \rationals(q, t)\), the field of rational functions in the variables \(q\) and \(t\) with rational coefficients.
 
@@ -155,24 +163,13 @@ Then, \(f[X] = f(\mathbf{x})\) is the usual evaluation of \(f\) at the variables
 \section{Algebraic definitions of multiple variations of Macdonald polynomials}
 
 In this section, we define multiple variations of Macdonald polynomials:
-\todo[caption={Reorder algebraic definitions of Macdonald polynomials.}]{This is the order that makes the most sense for the combinatorial models, but perhaps not for this chapter. Maybe change the order here?}
 \begin{itemize}
-	\item \(\tilde{H}_\mu\), the modified Macdonald polynomials,
-	\item \(J_\mu\), the integral form symmetric Macdonald polynomials,
 	\item \(P_\mu\), the symmetric Macdonald polynomials,
+	\item \(J_\mu\), the integral form symmetric Macdonald polynomials,
+	\item \(\tilde{H}_\mu\), the modified Macdonald polynomials,
 	\item \(E_\alpha^\sigma\), the permuted-basement nonsymmetric Macdonald polynomials,
 	\item \(\mathcal{E}_\alpha^\sigma\), the integral form permuted-basement nonsymmetric Macdonald polynomials.
 \end{itemize}
-
-\subsection{Modified Macdonald polynomials \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ}}
-
-\todo{Add definition of modified Macdonald polynomials \(\tilde{H}_\mu\).}
-\todo{Include examples of \(\tilde{H}_\mu\).}
-
-\subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ}}
-
-\todo{Define integral form symmetric Macdonald polynomials \(J_\mu\).}
-\todo{Include examples of \(J_\mu\).}
 
 \subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ}}
 
@@ -219,33 +216,75 @@ The operator \(D\) has distinct eigenfunction, and these eigenfunctions are the 
 
 \todo{Include examples of \(P_\mu\) as eigenfunctions.}
 
-\subsection{Permuted-basement Macdonald polynomials \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ} as eigenfunctions}
+\subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ}}
+
+We define the integral form symmetric Macdonald polynomials following \cite[Chapter VII, Section 8]{Mac04}.
+
+For a partition \(\mu\), define the \vocab{normalization factor \(c_\mu(q, t)\)} by
+\begin{equation}
+	c_\mu(q, t) = \prod_{u \in \dg(\mu)} (1 - q^{\leg(u)} t^{\arm(u)+1}),
+\end{equation}
+where the product is over all boxes \(u\) in the skyline diagram \(\dg(\mu)\) of \(\mu\), and \(\leg(u)\) and \(\arm(u)\) are the leg and arm lengths of the box \(u\) in \(\dg(\mu)\), respectively.
+The notions of skyline diagrams, leg lengths, and arm lengths are defined in \Cref{subsec:non-augmented-fillings}.%
+\footnote{
+	The exponents of \(q\) and \(t\) in the formula in \cite[Chapter VII, Section 8]{Mac04} are \(a(u)\) and \(l(u)+1\), where \(a(u)\) and \(l(u)\) denote the arm and leg lengths of the box \(u\) in the Young diagram of \(\mu\).
+	Our formula measures arm and leg lengths in the skyline diagram, which effectively swaps the roles of arms and legs compared to the Young diagram.
+	Hence the apparent swap of arms and legs is due to the different diagram conventions, and our formula is consistent with that in \cite{Mac04}.
+}
+For now, it suffices to note \(c_\mu(q,t)\) is a polynomial in \(q\) and \(t\) that admits an explicit formula.
+
+The \vocab{integral form symmetric Macdonald polynomial} \(J_\mu = J_\mu(\mathbf{x}; q, t)\) is defined by
+\begin{equation}
+	J_\mu(\mathbf{x}; q, t) = c_\mu(q, t) P_\mu(\mathbf{x}; q, t).
+\end{equation}
+The naming ``integral form'' is due to the fact that
+the coefficients of \(J_\mu(\mathbf{x}; q, t)\)
+are polynomials in \(q\) and \(t\) with integer coefficients.
+Several proofs of this integrality result appeared in the late 1990s; for example, \cite{Kno97}.
+
+\todo{Include examples of \(J_\mu\).}
+
+\subsection{Modified Macdonald polynomials \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ}}
+
+We define the modified Macdonald polynomials following \cite[Section~2]{Hai99}.
+The \vocab{modified Macdonald polynomial} \(\tilde{H}_\mu = \tilde{H}_\mu(\mathbf{x}; q, t)\) is defined by the plethystic substitution
+\begin{equation}
+	\tilde{H}_\mu(\mathbf{x}; q, t) = t^{n(\mu)} J_\mu\left[ \frac{X}{1 - t^{-1}}; q, t^{-1} \right],
+\end{equation}
+where \(n(\mu) = \sum_{i \geq 1} (i-1) \mu_i\).
+
+The modified Macdonald polynomials \(\tilde{H}_\mu\) satisfy and are uniquely determined by the following properties \cite[Proposition~2.6]{Hai99}:
+\begin{itemize}
+	\item \(\tilde{H}_\mu[X(1 - q); q, t]\) is a linear combination of Schur functions \(s_\lambda\) with \(\lambda \geq \mu\) in dominance order,
+	\item \(\tilde{H}_\mu[X(1 - t); q, t]\) is a linear combination of Schur functions \(s_\lambda\) with \(\lambda \geq \mu'\) in dominance order,
+	\item \(\langle \tilde{H}_\mu, s_{(n)} \rangle = 1\).
+\end{itemize}
+
+\todo{Include examples of \(\tilde{H}_\mu\).}
+
+\subsection{Permuted-basement Macdonald polynomials \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ}}
 \label{sec:permuted basement def}
 
 We follow the exposition of \cite{Fer11} and the notation of \cite{Ale19}
 for the definition of nonsymmetric Macdonald polynomials
-and permuted-basement Macdonald polynomials.
+and permuted-basement Macdonald polynomials,
+which are polynomials in the ring \(\rationals(q, t)[\mathbf{x}_n] = \rationals(q, t)[x_1, x_2, \ldots, x_n]\).
 For more background on this topic, see \cite{GR22},
 where these polynomials are referred to as the \emph{relative Macdonald polynomials}.
 
-Let \(x_1\), \dots, \(x_n\) be indeterminates, denoted collectively as \(\mathbf{x}\).
-Let \(q, t\) be parameters.
-We define nonsymmetric Macdonald polynomials and permuted-basement Macdonald polynomials,
-which are polynomials in the ring \(\rationals(q, t)[\mathbf{x}]\).
-
-A permutation \(\sigma \in \sym{n}\) acts on
+Recall that a permutation \(\sigma \in \sym{n}\) acts on
 a polynomial \(f(\mathbf{x})\) by permuting the variables,
 that is,
 \(\sigma (\mathbf{x}^{\alpha}) = \mathbf{x}^{\sigma \permact \alpha}\)
 for a composition \(\alpha\).
 For example, the permtutation \(\sigma = \window{2, 3, 1}\) sends the monomial \(x_1^2 x_2 = \mathbf{x}^{\composition{2, 1, 0}}\) to the monomial
-\begin{equation}
+\(
 	\window{2, 3, 1} (x_1^2 x_2)
 	= \window{2, 3, 1}(\mathbf{x}^{\composition{2, 1, 0}})
 	= \mathbf{x}^{\window{2, 3, 1} \permact \composition{2, 1, 0}}
 	= \mathbf{x}^{\composition{0, 2, 1}}
-	= x_2^2 x_3.
-\end{equation}
+	= x_2^2 x_3
+\).
 
 The \vocab{Demazure--Lusztig operators}
 \(T_1\), \dots, \(T_{n-1}\) on \(\rationals(q, t)[\mathbf{x}]\)
