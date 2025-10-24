@@ -821,27 +821,27 @@ The equivalence between equations \Cref{eq:J-NAF-signed} and \Cref{eq:J-NAF-unsi
 
 \subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ} as tableaux generating functions}
 
-Recall that the symmetric Macdonald polynomials \(P_\mu\) are a family of polynomials indexed by partitions \(\mu\).
-The integral form Macdonald polynomials \(J_\mu\) is a scalar multiple of \(P_\mu\), with relationship given by
-\begin{equation}
-	J_\mu(\mathbf{x}; q, t)
-	=
-	\left(
-		\prod_{u \in \dg(\mu)} (1 - q^{1 + \leg(u)} t^{\arm(u)})
-	\right)
-	P_\mu(\mathbf{x}; q, t)
-	.
-\end{equation}
-Therefore, from \Cref{eq:J-NAF-unsigned}, we obtain a tableaux formula for \(P_\mu\) as
-\begin{equation} \label{eq:P-NAF-unsigned}
-	P_\mu(\mathbf{x}; q, t)
-	= \sum_{T \in \NAF[\interval{n}](\mu)} \mathbf{x}^T
-	q^{\maj(T)} t^{\coinv(T)}
-	\prod_{\substack{u \in \dg(\mu) \\ T(u) \neq T(\south{u})}}
-	\frac{1 - t}{1 - q^{1 + \leg(u)} t^{1 + \arm(u)}}.
-\end{equation}
+\todo{Something seems very off about the scaling factor of \(P_\mu\) vs \(J_\mu\) here.}
 
-\todo{Add a reference for the scaling factor.}
+% Recall that the symmetric Macdonald polynomials \(P_\mu\) are a family of polynomials indexed by partitions \(\mu\).
+% The integral form Macdonald polynomials \(J_\mu\) is a scalar multiple of \(P_\mu\), with relationship given by
+% \begin{equation}
+% 	J_\mu(\mathbf{x}; q, t)
+% 	=
+% 	\left(
+% 		\prod_{u \in \dg(\mu)} (1 - q^{\leg(u)} t^{\arm(u)})
+% 	\right)
+% 	P_\mu(\mathbf{x}; q, t)
+% 	.
+% \end{equation}
+% Therefore, from \Cref{eq:J-NAF-unsigned}, we obtain a tableaux formula for \(P_\mu\) as
+% \begin{equation} \label{eq:P-NAF-unsigned}
+% 	P_\mu(\mathbf{x}; q, t)
+% 	= \sum_{T \in \NAF[\interval{n}](\mu)} \mathbf{x}^T
+% 	q^{\maj(T)} t^{\coinv(T)}
+% 	\prod_{\substack{u \in \dg(\mu) \\ T(u) \neq T(\south{u})}}
+% 	\frac{1 - t}{1 - q^{1 + \leg(u)} t^{1 + \arm(u)}}.
+% \end{equation}
 
 \subsection{Permuted-basement nonsymmetric Macdonald polynomials \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ} as tableaux generating functions}
 \label{sec:tableau-formula}

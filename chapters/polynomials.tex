@@ -481,5 +481,24 @@ Note that the computations in \Cref{example:permuted-basement-macdonald-polynomi
 
 \subsection{Integral form permuted-basement Macdonald polynomials \texorpdfstring{\(\mathcal{E}_\alpha^\sigma\)}{Eασ}}
 
-\todo{Define integral form permuted-basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\).}
+We define the integral form permuted-basement Macdonald polynomials following \cite[Section~5]{Kno97}.
+While \cite{Kno97} only defined the integral form nonsymmetric Macdonald polynomials,
+the extension to the permuted-basement case is straightforward by using the same normalization factor.
+
+For a composition \(\alpha=\composition{\alpha_1,\ldots,\alpha_n}\), define the \vocab{normalization factor \(d_\alpha(q, t)\)} by
+\begin{equation}
+	d_\alpha(q, t) = \prod_{u \in \dg(\alpha)} (1 - q^{\leg(u)+1} t^{\arm(u)+1}),
+\end{equation}
+where the product is over all boxes \(u\) in the skyline diagram \(\dg(\alpha)\) of \(\alpha\), and \(\leg(u)\) and \(\arm(u)\) are the leg and arm lengths of the box \(u\) in \(\dg(\alpha)\), respectively.
+The notions of skyline diagrams, leg lengths, and arm lengths are defined in \Cref{subsec:non-augmented-fillings}.%
+\footnote{
+	The exponents of \(q\) and \(t\) in the formula in \cite[Section~5]{Kno97} are \(a(u)+1\) and \(l(u)+1\).
+	We call \(\leg(u)\) the quantity that \cite{Kno97} denotes by \(a(u)\), and \(\arm(u)\) the quantity that \cite{Kno97} denotes by \(l(u)\).
+	Hence our formula is consistent with that in \cite{Kno97}.
+}
+The \vocab{integral form permuted-basement Macdonald polynomial} \(\mathcal{E}_\alpha^\sigma = \mathcal{E}_\alpha^\sigma(\mathbf{x}; q, t)\) is defined by
+\begin{equation}
+	\mathcal{E}_\alpha^\sigma(\mathbf{x}; q, t) = d_\alpha(q, t) E_\alpha^\sigma(\mathbf{x}; q, t).
+\end{equation}
+
 \todo{Include examples of \(\mathcal{E}_\alpha^\sigma\).}
