@@ -106,13 +106,51 @@ Note that \(\rev(\alpha) = w_0 \permact \alpha\).
 	which we write as a product \(\pi \sigma^{-1}\).
 \end{remark}
 
-\section{Symmetric functions}
+\section{Symmetric functions and plethystic notation}
 
-\todo[caption={Write section on symmetric functions.}]{Add a section on symmetric functions background, if needed: what even to include in it?
-	Perhaps a discussion about finitely many variables vs infinitely many variables is relevant.
-	Plethystic notation might be included as well.}
+We assume basic familiarity with the ring of symmetric functions in countably infinitely many variables \(\mathbf{x} = (x_1, x_2, \ldots)\) with coefficients in a field \(F\) of characteristic zero.
+We refer the reader to \cite[Chapter~7]{EC2} for a comprehensive introduction to this topic.
+We take \(F = \rationals(q, t)\), the field of rational functions in the variables \(q\) and \(t\) with rational coefficients.
 
-\subsection{Plethystic notation}
+Recall that the \vocab{power sum symmetric functions} \(p_k\) for \(k \geq 1\) are defined by
+\begin{equation}
+	p_k = \sum_{i \geq 1} x_i^k.
+\end{equation}
+Any symmetric function can be uniquely expressed as a polynomial in the power sum symmetric functions.
+In other words,
+\begin{equation}
+	\Lambda(F) = F[p_1, p_2, p_3, \ldots].
+\end{equation}
+
+% \subsection{Plethystic notation}
+
+We adopt plethystic notation as in \cite[Section~2]{Hai99}, defined as follows.
+
+Let \(A\) be a formal series.
+We define \(p_k[A]\) to be the formal series obtained by replacing each indeterminate \(a\) in \(A\) by \(a^k\) (including the indeterminates \(q\) and \(t\)).
+For a symmetric function \(f \in \Lambda(F)\), let
+\begin{equation}
+	f = Q_f(p_1, p_2, \ldots, p_m)
+\end{equation}
+be the expression of \(f\) as a polynomial \(Q_f\) in the power sum symmetric functions.
+Then, the \vocab{plethystic substitution} of \(A\) into \(f\) is defined as
+\begin{equation}
+	f[A] = Q_f(p_1[A], p_2[A], \ldots, p_m[A]).
+\end{equation}
+
+If \(A\) is a sum of indeterminates, \(A = a_1 + a_2 + \cdots + a_n\), then \(p_k[A] = a_1^k + a_2^k + \cdots + a_n^k = p_k(a_1, a_2, \ldots, a_n)\), and thus \(f[A] = f(a_1, a_2, \ldots, a_n)\).
+This explains why we call \(f[A]\) a kind of substitution.
+Similarly, if \(A\) is a sum of monomials, then \(f[A]\) is \(f\) evaluated on these monomials.
+An important example is
+\[
+	f[1/(1-t)] = f[1 + t + t^2 + t^3 + \cdots] = f(1, t, t^2, t^3, \ldots).
+\]
+
+We let \(X = x_1 + x_2 + x_3 + \cdots\) denote the sum of all indeterminates in \(\mathbf{x}\).
+Then, \(f[X] = f(\mathbf{x})\) is the usual evaluation of \(f\) at the variables \(\mathbf{x}\), and
+\[
+	f[X/(1-t)] = f(x_1, x_2, x_3, \ldots, t x_1, t x_2, t x_3, \ldots, t^2 x_1, t^2 x_2, t^2 x_3, \ldots ).
+\]
 
 \section{Algebraic definitions of multiple variations of Macdonald polynomials}
 
