@@ -167,8 +167,8 @@ In this section, we define multiple variations of Macdonald polynomials:
 	\item \(P_\mu\), the symmetric Macdonald polynomials,
 	\item \(J_\mu\), the integral form symmetric Macdonald polynomials,
 	\item \(\tilde{H}_\mu\), the modified Macdonald polynomials,
-	\item \(E_\alpha^\sigma\), the permuted-basement nonsymmetric Macdonald polynomials,
-	\item \(\mathcal{E}_\alpha^\sigma\), the integral form permuted-basement nonsymmetric Macdonald polynomials.
+	\item \(E_\alpha^\sigma\), the permuted-basement (nonsymmetric) Macdonald polynomials,
+	\item \(\mathcal{E}_\alpha^\sigma\), the integral form permuted-basement (nonsymmetric) Macdonald polynomials.
 \end{itemize}
 
 \subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ}}
@@ -221,7 +221,7 @@ The operator \(D\) has distinct eigenfunction, and these eigenfunctions are the 
 We define the integral form symmetric Macdonald polynomials following \cite[Chapter VII, Section 8]{Mac04}.
 
 For a partition \(\mu\), define the \vocab{normalization factor \(c_\mu(q, t)\)} by
-\begin{equation}
+\begin{equation} \label{eq:normalization-factor-c-mu}
 	c_\mu(q, t) = \prod_{u \in \dg(\mu)} (1 - q^{\leg(u)} t^{\arm(u)+1}),
 \end{equation}
 where the product is over all boxes \(u\) in the skyline diagram \(\dg(\mu)\) of \(\mu\), and \(\leg(u)\) and \(\arm(u)\) are the leg and arm lengths of the box \(u\) in \(\dg(\mu)\), respectively.
@@ -248,7 +248,7 @@ Several proofs of this integrality result appeared in the late 1990s; for exampl
 
 We define the modified Macdonald polynomials following \cite[Section~2]{Hai99}.
 The \vocab{modified Macdonald polynomial} \(\tilde{H}_\mu = \tilde{H}_\mu(\mathbf{x}; q, t)\) is defined by the plethystic substitution
-\begin{equation}
+\begin{equation} \label{eq:modified-macdonald-plethystic}
 	\tilde{H}_\mu(\mathbf{x}; q, t) = t^{n(\mu)} J_\mu\left[ \frac{X}{1 - t^{-1}}; q, t^{-1} \right],
 \end{equation}
 where \(n(\mu) = \sum_{i \geq 1} (i-1) \mu_i\).
@@ -486,7 +486,7 @@ While \cite{Kno97} only defined the integral form nonsymmetric Macdonald polynom
 the extension to the permuted-basement case is straightforward by using the same normalization factor.
 
 For a composition \(\alpha=\composition{\alpha_1,\ldots,\alpha_n}\), define the \vocab{normalization factor \(d_\alpha(q, t)\)} by
-\begin{equation}
+\begin{equation} \label{eq:normalization-factor-d-alpha}
 	d_\alpha(q, t) = \prod_{u \in \dg(\alpha)} (1 - q^{\leg(u)+1} t^{\arm(u)+1}),
 \end{equation}
 where the product is over all boxes \(u\) in the skyline diagram \(\dg(\alpha)\) of \(\alpha\), and \(\leg(u)\) and \(\arm(u)\) are the leg and arm lengths of the box \(u\) in \(\dg(\alpha)\), respectively.
