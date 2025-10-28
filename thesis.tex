@@ -14,7 +14,7 @@
 \setlength{\textwidth}{6.375in}
 \raggedbottom
 
-\usepackage{setspace}
+\usepackage[nodisplayskipstretch]{setspace}
 \setstretch{1.2}
 
 \newcommand{\href}[1]{#1} % does nothing, but defines the command so the print-optimized version will ignore \href tags (redefined by hyperref pkg).
@@ -41,7 +41,7 @@
 \SetWatermarkAngle{90}
 \SetWatermarkHorCenter{0.05\paperwidth}
 
-\usepackage[style=alphabetic,backend=biber,backref=true,maxbibnames=99,maxalphanames=5]{biblatex}
+\usepackage[style=alphabetic,backend=biber,backref=true,maxbibnames=99,maxalphanames=5,doi=false,url=false,isbn=false]{biblatex}
 \addbibresource{references.bib}
 
 % Add arxiv marking to the label of arXiv references

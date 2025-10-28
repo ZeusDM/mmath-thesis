@@ -5,6 +5,60 @@ This chapter draws upon the research presented in:
     \fullcite{DM25}.
 \end{quote}
 
+\textcite[Theorem~22]{Ale19} established a partial symmetry result
+for permuted-basement Macdonald polynomials under certain conditions.
+Using \cite[Lemma~20 and Proposition~15]{Ale19},
+we reformulate the result as follows.
+
+\begin{restatable}[equivalent to {\cite[Theorem~22]{Ale19}}]{theorem}{symmetryAle}
+	\label{theorem:symmetry-Ale19}
+	Let \(\alpha=\composition{\alpha_1,\ldots,\alpha_n}\) be a composition
+	with \(\alpha_i=\alpha_{i+1}\) for some \(i\in\interval{n-1}\).
+	Let \(\sigma \in \sym{n}\), such that \(\sigma_{i+1} = \sigma_i \pm 1\).
+	Then,
+	\begin{equation*}
+		E_{\alpha}^{\sigma}(\mathbf{x}; q, t)
+		= E_{\alpha}^{\sigma s_i}(\mathbf{x}; q, t).
+	\end{equation*}
+\end{restatable}
+
+The main result of this chapter is stated in the following theorem,
+which extends \cref{theorem:symmetry-Ale19}
+by removing the assumption that \(\sigma_i\) and \(\sigma_{i+1}\) are consecutive.
+
+\begin{restatable}{theorem}{main}
+	\label{theorem:main}
+	Let \(\alpha=\composition{\alpha_1,\ldots,\alpha_n}\) be a composition
+	with \(\alpha_i=\alpha_{i+1}\) for some \(i\in\interval{n-1}\),
+	and let \(\sigma \in \sym{n}\).
+	Then,
+	\begin{equation*}
+		E_{\alpha}^{\sigma}(\mathbf{x}; q, t)
+		= E_{\alpha}^{\sigma s_i}(\mathbf{x}; q, t).
+	\end{equation*}
+\end{restatable}
+
+The combinatorial interpretation of \cref{theorem:main} is that
+swapping the basement entries in two adjacent columns of the same height
+does not change the generating function for non-attacking fillings.
+Our approach for proving this builds upon a (classical) bijection
+introduced in \cite{CHMMW22} for unrestricted fillings of partition shape,
+in which two adjacent entries of the filling
+in the bottom row of columns of the same height are swapped
+while preserving the overall weight of the filling.
+\cite{Man24} extended this technique
+by introducing a probabilistic bijection
+for partition-shaped non-attacking fillings.
+In this chapter,
+we generalize this probabilistic bijection
+to composition-shaped non-attacking fillings,
+thereby giving a bijective proof of \cref{theorem:main}.
+
+As implications of \cref{theorem:main},
+certain assumptions can be removed from
+theorems in \cite{Ale19} and \cite{CMW22},
+which we summarize in \cref{sec:applications}.
+
 \section{Probabilistic bijections}
 
 Probabilistic bijections,
@@ -95,4 +149,1098 @@ with transition probabilities given by the function \( \prob{} \) under a specif
 In the case of \cref{def:prob}, this condition is detailed balance,
 but a probabilistic bijection can also be defined using a more general balance condition.
 
-\todo[caption={Add the remainder of the stuff from \cite{DM25}.}]{Add the remainder of the stuff from \cite{DM25}. This is mostly copy-paste, but I need to make sure the notation is consistent with the rest of the thesis, and I need to delete definitions that have already been given.}
+\section{A probabilistic bijection for non-attacking fillings}
+\label{sec:probabilistic}
+
+In this section,
+we define a map on non-attacking fillings
+that allows us to construct a probabilistic bijection between
+\(\NAF(\alpha,\sigma)\) and \(\NAF(\alpha,\sigma s_i)\)
+in order to prove \cref{theorem:main} in \cref{sec:proof}.
+
+In \cite{CHMMW22},
+a weight-preserving bijection was established between
+fillings in \(\Fill(\lambda)\) with statistics \(\maj\) and \(\inv\),
+corresponding to swapping two adjacent entries in the bottom row within columns of the same height.
+This was done using an operator \(\tau_i\),
+originally introduced in \cite{LN12},
+on fillings in \(\Fill(\lambda)\).
+The bijection established the equality of generating functions
+over weighted fillings for the sets
+\(\{T\in\Fill(\lambda) \suchthat \text{bottom row of \(T\) is \(w\)}\}\)
+and
+\(\{T\in\Fill(\lambda) \suchthat \text{bottom row of \(T\) is \(w s_i\)}\}\)
+for an index \(i\) such that \(\lambda_i = \lambda_{i+1}\).
+The result was used to obtain a compact formula for the modified Macdonald polynomials.
+
+In our case,
+proving that \(E_\alpha^\sigma=E_\alpha^{\sigma s_i}\) combinatorially
+requires showing that the weight generating functions
+over \(\NAF(\alpha,\sigma)\) and \(\NAF(\alpha,\sigma s_i)\) are equal,
+which also amounts to finding a bijection on tableaux
+that swaps basement entries in columns \(i\) and \(i+1\).
+However,
+the operator \(\tau_i\) used in \cite{CHMMW22}
+does not preserve the non-attacking property of tableaux,
+so the same strategy could not be applied.
+This issue was resolved in \cite{Man24}
+by introducing a probabilistic operator \(\widehat{\tau}_i\)
+for non-attacking tableaux with partition shape,
+in order to obtain a compact formula for \(P_{\lambda}\).
+The latter operator is the map we use to define our probabilistic bijection.
+
+There are two key differences between our setting and the one in \cite{Man24}.
+First, our map applies to tableaux with composition shapes,
+whereas \cite{Man24} considers only partition shapes.
+This distinction allows \cite{Man24} to restrict attention to type A triples,
+while we consider both types.
+Second, our fillings include basements,
+eliminating the need for the so-called \emph{degenerate} triples in \cite{Man24}.
+Hence, the probability map in \cref{definition:prob}
+and the surrounding lemmas are adapted from the original to fit our setting.
+
+Throughout this section,
+let \(\alpha=\composition{\alpha_1,\ldots,\alpha_n}\) be a composition,
+let \(\sigma \in \sym{n}\) be a permutation,
+and let \(i \in \interval{n-1}\) such that \(\alpha_i = \alpha_{i+1}\).
+
+\begin{definition}[{\(\swap[r]{i}\) and \(\sswap[0, r]{i}\)}]
+	\label{definition:swap}
+	Given a filling \(T\) of shape \(\alpha\) and \(r \in \interval{0, \alpha_i}\),
+	let \(\swap[r]{i}(T)\) denote the filling obtained by
+	swapping the entries in boxes \((i, r)\) and \((i+1, r)\) in \(T\).
+	Moreover,
+	let \(\sswap[0, r]{i} = \swap[r]{i} \circ \cdots \circ \swap[1]{i} \circ \swap[0]{i}\),
+	which represents a sequence of swaps
+	in the first \(r+1\) rows within the columns \(i\) and \(i+1\).
+\end{definition}
+
+Note that if \(T \in \Fill(\alpha, \sigma)\),
+then \(\sswap[0, r]{i}(T) \in \Fill(\alpha, \sigma s_i)\) for any \(r\geq 0\).
+Also, the fillings \(T\) and \(\sswap[0, r]{i}(T)\) have the same content.
+However, \(\swap[r]{i}\) and \(\sswap[0, r]{i}\)
+do not in general preserve the property of a filling being non-attacking.
+
+\newcommand{\pp}[2][]{\rho_{#2}^{(#1)}}
+\begin{definition}[{\(\pp[r]{i}\)}]
+	\label{definition:propagate}
+	Let \(T \in \NAF(\alpha, \sigma)\) be a non-attacking filling.
+	Let \(r \in \interval{0, \alpha_i-1}\).
+	We define \(\pp[r]{i}(T) \in \rationals(q, t)\).
+	Let \(a = T(i, r)\), \(b = T(i+1, r)\), \(c = T(i, r+1)\), and \(d = T(i+1, r+1)\).
+	Let \(A = \arm(i+1, r+1)\) and \(\ell = \leg(i+1, r+1)\).
+
+	If \(|\{a, b, c, d\}| = 4\), then we split into two cases.
+	\begin{enumerate}
+		\item \label{item:pp-cda-cdb}
+			If \(\ind{c, d, a} = \ind{c, d, b}\), then \(\pp[r]{i}(T) = 0\).
+		\item \label{item:pp-cda-dcb}
+			If \(\ind{c, d, a} = \ind{d, c, b}\), then \(\pp[r]{i}(T) = 1\).
+	\end{enumerate}
+
+	If \(|\{a, b, c, d\}| = 3\),
+	the non-attacking condition implies that \(a \neq b\),
+	\(a \neq d\) and \(c \neq d\),
+	so we have three cases.
+	\begin{enumerate}[resume]
+		\item \label{item:pp-bc}
+			If \(b = c\), then \(\pp[r]{i}(T) = 0\).
+		\item \label{item:pp-bd}
+			If \(b = d\), then \(\pp[r]{i}(T) = 1\).
+		\item \label{item:pp-ac}
+			If \(a = c\), then
+			\begin{equation*}
+				\pp[r]{i}(T) =
+				t^{1 - \ind{d, a, b}}
+				\frac{1 - q^{\ell+1}t^{A+1}}{1-q^{\ell+1}t^{A+2}}.
+			\end{equation*}
+	\end{enumerate}
+
+	If \(|\{a, b, c, d\}| = 2\),
+	then we have one case.
+	\begin{enumerate}[resume]
+		\item \label{item:pp-ac-bd}
+		If \(a = c\) and \(b = d\), then \(\pp[r]{i}(T) = 1\).
+	\end{enumerate}
+\end{definition}
+
+\Cref{table:propagate} summarizes the values of \(\pp[r]{i}(T)\)
+for \(T \in \NAF(\alpha, \sigma)\) and \(r \in \interval{0, \alpha_i-1}\).
+\begin{table}[htbp]
+	\centering
+	\ytableausetup{boxsize=1em}
+	\setcellgapes{0pt}
+	\makegapedcells
+	\begin{tabular}[c]{rccc}
+		\toprule
+		& \(T\) & \(\pp[r]{i}(T)\) & \(1 - \pp[r]{i}(T)\) \\
+		\midrule
+		\ref{item:pp-cda-cdb}
+		&
+		\begin{tabular}[t]{c}
+		\begin{ytableau}
+			\none[\scriptstyle r+1] & \none & c & d \\
+			\none[\scriptstyle r]   & \none & a & b \\
+		\end{ytableau} \\
+		{\scriptsize \(\ind{c, d, a} = \ind{c, d, b}\)}
+		\end{tabular}
+		& \(0\) & \(1\) \\ \midrule
+		\ref{item:pp-cda-dcb}
+		&
+		\begin{tabular}[t]{c}
+		\begin{ytableau}
+			\none[\scriptstyle r+1] & \none & c & d \\
+			\none[\scriptstyle r]   & \none & a & b \\
+		\end{ytableau}\\
+		{\scriptsize \(\ind{c, d, a} = \ind{d, c, b}\)}
+		\end{tabular}
+		& \(1\) & \(0\) \\ \midrule
+		\ref{item:pp-bc}
+		& \begin{ytableau}
+				\none[\scriptstyle r+1] & \none & b & d \\
+				\none[\scriptstyle r]   & \none & a & b \\
+			\end{ytableau}
+		& \(0\) & \(1\) \\ \midrule
+		\ref{item:pp-bd}
+		& \begin{ytableau}
+				\none[\scriptstyle r+1] & \none & c & b \\
+				\none[\scriptstyle r]   & \none & a & b \\
+			\end{ytableau}
+		& \(1\) & \(0\) \\ \midrule
+		\ref{item:pp-ac}
+		& \begin{ytableau}
+				\none[\scriptstyle r+1] & \none & a & d \\
+				\none[\scriptstyle r]   & \none & a & b \\
+			\end{ytableau}
+		& \(t^{1 - \ind{d, a, b}} \frac{1 - q^{\ell+1}t^{A+1}}{1-q^{\ell+1}t^{A+2}}\)
+		& \((q^{\ell+1}t^{A+1})^{\ind{d, a, b}} \frac{1-t}{1 - q^{\ell+1}t^{A+2}}\) \\ \midrule
+		\ref{item:pp-ac-bd}
+		& \begin{ytableau}
+				\none[\scriptstyle r+1] & \none & a & b \\
+				\none[\scriptstyle r]   & \none & a & b \\
+				\none & \none[\scriptstyle i] & \none[\scriptstyle i+1]
+			\end{ytableau}
+		& \(1\) & \(0\) \\
+		\bottomrule
+	\end{tabular}
+	\caption{
+		The values of \(\pp[r]{i}(T)\) and \(1 - \pp[r]{i}(T)\)
+		for \(T \in \NAF(\alpha, \sigma)\)
+		and \(r \in \interval{0, \alpha_i-1}\),
+		on each case of \cref{definition:propagate}.
+	}
+	\label{table:propagate}
+\end{table}
+
+For ease of computation,
+we note that, in case \ref{item:pp-ac},
+we have
+\begin{equation*}
+	1 - \pp[r]{i}(T)
+	=
+	(q^{\ell+1}t^{A+1})^{\ind{d, a, b}}
+	\frac{1-t}{1 - q^{\ell+1}t^{A+2}},
+\end{equation*}
+which is straightforward to verify by
+splitting into cases of \(\ind{d, a, b}\) being \(0\) or \(1\)
+(compare to {\cite[Lemma 3.3]{Man24}}).
+
+As a convention, we set \(\pp[\alpha_i]{i}(T) = 0\).
+
+\begin{definition}[\(\prob{i}\)] \label{definition:prob}
+	The map
+	\begin{equation*}
+		\prob{i} \colon
+		\NAF(\alpha, \sigma) \times \Fill(\alpha, \sigma s_i)
+		\to \rationals(q, t)
+	\end{equation*}
+	is defined for \(T \in \NAF(\alpha, \sigma)\) and
+	\(U \in \Fill(\alpha, \sigma s_i)\) by letting
+	\begin{equation}\label{eq:prob factors}
+		\prob{i}(T, U) =
+		\left( \prod_{r = 0}^{h-1} \pp[r]{i}(T) \right)
+		\left( 1 - \pp[h]{i}(T) \right)
+	\end{equation}
+	if there exists \(h \in \interval{0, \alpha_i}\)
+	such that \(U = \sswap[0, h]{i}(T)\),
+	and \(\prob{i}(T, U) = 0\) otherwise.
+\end{definition}
+
+\begin{proposition}
+	The map
+	\(\prob{i} \colon \NAF(\alpha, \sigma) \times \Fill(\alpha, \sigma s_i) \to \rationals(q, t)\)
+	is a probability map, that is,
+	for all \(T \in \NAF(\alpha, \sigma)\),
+	\begin{equation*}
+		\sum_{U \in \Fill(\alpha, \sigma s_i)} \prob{i}(T, U) = 1.
+	\end{equation*}
+\end{proposition}
+
+\begin{proof}
+	Using that \(\pp[\alpha_i]{i}(T) = 0\),
+	it is straightforward to compute
+	\begin{equation*}
+		\sum_{h=0}^{\alpha_i}
+		\left( \prod_{r = 0}^{h-1} \pp[r]{i}(T) \right)
+		\left( 1 - \pp[h]{i}(T) \right)
+		= 1,
+	\end{equation*}
+	as required.
+\end{proof}
+
+\begin{example}
+	Let \(T \in \NAF(\composition{3, 4, 4, 0, 0}, \window{5, 1, 3, 4, 2})\)
+	be the non-attacking filling
+	\begin{equation*}
+		\ytableausetup{aligntableaux=center}
+		\begin{ytableau}
+			\none & 3 & 2 \\
+			4 & 1 & 2 \\
+			3 & 4 & 1 \\
+			3 & 4 & 2 \\
+			5 & 1 & 3 & 4 & 2
+		\end{ytableau}.
+	\end{equation*}
+	The values of \(\pp[r]{2}(T)\) and \(1 - \pp[r]{2}(T)\) are
+	\begin{equation*}
+		\begin{aligned}
+			\pp[0]{2}(T) &= 1,
+			& 1-\pp[0]{2}(T) &= 0, \\
+			\pp[1]{2}(T) &= \frac{1 - q^{3}t^{1}}{1 - q^{3}t^{2}},
+			& 1-\pp[1]{2}(T) &= \frac{q^{3}t^{1} - q^{3}t^{2}}{1 - q^{3}t^{2}}, \\
+			\pp[2]{2}(T) &= 0,
+			& 1-\pp[2]{2}(T) &= 1, \\
+			\pp[3]{2}(T) &= 1,
+			& 1-\pp[3]{2}(T) &= 0, \\
+			\pp[4]{2}(T) &= 0,
+			& 1-\pp[4]{2}(T) &= 1.
+		\end{aligned}
+	\end{equation*}
+	Hence, the values of \(\prob{2}{T, \sswap[0, h]{2}(T)}\) for \(h \in \interval{0, 4}\) are
+	\begin{equation*}
+		\begin{aligned}
+			\prob{2}\left(T, {\sswap[0, 0]{2}(T)}\right) &= 0, \\
+			\prob{2}\left(T, {\sswap[0, 1]{2}(T)}\right) &= \frac{q^{3}t^{1} - q^{3}t^{2}}{1 - q^{3}t^{2}}, \\
+			\prob{2}\left(T, {\sswap[0, 2]{2}(T)}\right) &= \frac{1 - q^{3}t^{1}}{1 - q^{3}t^{2}}, \\
+			\prob{2}\left(T, {\sswap[0, 3]{2}(T)}\right) &= 0, \\
+			\prob{2}\left(T, {\sswap[0, 4]{2}(T)}\right) &= 0.
+		\end{aligned}
+	\end{equation*}
+	The two nonzero values of \(\prob{2}(T, U)\) are obtained for
+	\(U = \sswap[0, 1]{2}(T)\) and
+	\(U = \sswap[0, 2]{2}(T)\),
+	which are, respectively,
+	\begin{equation*}
+		\ytableausetup{aligntableaux=center}
+		\begin{ytableau}
+			\none & 3 & 2 \\
+			4 & 1 & 2 \\
+			3 & 4 & 1 \\
+			3 & 2 & 4 \\
+			5 & 3 & 1 & 4 & 2
+		\end{ytableau}
+		\quad \text{and} \qquad
+		\begin{ytableau}
+			\none & 3 & 2 \\
+			4 & 1 & 2 \\
+			3 & 1 & 4 \\
+			3 & 2 & 4 \\
+			5 & 3 & 1 & 4 & 2
+		\end{ytableau}.
+	\end{equation*}
+\end{example}
+
+By construction, the \(\prob{i}\) is nonzero only for pairs of non-attacking fillings.
+\begin{proposition} \label{proposition:restrict-to-naf-naf}
+	Let \(T \in \NAF(\alpha, \sigma)\) be a non-attacking filling.
+	Let \(U \in \Fill(\alpha, \sigma s_i)\) be a filling.
+	If \(\prob{i}(T, U) \neq 0\), then \(U\) is non-attacking.
+\end{proposition}
+
+\begin{proof}
+	Note that attacking pairs not involving columns \(i\) and \(i+1\)
+	remain unchanged between \(T\) and \(U\),
+	and attacking pairs involving one box in columns \(i\) or \(i+1\) in \(T\)
+	correspond to attacking pairs with a box in the same columns in \(U\),
+	though their positions may be swapped between the two columns.
+	Hence,
+	the only distinction in attacking pairs between \(T\) and \(U\)
+	comes from the attacking boxes in both columns \(i\) and \(i+1\).
+
+	If \(\prob{i}(T, U) \neq 0\),
+	there exists \(h \in \interval{0, \alpha_i}\) such that \(U = \sswap[0, h]{i}(T)\),
+	and thus by \Cref{eq:prob factors},
+	\(\pp[r]{i}(T) \neq 0\) for all \(r \in \interval{0, h-1}\) and \(\pp[h]{i}(T) \neq 1\).
+	Therefore,
+	it suffices to show that if \(T\) is non-attacking,
+	then \(U(i, r) \neq U(i+1, r+1)\) for all \(r \in \interval{0, h}\).
+	For \(r \in \interval{0, h-1}\),
+	we have \(\pp[r]{i}(T) \neq 0\), so the configuration of \cref{item:pp-bc} does not occur;
+	thus, \(U(i, r) = T(i+1, r) \neq T(i, r+1) = U(i+1, r+1)\).
+	For \(r = h\),
+	we have \(\pp[h]{i}(T) \neq 1\),
+	so configurations of \cref{item:pp-bd} or \cref{item:pp-ac-bd} does not occur;
+	thus, \(U(i, h) = T(i+1, h) \neq T(i+1, h+1) = U(i+1, h+1)\).
+	Therefore, \(U\) is indeed non-attacking.
+\end{proof}
+
+\begin{corollary}
+	The restriction
+	\begin{equation*}
+		\prob{i} \colon \NAF(\alpha, \sigma) \times \NAF(\alpha, \sigma s_i) \to \rationals(q, t)
+	\end{equation*}
+	is a probability map.
+\end{corollary}
+
+As an abuse of notation, we write \(\prob{i}\) for both
+the function on \(\NAF(\alpha, \sigma) \times \Fill(\alpha, \sigma s_i)\) and
+the function on \(\NAF(\alpha, \sigma s_i) \times \NAF(\alpha, \sigma)\).
+Moreover, we also write \(\prob{i}\) for both
+the function on \(\NAF(\alpha, \sigma) \times \NAF(\alpha, \sigma s_i)\) and
+the function on \(\NAF(\alpha, \sigma s_i) \times \NAF(\alpha, \sigma)\).
+
+The main result of this section is \cref{theorem:wt-prob},
+which generalizes \cite[Lemma 4.4]{Man24} to our setting.
+
+\begin{theorem}[adapted from {\cite[Lemma 4.4]{Man24}}]
+	\label{theorem:wt-prob}
+	The pair of maps
+	%\begin{gather*}
+	%	{\prob{i}} \colon \NAF(\alpha, \sigma) \times \NAF(\alpha, \sigma s_i) \to \rationals(q, t) \\
+	%	{\prob{i}} \colon \NAF(\alpha, \sigma s_i) \times \NAF(\alpha, \sigma) \to \rationals(q, t)
+	%\end{gather*}
+	defines a probabilistic bijection
+	between \(\NAF(\alpha, \sigma)\) and \(\NAF(\alpha, \sigma s_i)\)
+	with respect to the weight function \(\wtqt\).
+	In other words,
+	for all \(T \in \NAF(\alpha, \sigma)\)
+	and \(U \in \NAF(\alpha, \sigma s_i)\),
+	\begin{equation*}
+		\wtqt(U)\prob{i}(U, T) = \wtqt(T)\prob{i}(T, U).
+	\end{equation*}
+\end{theorem}
+
+For organization purposes,
+we split the proof of \cref{theorem:wt-prob} into several lemmas.
+
+\begin{lemma} \label{lemma:useful-ind-five-variables}
+	Let \(a, b, c, d, f \in [n]\).
+	Then,
+	\begin{equation*}
+		\ind{c, f, a} + \ind{d, f, b} - \ind{c, f, b} - \ind{d, f, a}
+		= \ind{c, b} + \ind{d, a} - \ind{c, a} - \ind{d, b}.
+	\end{equation*}
+\end{lemma}
+\begin{proof}
+	We directly compute
+	\begin{align*}
+		\ind{c, f, a} + \ind{d, f, b} - \ind{c, f, b} - \ind{d, f, a}
+		&= (\ind{c, f} + \ind{f, a} - \ind{c, a}) + (\ind{d, f} + \ind{f, b} - \ind{d, b}) \\
+		&\mathrel{\vphantom{=}} - (\ind{c, f} + \ind{f, b} - \ind{c, b}) - (\ind{d, f} + \ind{f, a} - \ind{d, a}) \\
+		&= \ind{c, b} + \ind{d, a} - \ind{c, a} - \ind{d, b}. \qedhere
+	\end{align*}
+\end{proof}
+
+The \(q,t\)-weight of a filling can be decomposed as the product of the weights contributed by the descents within each row and the inversions between every pair of rows.
+Let \(L = \max_i \alpha_i\) be the total number of rows.
+For \(0\leq r\leq L-1\),
+define \(\dg[r]{(\alpha)}\) as
+the set of boxes in the \(r\)\textsuperscript{th} row of \(\dg(\alpha)\).
+Then, define
+\begin{equation*}
+	\maj[r + 1](T) = \sum_{u \in \Des[r + 1](T)} \leg(u) + 1,
+\end{equation*}
+where \(\Des[r+1](T)=\Des(T)\cap \dg[r+1]{(\alpha)}\).
+Also, define \(\coinv[r, r+1](T)\) as
+the number of inversion triples in \(T\)
+within the pair of rows \(r\) and \(r + 1\).
+Then, the \(r\)\textsuperscript{th} component
+of the \(q, t\)-weight
+of a non-attacking filling \(T \in \NAF(\alpha, \sigma)\)
+is defined as
+\begin{equation}
+	\label{eq:rthcomponent}
+	\wtqt[r](T) =
+	q^{\maj[r + 1](T)}
+	t^{\coinv[r, r + 1](T)}
+	\prod_{\substack{u \in \dg[r + 1]{(\alpha)} \\ T(u) \neq T(\south{u})}}
+	\frac{1 - t}{1 - q^{1 + \leg(u)} t^{1 + \arm(u)}},
+\end{equation}
+yielding the decomposition
+\begin{equation*}
+	\wtqt(T) = \prod_{r = 0}^{L-1} \wtqt[r](T).
+\end{equation*}
+
+\begin{lemma} \label{lemma:wtqt-prob-balanced-r}
+	Let \(T \in \NAF(\alpha, \sigma)\) be a non-attacking filling.
+	Let \(U = \sswap[0, h]{i}(T)\) for some \(h \in \interval{0, \alpha_i}\).
+	Then, for all \(r \in \interval{0, h - 1}\),
+	\begin{equation} \label{eq:wtqt-prob-balanced-r}
+		\wtqt[r](U)\pp[r]{i}(U) = \wtqt[r](T)\pp[r]{i}(T).
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	Let \(r \in \interval{0, h-1}\).
+	Let
+	\begin{align*}
+		c & = T(i, r+1)=U(i+1, r+1), &
+		d & = T(i+1, r+1)=U(i, r+1), \\
+		a & = T(i, r)=U(i+1, r), \text{ and } &
+		b & = T(i+1, r)=U(i, r).
+	\end{align*}
+	Since \(U\) is non-attacking, we have \(b \neq c\).
+	We note that \(\maj[r + 1](T) = \maj[r + 1](U)\).
+	Moreover,
+	triples not involving columns \(i\) and \(i+1\)
+	are preserved between \(T\) and \(U\),
+	triples involving column \(i\) in \(T\)
+	correspond to triples involving column \(i+1\) in \(U\),
+	and triples involving column \(i+1\) in \(T\)
+	correspond to triples involving column \(i\) in \(U\).
+	Hence, the only distinction in the coinversion and inversion statistics between \(T\) and \(U\)
+	comes from the triples involving both columns \(i\) and \(i+1\).
+	Therefore,
+	\begin{equation*}
+		\coinv[r, r + 1](T) - \coinv[r, r + 1](U)
+		=
+		\inv[r, r + 1](U) - \inv[r, r + 1](T)
+		=
+		\ind{d, c, b} - \ind{c, d, a}.
+	\end{equation*}
+	We show that \Cref{eq:wtqt-prob-balanced-r} holds
+	for all cases of \((a,b,c,d)\) with \(b\neq c\).
+
+	First, suppose \(|\{a, b, c, d\}| = 4\).
+	Then,
+	the sets \(\{u \in \Arm(i+1, r+1) \suchthat T(u) \neq T(\south{u})\}\)
+	and \(\{u \in \Arm(i+1, r+1) \suchthat U(u) \neq U(\south{u})\}\) are equal.
+	\begin{itemize}[left=0pt]
+		\item On the one hand, if \(\ind{c, d, a} = \ind{c, d, b}\),
+			then \(\pp[r]{i}(T) = 0\) by \cref{item:pp-cda-cdb}.
+			Then, it also holds that \(\ind{d, c, b} = \ind{d, c, a}\),
+			and hence \(\pp[r]{i}(U) = 0\) by \cref{item:pp-cda-cdb}.
+		\item On the other hand, if \(\ind{c, d, a}=1-\ind{c, d, b} = \ind{d, c, b}\),
+			then \(\pp[r]{i}(T) = 1\) by \cref{item:pp-cda-dcb}.
+			Then, it also holds that \(\ind{d, c, b} = \ind{c, d, a}\),
+			and hence \(\pp[r]{i}(U) = 1\) by \cref{item:pp-cda-dcb}.
+			For the (co)inversion number, we have
+			\(\coinv[r, r + 1](T) - \coinv[r, r + 1](U) = \ind{d, c, b} - \ind{c, d, a} = 0\).
+	\end{itemize}
+	Thus, in both cases for \(\ind{c,d,a}\),
+	\Cref{eq:wtqt-prob-balanced-r} holds for \(|\{a,b,c,d\}| = 4\).
+
+	Next, suppose \(|\{a, b, c, d\}| = 3\).
+	Since \(b\neq c\), we either have \(b=d\) or \(a=c\).
+	Without loss of generality, assume \(b=d\),
+	since swapping \(T\) and \(U\) gives the other case.
+	By \cref{item:pp-bd}, we have
+	\(\pp[r]{i}(T) = 0\).
+	Moreover,
+	\begin{equation*}
+		\pp[r]{i}(U)
+		=
+		t^{1 - \ind{c, b, a}}
+		\frac{(1 - q^{\ell+1}t^{A+1})}{1 - q^{\ell+1}t^{A+2}},
+	\end{equation*}
+	where \(A = \arm(i+1, r+1)\), by \cref{item:pp-ac}.
+	\(\coinv[r, r + 1](T) - \coinv[r, r + 1](U) = \ind{b, c, b} - \ind{c, b, a} = 1 - \ind{c, b, a}\).
+	Finally, the ratio
+	\begin{equation*}
+		\left(
+			\prod_{\substack{u \in \dg[r + 1]{\alpha} \\ T(u) \neq T(\south{u})}}
+			\frac{1 - t}{1 - q^{\leg(u)+1} t^{ \arm(u)+1}}
+		\right)
+		\big/
+		\left(
+			\prod_{\substack{u \in \dg[r + 1]{\alpha} \\ U(u) \neq U(\south{u})}}
+			\frac{1 - t}{1 - q^{\leg(u)+1} t^{\arm(u)+1}}
+		\right)
+	\end{equation*}
+	only differs in the boxes \((i,r+1)\) and \((i+1,r+1)\), and thus equals
+	\begin{equation*}
+		\left(
+		\frac{1-t}{1 - q^{\ell+1}t^{A+2}}
+		\right)
+		\big/
+		\left(
+		\frac{1-t}{1 - q^{\ell+1}t^{A+1}}
+		\right)
+		= \frac{1 - q^{\ell+1}t^{A+1}}{1 - q^{\ell+1}t^{A+2}},
+	\end{equation*}
+	where \(A = \arm(i+1, r+1)\).
+	Therefore, we compute
+	\begin{equation*}
+		\frac{\wtqt[r](T)}{\wtqt[r](U)} =
+		t^{1 - \ind{c, b, a}} \frac{1 - q^{\ell+1}t^{A+1}}{1 - q^{\ell+1}t^{A+2}}
+		= \pp[r]{i}(T, U),
+	\end{equation*}
+	confirming \Cref{eq:wtqt-prob-balanced-r}.
+
+	Finally, if \(|\{a, b, c, d\}| = 2\),
+	then \(a = c\) and \(b = d\).
+	Hence, \(\pp[r]{i}(T) = \pp[r]{i}(U) = 1\), by \cref{item:pp-ac-bd}.
+	For the (co)inversion number, we have
+	\(\coinv[r, r + 1](T) - \coinv[r, r + 1](U) = \ind{b, a, b} - \ind{a, b, a} = 1 - 1 = 0\).
+	Moreover, the sets \(\{u \in \Arm(i+1, r+1) \suchthat T(u) \neq T(\south{u})\}\)
+	and \(\{u \in \Arm(i+1, r+1) \suchthat U(u) \neq U(\south{u})\}\) are equal.
+	Thus, \Cref{eq:wtqt-prob-balanced-r} holds in this final case, as well.
+\end{proof}
+
+\begin{lemma} \label{lemma:wtqt-prob-balanced-h}
+	Let \(T \in \NAF(\alpha, \sigma)\) be a non-attacking filling.
+	Let \(U = \sswap[0, h]{i}(T)\) for some \(h \in \interval{0, \alpha_i}\).
+	Then,
+	\begin{equation} \label{eq:wtqt-prob-balanced-h}
+		\wtqt[h](U)\left(1 - \pp[h]{i}(U)\right) = \wtqt[h](T)\left(1 - \pp[h]{i}(T)\right).
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	If \(h = \alpha_i\),
+	then \(\wtqt[\alpha_i](T) = \wtqt[\alpha_i](U) = 1\)
+	and \(1 - \pp[\alpha_i]{i}(T) = 1 - \pp[\alpha_i]{i}(U) = 1\),
+	so \Cref{eq:wtqt-prob-balanced-h} holds trivially.
+	Assume that \(h < \alpha_i\).
+	Then
+	\begin{align*}
+		c & = T(i, h+1)=U(i,h+1), &
+		d & = T(i+1, h+1)=U(i+1,h+1), \\
+		a & = T(i, h)=U(i+1,h), \text{ and } &
+		b & = T(i+1, h)=U(i,h).
+	\end{align*}
+	Since \(U\) is non-attacking, we have \(b \neq d\).
+	We note that
+	\begin{equation*}
+		\maj[h + 1](T) - \maj[h + 1](U) = \ind{c, a} + \ind{d, b} - \ind{c, b} - \ind{d, a}.
+	\end{equation*}
+	Moreover, we have
+	\begin{align*}
+		\coinv[h, h + 1](T) - \coinv[h, h + 1](U) & = \inv[h, h + 1](U) - \inv[h, h + 1](T)\\
+		& = \ind{c, d, b} - \ind{c, d, a} +
+		\sum_{\substack{u \in \Arm(i+1, h+1) \\ k = U(u)}}
+		\left( \ind{c, k, b} + \ind{d,k, a} - \ind{c,k, a} - \ind{d,k, b} \right),
+	\end{align*}
+	which simplifies to
+	\( (A+1) \left( \ind{c, a} + \ind{d, b} - \ind{c, b} - \ind{d, a} \right)\)
+	using \cref{lemma:useful-ind-five-variables}, where \(A = \arm(i+1, h+1)\).
+
+	We show that \Cref{eq:wtqt-prob-balanced-h} holds
+	for all possible cases for \((a,b,c,d)\) with \(b\neq d\).
+
+	First, suppose \(|\{a, b, c, d\}| = 4\).
+	Then, the sets \(\{u \in \Arm(i+1, h+1) \suchthat T(u) \neq T(\south{u})\}\)
+	and \(\{u \in \Arm(i+1, h+1) \suchthat U(u) \neq U(\south{u})\}\) are equal.
+	\begin{itemize}[left=0pt]
+		\item On the one hand, if \(\ind{c, d, a} = \ind{c, d, b}\),
+			then \(1 - \pp[h]{i}(T) = 1\) by \cref{item:pp-cda-cdb}.
+			Then, it also holds that \(\ind{d, c, b} = \ind{d, c, a}\),
+			and hence \(1 - \pp[h]{i}(U) = 1\) by \cref{item:pp-cda-cdb}.
+			It also holds that
+			\begin{equation*}
+				\ind{c, a} + \ind{d, b} - \ind{c, b} - \ind{d, a} = 0,
+			\end{equation*}
+			therefore, \(\maj[h + 1](T) = \maj[h + 1](U)\)
+			and \(\coinv[h, h + 1](T) = \coinv[h, h + 1](U)\).
+		\item On the other hand, if \(\ind{c, d, a}=1-\ind{c, d, b} = \ind{d, c, b}\),
+			then \(1 - \pp[h]{i}(T) = 0\) by \cref{item:pp-cda-dcb}.
+			Then, it also holds that \(\ind{d, c, b} = \ind{c, d, a}\),
+			and hence \(1 - \pp[h]{i}(U) = 0\) by \cref{item:pp-cda-dcb}.
+	\end{itemize}
+	Thus, in both cases for \(\ind{c,d,a}\), \Cref{eq:wtqt-prob-balanced-h} holds for \(|\{a,b,c,d\}|=4\).
+
+	Now suppose that \(|\{a, b, c, d\}| = 3\).
+	Since \(b\neq d\), without loss of generality we may assume \(b=c\).
+	By \cref{item:pp-bc}, we have
+	\(1 - \pp[h]{i}(T) = 1\).
+	Moreover,
+	\begin{equation*}
+		1 - \pp[h]{i}(U) = (q^{L-h}t^{A+1})^{1 - \ind{d, b, a}} \frac{1 - t}{1 - q^{L-h}t^{A+2}},
+	\end{equation*}
+	where \(A = \arm(i+1, h+1)\), by \cref{item:pp-ac}.
+	It also holds that
+	\begin{equation*}
+		\ind{b, a} + \ind{d, b} - \ind{b, b} - \ind{d, a} = \ind{d, b, a}.
+	\end{equation*}
+	For the major index, we have \(\maj[r + 1](T) - \maj[r + 1](U)\) equals \( (\ell+1) \ind{d, b, a}\).
+	For the coinversion number,
+	we have \(\coinv[r, r + 1](T) - \coinv[r, r + 1](U)\)
+	equals \((A + 1) \ind{d, b, a}\).
+	Finally, we have
+	\begin{equation*}
+		\left(
+			\prod_{\substack{u \in \dg[r + 1]{\alpha} \\ T(u) \neq T(\south{u})}}
+			\frac{1 - t}{1 - q^{\leg(u)+1} t^{ \arm(u)+1}}
+		\right)
+		\big/
+		\left(
+			\prod_{\substack{u \in \dg[r + 1]{\alpha} \\ U(u) \neq U(\south{u})}}
+			\frac{1 - t}{1 - q^{\leg(u)+1} t^{\arm(u)+1}}
+		\right)
+		= \frac{(1 - t)}{1 - q^{\ell+1}t^{A+1}},
+	\end{equation*}
+	since \(u=(i, r+1)\) is the only relevant box.
+	Therefore, we compute
+	\begin{equation*}
+		\frac{\wtqt[r](T)}{\wtqt[r](U)} =
+		q^{(\ell+1)\ind{d, b, a}} t^{(A+1)\ind{d, b, a}} \frac{(1 - t)}{1 - q^{\ell+1}t^{A+1}}
+		= \pp[r]{i}(T, U),
+	\end{equation*}
+	and thus \Cref{eq:wtqt-prob-balanced-h} holds for this case as well.
+
+	Finally, the case \(|\{a, b, c, d\}| = 2\) does not happen as \(b \neq d\)
+	by the non-attacking property of \(U\).
+	Therefore, \Cref{eq:wtqt-prob-balanced-h} holds in all cases.
+\end{proof}
+
+We are now ready to prove the main result of this section, \cref{theorem:wt-prob}.
+
+\begin{proof}[Proof of \cref{theorem:wt-prob}]
+	Assume that \(U = \sswap[0, h]{i}(T)\) for some \(h \in \interval{0, \alpha_i}\).
+	If such \(h\) doesn't exist, then \(\prob{i}(T, U) = \prob{i}(U, T) = 0\), and the lemma holds trivially.
+	For all \(r \in \interval{h + 1, \alpha_i-1}\),
+	since the \(r\)\textsuperscript{th} and \((r+1)\)\textsuperscript{st} rows of \(T\) and \(U\) are equal,
+	we have
+	\begin{equation} \label{eq:wtqt-prob-balanced-r-large}
+		\wtqt[r](T) = \wtqt[r](U)
+	\end{equation}
+	By \cref{lemma:wtqt-prob-balanced-r}, for all \(r \in \interval{0, h-1}\), we have
+	\begin{equation} \label{eq:wtqt-prob-balanced-r-repeated}
+		\wtqt[r](U)\pp[r]{i}(U) = \wtqt[r](T)\pp[r]{i}(T),
+	\end{equation}
+	and by \cref{lemma:wtqt-prob-balanced-h}, we have
+	\begin{equation} \label{eq:wtqt-prob-balanced-h-repeated}
+		\wtqt[h](U)\left(1 - \pp[h]{i}(U)\right) = \wtqt[h](T)\left(1 - \pp[h]{i}(T)\right).
+	\end{equation}
+	Multiplying
+	\Cref{eq:wtqt-prob-balanced-r-large} for each \(r \in \interval{h + 1, \alpha_i-1}\),
+	\Cref{eq:wtqt-prob-balanced-r-repeated} for all \(r \in \interval{0, h-1}\), and
+	\Cref{eq:wtqt-prob-balanced-h-repeated},
+	we obtain
+	\begin{equation*}
+		\left( \prod_{r = 0}^{\alpha_i-1} \wtqt[r](U) \right)
+		\left( \prod_{r = 0}^{h-1} \pp[r]{i}(U) \right)
+		\left( 1 - \pp[h]{i}(U) \right)
+		=
+		\left( \prod_{r = 0}^{\alpha_i-1} \wtqt[r](T) \right)
+		\left( \prod_{r = 0}^{h-1} \pp[r]{i}(T) \right)
+		\left( 1 - \pp[h]{i}(T) \right).
+	\end{equation*}
+	By \Cref{eq:rthcomponent}, and \cref{definition:prob}, we obtain
+	\begin{equation*}
+		\wtqt(U)\prob{i}(U, T) = \wtqt(T)\prob{i}(T, U). \qedhere
+	\end{equation*}
+\end{proof}
+
+Recall that \(\NAF(\alpha, \sigma, \beta)\) denotes the set of non-attacking fillings of shape \(\alpha\) with content \(\beta\).
+Since \(\prob{i}(T, U) = 0\) whenever \(\mathbf{x}^T \neq \mathbf{x}^U\),
+we may restrict the map in \cref{theorem:wt-prob}
+to obtain a probabilistic bijection between
+\(\NAF(\alpha, \sigma, \beta)\) and \(\NAF(\alpha, \sigma s_i, \beta)\).
+
+\begin{corollary} \label{cor:wt-prob}
+	The pair of maps
+	% \begin{gather*}
+	% 	{\prob{i}} \colon \NAF(\alpha, \sigma, \beta) \times \NAF(\alpha, \sigma s_i, \beta) \to \rationals(q, t) \\
+	% 	{\prob{i}} \colon \NAF(\alpha, \sigma s_i, \beta) \times \NAF(\alpha, \sigma, \beta) \to \rationals(q, t)
+	% \end{gather*}
+	defines a probabilistic bijection between
+	\(\NAF(\alpha, \sigma, \beta)\) and \(\NAF(\alpha, \sigma s_i, \beta)\)
+	with respect to the weight function \(\wtqt\).
+\end{corollary}
+
+\begin{example}
+	Let \(n = 4\),
+	\(\alpha = \composition{2, 2, 0, 1}\),
+	\(\sigma = \window{3, 1, 2, 4}\),
+	\(\beta = \composition{1, 0, 2, 2}\).
+	Let \(i = 1\) and note that \(\alpha_1 = \alpha_2 = 2\).
+	Moreover, note that \(\sigma s_i = \window{1, 3, 2, 4}\).
+	\cref{cor:wt-prob} implies that the maps
+	\( \prob{1} \colon \NAF(\alpha, \sigma, \beta) \times \NAF(\alpha, \sigma s_1, \beta) \to \rationals(q, t)\)
+	and
+	\( \prob{1} \colon \NAF(\alpha, \sigma s_1, \beta) \times \NAF(\alpha, \sigma, \beta) \to \rationals(q, t)\)
+	form a probabilistic bijection.
+
+	The set
+	\(\NAF(\alpha, \sigma, \beta) = \NAF(\composition{2, 2, 0, 1}, \window{3, 1, 2, 4}, \composition{1, 0, 2, 2})\)
+	consists of three fillings,
+	\(\textcolor{red!50!black}{T_1}\),
+	\(\textcolor{red!50!black}{T_2}\), and
+	\(\textcolor{red!50!black}{T_3}\),
+	and the set
+	\(\NAF(\alpha, \sigma s_i, \beta) = \NAF(\composition{2, 2, 0, 1}, \window{1, 3, 2, 4}, \composition{1, 0, 2, 2})\) 
+	consists of two fillings,
+	\(\textcolor{blue!50!black}{U_1}\) and
+	\(\textcolor{blue!50!black}{U_2}\),
+	shown in the left and right sides of \cref{fig:prob-2201-3124-1022}, respectively.
+	\cref{fig:prob-2201-3124-1022} shows the values of
+	\(\prob{1}(T, U)\) and \(\prob{1}(U, T)\) for each pair of fillings.
+
+	\begin{figure}[htbp]
+		\centering
+		\begin{tikzpicture}
+			\node[red!50!black]  (T1) at (-4,  3) {
+				\(T_1 =
+				\begin{ytableau}
+					2 & 4 \\
+					1 & 2 & \none & 4 \\
+					3 & 1 & 2 & 4
+				\end{ytableau}\)
+			};
+			\node[red!50!black]  (T2) at (-4,  0) {
+				\(T_2 =
+				\begin{ytableau}
+					2 & 4 \\
+					2 & 1 & \none & 4 \\
+					3 & 1 & 2 & 4
+				\end{ytableau}\)
+			};
+			\node[red!50!black]  (T3) at (-4, -3) {
+				\(T_3 =
+				\begin{ytableau}
+					4 & 2 \\
+					1 & 2 & \none & 4 \\
+					3 & 1 & 2 & 4
+				\end{ytableau}\)
+			};
+			\node[blue!50!black] (U1) at ( 4,  1.5) {
+				\(\begin{ytableau}
+					2 & 4 \\
+					1 & 2 & \none & 4 \\
+					1 & 3 & 2 & 4
+				\end{ytableau} = U_1\)
+			};
+			\node[blue!50!black] (U2) at ( 4, -1.5) {
+				\(\begin{ytableau}
+					4 & 2 \\
+					1 & 2 & \none & 4 \\
+					1 & 3 & 2 & 4
+				\end{ytableau} = U_2\)
+			};
+			% Weights
+			\node[red!50!black, below] at (T1.south) {
+				\(\scriptstyle \wtqt(T_1) =
+				\frac{q^{4} {(1 - t)}^{4} t^{3}}{{(1 - q^{2} t^{3})} {(1 - q^{2} t^{2})} {(1 - q t^{2})} {(1 - q t)}}\)
+			};
+			\node[red!50!black, below] at (T2.south) {
+				\(\scriptstyle \wtqt(T_2) =
+				\frac{q {(1 - t)}^{2}}{{(1 - q^{2} t^{3})} {(1 - q t)}}\)
+			};
+			\node[red!50!black, below] at (T3.south) {
+				\(\scriptstyle \wtqt(T_3) =
+				\frac{q^{3} t^{2} {(1 - t)}^{3} }{{(1 - q^{2} t^{3})} {(1 - q^{2} t^{2})} {(1 - q t^{2})}}\)
+			};
+			\node[blue!50!black, below] at (U1.south) {
+				\(\scriptstyle \wtqt(U_1) =
+				\frac{q^{2} {(1 - t)}^{3} t}{{(1 - q^{2} t^{2})} {(1 - q t^{2})} {(1 - q t)}}\)
+			};
+			\node[blue!50!black, below] at (U2.south) {
+				\(\scriptstyle \wtqt(U_2) =
+				\frac{q {(1 - t)}^{2}}{{(1 - q^{2} t^{2})} {(1 - q t^{2})}}\)
+			};
+			% Arrows
+			\draw[-{Latex}, red!50!black] (T1) 
+				edge[bend left=15] node[sloped, fill=white]{\(1\)} (U1);
+			\draw[-{Latex}, blue!50!black] (U1) 
+				edge[bend left=0] node[sloped, fill=white]{\(\tfrac{q^2t^2(1-t)}{1-q^2t^3}\)} (T1);
+			\draw[-{Latex}, red!50!black] (T2) 
+				edge[bend left=10] node[sloped, fill=white]{\(\frac{qt(1-t)}{1-qt^2}\)} (U1);
+			\draw[-{Latex}, blue!50!black] (U1) 
+				edge[bend left=6] node[sloped, fill=white]{\(\frac{1-q^2t^2}{1-q^2t^3}\)} (T2);
+			\draw[-{Latex}, red!50!black] (T2) 
+				edge[bend left=6] node[sloped, fill=white]{\(\frac{qt-1}{1-qt^2}\)} (U2);
+			\draw[-{Latex}, blue!50!black] (U2) 
+				edge[bend left=10] node[sloped, fill=white]{\(\frac{1-q^2t^2}{1-q^2t^3}\)} (T2);
+			\draw[-{Latex}, red!50!black] (T3) 
+				edge[bend left=0] node[sloped, fill=white]{\(1\)} (U2);
+			\draw[-{Latex}, blue!50!black] (U2) 
+				edge[bend left=15] node[sloped, fill=white]{\(\tfrac{q^2t^2(1-t)}{1-q^2t^3}\)} (T3);
+		\end{tikzpicture}
+		\caption{
+			For each \(T \in \NAF(\composition{2, 2, 0, 1}, \window{3, 1, 2, 4}, \composition{1, 0, 2, 2})\)
+			(right, in red),
+			and each \(U \in \NAF(\composition{2, 2, 0, 1}, \window{1, 3, 2, 4}, \composition{1, 0, 2, 2})\)
+			(left, in blue),
+			the label of the red arrow from \(T\) to \(U\) is the value of \(\prob{1}(T, U)\),
+			and the label of the blue arrow from \(U\) to \(T\) is the value of \(\prob{1}(U, T)\).
+			The lack of an arrow indicates that the value is zero.
+			Below each filling, we show the value of \(\wtqt\).
+		}
+		\label{fig:prob-2201-3124-1022}
+	\end{figure}
+
+	The fact that the maps form a probabilistic bijection can be checked
+	by computing that, for each
+	\(T \in \{\textcolor{red!50!black}{T_1}, \textcolor{red!50!black}{T_2}, \textcolor{red!50!black}{T_3}\}\)
+	and each
+	\(U \in \{\textcolor{blue!50!black}{U_1}, \textcolor{blue!50!black}{U_2}\}\),
+	we have
+	\begin{equation*}
+		\prob{1}(T, U) \wtqt(T) = \prob{1}(U, T) \wtqt(U).
+	\end{equation*}
+	Moreover, using the fact that there exists a probabilistic bijection between
+	\(\{\textcolor{red!50!black}{T_1}, \textcolor{red!50!black}{T_2}, \textcolor{red!50!black}{T_3}\}\)
+	and
+	\(\{\textcolor{blue!50!black}{U_1}, \textcolor{blue!50!black}{U_2}\}\),
+	\cref{theorem:wt-prob} implies that their \(q, t\)-weight generating functions are equal,
+	that is,
+	\begin{equation*}
+		\wtqt(\textcolor{red!50!black}{T_1})
+		+ \wtqt(\textcolor{red!50!black}{T_2})
+		+ \wtqt(\textcolor{red!50!black}{T_3})
+		= \wtqt(\textcolor{blue!50!black}{U_1})
+		+ \wtqt(\textcolor{blue!50!black}{U_2}).
+	\end{equation*}
+	This equality can be checked from the known values of \(\wtqt\) in \cref{fig:prob-2201-3124-1022}.
+	Note that the left-hand side is the coefficient
+	\([\mathbf{x}^{\composition{1, 0, 2, 2}}] E_{\composition{2, 2, 0, 1}}^{\window{3, 1, 2, 4}}(\mathbf{x}; q, t)\)
+	and the right-hand side is the coefficient
+	\([\mathbf{x}^{\composition{1, 0, 2, 2}}] E_{\composition{2, 2, 0, 1}}^{\window{1, 3, 2, 4}}(\mathbf{x}; q, t)\).
+\end{example}
+
+\subsection{Bijective proof of \texorpdfstring{\cref{theorem:main}}{symmetry theorem}}
+\label{sec:proof}
+
+We now have the tools to give a bijective proof for the main result of this chapter,
+\cref{theorem:main}, a symmetry theorem for the permuted-basement Macdonald polynomials.
+Let's recall the statement.
+
+\main*
+
+\begin{proof}
+	We write
+	\begin{equation*}
+		E_{\alpha}^{\sigma}(\mathbf{x}; q, t)
+		= \sum_{T \in \NAF(\alpha, \sigma)} \mkern-9mu \wt(T)
+		= \sum_{\text{compositions }\beta} \mkern-9mu x^\beta
+			\left(\sum_{T \in \NAF(\alpha, \sigma, \beta)} \mkern-9mu \wtqt(T)\right).
+	\end{equation*}
+	For each composition \(\beta = \composition{\beta_1, \ldots, \beta_n}\),
+	\cref{cor:wt-prob} implies that there exists a probabilistic bijection between
+	\(\NAF(\alpha, \sigma, \beta)\) and \(\NAF(\alpha, \sigma s_i, \beta)\)
+	with respect to \(\wtqt\).
+	Hence, \cref{proposition:equal-weight-sum} implies that
+	\begin{equation*}
+		[x^\beta] E_{\alpha}^{\sigma}(\mathbf{x}; q, t)
+		= \sum_{T \in \NAF(\alpha, \sigma, \beta)} \mkern-9mu \wtqt(T)
+		= \sum_{U \in \NAF(\alpha, \sigma s_i, \beta)} \mkern-9mu \wtqt(U)
+		= [x^\beta] E_{\alpha}^{\sigma s_i}(\mathbf{x}; q, t),
+	\end{equation*}
+	and the result follows.
+\end{proof}
+
+Given a composition \(\alpha=\composition{\alpha_1,\ldots,\alpha_n}\),
+let \(\mathscr{C}_\alpha\) be the subgroup of \(\sym{n}(\alpha)\)
+generated by the transpositions \(\{s_i \suchthat \alpha_i = \alpha_{i+1}\}\).
+Writing \(\alpha = p_1^{m_1} p_2^{m_2} \cdots p_k^{m_k}\),
+we have that
+\begin{equation*}
+	\mathscr{C}_\alpha =
+	\sym{\interval{1, m_1}} \times
+	\sym{\interval{m_1+1, m_1+m_2}} \times
+	\cdots \times
+	\sym{\interval{m_1+m_2+\cdots+m_{k-1}+1, n}}
+	\subseteq \sym{n}(\alpha).
+\end{equation*}
+
+For example, if \(\alpha =\composition{1, 1, 2, 2, 1, 3} = 1^2 2^2 1^1 3^1\),
+then \(\mathscr{C}_\alpha\) is the subgroup of \(\sym{6}(\alpha)\) generated by
+the transpositions \(s_1\) and \(s_3\):
+\begin{equation*}
+	\mathscr{C}_\alpha =
+	\{
+		\window{1, 2, 3, 4, 5, 6},
+		\window{2, 1, 3, 4, 5, 6},
+		\window{1, 2, 4, 3, 5, 6},
+		\window{4, 1, 4, 3, 5, 6}
+	\}.
+\end{equation*}
+The group \(\sym{6}(\alpha)\) is generated by \(\{s_1,s_3,s_{2,5}\}\),
+where \(s_{2,5}=s_2s_3s_4s_3s_2\).
+For instance, \(\window{5, 2, 3, 4, 1, 6}\in\sym{n}(\alpha)\setminus \mathscr{C}_\alpha\).
+
+\begin{corollary}
+	\label{corollary:C-alpha-symmetry}
+	Let \(\alpha=\composition{\alpha_1,\ldots,\alpha_n}\) be a composition.
+	Then, if \(\sigma, \tau \in \sym{n}\) are such that
+	\(\sigma^{-1} \tau \in \mathscr{C}_\alpha\), then
+	\begin{equation*}
+		E_{\alpha}^{\sigma}(\mathbf{x}; q, t) = E_{\alpha}^{\tau}(\mathbf{x}; q, t).
+	\end{equation*}
+\end{corollary}
+
+\begin{proof}
+	By induction,
+	it suffices to prove the statement for \(\sigma^{-1} \tau = s_i\)
+	for some \(i\) such that \(\alpha_i = \alpha_{i+1}\).
+	Then, the result follows from \cref{theorem:main}.
+\end{proof}
+
+If \(\alpha = p_1^{m_1} p_2^{m_2} \cdots p_k^{m_k}\),
+then \(\mathscr{C}_\alpha = \sym{n}(\alpha)\)
+if and only if \(p_1, p_2, \ldots, p_k\) are pairwise distinct.
+In particular,
+this is the case when \(\alpha\) is a partition or an antipartition.
+
+\begin{corollary} \label{corollary:partition-antipartition-symmetry}
+	Let \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\)
+	be a partition or an antipartition.
+	If \(\sigma, \tau \in \sym{n}\) are such that
+	\(\sigma \permact \alpha = \tau \permact \alpha\),
+	then
+	\begin{equation*}
+		E_{\alpha}^{\sigma}(\mathbf{x}; q, t) = E_{\alpha}^{\tau}(\mathbf{x}; q, t).
+	\end{equation*}
+\end{corollary}
+
+\begin{proof}
+	Since \(\sigma^{-1} \tau \in \sym{n}(\alpha)\),
+	when \(\alpha\) is a partition or an antipartition,
+	\(\sigma^{-1} \tau \in \mathscr{C}_\alpha\),
+	and \cref{corollary:C-alpha-symmetry} applies.
+\end{proof}
+
+\section{Applications}\label{sec:applications}
+
+Immediate applications of \cref{theorem:main} include the removal of certain assumptions from theorems in \cite{Ale19} and \cite{CMW22}.
+
+\subsection{\texorpdfstring{\(t\)}{t}-atom polynomials and \texorpdfstring{\(t\)}{t}-key polynomials}
+\label{sec:t-atoms}
+
+Fix a composition \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\)
+and a permutation \(\sigma \in \sym{n}\).
+The \vocab{permuted basement \(t\)-atom polynomial of \(\alpha\) with basement \(\sigma\)},
+first introduced in \cite{HLMvW11} and further studied in \cite{AS19}, is defined as
+\begin{equation*}
+	\atompoly_{\alpha}^{\sigma}(\mathbf{x}; t) = E_{\alpha}^{\sigma}(\mathbf{x}; 0, t).
+\end{equation*}
+Similarly, the \vocab{\(t\)-atom polynomial} \(\atompoly_{\alpha}(\mathbf{x}; t)\)
+and the \vocab{\(t\)-key polynomial} \(\keypoly_{\alpha}(\mathbf{x}; t)\) are defined as
+\begin{equation*}
+	\atompoly_{\alpha}(\mathbf{x}; t) = \atompoly_{\alpha}^{\id}(\mathbf{x}; t)
+	\qquad \text{and} \qquad
+	\keypoly_{\alpha}(\mathbf{x}; t) = \atompoly_{\alpha}^{w_0}(\mathbf{x}; t).
+\end{equation*}
+
+\begin{proposition}[inferred from {\cite[Proposition~27]{Ale19}}]
+	\label{proposition:atom-alpha-inc-alpha}
+	Let \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\) be a composition.
+	Let \(\sigma \in \sym{n}\) be the shortest permutation such that
+	\(\sigma \permact \inc(\alpha) = \alpha\), and
+	let \(\pi \in \sym{n}\) be the shortest permutation such that
+	\(\pi \permact \dec(\alpha) = \alpha\).
+	Then,\todo{Review the details of this proposition.}
+	\begin{equation*}
+		\atompoly_{\alpha}(\mathbf{x}; t) = \atompoly_{\inc(\alpha)}^{\sigma}(\mathbf{x}; t)\qquad\text{and}\qquad
+		\keypoly_{\alpha}(\mathbf{x}; t) = \atompoly_{\dec(\alpha)}^{\pi}(\mathbf{x}; t).
+	\end{equation*}
+\end{proposition}
+
+Using \cref{corollary:partition-antipartition-symmetry},
+we can remove the length restriction on \(\sigma\) and \(\pi\) above.
+
+\begin{corollary} \label{lemma:atom-alpha-inc-alpha}
+	Let \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\) be a composition.
+	Let \(\tau \in \sym{n}\) be any permutation such that
+	\(\tau \permact \inc(\alpha) = \alpha\), and
+	let \(\pi \in \sym{n}\) be any permutation such that
+	\(\pi \permact \dec(\alpha) = \alpha\).
+	Then,
+	\begin{equation*}
+		\atompoly_{\alpha}(\mathbf{x}; t) = \atompoly_{\inc(\alpha)}^{\tau}(\mathbf{x}; t)
+		\qquad\text{and}\qquad
+		\keypoly_{\alpha}(\mathbf{x}; t) = \atompoly_{\dec(\alpha)}^{\pi}(\mathbf{x}; t).
+	\end{equation*}
+\end{corollary}
+
+\begin{proof}
+	Let \(\sigma \in \sym{n}\) be the shortest permutation such that \(\sigma \permact \inc(\alpha) = \alpha\).
+	By Proposition \ref{proposition:atom-alpha-inc-alpha}, we have
+	\(
+		\atompoly_{\alpha}(\mathbf{x}; t)
+		= \atompoly_{\inc(\alpha)}^{\sigma}(\mathbf{x}; t)
+		= E_{\inc(\alpha)}^{\sigma}(\mathbf{x}; 0, t)
+	\).
+	Since \(\tau \permact \inc(\alpha) = \sigma \permact \inc(\alpha)\),
+	\cref{corollary:partition-antipartition-symmetry} implies
+	\(
+		E_{\inc(\alpha)}^{\sigma}(\mathbf{x}; 0, t)
+		= E_{\inc(\alpha)}^{\tau}(\mathbf{x}; 0, t)
+		= \atompoly_{\inc(\alpha)}^{\tau}(\mathbf{x}; t)
+	\).
+
+	The proof for \(\keypoly_{\alpha}\) is analogous, and is omitted.
+\end{proof}
+
+\subsection{ASEP polynomials}\label{sec:mlqs}
+
+In \cite{CMW22}, the authors introduce the ASEP polynomial \(F_\alpha(\mathbf{x}; q, t)\),
+which are weight-generating functions for multiline queues with bottom row \(\alpha\).
+A key result from their work is the following proposition.
+
+\begin{proposition}[{\cite[Proposition~3.1]{CMW22}}] \label{proposition:multiline-queues}
+	Let \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\) be a composition.
+	Let \(\sigma \in \sym{n}\) be the longest permutation such that
+	\(\sigma^{-1} \permact \alpha = \inc(\alpha)\).
+	Then,
+	\begin{equation*}
+		F_{\alpha}(\mathbf{x}; q, t) = E_{\inc(\alpha)}^{\sigma}(\mathbf{x}; q, t).
+	\end{equation*}
+\end{proposition}
+
+By \cref{corollary:partition-antipartition-symmetry},
+we can remove the length requirement on \(\sigma\).
+
+\begin{corollary}
+	\label{lemma:multiline-queues}
+	Let \(\alpha=\composition{\alpha_1,\ldots,\alpha_n}\) be a composition, and let
+	\(\tau \in \sym{n}\) such that \(\tau^{-1} \permact \alpha = \inc(\alpha)\).
+	Then,
+	\begin{equation*}
+		F_{\alpha}(\mathbf{x}; q, t) = E_{\inc(\alpha)}^{\tau}(\mathbf{x}; q, t).
+	\end{equation*}
+\end{corollary}
+
+This allows us to realize \(t\)-atom polynomials as specializations of ASEP polynomials.
+
+\begin{corollary}
+	Let \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\) be a composition.
+	Then,
+	\begin{equation*}
+		F_{\alpha}(\mathbf{x}; 0, t) = \atompoly_{\alpha}(\mathbf{x}; t).
+	\end{equation*}
+\end{corollary}
+
+\begin{proof}
+	Let \(\tau \in \sym{n}\) such that \(\tau^{-1} \permact \alpha = \inc(\alpha)\).
+	From \cref{lemma:multiline-queues}
+	and \cref{lemma:atom-alpha-inc-alpha}, we have
+	\(
+		F_{\alpha}(\mathbf{x}; 0, t)
+		= E_{\inc(\alpha)}^{\tau}(\mathbf{x}; 0, t)
+		= \atompoly_{\inc(\alpha)}^{\tau}(\mathbf{x}; t)
+		= \atompoly_{\alpha}(\mathbf{x}; t)
+	\).
+\end{proof}
+
+Finally, for a partition \(\lambda=\composition{\lambda_1,\ldots,\lambda_n}\), it was observed in \cite{CMW22} that  
+\begin{equation}
+	\label{eq:P in Es}
+	P_{\lambda}(\mathbf{x};q,t)
+	=
+	\sum_{\mu\in S_n\permact \lambda}
+	E_{\inc(\lambda)}^{\sigma_\mu}(\mathbf{x};q,t),
+\end{equation}
+where \(S_n\permact \lambda\) is the set of rearrangements of \(\lambda\), \(\inc(\lambda)=(\lambda_n,\ldots,\lambda_1)\), and \(\sigma_\mu\) is the longest permutation that rearranges \(\inc(\lambda)\) into \(\mu\).
+
+\Cref{corollary:partition-antipartition-symmetry} allows us to rewrite \Cref{eq:P in Es} without the length restriction on \(\sigma_\mu\).
+\begin{corollary}
+	Let \(\lambda=\composition{\lambda_1,\ldots,\lambda_n}\) be a partition. Then the symmetric Macdonald polynomial satisfies
+	\begin{equation*}
+		P_\lambda(\mathbf{x};q,t)
+		=\sum_{\mu\in S_n\cdot\lambda}
+		E_{\inc(\lambda)}^{\sigma_\mu}(\mathbf{x};q,t),
+	\end{equation*}
+	where \(\sigma_\mu\in S_n\) is any permutation such that \(\sigma_\mu\permact \inc(\lambda)=\mu\).
+\end{corollary}
