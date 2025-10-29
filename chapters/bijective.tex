@@ -314,7 +314,7 @@ in this case, we only have \(\ind{e_1, a, b}\).
 
 In all cases, the values \(\ind{c, d, f_1}\) and \(\ind{e_1, a, b}\) are defined for a block with signature entries \((a, b, c, d, e_1, f_1)\).
 
-\begin{definition}[The bijection \(\phi\) via blocks]
+\begin{definition}[The bijection \(\phi\) via blocks] \label{def:phi-via-blocks}
     Let \(T \in \Fill(\alpha)\).
     We define \(U = \phi(T) \in \Fill(s_i \permact \alpha)\)
     by requiring \Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row} and requiring that, for each block of \(T\) with signature entries \((a, b, c, d, e_1, f_1)\),
@@ -324,7 +324,7 @@ In all cases, the values \(\ind{c, d, f_1}\) and \(\ind{e_1, a, b}\) are defined
     \end{equation}
 \end{definition}
 
-\begin{definition}[The bijection \(\psi\) via blocks]
+\begin{definition}[The bijection \(\psi\) via blocks] \label{def:psi-via-blocks}
     Let \(T \in \Fill(\alpha)\).
     We define \(U = \psi(T) \in \Fill(s_i \permact \alpha)\)
     by requiring \Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row} and requiring that, for each block of \(T\) with signature entries \((a, b, c, d, e_1, f_1)\),
@@ -461,17 +461,28 @@ Let \( a = T(i,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
 
 \todo{There's a way to compactify these cases into overlapping conditions, which would also encompass the base cases.}
 
-Finally, build \(U\) row by row:
-\begin{itemize}
-    \item If row \(r\) is labeled \(\labelN\), set
-    \(U(i,r) = T(i,r)\) and \(U(i+1,r) = T(i+1,r)\).
-    \item If row \(r\) is labeled \(\labelS\), set
-    \(U(i,r) = T(i+1,r)\) and \(U(i+1,r) = T(i,r)\).
-    \item If row \(r\) is labeled \(\labelC\), then use the same rule as the nearest row above it labeled \(\labelN\) or \(\labelS\).
-    Note that since row \(\alpha_{i+1}\) is always labeled \(\labelN\) or \(\labelS\), there is always a nearest row above it labeled \(\labelN\) or \(\labelS\).
-\end{itemize}
+% Finally, build \(U\) row by row:
+% \begin{itemize}
+%     \item If row \(r\) is labeled \(\labelN\), set
+%     \(U(i,r) = T(i,r)\) and \(U(i+1,r) = T(i+1,r)\).
+%     \item If row \(r\) is labeled \(\labelS\), set
+%     \(U(i,r) = T(i+1,r)\) and \(U(i+1,r) = T(i,r)\).
+%     \item If row \(r\) is labeled \(\labelC\), then use the same rule as the nearest row above it labeled \(\labelN\) or \(\labelS\).
+%     Note that since row \(\alpha_{i+1}\) is always labeled \(\labelN\) or \(\labelS\), there is always a nearest row above it labeled \(\labelN\) or \(\labelS\).
+% \end{itemize}
 
-\todo{Add an example of the iterative algorithm.}
+\begin{definition}[The bijections \(\phi\) and \(\psi\) via the row-by-row algorithm] \label{def:phi-psi-via-row-by-row}
+    Let \(T \in \Fill(\alpha)\).
+    The row-by-row algorithm described above, with initial coin value \(\coinphi\) (resp.~\(\coinpsi\)), produces a label for each row \(r \in \interval{\alpha_{i+1}}\).
+    We define \(U = \phi(T) \in \Fill(s_i \permact \alpha)\) (resp.~\(U = \psi(T) \in \Fill(s_i \permact \alpha)\))
+    by requiring \Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row} and requiring that, for each row \(r \in \interval{\alpha_{i+1}}\),
+    \begin{itemize}
+        \item if row \(r\) is labeled \(\labelN\), then row \(r\) is not swapped in \(U\);
+        \item if row \(r\) is labeled \(\labelS\), then row \(r\) is swapped in \(U\);
+        \item if row \(r\) is labeled \(\labelC\), then row \(r\) copies the behavior of the nearest row above \(r\) labeled \(\labelN\) or \(\labelS\).\footnote{Note that since row \(\alpha_{i+1}\) is always labeled \(\labelN\) or \(\labelS\), there is always a row above \(r\) labeled \(\labelN\) or \(\labelS\).}
+    \end{itemize}
+\end{definition}
+
 
 The row-by-row algorithm may be described recursively instead of iteratively.
 
@@ -494,10 +505,12 @@ We now show that the two definitions of \(\phi\) and \(\psi\) given in \Cref{sub
 We do so by applying the row-by-row algorithm and observing what happens to each block.
 
 \begin{proposition} \label{prop:equivalence-of-definitions}
-    The definitions of \(\phi\) and \(\psi\) via blocks and via the row-by-row algorithm are equivalent.
+    The definitions of \(\phi\) and \(\psi\) via blocks (\Cref{def:phi-via-blocks,def:psi-via-blocks}) are equivalent to the definitions via the row-by-row algorithm (\Cref{def:phi-psi-via-row-by-row}).
 \end{proposition}
 
 \begin{proof}
+    Let \(\phi\) be defined as in \Cref{def:phi-psi-via-row-by-row}.
+    We show that \(\phi\) satisfies the conditions in \Cref{def:phi-via-blocks}.
     Consider a block \([r_1, r_2]\) of \(T\) with signature entries \((a, b, c, d, e_1, f_1)\).
 
     First, if \(r_1 > 1\),
@@ -540,15 +553,15 @@ We do so by applying the row-by-row algorithm and observing what happens to each
 
     Finally, using that \(\operatorname{coin}_{r_2} = \coinpsi\) if and only if \( (\operatorname{coin}_{r_2} = \operatorname{coin}_{r_1} ) \mathbin{\text{xor}} (\operatorname{coin}_{r_1} = \coinphi) \),
     we have
-    \begin{align}
+    \begin{align*}
         \operatorname{label}_{r_2} = \labelS
         &\iff (\ind{e_1, a} - \ind{e_1, b} = 0) \mathbin{\text{xor}} (\operatorname{coin}_{r_2} = \operatorname{coin}_{r_1} ) \mathbin{\text{xor}} (\operatorname{coin}_{r_1} = \coinphi) \\
         &\iff (\ind{e_1, a} - \ind{e_1, b} = 0) \mathbin{\text{xor}} (\ind{a, b} - \ind{c, d} = 0) \mathbin{\text{xor}} (\ind{c, f_1} - \ind{d, f_1} = 0) \\
         &\iff \ind{e_1, a} - \ind{e_1, b} + \ind{a, b} - \ind{c, d} + \ind{c, f_1} - \ind{d, f_1} \equiv 1 \pmod{2} \\
         &\iff \ind{e_1, a, b} \neq \ind{c, d, f_1}.
-    \end{align}
-    which is the same swapping condition as in the block definition of \(\phi\).
-    Therefore, the row-by-row algorithm for \(\phi\) swaps any given block if and only if the block definition of \(\phi\) does.
+    \end{align*}
+    which is the same swapping condition as in \Cref{def:phi-via-blocks}.
+    Therefore, the two definitions of \(\phi\) are equivalent.
 
     The analysis for \(\psi\) is analogous.
     For \(\psi\), \Cref{eq:coin-r1} becomes
@@ -558,12 +571,13 @@ We do so by applying the row-by-row algorithm and observing what happens to each
         (\ind{c, f_1} - \ind{d, f_1} = 0) \mathrel{\text{xor}} (r_1 = 1),
     \end{equation}
     while \Cref{eq:coin-r2-coin-r1,eq:label-r2} remain unchanged.
-    Therefore, the final conclusion becomes
-    \begin{equation}
+    Therefore, the conclusion becomes
+    \begin{equation*}
         \operatorname{label}_{r_2} = \labelS
         \iff (\ind{e_1, a, b} \neq \ind{c, d, f_1}) \mathbin{\text{xor}} (r_1 = 1),
-    \end{equation}
-    which is the same swapping condition as in the block definition of \(\psi\).
+    \end{equation*}
+    which is the same swapping condition as in \Cref{def:psi-via-blocks}.
+    Therefore, the two definitions of \(\psi\) are equivalent.
 \end{proof}
 
 \subsection{Properties of the bijections \texorpdfstring{\(\phi\)}{𝜙} and \texorpdfstring{\(\psi\)}{𝜓}}
@@ -640,7 +654,7 @@ We do so by applying the row-by-row algorithm and observing what happens to each
 
 \section{Bijections on augmented fillings and a three-term identity for \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ}} \label{sec:bijective-augmented}
 
-\todo{Write the section on the three-term identity for permuted-basement Macdonald polynomials.}
+\cite{Ale19} established the following three-term identity for permuted-basement Macdonald polynomials \(E_\alpha^\sigma(X;q;t)\).
 
 \begin{theorem}[equivalent to {\cite[Proposition~17]{Ale19}}]\label{thm:Ale10:prop17}
     Let \(\alpha=\alpha_1\cdots\alpha_n\) be a composition such that \(\alpha_i > \alpha_{i+1}\) and \(\sigma\in S_n\) such that \(\sigma_i = \sigma_{i+1} + 1\). Then
@@ -655,19 +669,10 @@ We do so by applying the row-by-row algorithm and observing what happens to each
     where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_{i+1} +1)\in\dg(s_i \permact \alpha)\).
 \end{theorem}
 
-We extend this result to any \(\sigma_i>\sigma_{i+1}\).
+We extend this result to any \(\sigma_i>\sigma_{i+1}\) in \Cref{thm:three-term-a-non-integral};
+and also to \(\alpha_i < \alpha_{i+1}\) in \Cref{thm:three-term-b-non-integral}.
 In the \(q=0\) case, these results are found in \cite[Proposition~5.5]{AS19}.
-
-\begin{theorem}\label{thm:three-term-v1}
-For a composition \(\alpha=\alpha_1\cdots\alpha_n\) with \(\alpha_i > \alpha_{i+1}\) and \(\sigma\in S_n\) such that \(\sigma_i>\sigma_{i+1}\), we have
-    \begin{equation} \label{eq:three-term-v1}
-        E_{\alpha}^\sigma(X;q;t)=E_{s_i \permact \alpha}^{\sigma s_i}(X;q;t)+t^{\rho(\alpha,\sigma,i)}\frac{1-t}{1-q^{L+1}t^{A}}E_{s_i \permact \alpha}^\sigma(X;q;t)
-    \end{equation}
-    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_{i+1} +1)\in\dg(s_i \permact \alpha)\), and
-    \begin{equation}
-        \rho(\alpha,\sigma,i)=\twinv(s_i \permact \alpha,\sigma)-\twinv(\alpha,\sigma).
-    \end{equation}
-\end{theorem}
+Our proofs use the integral form permuted-basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\) defined in \Cref{sec:integral-form-permuted-basement}.
 
 % \begin{proof}[Algebraic proof]
 %     By \cref{thm:Ale}, if $\alpha_i > \alpha_{i+1}$ and $\sigma_i=\sigma_{i+1}+1$, we have
@@ -693,15 +698,6 @@ For a composition \(\alpha=\alpha_1\cdots\alpha_n\) with \(\alpha_i > \alpha_{i+
 %     The final equality \eqref{eq:f2} is obtained by comparing with \eqref{eq:Ti}, using the fact that $\twinv(\alpha,\sigma)=\twinv(s_i \permact \alpha,\sigma s_i)$ when $(\alpha)_i>(\alpha)_{i+1}$ and $\sigma_i>\sigma_{i+1}$.
 % \end{proof}
 
-Using the integral forms \(\mathcal{E}_{s_i \permact \alpha}^\sigma(X;q;t)\) instead of the non-integral forms \(E_{s_i \permact \alpha}^\sigma(X;q;t)\), \Cref{eq:three-term-v1} is equivalent to
-\begin{equation} \label{eq:three-term-v1-integral}
-    \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{\alpha}^\sigma
-    = 
-    \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_{s_i \permact \alpha}^{\sigma s_i} 
-    +
-    t^{\rho(\alpha,\sigma,i)} (1 - t) \mathcal{E}_{s_i \permact \alpha}^\sigma.
-\end{equation}
-
 % and one over all augmented fillings using the signed alphabet \(\interval{n}_\pm\),
 % \begin{equation} \label{eq:calE-Fill-signed}
 % 	\mathcal{E}^{\sigma}_{s_i \permact \alpha}(\mathbf{x}; q, t) =
@@ -713,24 +709,24 @@ Using the integral forms \(\mathcal{E}_{s_i \permact \alpha}^\sigma(X;q;t)\) ins
 
 Recall that the integral forms have a combinatorial formula in terms of augmented fillings using the signed alphabet \(\interval{n}_\pm\), as given in \Cref{eq:calE-Fill-signed}:
 \begin{equation*}
-    \mathcal{E}^{\sigma}_{s_i \permact \alpha}(\mathbf{x}; q, t) =
-    \sum_{T \in \Fill[\interval{n}_\pm](s_i \permact \alpha, \sigma)}
+    \mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
+    \sum_{T \in \Fill[\interval{n}_\pm](\alpha, \sigma)}
     \mathbf{x}^{\content(T)}
     q^{\maj(T)} t^{\coinv(T)}
     (-t)^{\operatorname{neg}(T)}.
-    \tag{\ref{eq:calE-Fill-signed}}
+    %\tag{\ref{eq:calE-Fill-signed}}
 \end{equation*}
 
-Recall from \Cref{subsec:augmented-to-non-augmented} that any augmented filling \(T \in \Fill(s_i \permact \alpha, \sigma)\) may be identified with a non-augmented filling \(T' \in \Fill(s_i \permact \alpha + \mathbf{1})\) by moving each box one unit up.
-This identification preserves \(\content\), \(\maj\), but changes \(\inv\) and \(\coinv\) by a constant depending only on \(s_i \permact \alpha\) and \(\sigma\).
+Recall from \Cref{subsec:augmented-to-non-augmented} that any augmented filling \(T \in \Fill(\alpha, \sigma)\) may be identified with a non-augmented filling \(T' \in \Fill(\alpha + \mathbf{1})\) by moving each box one unit up.
+This identification preserves \(\maj\), but changes \(\inv\) and \(\coinv\) by a constant depending only on \(\alpha\) and \(\sigma\).
 We defined \(\symcoinv(T) = \coinv(T')\) and \(\syminv(T) = \inv(T')\).
 
 We can apply \(\phi\) to \(T'\) to obtain \(U' = \phi(T') \in \Fill(s_i \permact (s_i \permact \alpha + \mathbf{1}))\), and then identify \(U'\) with an augmented filling \(U\) of shape \(\alpha\).
 Note that \(\phi\) might or might not change the entries in positions \((i,1)\) and \((i+1,1)\) of \(T'\),
 so the basement of \(U\) might be \(\sigma\) or \(\sigma s_i\).
 
-Define the injection \(\phi \colon \Fill(s_i \permact \alpha, \sigma) \to \Fill(\alpha, \sigma) \cup \Fill(\alpha, \sigma s_i)\) by applying the bijection \(\phi\) to the non-augmented filling \(T'\) corresponding to \(T\), and then identifying the result with an augmented filling \(U\).
-Similarly, define the injection \(\psi \colon \Fill(s_i \permact \alpha, \sigma) \to \Fill(\alpha, \sigma) \cup \Fill(\alpha, \sigma s_i)\) by applying the bijection \(\psi\) to the non-augmented filling \(T'\) corresponding to \(T\), and then identifying the result with an augmented filling \(U\).
+Define the injection \(\phi \colon \Fill(\alpha, \sigma) \to \Fill(s_i \permact \alpha, \sigma) \cup \Fill(s_i \permact \alpha, \sigma s_i)\) by applying the bijection \(\phi\) to the non-augmented filling \(T'\) corresponding to \(T\), and then identifying the result with an augmented filling \(U\).
+Similarly, define the injection \(\psi \colon \Fill(\alpha, \sigma) \to \Fill(s_i \permact \alpha, \sigma) \cup \Fill(s_i \permact \alpha, \sigma s_i)\) by applying the bijection \(\psi\) to the non-augmented filling \(T'\) corresponding to \(T\), and then identifying the result with an augmented filling \(U\).
 
 We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv}.
 \begin{corollary} \label{cor:phi-symcoinv}
@@ -791,17 +787,18 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
     \end{equation}
 \end{definition}
 
-% \begin{equation} \label{eq:three-term-a-integral}
-%     \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{\alpha}^\sigma
-%     = 
-%     \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_{s_i \permact \alpha}^{\sigma s_i} 
-%     +
-%     t^{\rho(\alpha,\sigma,i)} (1 - t) \mathcal{E}_{s_i \permact \alpha}^\sigma
-% \end{equation}
+\begin{proposition}
+    The maps \(f\) and \(g\) are bijections.
+\end{proposition}
+
+\begin{proof}
+    This follows from \Cref{prop:phi-psi-bijections} and the definitions of \(f\) and \(g\).
+    \todo{Does it need more details?}
+\end{proof}
 
 For the purposes of this section, let \(\wt(T) = \mathbf{x}^{\content(T)} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}\), for an augmented signed filling \(T\).
 
-\begin{lemma} \label{lem:three-term-bijective}
+\begin{lemma} \label{lem:three-term-bijective-a}
     Assume that \(\alpha_i>\alpha_{i+1}\) and \(\sigma_i > \sigma_{i+1}\).
     Let \(T\) be an augmented filling in \(\Fill(\alpha, \sigma)\).
     Let \(U = f(T)\) and \(V = g(T)\).
@@ -818,9 +815,9 @@ For the purposes of this section, let \(\wt(T) = \mathbf{x}^{\content(T)} q^{\ma
 \begin{proof}
     If \(U = \phi(T)\) and \(V = \psi(T)\),
     then \(\wt(U) = \wt(T)\) by \Cref{cor:phi-symcoinv},
-    and \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} q^{L+1} t^{A} \wt(T)\) by \Cref{cor:psi-symcoinv}.
+    and \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} q^{L+1} t^{A} \wt(T)\) by \Cref{cor:psi-symcoinv}.\todo{Explain these weight calculations more carefully.}
     Thus,
-    \begin{multline}
+    \begin{multline*}
         \left( 1 - q^{L+1} t^{A} \right) \wt(U)
         +
         t^{\rho(\alpha,\sigma,i)} (1 - t) \wt(V)
@@ -835,12 +832,12 @@ For the purposes of this section, let \(\wt(T) = \mathbf{x}^{\content(T)} q^{\ma
         &=
         \left( 1 - q^{L+1} t^{A + 1} \right) \wt(T).
         \end{aligned}
-    \end{multline}
+    \end{multline*}
     If \(U = \psi(T)\) and \(V = \phi(T)\),
     then \(\wt(U) = t \wt(T)\) by \Cref{cor:psi-symcoinv},
     and \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} \wt(T)\) by \Cref{cor:phi-symcoinv}.
     Thus,
-    \begin{multline}
+    \begin{multline*}
         \left( 1 - q^{L+1} t^{A} \right) \wt(U)
         +
         t^{\rho(\alpha,\sigma,i)} (1 - t) \wt(V)
@@ -855,13 +852,14 @@ For the purposes of this section, let \(\wt(T) = \mathbf{x}^{\content(T)} q^{\ma
         &=
         \left( 1 - q^{L+1} t^{A + 1} \right) \wt(T).
         \end{aligned}
-    \end{multline}
+    \end{multline*}
+    Therefore, in either case, the equation holds.
 \end{proof}
 
 \begin{corollary} \label{cor:three-term-a}
     Let \(\alpha\) be a composition such that \(\alpha_i > \alpha_{i+1}\) and \(\sigma \in S_n\) such that \(\sigma_i > \sigma_{i+1}\).
     Then,
-    \begin{equation}
+    \begin{equation} \label{eq:three-term-a-integral}
         \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{\alpha}^\sigma
         = 
         \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_{s_i \permact \alpha}^{\sigma s_i} 
@@ -885,10 +883,12 @@ For the purposes of this section, let \(\wt(T) = \mathbf{x}^{\content(T)} q^{\ma
 \end{theorem}
 
 \begin{proof}
-    This follows from \Cref{cor:three-term-bijective} by dividing both sides of \Cref{eq:three-term-v1-integral} by the appropriate factors to convert the integral forms to non-integral forms.
+    This follows from \Cref{lem:three-term-bijective-a} by dividing both sides of \Cref{eq:three-term-a-integral} by the appropriate factors to convert the integral forms to non-integral forms.
 \end{proof}
 
 % -------
+
+\todo{Write the other version of the three-term identity, when \(\alpha_i < \alpha_{i+1}\).}
 
 \begin{corollary} \label{cor:three-term-b}
     Let \(i \in \interval{n-1}\),
