@@ -159,6 +159,8 @@ Then, \(f[X] = f(\mathbf{x})\) is the usual evaluation of \(f\) at the variables
 \[
 	f[X/(1-t)] = f(x_1, x_2, x_3, \ldots, t x_1, t x_2, t x_3, \ldots, t^2 x_1, t^2 x_2, t^2 x_3, \ldots ).
 \]
+Note that some manipulations are easier in plethystic notation; for example,
+if \(g(\mathbf{x})  = f[X/(1-t)]\), then \(f(\mathbf{x}) = g[X(1-t)]\).
 
 \section{Algebraic definitions of multiple variations of Macdonald polynomials}
 
@@ -173,9 +175,7 @@ In this section, we define multiple variations of Macdonald polynomials:
 
 \subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ}}
 
-\subsubsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ} as orthogonal polynomials}
-
-% \cite{Mac88} 
+\todo{Properly cite \cite{Mac88} here and elsewhere.}
 
 Define the scalar product \(\langle \cdot, \cdot \rangle_{(q, t)}\) on the ring of symmetric functions with coefficients in \(\rationals(q, t)\) by setting
 \begin{equation}
@@ -198,12 +198,6 @@ where \(p_\lambda\) is the power sum symmetric function and
 
 The functions \(P_\lambda\) are called the \vocab{symmetric Macdonald polynomials}.
 
-\todo{Include examples of \(P_\mu\) as orthogonal polynomials.}
-
-\subsubsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ} as eigenfunctions}
-
-% \cite{Mac88} 
-
 For any polynomial \( f(x_1, \ldots, x_n) \) and \(1 \le i \le n\), define the \(q\)-shift operator \(T_{q,x_i}\) by
 \begin{equation}
 	(T_{q,x_i} f)(x_1, \ldots, x_n) = f(x_1, \ldots, qx_i, \ldots, x_n).
@@ -213,8 +207,6 @@ Then, the operator \( D \) is defined as
 	D = \sum_{i=1}^n \left( \prod_{j \ne i} \frac{t x_i - x_j}{x_i - x_j} \right) T_{q,x_i}.
 \end{equation}
 The operator \(D\) has distinct eigenfunction, and these eigenfunctions are the symmetric Macdonald polynomials \(P_\lambda(x_1, \ldots, x_n; q, t)\) where \(\lambda\) is a partition with at most \(n\) parts.
-
-\todo{Include examples of \(P_\mu\) as eigenfunctions.}
 
 \subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ}}
 
@@ -242,8 +234,6 @@ the coefficients of \(J_\mu(\mathbf{x}; q, t)\)
 are polynomials in \(q\) and \(t\) with integer coefficients.
 Several proofs of this integrality result appeared in the late 1990s; for example, \cite{Kno97}.
 
-\todo{Include examples of \(J_\mu\).}
-
 \subsection{Modified Macdonald polynomials \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ}}
 
 We define the modified Macdonald polynomials following \cite[Section~2]{Hai99}.
@@ -259,8 +249,6 @@ The modified Macdonald polynomials \(\tilde{H}_\mu\) satisfy and are uniquely de
 \(\tilde{H}_\mu[X(1 - t); q, t]\) is a linear combination of Schur functions \(s_\lambda\) with \(\lambda \geq \mu'\) in dominance order; and
 \(\langle \tilde{H}_\mu, s_{(n)} \rangle = 1\).
 \end{proposition}
-
-\todo{Include examples of \(\tilde{H}_\mu\).}
 
 \subsection{Permuted-basement Macdonald polynomials \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ}}
 \label{sec:permuted basement def}
@@ -482,7 +470,7 @@ Note that the computations in \Cref{example:permuted-basement-macdonald-polynomi
 \subsection{Integral form permuted-basement Macdonald polynomials \texorpdfstring{\(\mathcal{E}_\alpha^\sigma\)}{Eασ}}
 
 We define the integral form permuted-basement Macdonald polynomials following \cite[Section~5]{Kno97}.
-While \cite{Kno97} only defined the integral form nonsymmetric Macdonald polynomials,
+While \cite{Kno97} only defined the integral form nonsymmetric Macdonald polynomials (i.e., the case \(\sigma = w_0\)),
 the extension to the permuted-basement case is straightforward by using the same normalization factor.
 
 For a composition \(\alpha=\composition{\alpha_1,\ldots,\alpha_n}\), define the \vocab{normalization factor \(d_\alpha(q, t)\)} by
