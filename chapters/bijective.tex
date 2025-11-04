@@ -74,24 +74,28 @@ In this section, we define the bijection \(\phi \colon \Fill(\alpha) \to \Fill(s
 As an auxiliary construction,
 we also define another bijection \(\psi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) that changes the statistics \(\inv\) and \(\maj\) in a controlled way, as specified in \Cref{thm:psi-maj-inv}.
 This auxiliary bijection \(\psi\) is also important in \Cref{sec:bijective-augmented}.
-Without loss of generality, we restrict to the case \(\alpha_{i} > \alpha_{i+1}\), and use the inverse bijections to handle the case \(\alpha_{i} < \alpha_{i+1}\).
+% Without loss of generality, we restrict to the case \(\alpha_{i} > \alpha_{i+1}\), and use the inverse bijections to handle the case \(\alpha_{i} < \alpha_{i+1}\).
+% \todo{Can I remove this ``without loss of generality''?}
 
 Both of \(\phi\) and \(\psi\) follow a very rigid structure.
+For now, assume \(\alpha_{i} > \alpha_{i+1}\).
 If a non-augmented filling \(T \in \Fill(\alpha)\) is mapped to a filling \(U \in \Fill(s_i \permact \alpha)\) by one of these maps, then:
-    all columns except \(i\) and \(i+1\) are identical in \(T\) and \(U\), that is,
-    \begin{equation} \label{eq:restriction-other-columns}
-        T(j, r) = U(j, r) \quad \text{for all } j \in \interval{n} \setminus \{i, i+1\} \text{ and all } r \in \interval{\alpha_j};
-    \end{equation}
-    the topmost \(\alpha_i - \alpha_{i+1}\) entries in column \(i\) of \(T\) are copied to the topmost \(\alpha_i - \alpha_{i+1}\) entries in column \(i+1\) of \(U\), that is,
-    \begin{equation} \label{eq:restriction-top-entries}
-        T(i, r) = U(i+1, r) \quad \text{for all } r \in \interval{\alpha_{i+1} + 1, \alpha_i};
-    \end{equation}
-    and the entries in rows \(1, \dots, \alpha_{i+1}\) of columns \(i\) and \(i+1\) in \(T\) and \(U\) are the same, but they might be in the same positions or in swapped positions, that is,
-    \begin{equation} \label{eq:restriction-swap-per-row}
-        \{ T(i, r), T(i+1, r) \} = \{ U(i, r), U(i+1, r) \} \quad \text{for all } r \in \interval{\alpha_{i+1}}.
-    \end{equation}
+all columns except \(i\) and \(i+1\) are identical in \(T\) and \(U\), that is,
+\begin{equation} \label{eq:restriction-other-columns}
+    T(j, r) = U(j, r) \quad \text{for all } j \in \interval{n} \setminus \{i, i+1\} \text{ and all } r \in \interval{\alpha_j};
+\end{equation}
+the topmost \(\alpha_i - \alpha_{i+1}\) entries in column \(i\) of \(T\) are copied to the topmost \(\alpha_i - \alpha_{i+1}\) entries in column \(i+1\) of \(U\), that is,
+\begin{equation} \label{eq:restriction-top-entries}
+    T(i, r) = U(i+1, r) \quad \text{for all } r \in \interval{\alpha_{i+1} + 1, \alpha_i};
+\end{equation}
+and the entries in rows \(1, \dots, \alpha_{i+1}\) of columns \(i\) and \(i+1\) in \(T\) and \(U\) are the same, but they might be in the same positions or in swapped positions, that is,
+\begin{equation} \label{eq:restriction-swap-per-row}
+    \{ T(i, r), T(i+1, r) \} = \{ U(i, r), U(i+1, r) \} \quad \text{for all } r \in \interval{\alpha_{i+1}}.
+\end{equation}
+If \(\alpha_{i} < \alpha_{i+1}\) instead, the only difference is that the second condition swaps the roles of columns \(i\) and \(i+1\): the topmost \(\alpha_{i+1} - \alpha_{i}\) entries in column \(i+1\) of \(T\) are copied to the topmost \(\alpha_{i+1} - \alpha_{i}\) entries in column \(i\) of \(U\).
+We refer to these three conditions as the \vocab{local restrictions}.
 
-Given these restrictions, the only remaining freedom in determining \(\phi\) and \(\psi\) is to decide, for each \(r \in \interval{\alpha_{i+1}}\), whether to set
+By requiring that \(\phi\) and \(\psi\) satisfy these local restrictions, the only remaining freedom in determining \(\phi\) and \(\psi\) is to decide, for each \(r \in \interval{\alpha_{i+1}}\), whether to set
 \begin{multline}
     \big(U(i,r), U(i+1,r)\big) = \big(T(i,r), T(i+1,r)\big) \text{ or }\\ \big(U(i,r), U(i+1,r)\big) = \big(T(i+1,r), T(i,r)\big).
 \end{multline}
@@ -101,7 +105,14 @@ Below, we present two different algorithms to decide, for each \(r \in \interval
 
 \subsection{Block structure algorithm} \label{subsec:block-structure}
 
-Before we start, let's investigate the \(\ind{{}}\) function on four elements \(a, b, c, d \in \mathcal{A}\).\todo{Better motivation for these random propositions?}
+For the block structure algorithm,
+we split the rows \(\interval{\alpha_{i+1}}\) into intervals, called \emph{blocks},
+and then decide, for each block, whether to swap all its rows or not swap all its rows.
+
+To define the blocks, we define a criterion for when two consecutive rows are grouped together.
+Since our goal is to construct bijections that preserve the inversion statistic \(\inv\) and inversion triples occur between two consecutive rows,
+the condition we use is based on the behavior of \(\ind{{}}\) on four elements.
+Before proceeding, we prove some properties of \(\ind{{}}\) when applied to four elements \(a, b, c, d \in \mathcal{A}\).
 
 \begin{proposition} \label{prop:ind-magic}
     Let \(a, b, c, d \in \mathcal{A}\) be four elements of an alphabet \(\mathcal{A}\).
@@ -112,10 +123,10 @@ Before we start, let's investigate the \(\ind{{}}\) function on four elements \(
 \end{proposition}
 
 \begin{proof}
-    Since \(\ind{x, y} \in \{0, 1\}\) for all \(x, y \in \mathcal{A}\), it's immediate that the expression can only take values in \(\{-2, -1, 0, 1, 2\}\).
-    For its absolute value to be \(2\), we would need \(\ind{a, d} = \ind{b, c} = 1 - \ind{a, c} = 1 - \ind{b, d}\).
+    Since \(\ind{x, y} \in \{0, 1\}\) for all \(x, y \in \mathcal{A}\), it's immediate that the expression only take values in \(\{-2, -1, 0, 1, 2\}\).
+    For its absolute value to be \(2\), we need \(\ind{a, d} = \ind{b, c} = 1 - \ind{a, c} = 1 - \ind{b, d}\).
     This implies that \(a \geq d \geq b \geq c \geq a\) or \(a \leq d \leq b \leq c \leq a\); either way, we get \(a = b = c = d\), for which the expression evaluates to \(0\), a contradiction.
-    Thus, the expression can only take values in \(\{-1, 0, 1\}\).
+    Thus, the expression only take values in \(\{-1, 0, 1\}\).
 \end{proof}
 
 \begin{proposition} \label{prop:even-ind-magic}
@@ -203,8 +214,10 @@ Before we start, let's investigate the \(\ind{{}}\) function on four elements \(
 Let \(r \in \interval{\alpha_{i+1} - 1}\).
 Let \( a = T(i,r+1)\), \(b = T(i+1,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
 We say that rows \(r\) and \(r + 1\) of \(T\) are \vocab{not intertwined} if \(a, b, c, d\) satisfy the equivalent conditions of \Cref{prop:even-ind-magic}, and \vocab{intertwined} if they satisfy the equivalent conditions of \Cref{prop:odd-ind-magic}.
+Note that the condition is invariant under swapping \(a\) with \(b\), as well as invariant under swapping \(c\) with \(d\).
 
 The interval of rows \(\interval{\alpha_{i+1}}\) is uniquely partitioned into intervals, called \vocab{blocks}, such that two consecutive rows in the same block are intertwined, and two consecutive rows in different blocks are not intertwined.
+The partition of \(\interval{\alpha_{i+1}}\) into blocks is called the \vocab{block structure (of columns \(i\) and \(i+1\)) of the filling \(T\)}.
 \Cref{fig:blocks} shows a filling and its blocks.
  
 \begin{figure}[htbp]
@@ -253,6 +266,9 @@ The interval of rows \(\interval{\alpha_{i+1}}\) is uniquely partitioned into in
 	\label{fig:blocks}
 \end{figure}
 
+Note that, if the two entries of row \(r\) of columns \(i\) and \(i+1\) in \(T\) are equal, then rows \(r - 1\) and \(r\) are not intertwined, and rows \(r\) and \(r + 1\) are not intertwined (if these rows exist).
+Therefore, such row \(r\) forms a block of size \(1\) by itself, and swapping or not swapping it has the same effect.
+
 Let's interpret the intertwining condition via~\Cref{item:triple-equal-ind} of \Cref{prop:odd-ind-magic}.
 The number \(\ind{a, b, c}\) is the indicator of whether the triple \((i, r+1), (i+1, r+1), (i, r)\) is a Type A inversion triple in \(T\).
 The number \(\ind{b, c, d}\) is the indicator of whether the triple \((i+1, r+1), (i, r), (i+1, r)\) is a Type B inversion triple in \(U\) if rows \(r\) and \(r + 1\) are not swapped.
@@ -266,14 +282,18 @@ The remaining freedom is to decide, for each block, whether to swap it or not sw
 We use this freedom to guarantee that the number of inversion triples between different blocks is also the same in \(T\) and \(U\).
 
 Consider a block \([r_1, r_2]\) of \(T\).
-Let \(e_1 = T(i, r_2 + 1)\) and \(e_2 = T(i+1, r_2 + 1)\).
-Let \(a = T(i, r_2)\) and \(b = T(i+1, r_2)\).
-Let \(c = T(i, r_1)\) and \(d = T(i+1, r_1)\).
-Let \(f_1 = T(i, r_1 - 1)\) and \(f_2 = T(i+1, r_1 - 1)\).
+Let
+\begin{align*}
+    e_1 &= T(i, r_2 + 1),  & e_2 &= T(i+1, r_2 + 1), \\
+    a   &= T(i, r_2),      & b   &= T(i+1, r_2),     \\
+    c   &= T(i, r_1),      & d   &= T(i+1, r_1),     \\
+    f_1 &= T(i, r_1 - 1), \text{ and} & f_2 &= T(i+1, r_1 - 1).
+\end{align*}
 Edge cases are when the block is the bottommost one, i.e. \(r_1 = 1\),
 in which case \(f_1 = f_2 = \infty\) by convention;
-and when the block is the topmost one, i.e. \(r_2 = \alpha_{i+1}\), in which case \(e_2\) is undefined.
-We say that \((a, b, c, d, e_1, f_1)\) are the \vocab{signature entries} of the block.
+and when the block is the topmost one, i.e. \(r_2 = \alpha_{i+1}\), in which case one of \(e_1, e_2\) is undefined.
+For any well-defined \(e \in \{e_1, e_2\}\) and \(f \in \{f_1, f_2\}\),
+we say that \((a, b, c, d, e, f)\) are \vocab{signature entries} of the block.
 See \Cref{fig:general-block} for an illustration of the entries \(a, b, c, d, e_1, e_2, f_1, f_2\).
  
 \begin{figure}[htbp]
@@ -306,37 +326,40 @@ If the block is not the bottommost one, then rows \(r_1 - 1\) and \(r_1\) are no
 Therefore, \(c, d, f_1, f_2\) satisfy the equivalent conditions of \Cref{prop:even-ind-magic}, in particular, \(\ind{c, d, f_1} = \ind{c, d, f_2}\).
 If the block is the bottommost one,
 then we have \(\ind{c, d, f_1} = \ind{c, d, f_2} = \ind{c, d}\) by convention (as expected from \(f_1 = f_2 = \infty\)).
+Therefore, in all cases, the value \(\ind{c, d, f}\) doesn't depend on the choice of \(f \in \{f_1, f_2\}\).
 
 If the block is not the topmost one, then rows \(r_2\) and \(r_2 + 1\) are not intertwined.
 Therefore, \(a, b, e_1, e_2\) satisfy the equivalent conditions of \Cref{prop:even-ind-magic}, in particular, \(\ind{e_1, a, b} = \ind{e_2, a, b}\).
-If the block is the topmost one, then \(e_2\) is undefined;
-in this case, we only have \(\ind{e_1, a, b}\).
+If the block is the topmost one, then exactly one of \(e_1\) and \(e_2\) is defined, so there is no ambiguity in choosing \(e\) and in computing \(\ind{e, a, b}\).
+Therefore, in all cases, the value \(\ind{e, a, b}\) doesn't depend on the choice of \(e \in \{e_1, e_2\}\) (as long as \(e\) is defined).
 
-In all cases, the values \(\ind{c, d, f_1}\) and \(\ind{e_1, a, b}\) are defined for a block with signature entries \((a, b, c, d, e_1, f_1)\).
+In all cases, the values \(\ind{c, d, f}\) and \(\ind{e, a, b}\) are uniquely defined for a block, independently of the choice of signature entries \((a, b, c, d, e, f)\).
 
 \begin{definition}[The bijection \(\phi\) via blocks] \label{def:phi-via-blocks}
     Let \(T \in \Fill(\alpha)\).
     We define \(U = \phi(T) \in \Fill(s_i \permact \alpha)\)
-    by requiring \Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row} and requiring that, for each block of \(T\) with signature entries \((a, b, c, d, e_1, f_1)\),
+    by requiring the local restrictions (i.e., \Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row})
+    and requiring that, for each block of \(T\) with signature entries \((a, b, c, d, e, f)\),
     the rows of the block are swapped in \(U\) if and only if
     \begin{equation}
-        \ind{c, d, f_1} \neq \ind{e_1, a, b}.
+        \ind{c, d, f} \neq \ind{e, a, b}.
     \end{equation}
 \end{definition}
 
 \begin{definition}[The bijection \(\psi\) via blocks] \label{def:psi-via-blocks}
     Let \(T \in \Fill(\alpha)\).
     We define \(U = \psi(T) \in \Fill(s_i \permact \alpha)\)
-    by requiring \Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row} and requiring that, for each block of \(T\) with signature entries \((a, b, c, d, e_1, f_1)\),
+    by requiring the local restrictions (i.e., \Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row})
+    and requiring that, for each block of \(T\) with signature entries \((a, b, c, d, e, f)\),
     the rows of the block are swapped in \(U\) if and only if
     \begin{equation}
-        \ind{c, d, f_1} \neq \ind{e_1, a, b} \quad \text{xor} \quad \text{(the block is the bottommost block)}.
+        \ind{c, d, f} \neq \ind{e, a, b} \quad \text{xor} \quad \text{(the block is the bottommost block)}.
     \end{equation}
 \end{definition}
 
-To make things explicitly, both \(\phi\) and \(\psi\) swap a non-bottommost block if and only if \(\ind{c, d, f_1} \neq \ind{e_1, a, b}\).
-The difference is in the bottommost block, which \(\phi\) swaps if and only if \(\ind{c, d} \neq \ind{e_1, a, b}\),
-while \(\psi\) swaps it if and only if \(\ind{c, d} = \ind{e_1, a, b}\).
+To make things explicitly, both \(\phi\) and \(\psi\) swap a non-bottommost block if and only if \(\ind{c, d, f} \neq \ind{e, a, b}\).
+The difference is in the bottommost block, which \(\phi\) swaps if and only if \(\ind{c, d} \neq \ind{e, a, b}\),
+while \(\psi\) swaps it if and only if \(\ind{c, d} = \ind{e, a, b}\).
 
 \Cref{fig:output-filling} shows the image of the filling in \Cref{fig:blocks} under the map \(\phi\), following this definition.
 
@@ -386,11 +409,11 @@ while \(\psi\) swaps it if and only if \(\ind{c, d} = \ind{e_1, a, b}\).
 	\label{fig:output-filling}
 \end{figure}
 
-In \Cref{prop:phi-psi-bijections,thm:phi-maj-inv}, we prove that \(\phi\) is a bijection that preserves \(\content\), \(\inv\), and \(\maj\).
+In \Cref{prop:phi-inverse,prop:psi-inverse,thm:phi-maj-inv}, we prove that \(\phi\) is a bijection that preserves \(\content\), \(\inv\), and \(\maj\).
 Let's highlight the parts that are straightforward from the definition via blocks.
 
-It is straightforward to verify that both \(\phi\) and \(\psi\) are bijections, since the the block structure of \(T\) is the same as that of \(U = \phi(T)\) or \(U = \psi(T)\), and the swapping condition can be reversed to recover \(T\) from \(U\).
-\Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row} guarantee that \(\content(T) = \content(U)\).
+We verify that both \(\phi\) and \(\psi\) are bijections by noticing that \(\phi(\phi(T)) = T\) and \(\psi(\psi(T)) = T\).
+The local restrictions guarantee that \(\content(T) = \content(U)\).
 
 Moreover, it is straightforward to verify that the number of inversion triples within columns \(i\) and \(i+1\) is the same in \(T\) and \(\phi(T)\), since the number of inversion triples within each block is preserved, and the choice of swapping or not swapping each block is made precisely to ensure that the number of inversion triples between different blocks is also preserved.
 It is not hard to see that this implies that \(\inv(T) = \inv(\phi(T))\).
@@ -475,7 +498,7 @@ Let \( a = T(i,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
     Let \(T \in \Fill(\alpha)\).
     The row-by-row algorithm described above, with initial coin value \(\coinphi\) (resp.~\(\coinpsi\)), produces a label for each row \(r \in \interval{\alpha_{i+1}}\).
     We define \(U = \phi(T) \in \Fill(s_i \permact \alpha)\) (resp.~\(U = \psi(T) \in \Fill(s_i \permact \alpha)\))
-    by requiring \Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row} and requiring that, for each row \(r \in \interval{\alpha_{i+1}}\),
+    by requiring the local restrictions (i.e., \Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row}) and requiring that, for each row \(r \in \interval{\alpha_{i+1}}\),
     \begin{itemize}
         \item if row \(r\) is labeled \(\labelN\), then row \(r\) is not swapped in \(U\);
         \item if row \(r\) is labeled \(\labelS\), then row \(r\) is swapped in \(U\);
@@ -511,7 +534,11 @@ We do so by applying the row-by-row algorithm and observing what happens to each
 \begin{proof}
     Let \(\phi\) be defined as in \Cref{def:phi-psi-via-row-by-row}.
     We show that \(\phi\) satisfies the conditions in \Cref{def:phi-via-blocks}.
-    Consider a block \([r_1, r_2]\) of \(T\) with signature entries \((a, b, c, d, e_1, f_1)\).
+    Without loss of generality, assume \(\alpha_i > \alpha_{i+1}\).
+    Let \(T \in \Fill(\alpha)\).
+    Consider a block \([r_1, r_2]\) of \(T\).
+    Let \(e_1 = T(i, r_2 + 1)\), \(a = T(i, r_2)\), \(b = T(i+1, r_2)\), \(c = T(i, r_1)\), \(d = T(i+1, r_1)\), and \(f_1 = T(i, r_1 - 1)\),
+    so that \((a, b, c, d, e_1, f_1)\) are signature entries of the block.
 
     First, if \(r_1 > 1\),
     consider the row-by-row algorithm at row \(r_1 - 1\), and let's compute the coin value for row \(r_1\).
@@ -582,15 +609,52 @@ We do so by applying the row-by-row algorithm and observing what happens to each
 
 \subsection{Properties of the bijections \texorpdfstring{\(\phi\)}{𝜙} and \texorpdfstring{\(\psi\)}{𝜓}}
 
-\begin{proposition} \label{prop:phi-psi-bijections}
-    The maps \(\phi\) and \(\psi\) are bijections.
+As an abuse of notation, let \(\phi\) denote both the function \(\phi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) and the function \(\phi \colon \Fill(s_i \permact \alpha) \to \Fill(\alpha)\).
+The intended use of \(\phi\) is always clear from the shape of the input filling.
+
+\begin{proposition} \label{prop:phi-inverse}
+    The maps \(\phi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) and \(\phi \colon \Fill(s_i \permact \alpha) \to \Fill(\alpha)\) are inverses of each other.
+    Moreover, \(\phi\) is a bijection.
 \end{proposition}
 
 \begin{proof}[Proof (via block structure)]
-    As noted earlier, both \(\phi\) and \(\psi\) preserve the block structure of the filling,
-    and the swapping condition for each block can be reversed to recover the original filling from its image.
-    Therefore, both \(\phi\) and \(\psi\) have inverses, and therefore are bijections.
+    Let \(T \in \Fill(\alpha)\).
+    Let \(U = \phi(T)\) and \(T' = \phi(U)\).
+    Since the condition of two rows being intertwined only depends on the set of entries in two rows, not the order of the entries,
+    the block structure of \(T\), \(U\), and \(T'\) are the same.
+    Let \([r_1, r_2]\) be a block of \(T \in \Fill(\alpha)\) with signature entries \((a, b, c, d, e, f)\).
+
+    If \(a = b\) or \(c = d\), then the block consists of a single row, since a row of equal entries cannot be intertwined with any other row.
+    Therefore, the columns \(i\) and \(i+1\) of this row are identical in \(T\), \(U\), and \(T'\).
+    Thus, we may assume that \(a \neq b\) and \(c \neq d\).
+
+    By~\Cref{def:phi-via-blocks}, the rows in \([r_1, r_2]\) are swapped between \(T\) and \(U\) if and only if \( \ind{c, d, f} \neq \ind{e, a, b} \).
+
+    If this condition is false, then the rows in \([r_1, r_2]\) are not swapped between \(T\) and \(U\).
+    Therefore, \([r_1, r_2]\) is a block of \(U\) with signature entries \((a, b, c, d, e, f)\), irregardless of whether the blocks immediately above or below are swapped or not.
+    Now, again by~\Cref{def:phi-via-blocks}, the rows in \([r_1, r_2]\) are swapped between \(U\) and \(T'\) if and only if \(\ind{c, d, f} \neq \ind{e, a, b}\), which is false.
+    Therefore, the rows in \([r_1, r_2]\) are not swapped between \(U\) and \(T'\), and consequently, \(T\) and \(T'\) are identical in this block.
+
+    If this condition is true, then the rows in \([r_1, r_2]\) are swapped between \(T\) and \(U\).
+    Therefore, \([r_1, r_2]\) is a block of \(U\) with signature entries \((b, a, d, c, e, f)\), irregardless of whether the blocks immediately above or below are swapped or not.
+    Now, by~\Cref{def:phi-via-blocks}, the rows in \([r_1, r_2]\) are swapped between \(U\) and \(T'\) if and only if \(\ind{d, c, f} \neq \ind{e, b, a}\).
+    Because \(a \neq b\) and \(c \neq d\), we have \(\ind{d, c, f} = 1 - \ind{c, d, f}\) and \(\ind{e, b, a} = 1 - \ind{e, a, b}\).
+    Therefore, \(\ind{d, c, f} \neq \ind{e, b, a}\) is equivalent to \(\ind{c, d, f} \neq \ind{e, a, b}\), which is true.
+    Thus, the rows in \([r_1, r_2]\) are swapped between \(U\) and \(T'\).
+    Since the rows in \([r_1, r_2]\) are also swapped between \(T\) and \(U\), then \(T\) and \(T'\) are identical in this block.
+
+    Therefore, for all blocks of \(T\), the corresponding blocks of \(T'\) are identical.
+    All other entries of \(T\) and \(T'\) outside of blocks are equal by the local restrictions.
+    Thus, \(T = T'\), and consequently \(\phi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) is the inverse of \(\phi \colon \Fill(s_i \permact \alpha) \to \Fill(\alpha)\).
+    Since \(\phi\) has an inverse, it is a bijection.
 \end{proof}
+
+\begin{proposition} \label{prop:psi-inverse}
+    The maps \(\psi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) and \(\psi \colon \Fill(s_i \permact \alpha) \to \Fill(\alpha)\) are inverses of each other.
+    Moreover, \(\psi\) is a bijection.
+\end{proposition}
+
+The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi-inverse}, with a minor modification to account for the different swapping condition of the bottommost block.
 
 \begin{theorem}[{\cite[Proposition~4.3]{KLO22}}] \label{thm:phi-maj-inv}
     The bijection \(\phi\) preserves the statistics \(\inv\) and \(\maj\); that is, for all \(T \in \Fill(\alpha)\), if \(U = \phi(T)\), then
@@ -775,25 +839,31 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
     \begin{equation}
         f(T) =
         \begin{cases}
-            \phi(T), & \text{if } \phi(T) \in {\Fill(\alpha, \sigma)}, \\
-            \psi(T), & \text{if } \psi(T) \in {\Fill(\alpha, \sigma)},
+            \phi(T), & \text{if } \phi(T) \in {\Fill(s_i \cdot \alpha, \sigma)}, \\
+            \psi(T), & \text{if } \psi(T) \in {\Fill(s_i \cdot \alpha, \sigma)},
         \end{cases}
         \quad \text{and} \quad
         g(T) =
         \begin{cases}
-            \phi(T), & \text{if } \phi(T) \in {\Fill(\alpha, \sigma s_i)}, \\
-            \psi(T), & \text{if } \psi(T) \in {\Fill(\alpha, \sigma s_i)}.
+            \phi(T), & \text{if } \phi(T) \in {\Fill(s_i \cdot \alpha, \sigma s_i)}, \\
+            \psi(T), & \text{if } \psi(T) \in {\Fill(s_i \cdot \alpha, \sigma s_i)}.
         \end{cases}
     \end{equation}
 \end{definition}
 
 \begin{proposition}
-    The maps \(f\) and \(g\) are bijections.
+    The maps \(f\) and \(g\) are well-defined and are bijections.
 \end{proposition}
 
 \begin{proof}
-    This follows from \Cref{prop:phi-psi-bijections} and the definitions of \(f\) and \(g\).
-    \todo{Does it need more details?}
+    Let \(T \in \Fill(\alpha, \sigma)\).
+    Recall that the swapping conditions for \(\phi\) and \(\psi\) differ only in the bottommost block.
+    Since the first row is always part of the bottommost block,
+    exactly one of \(\phi(T)\) and \(\psi(T)\) has basement \(\sigma\),
+    and the other has basement \(\sigma s_i\).
+    Therefore, \(f\) and \(g\) are well-defined.
+
+    The bijectivity of \(f\) and \(g\) follows from \Cref{prop:phi-inverse,prop:psi-inverse}.
 \end{proof}
 
 For the purposes of this section, let \(\wt(T) = \mathbf{x}^{\content(T)} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}\), for an augmented signed filling \(T\).
@@ -870,7 +940,7 @@ For the purposes of this section, let \(\wt(T) = \mathbf{x}^{\content(T)} q^{\ma
 \end{corollary}
 
 \begin{proof}
-    This follows by summing the equation in \Cref{lem:three-term-bijective} over all \(T \in \Fill(\alpha, \sigma)\).
+    This follows by summing the equation in \Cref{lem:three-term-bijective-a} over all \(T \in \Fill(\alpha, \sigma)\).
 \end{proof}
 
 \begin{theorem} \label{thm:three-term-a-non-integral}
