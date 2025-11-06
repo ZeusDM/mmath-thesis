@@ -113,12 +113,12 @@ Note that \(\rev(\alpha) = w_0 \permact \alpha\).
 
 \section{Symmetric functions and plethystic notation}
 
-We assume basic familiarity with the ring of symmetric functions in countably infinitely many variables \(\mathbf{x} = (x_1, x_2, \ldots)\) with coefficients in a field \(F\) of characteristic zero.
+We assume basic familiarity with the ring \(\Lambda(F)\) of symmetric functions in countably infinitely many variables \(\mathbf{x} = (x_1, x_2, \ldots)\) with coefficients in a field \(F\) of characteristic zero.
 This includes important families of symmetric functions,
 such as the power sum symmetric functions \(p_k\),
 and the Schur functions \(s_\lambda\).
 We refer the reader to \cite[Chapter~7]{EC2} for a comprehensive introduction to this topic.
-We take \(F = \rationals(q, t)\), the field of rational functions in the variables \(q\) and \(t\) with rational coefficients.
+We take the coefficient field to be \(F = \rationals(q, t)\), the field of rational functions in the variables \(q\) and \(t\) with rational coefficients.
 
 Recall that the \vocab{power sum symmetric functions} \(p_k\) for \(k \geq 1\) are defined by
 \begin{equation}
@@ -129,13 +129,10 @@ In other words,
 \begin{equation}
 	\Lambda(F) = F[p_1, p_2, p_3, \ldots].
 \end{equation}
-
-% \subsection{Plethystic notation}
-
 We adopt plethystic notation as in \cite[Section~2]{Hai99}, defined as follows.
 
-Let \(A\) be a formal series.
-We define \(p_k[A]\) to be the formal series obtained by replacing each indeterminate \(a\) in \(A\) by \(a^k\) (including the indeterminates \(q\) and \(t\)).
+Let \(A\) be a formal series (not necessarily symmetric, and not necessarily with \(x_1, x_2, \dots\) as indeterminates).
+We define \(p_k[A]\) to be the formal series obtained by replacing each indeterminate \(a\) in \(A\) by \(a^k\) (including the indeterminates \(q\) and \(t\), if they appear in \(A\)).
 For a symmetric function \(f \in \Lambda(F)\), let
 \begin{equation}
 	f = Q_f(p_1, p_2, \ldots, p_m)
@@ -146,7 +143,7 @@ Then, the \vocab{plethystic substitution} of \(A\) into \(f\) is defined as
 	f[A] = Q_f(p_1[A], p_2[A], \ldots, p_m[A]).
 \end{equation}
 
-If \(A\) is a sum of indeterminates, \(A = a_1 + a_2 + \cdots + a_n\), then \(p_k[A] = a_1^k + a_2^k + \cdots + a_n^k = p_k(a_1, a_2, \ldots, a_n)\), and thus \(f[A] = f(a_1, a_2, \ldots, a_n)\).
+If \(A\) is a sum of indeterminates, \(A = a_1 + a_2 + \cdots\), then \(p_k[A] = a_1^k + a_2^k + \cdots = p_k(a_1, a_2, \ldots)\), and thus \(f[A] = f(a_1, a_2, \ldots)\).
 This explains why we call \(f[A]\) a kind of substitution.
 Similarly, if \(A\) is a sum of monomials, then \(f[A]\) is \(f\) evaluated on these monomials.
 An important example is
@@ -159,8 +156,8 @@ Then, \(f[X] = f(\mathbf{x})\) is the usual evaluation of \(f\) at the variables
 \[
 	f[X/(1-t)] = f(x_1, x_2, x_3, \ldots, t x_1, t x_2, t x_3, \ldots, t^2 x_1, t^2 x_2, t^2 x_3, \ldots ).
 \]
-Note that some manipulations are easier in plethystic notation; for example,
-if \(g(\mathbf{x})  = f[X/(1-t)]\), then \(f(\mathbf{x}) = g[X(1-t)]\).
+Note that some manipulations are easier in plethystic notation;
+for example, if \(g(\mathbf{x})  = f[X/(1-t)]\), then \(f(\mathbf{x}) = g[X(1-t)]\).
 
 \section{Algebraic definitions of multiple variations of Macdonald polynomials}
 
@@ -175,28 +172,23 @@ In this section, we define multiple variations of Macdonald polynomials:
 
 \subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ}}
 
-\todo{Properly cite \cite{Mac88} here and elsewhere.}
+We follow \cite[Chapter VI]{Mac96} for the definition of symmetric Macdonald polynomials.
 
-Define the scalar product \(\langle \cdot, \cdot \rangle_{(q, t)}\) on the ring of symmetric functions with coefficients in \(\rationals(q, t)\) by setting
+Define the scalar product \(\langle \cdot, \cdot \rangle_{(q, t)}\) on \(\Lambda(\rationals(q, t))\) by
 \begin{equation}
-	\langle p_\lambda, p_\mu \rangle_{(q, t)} = \delta_{\lambda\mu} z_\lambda(q, t)
+	\langle p_\lambda, p_\mu \rangle_{(q, t)} = \delta_{\lambda\mu} z_\lambda \prod_{i=1}^{\ell(\lambda)} \frac{1 - q^{\lambda_i}}{1 - t^{\lambda_i}},
 \end{equation}
-where \(p_\lambda\) is the power sum symmetric function and
-\begin{equation}
-	z_\lambda(q, t) = z_\lambda \prod_{i=1}^{\ell(\lambda)} \frac{1 - q^{\lambda_i}}{1 - t^{\lambda_i}}.
-\end{equation}
-\todo{Define $z_\lambda$ explicitly.}
+where \( z_\lambda = \prod_{i \geq 1} i^{m_i} m_i!\), with \(m_i\) being the multiplicity of the part \(i\) in the partition \(\lambda\).
+When \(q = t\), this scalar product reduces to the usual Hall inner product on symmetric functions.
 % If \(q, t\) are treated as real parameters lying in \( (0, 1) \), then the scalar product is positive definite.
 
-\begin{theorem}
-	There exists a unique family of symmetric functions \(P_\lambda = P_\lambda(\mathbf{x}; q, t)\) indexed by partitions \(\lambda\) such that:
+\begin{theorem}[{\cite[Theorem~4.7]{Mac96}}]
+	There exists a unique family of symmetric functions (called \vocab{symmetric Macdonald polynomials}) \(P_\lambda = P_\lambda(\mathbf{x}; q, t) \in \Lambda(\rationals(q, t))\) indexed by partitions \(\lambda\) such that
 	\begin{itemize}
 		\item \( P_\lambda = m_\lambda + \sum_{\mu < \lambda} u_{\lambda\mu}(q, t) m_\mu \) with coefficients \( u_{\lambda\mu}(q, t) \in \rationals(q, t) \), and;
 		\item \( \langle P_\lambda, P_\mu \rangle_{(q, t)} = 0 \quad \text{if } \lambda \ne \mu \).
 	\end{itemize}
 \end{theorem}
-
-The functions \(P_\lambda\) are called the \vocab{symmetric Macdonald polynomials}.
 
 For any polynomial \( f(x_1, \ldots, x_n) \) and \(1 \le i \le n\), define the \(q\)-shift operator \(T_{q,x_i}\) by
 \begin{equation}
