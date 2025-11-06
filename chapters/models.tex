@@ -481,7 +481,7 @@ See \cref{fig:inversion-coinversion} for an example.
 \end{figure}
 
 There is another interpretation of \(\inv(T)\) and \(\coinv(T)\), in terms of inversion pairs.
-An \vocab{inversion pair} in a filling \(T\) is a pair \(\{u, v\}\) of boxes in \(\dg(\alpha)\) such that \(u\) attacks \(v\) and \(\ind{T(u), T(v)} = 1\).
+An \vocab{inversion pair} in a filling \(T\) is a pair \((u, v)\) of boxes in \(\dg(\alpha)\) such that \(u\) attacks \(v\) and \(\ind{T(u), T(v)} = 1\).
 Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 
 \begin{proposition}[{\cite[739]{HHL05}}] \label{prop:inv-via-inversion-pairs}
@@ -622,7 +622,7 @@ We remark that this sum may be different from \(\sum_{u \in \dg(\alpha)} \arm_{\
 
 Similarly to \cref{subsec:non-augmented-fillings},
 there is another interpretation of \(\inv(T)\) and \(\coinv(T)\), in terms of inversion pairs.
-An \vocab{inversion pair} in an augmented filling \(T\) is a pair \(\{u, v\}\) of boxes with \(u \in \dg(\alpha)\) and \(v \in \adg(\alpha)\) such that \(u\) attacks \(v\) and \(\ind{T(u), T(v)} = 1\).
+An \vocab{inversion pair} in an augmented filling \(T\) is a pair \((u, v)\) of boxes with \(u \in \dg(\alpha)\) and \(v \in \adg(\alpha)\) such that \(u\) attacks \(v\) and \(\ind{T(u), T(v)} = 1\).
 Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 
 \begin{proposition}[{\cite[739]{HHL05}}] \label{prop:inv-via-inversion-pairs-augmented}
@@ -789,18 +789,18 @@ where \(\Fill[\positives](\mu)\) is the set of fillings of shape \(\mu\) with la
 In \cite{HHL08}, \citeauthor{HHL08} show that the set may be changed to \(\Fill[\positives](\alpha)\) for any rearrangement \(\alpha\) of \(\mu\), and the formula still holds.
 In \Cref{chap:bijective}, we give a bijective proof of this rearrangement property.
 
-\subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ}}
+\subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ}} \label{subsec:integral-form-macdonald}
 
 Recall that the integral form Macdonald polynomials \(J_\mu\) are a family of polynomials indexed by partitions \(\mu\).
 From the plethystic formula in \Cref{eq:modified-macdonald-plethystic}, and using \(\tilde{H}_\mu(x; q, t) = \tilde{H}_{\mu'}(\mathbf{x}; t, q)\)\todo{Cite.}, we have
-\begin{equation}
+\begin{equation} \label{eq:J-in-terms-of-tilde-H}
 	J_\mu(\mathbf{x}; q, t)
 	= t^{n(\mu)} \tilde{H}_\mu\left[ X (1 - t^{-1}) ; q, t^{-1} \right]
 	= t^{n(\mu)+|\mu|} \tilde{H}_{\mu'}\left[ X (t^{-1} - 1) ; t^{-1}, q \right].
 \end{equation}
-Using a superization technique,%
-\todo{Do I need to explain what this is? It's the only part I don't need for this work, so maybe I can just refer to the original paper. \cite{Man24} does a good job of \emph{not} explaining it by referring to \cite{HHL05}.}
-from this plethystic formula and the tableaux formula in \Cref{eq:modified-macdonald-Fill}, \cite{HHL05} derive the following combinatorial formula for \(J_\mu\) as a sum over all fillings using the signed alphabet \(\interval{n}_\pm\):
+% \todo{Do I need to explain what this is? It's the only part I don't need for this work, so maybe I can just refer to the original paper. \cite{Man24} does a good job of \emph{not} explaining it by referring to \cite{HHL05}.}
+Using a standard technique called superization,
+\cite{HHL05} derive from \Cref{eq:modified-macdonald-Fill,eq:J-in-terms-of-tilde-H} the following combinatorial formula for \(J_\mu\) as a sum over all fillings using the signed alphabet \(\interval{n}_\pm\):
 \begin{equation} \label{eq:J-Fill-signed}
 	J_\mu(\mathbf{x}; q, t)
 	= \sum_{T \in \Fill[\interval{n}_\pm](\mu)} \mathbf{x}^T
@@ -826,16 +826,29 @@ We reproduce their proofs here because their ideas are useful in \Cref{sec:integ
 \end{equation}
 \end{proposition}
 
-\begin{proof}[Proof (\cite{HHL05})]
+\begin{proof}[Proof ({\cite[744]{HHL05}})]
 	We define a sign-reversing involution on the set of attacking fillings in \(\Fill[\interval{n}_\pm](\mu) \setminus \NAF[\interval{n}_\pm](\mu)\).
 	Recall that, in \(\interval{n}_\pm\), we have
-	\begin{equation}
+	\begin{equation} \label{eq:signed-alphabet-ordering}
 		1 < \bar{1} < 2 < \bar{2} < \cdots < n < \bar{n}.
 	\end{equation}
+	This ordering has two useful properties:
+	% First, for any \(a \in \interval{n}\) and any \(x \in \interval{n}_\pm\), we have
+	% \begin{equation}
+	% 	\ind[,]{a, x} = \ind[,]{\bar{a}, x}.
+	% \end{equation}
+	% Second, for any \(a \in \interval{n}\) and any \(x \in \interval{n}_\pm\) with \(|x| \neq a\), we have
+	% \begin{equation}
+	% 	\ind[,]{x, a} = \ind[,]{x, \bar{a}}.
+	% \end{equation}
+	\begin{align}
+		\ind{a, k} = \ind{\bar{a}, k} &\quad \text{for any } a \in \interval{n} \text{ and any } k \in \interval{n}_\pm, \text{ and} \label{eq:involution-property-1} \\
+		\ind{k, a} = \ind{k, \bar{a}} &\quad \text{for any } a \in \interval{n} \text{ and any } k \in \interval{n}_\pm \text{ with } |k| \neq a. \label{eq:involution-property-2}
+	\end{align}
 
 	Given an attacking filling \(T \in \Fill[\interval{n}_\pm](\mu) \setminus \NAF[\interval{n}_\pm](\mu)\),
-	let \(a\) be the smallest label which is the absolute value of two attacking entries in \(T\).
-	Let \(v\) be the earlier box (in reading order) which is part of an attack pair with absolute value \(a\).
+	let \(a\) be the smallest label which is the absolute value of two attacking entries in \(T\), which exists since \(T\) is attacking.
+	Let \(v\) be the earlier box (in reading order) with entry of absolute value \(a\) that is attacked by another box with entry of absolute value \(a\).
 	Let \(u\) be the earlier box (in reading order) which attacks \(v\) and has absolute value \(a\).
 	Define \(T'\) to be the filling obtained from \(T\) by switching the sign of the entry in box \(u\).
 	Then, \(T'\) is also an attacking filling in \(\Fill[\interval{n}_\pm](\mu) \setminus \NAF[\interval{n}_\pm](\mu)\).
@@ -845,13 +858,27 @@ We reproduce their proofs here because their ideas are useful in \Cref{sec:integ
 	Hence, the map \(T \mapsto T'\) is an involution.
 
 	Without loss of generality, assume that \(T(u) = a\) and \(T'(u) = \bar{a}\).
-	We have \(\mathbb{x}^{T'} = \mathbb{x}^{T}\) and \(\operatorname{neg}(T') = \operatorname{neg}(T) + 1\).
+	It is straightforward to check that \(\mathbf{x}^{T'} = \mathbf{x}^{T}\) and \(\operatorname{neg}(T') = \operatorname{neg}(T) + 1\).
 
-	I claim that \(\Des(T') = \Des(T)\).
-	\todo{Prove this.}
+	I claim that \(\Des(T') = \Des(T)\), which implies that \(\maj(T') = \maj(T)\).
+	Let \(w\) be the box directly above \(u\), if it exists.
+	For any box \(b \notin \{w, u\}\), the fillings \(T\) and \(T'\) agree on the entries in boxes \(b\) and \(\south{b}\),
+	so \(b\) is a descent in \(T\) if and only if it is a descent in \(T'\).
+	For \(w\), if it exists, we can apply \Cref{eq:involution-property-1} to conclude that \(w\) is a descent in \(T\) if and only if it is a descent in \(T'\).
+	For \(u\), note that \( d(u) \) is attacked by \(v\) and is earlier than \(v\) in reading order.
+	Therefore, by minimality of \(v\), we have \(|T(d(u))| \neq a\), so we can apply \Cref{eq:involution-property-2} to conclude that \(u\) is a descent in \(T\) if and only if it is a descent in \(T'\).
+	Thus, we have shown that \(\Des(T') = \Des(T)\), which implies that \(\maj(T') = \maj(T)\).
 
 	I claim that \(\inv(T') = \inv(T) + 1\).
-	\todo{Prove this.}
+	Using \Cref{prop:inv-via-inversion-pairs-augmented}, since \(\Des(T') = \Des(T)\), it suffices to show that \(\left|\InversionPairs(T')\right| = \left|\InversionPairs(T)\right| + 1\).
+	Any pair of attacking boxes that does not involve box \(u\) is an inversion pair in \(T\) if and only if it is an inversion pair in \(T'\).
+	Moreover, by \Cref{eq:involution-property-1}, any box \(b\) that attacks \(u\) forms an inversion pair \((b, u)\) in \(T\) if and only if it forms an inversion pair \((b, u)\) in \(T'\).
+	Consider a box \(b\) that is attacked by \(u\).
+	If \(b = v\), then \((u, v)\) is an inversion pair in \(T'\) but not in \(T\).
+	If \(b \neq v\), then by minimality of \(u\), we have \(|T(b)| \neq a\), so by \Cref{eq:involution-property-2}, \((u, b)\) is an inversion pair in \(T\) if and only if it is an inversion pair in \(T'\).
+	Therefore, \(\InversionPairs(T')\) has exactly one more inversion pair than \(\InversionPairs(T)\), namely \((u, v)\),
+	which proves the claim.
+	Consequently, \(\coinv(T') = \coinv(T) - 1\).
 
 	Putting this together, we have
 	\begin{align*}
@@ -859,9 +886,7 @@ We reproduce their proofs here because their ideas are useful in \Cref{sec:integ
 		&= \mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T) - 1} (-t)^{\operatorname{neg}(T) + 1} \\
 		&= - \mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)},
 	\end{align*}
-	which implies that the contributions of \(T\) and \(T'\) cancel out in \Cref{eq:J-Fill-signed}.
-	Hence, summing over all fillings in \(\Fill[\interval{n}_\pm](\mu)\) is equivalent to summing over only the non-attacking fillings in \(\NAF[\interval{n}_\pm](\mu)\),
-	which proves that \Cref{eq:J-Fill-signed} implies \Cref{eq:J-NAF-signed}.
+	which implies that the contributions of fillings in \(\Fill[\interval{n}_\pm](\mu) \setminus \NAF[\interval{n}_\pm](\mu)\) to the sum in \Cref{eq:J-Fill-signed} cancel out, and the result follows.
 \end{proof}
 
 \begin{proposition} \label{prop:J-NAF-unsigned}
@@ -878,7 +903,7 @@ We reproduce their proofs here because their ideas are useful in \Cref{sec:integ
 	\end{equation}
 \end{proposition}
 
-\begin{proof}[Proof (\cite{HHL05})]
+\begin{proof}[Proof ({\cite[750]{HHL05}})]
 	Given a non-attacking unsigned filling \(T \in \NAF[\interval{n}](\mu)\),
 	let \(\mathcal{T}\) be the set of signed fillings obtained from \(T\) by choosing the sign of each entry independently.
 	Then, \todo{Explain why the computation below.}
@@ -962,8 +987,10 @@ Therefore, from \Cref{eq:E-NAF-unsigned}, we obtain a tableaux formula for \(\ma
 \end{equation}
 
 Note the similarity of \Cref{eq:calE-NAF-unsigned} for the integral form permuted-basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\)
-with \Cref{eq:J-NAF-unsigned} for the integral form symmetric Macdonald polynomials \(J_\mu\).
-Although \Cref{eq:calE-NAF-unsigned} is not obtained via a plethystic substitution, we can still use the same methods as \Cref{prop:J-NAF-signed,prop:J-NAF-unsigned} to obtain similar formulas for \(\mathcal{E}_\alpha^\sigma\).
+with \Cref{eq:J-NAF-unsigned} for the integral form symmetric Macdonald polynomials \(J_\mu\), the third of three formulas for \(J_\mu\) given in \Cref{subsec:integral-form-macdonald}.
+
+We can repeat the arguments used in \Cref{prop:J-NAF-unsigned,prop:J-NAF-signed} (in reverse order) to obtain formulas for \(\mathcal{E}_\alpha^\sigma\) that are similar to \Cref{eq:J-NAF-signed}, the second formula for \(J_\mu\), and \Cref{eq:J-Fill-signed}, the first formula for \(J_\mu\).
+The arguments are nearly identical, with some minor adjustments to account for the basement \(\sigma\), but we nevertheless fully reproduce them below for self-containment.
 
 % Using similar methods as in \cite{HHL05} (in reverse order),
 % we can obtain two similar equations for \(\mathcal{E}_\alpha^\sigma\).
@@ -985,61 +1012,11 @@ Although \Cref{eq:calE-NAF-unsigned} is not obtained via a plethystic substituti
 % \end{equation}
 
 \begin{proposition} \label{prop:calE-NAF-signed}
-	For a composition \(\alpha\) with \(n\) parts and a permutation \(\sigma\) of \(\interval{n}\),
+	For a composition \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\) and a permutation \(\sigma\) of \(\interval{n}\),
 	the integral form permuted-basement Macdonald polynomial \(\mathcal{E}_\alpha^\sigma(\mathbf{x}; q, t)\) can be expressed as a sum one over all non-attacking augmented fillings using the signed alphabet \(\interval{n}_\pm\),
 	\begin{equation} \label{eq:calE-NAF-signed}
 		\mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
 		\sum_{T \in \NAF[\interval{n}_\pm](\alpha, \sigma)}
-		\mathbf{x}^{\content(T)}
-		q^{\maj(T)} t^{\coinv(T)}
-		(-t)^{\operatorname{neg}(T)}.
-	\end{equation}
-\end{proposition}
-
-\begin{proof}
-	We define a sign-reversing involution on the set of attacking augmented fillings in \(\Fill[\interval{n}_\pm](\alpha, \sigma) \setminus \NAF[\interval{n}_\pm](\alpha, \sigma)\).
-	Recall that, in \(\interval{n}_\pm\), we have
-	\begin{equation}
-		1 < \bar{1} < 2 < \bar{2} < \cdots < n < \bar{n}.
-	\end{equation}
-
-	Given an attacking augmented filling \(T \in \Fill[\interval{n}_\pm](\alpha, \sigma) \setminus \NAF[\interval{n}_\pm](\alpha, \sigma)\),
-	let \(a\) be the smallest label which is the absolute value of two attacking entries in \(T\).
-	Let \(v\) be the earlier box (in reading order) which is part of an attack pair with absolute value \(a\).
-	Let \(u\) be the earlier box (in reading order) which attacks \(v\) and has absolute value \(a\).
-	Define \(T'\) to be the filling obtained from \(T\) by switching the sign of the entry in box \(u\).
-	Then, \(T'\) is also an attacking augmented filling in \(\Fill[\interval{n}_\pm](\alpha, \sigma) \setminus \NAF[\interval{n}_\pm](\alpha, \sigma)\).
-
-	Since the definitions of \(a\), \(v\) and \(u\) only depend on the absolute values of the entries in \(T\),
-	we have that applying the same procedure to \(T'\) returns \(T\).
-	Hence, the map \(T \mapsto T'\) is an involution.
-
-	Without loss of generality, assume that \(T(u) = a\) and \(T'(u) = \bar{a}\).
-	We have \(\mathbb{x}^{T'} = \mathbb{x}^{T}\) and \(\operatorname{neg}(T') = \operatorname{neg}(T) + 1\).
-
-	I claim that \(\Des(T') = \Des(T)\).
-	\todo{Prove this.}
-
-	I claim that \(\inv(T') = \inv(T) + 1\).
-	\todo{Prove this.}
-
-	Putting this together, we have
-	\begin{align*}
-		\mathbf{x}^{T'} q^{\maj(T')} t^{\coinv(T')} (-t)^{\operatorname{neg}(T')}
-		&= \mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T) - 1} (-t)^{\operatorname{neg}(T) + 1} \\
-		&= - \mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)},
-	\end{align*}
-	which implies that the contributions of \(T\) and \(T'\) cancel out in \Cref{eq:calE-Fill-signed}.
-	Hence, summing over all fillings in \(\Fill[\interval{n}_\pm](\alpha, \sigma)\) is equivalent to summing over only the non-attacking fillings in \(\NAF[\interval{n}_\pm](\alpha, \sigma)\),
-	which proves that \Cref{eq:calE-Fill-signed} implies \Cref{eq:calE-NAF-signed}.
-\end{proof}
-
-\begin{proposition} \label{prop:calE-Fill-signed}
-	For a composition \(\alpha\) with \(n\) parts and a permutation \(\sigma\) of \(\interval{n}\),
-	the integral form permuted-basement Macdonald polynomial \(\mathcal{E}_\alpha^\sigma(\mathbf{x}; q, t)\) can be expressed as a sum one over all augmented fillings using the signed alphabet \(\interval{n}_\pm\),
-	\begin{equation} \label{eq:calE-Fill-signed}
-		\mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
-		\sum_{T \in \Fill[\interval{n}_\pm](\alpha, \sigma)}
 		\mathbf{x}^{\content(T)}
 		q^{\maj(T)} t^{\coinv(T)}
 		(-t)^{\operatorname{neg}(T)}.
@@ -1061,4 +1038,79 @@ Although \Cref{eq:calE-NAF-unsigned} is not obtained via a plethystic substituti
 	\end{multline}
 	Summing over all \(T \in \NAF[\interval{n}](\alpha, \sigma)\) gives \Cref{eq:calE-Fill-signed},
 	which proves that \Cref{eq:calE-NAF-signed} implies \Cref{eq:calE-Fill-signed}.
+\end{proof}
+
+\begin{proposition} \label{prop:calE-Fill-signed}
+	For a composition \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\) and a permutation \(\sigma\) of \(\interval{n}\),
+	the integral form permuted-basement Macdonald polynomial \(\mathcal{E}_\alpha^\sigma(\mathbf{x}; q, t)\) can be expressed as a sum one over all augmented fillings using the signed alphabet \(\interval{n}_\pm\),
+	\begin{equation} \label{eq:calE-Fill-signed}
+		\mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
+		\sum_{T \in \Fill[\interval{n}_\pm](\alpha, \sigma)}
+		\mathbf{x}^{\content(T)}
+		q^{\maj(T)} t^{\coinv(T)}
+		(-t)^{\operatorname{neg}(T)}.
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	We define a sign-reversing involution on the set of attacking augmented fillings in \(\Fill[\interval{n}_\pm](\alpha, \sigma) \setminus \NAF[\interval{n}_\pm](\alpha, \sigma)\).
+	Recall that, in \(\interval{n}_\pm\), we have \( 1 < \bar{1} < 2 < \bar{2} < \cdots < n < \bar{n}\), which has the useful properties given in \Cref{eq:involution-property-1,eq:involution-property-2}.
+
+	Given an attacking augmented filling \(T \in \Fill[\interval{n}_\pm](\alpha, \sigma) \setminus \NAF[\interval{n}_\pm](\alpha, \sigma)\),
+	let \(a\) be the smallest label which is the absolute value of two attacking entries in \(T\), which exists since \(T\) is attacking.
+	Let \(v\) be the earlier box (in reading order) with entry of absolute value \(a\) that is attacked by another box with entry of absolute value \(a\).
+	Let \(u\) be the earlier box (in reading order) which attacks \(v\) and has absolute value \(a\).
+	Since the entries in row \(0\) are the basement entries given by \(\sigma\), which are all distinct and positive, we have that \(u\) is not in row \(0\).
+	Define \(T'\) to be the filling obtained from \(T\) by switching the sign of the entry in box \(u\).
+	Since \(u\) is not in row \(0\), \(T'\) has basement \(\sigma\).
+	Then, \(T'\) is an attacking augmented filling in \(\Fill[\interval{n}_\pm](\alpha, \sigma) \setminus \NAF[\interval{n}_\pm](\alpha, \sigma)\).
+
+	Since the definitions of \(a\), \(v\) and \(u\) only depend on the absolute values of the entries in \(T\),
+	we have that applying the same procedure to \(T'\) returns \(T\).
+	Hence, the map \(T \mapsto T'\) is an involution.
+
+	Without loss of generality, assume that \(T(u) = a\) and \(T'(u) = \bar{a}\).
+	We have \(\mathbf{x}^{T'} = \mathbf{x}^{T}\) and \(\operatorname{neg}(T') = \operatorname{neg}(T) + 1\).
+
+	I claim that \(\Des(T') = \Des(T)\), which implies that \(\maj(T') = \maj(T)\).
+	Let \(w\) be the box directly above \(u\), if it exists.
+	For any box \(b \notin \{w, u\}\), the fillings \(T\) and \(T'\) agree on the entries in boxes \(b\) and \(\south{b}\),
+	so \(b\) is a descent in \(T\) if and only if it is a descent in \(T'\).
+	For \(w\), if it exists, we can apply \Cref{eq:involution-property-1} to conclude that \(w\) is a descent in \(T\) if and only if it is a descent in \(T'\).
+	For \(u\), note that \( d(u) \) is attacked by \(v\) and is earlier than \(v\) in reading order.
+	Therefore, by minimality of \(v\), we have \(|T(d(u))| \neq a\), so we can apply \Cref{eq:involution-property-2} to conclude that \(u\) is a descent in \(T\) if and only if it is a descent in \(T'\).
+	Thus, we have shown that \(\Des(T') = \Des(T)\), which implies that \(\maj(T') = \maj(T)\).
+
+	I claim that \(\inv(T') = \inv(T) + 1\).
+	Using \Cref{prop:inv-via-inversion-pairs-augmented}, since \(\Des(T') = \Des(T)\), it suffices to show that \(\left|\InversionPairs(T')\right| = \left|\InversionPairs(T)\right| + 1\).
+	Any pair of attacking boxes that does not involve box \(u\) is an inversion pair in \(T\) if and only if it is an inversion pair in \(T'\).
+	Moreover, by \Cref{eq:involution-property-1}, any box \(b\) that attacks \(u\) forms an inversion pair \((b, u)\) in \(T\) if and only if it forms an inversion pair \((b, u)\) in \(T'\).
+	Consider a box \(b\) that is attacked by \(u\).
+	If \(b = v\), then \((u, v)\) is an inversion pair in \(T'\) but not in \(T\).
+	If \(b \neq v\), then by minimality of \(u\), we have \(|T(b)| \neq a\), so by \Cref{eq:involution-property-2}, \((u, b)\) is an inversion pair in \(T\) if and only if it is an inversion pair in \(T'\).
+	Therefore, \(\InversionPairs(T')\) has exactly one more inversion pair than \(\InversionPairs(T)\), namely \((u, v)\),
+	which proves the claim.
+	Consequently, \(\coinv(T') = \coinv(T) - 1\).
+
+	Putting this together, we have
+	\begin{align*}
+		\mathbf{x}^{T'} q^{\maj(T')} t^{\coinv(T')} (-t)^{\operatorname{neg}(T')}
+		&= \mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T) - 1} (-t)^{\operatorname{neg}(T) + 1} \\
+		&= - \mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)},
+	\end{align*}
+	which implies that
+	\begin{equation*}
+		\sum_{T \in \Fill[\interval{n}_\pm](\alpha, \sigma) \setminus \NAF[\interval{n}_\pm](\alpha, \sigma)}
+		\mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)} = 0.
+	\end{equation*}
+	and consequently
+	\begin{equation*}
+		\sum_{T \in \Fill[\interval{n}_\pm](\alpha, \sigma)}
+		\mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}
+		=
+		\sum_{T \in \NAF[\interval{n}_\pm](\alpha, \sigma)}
+		\mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}.
+	\end{equation*}
+	The right-hand side equals \(\mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t)\) by \Cref{prop:calE-NAF-signed},
+	so the result follows.
 \end{proof}
