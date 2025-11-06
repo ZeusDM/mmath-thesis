@@ -895,29 +895,105 @@ We reproduce their proofs here because their ideas are useful in \Cref{sec:integ
 	\begin{equation} \label{eq:J-NAF-unsigned}
 		J_\mu(\mathbf{x}; q, t)
 		= \sum_{T \in \NAF[\interval{n}](\mu)} \mathbf{x}^T
-		q^{\maj(T)} t^{\coinv(T)}
+		\mkern -10mu
 		\prod_{\substack{u \in \dg(\mu) \\ T(u) = T(\south{u})}}
+		\mkern -18mu
 		(1 - q^{1 + \leg(u)} t^{1 + \arm(u)})
-		\prod_{\substack{u \in \dg(\mu) \\ T(u) \neq T(\south{u})}}
+		\mkern -30mu
+		\prod_{\substack{u \in \dg(\mu) \\ T(u) \neq T(\south{u}) \text{ or } u \text{ in row } 1}}
+		\mkern -38mu
 		(1 - t).
 	\end{equation}
 \end{proposition}
 
 \begin{proof}[Proof ({\cite[750]{HHL05}})]
-	Given a non-attacking unsigned filling \(T \in \NAF[\interval{n}](\mu)\),
-	let \(\mathcal{T}\) be the set of signed fillings obtained from \(T\) by choosing the sign of each entry independently.
-	Then, \todo{Explain why the computation below.}
-	\begin{multline}
-		\sum_{T' \in \mathcal{T}} \mathbf{x}^{T'} q^{\maj(T')} t^{\coinv(T')} (-t)^{\operatorname{neg}(T')}
-		= \\ 
-		= \mathbf{x}^T q^{\maj(T)} t^{\coinv(T)}
+	Let \(S \in \NAF[\interval{n}_\pm](\mu)\) be a non-attacking signed filling, and let \(|S| \in \NAF[\interval{n}](\mu)\) be the non-attacking unsigned filling obtained from \(S\) by taking the absolute value of each entry.
+
+	For any triple \((u, v, w)\), since \(u\) attacks \(v\) and \(v\) attacks \(w\), the non-attacking condition forces
+	\(|S(u)| \neq |S(v)|\) and \(|S(v)| \neq |S(w)|\).
+	Define the \emph{absolute coinversion number} \(\operatorname{acoinv}(S)\) to be the number of coinversion triples \((u, v, w)\) in \(S\) for which \(|S(u) \neq |S(w)|\) (and consequently \(|S(u)|\), \(|S(v)|\), and \(|S(w)|\) are all distinct).
+	Define the \emph{signed coinversion number} \(\operatorname{scoinv}(S)\) to be the number of coinversion triples \((u, v, w)\) in \(S\) for which \(|S(u)| = |S(w)|\).
+	Then, we have
+	\begin{equation}
+		\coinv(S) = \operatorname{acoinv}(S) + \operatorname{scoinv}(S).
+	\end{equation}
+	Note that, since \(\ind{a, b, a} = \ind{a, b} + \ind{b, a} - \ind{a, a} = 1\) for all distinct \(a, b \in \interval{n}_\pm\), we have \(\operatorname{scoinv}(|S|) = 0\) and consequently \(\operatorname{acoinv}(S) = \operatorname{acoinv}(|S|) = \coinv(|S|)\).
+
+	Similarly, define the \emph{absolute major index} \(\operatorname{amaj}(S)\) and the \emph{signed major index} \(\operatorname{smaj}(S)\) by
+	\begin{equation}
+		\operatorname{amaj}(S) = \sum_{\substack{u \in \Des(S) \\ |S(u)| \neq |S(\south{u})|}} (1 + \leg(u)) 
+		\quad \text{and} \quad
+		\operatorname{smaj}(S) = \sum_{\substack{u \in \Des(S) \\ |S(u)| = |S(\south{u})|}} (1 + \leg(u)).
+	\end{equation}
+	Then, we have
+	\begin{equation}
+		\maj(S) = \operatorname{amaj}(S) + \operatorname{smaj}(S).
+	\end{equation}
+	Note that, since \(\ind{a, a} = 0\) for all \(a \in \interval{n}_\pm\), we have \(\operatorname{smaj}(|S|) = 0\) and consequently \(\operatorname{amaj}(S) = \operatorname{amaj}(|S|) = \maj(|S|)\).
+
+	We group the fillings \(S \in \NAF[\interval{n}_\pm](\mu)\) by their absolute filling \(|S|\) to rewrite \Cref{eq:J-NAF-signed} as
+	\begin{equation}
+		J_\mu(\mathbf{x}; q, t)
+		= \sum_{T \in \NAF[\interval{n}](\mu)}
+		\sum_{\substack{S \in {\NAF[\interval{n}_\pm](\mu)} \\ |S| = T}}
+		\mkern -10mu
+		\mathbf{x}^{|S|} q^{\maj(S)} t^{\coinv(S)} (-t)^{\operatorname{neg}(S)}.
+	\end{equation}
+	Fix a non-attacking unsigned filling \(T \in \NAF[\interval{n}](\mu)\).
+	Using the decompositions of \(\maj(S)\) and \(\coinv(S)\) above,
+	the inner sum corresponding to \(T\) can be rewritten as
+	\begin{equation*}
+		\sum_{\substack{S \in {\NAF[\interval{n}_\pm](\mu)} \\ |S| = T}}
+		\mkern -10mu
+		\mathbf{x}^{|S|} q^{\maj(S)} t^{\coinv(S)} (-t)^{\operatorname{neg}(S)}
+		= \mathbf{x}^T q^{\operatorname{maj}(T)} t^{\coinv(T)}
+		\mkern -10mu
+		\sum_{\substack{S \in {\NAF[\interval{n}_\pm](\mu)} \\ |S| = T}}
+		\mkern -10mu
+		q^{\operatorname{smaj}(S)} t^{\operatorname{scoinv}(S)} (-t)^{\operatorname{neg}(S)}.
+	\end{equation*}
+
+	Let \(u \in \dg(\mu)\) such that \(T(u) \neq T(\south{u})\) or \(u\) is in row \(1\).
+	Then, in any signed filling \(S\) with \(|S| = T\),
+	the box \(u\) does not contribute to \(\operatorname{smaj}(S)\), and any triple \((u, v, w)\) does not contribute to \(\operatorname{scoinv}(S)\).
+	The entry in box \(u\) contributes to \(\operatorname{neg}(S)\) if and only if \(u \in \interval{n}_-\).
+
+	Now, let \(u \in \dg(\mu)\) such that \(T(u) = T(\south{u})\),
+	and let \(S\) be a signed filling with \(|S| = T\).
+	The box \(u\) contributes to \(\operatorname{smaj}(S)\) if and only if \(\ind{S(u), S(\south{u})} = 1\),
+	which occurs if and only if \(S(u) \in \interval{n}_-\).
+	Moreover, any triple \((u, v, w)\) contributes to \(\operatorname{scoinv}(S)\) if and only if \(\ind{S(u), S(v), S(w)} = 0\),
+	which occurs if and only if \(S(u) \in \interval{n}_-\).
+	Recall that there are \(\arm(u)\) such triples \((u, v, w)\).
+	Finally, the entry in box \(u\) contributes to \(\operatorname{neg}(S)\) if and only if \(S(u) \in \interval{n}_-\).
+
+	Note that all of these contributions only depend on the sign of the entry in box \(u\),
+	and are independent of the signs of the entries in other boxes.
+	Therefore, we can factor the sum over all \(S \in \mathcal{T}\) as a product over all boxes \(u \in \dg(\mu)\).
+	If \(T(u) \neq T(\south{u})\) or \(u\) is in row \(1\), the contribution from box \(u\) is
+	\begin{equation}
+		1 + (-t) = 1 - t,
+	\end{equation}
+	while if \(T(u) = T(\south{u})\), the contribution from box \(u\) is
+	\begin{equation}
+		1 + q^{1 + \leg(u)} t^{1 + \arm(u)} (-t) = 1 - q^{1 + \leg(u)} t^{1 + \arm(u)}.
+	\end{equation}
+	Therefore, the inner sum corresponding to a fixed \(T \in \NAF[\interval{n}](\mu)\) is
+	\begin{equation*}
+		\sum_{\substack{S \in {\NAF[\interval{n}_\pm](\mu)} \\ |S| = T}}
+		\mkern -10mu
+		q^{\operatorname{smaj}(S)} t^{\operatorname{scoinv}(S)} (-t)^{\operatorname{neg}(S)}
+		=
+		\mkern -18mu
 		\prod_{\substack{u \in \dg(\mu) \\ T(u) = T(\south{u})}}
+		\mkern -18mu
 		(1 - q^{1 + \leg(u)} t^{1 + \arm(u)})
-		\prod_{\substack{u \in \dg(\mu) \\ T(u) \neq T(\south{u})}}
-		(1 - t).
-	\end{multline}
-	Summing over all \(T \in \NAF[\interval{n}](\mu)\) gives \Cref{eq:J-NAF-unsigned},
-	which proves that \Cref{eq:J-NAF-signed} implies \Cref{eq:J-NAF-unsigned}.
+		\mkern -30mu
+		\prod_{\substack{u \in \dg(\mu) \\ T(u) \neq T(\south{u}) \text{ or } u \text{ in row } 1}}
+		\mkern -38mu
+		(1 - t),
+	\end{equation*}
+	and adding over all \(T \in \NAF[\interval{n}](\mu)\) gives the desired result.
 \end{proof}
 
 \subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ}}
