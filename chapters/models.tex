@@ -254,11 +254,13 @@ See \cref{fig:leg-arm} for an example of the leg set, arm set, and south of a bo
 A \vocab{(non-augmented) filling} of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\) with labels in an alphabet \(\mathcal{A}\) is a function \(T \colon \dg(\alpha) \to \mathcal{A}\).
 Let \(\Fill[\mathcal{A}](\alpha)\) denote the set of (non-augmented) fillings of shape \(\alpha\) with labels in \(\mathcal{A}\).
 
+For a signed alphabet \(\mathcal{A}_\pm\) and a filling \(T \in \Fill[\mathcal{A}_\pm](\alpha)\), the \vocab{absolute value of \(T\)} is the filling \(|T| \in \Fill[\mathcal{A}](\alpha)\) defined by \(|T|(u) = |T(u)|\) for all \(u \in \dg(\alpha)\).
+
 For an unsigned alphabet \(\mathcal{A}\),
 a filling \(T\in \Fill[\mathcal{A}](\alpha)\)
 is \vocab{non-attacking} if \(T(u) \neq T(v)\) whenever \(u\) attacks \(v\) in \(\dg(\alpha)\).
 For a signed alphabet \(\mathcal{A}_\pm\),
-a filling \(T\in \Fill[\mathcal{A}_\pm](\alpha)\) is \vocab{non-attacking} if \(|T(u)| \neq |T(v)|\) whenever \(u\) attacks \(v\) in \(\dg(\alpha)\).
+a filling \(T\in \Fill[\mathcal{A}_\pm](\alpha)\) is \vocab{non-attacking} if \(|T|\) is a non-attacking filling in \(\Fill[\mathcal{A}](\alpha)\).
 Let \(\NAF[\mathcal{A}](\alpha) \subseteq \Fill[\mathcal{A}](\alpha)\) denote the set of non-attacking fillings of shape \(\alpha\) with labels in \(\mathcal{A}\).
 See \Cref{fig:non-attacking-filling} for an example of a non-attacking filling.
 
@@ -295,10 +297,9 @@ See \Cref{fig:non-attacking-filling} for an example of a non-attacking filling.
 	\label{fig:non-attacking-filling}
 \end{figure}
 
-The \vocab{content} of a filling \(T\) with labels in an unsigned alphabet \(\mathcal{A}\) is the multiset \(\content(T)\) whose elements are the labels \(a \in \mathcal{A}\), with multiplicity equal to the number of boxes \(u \in \dg(\alpha)\) such that \(T(u) = a\).
-The \vocab{content} of a filling \(T\) with labels in a signed alphabet \(\mathcal{A}_\pm\) is the multiset \(\content(T)\) whose elements are the positive values \(a \in \mathcal{A}_+\), with multiplicity equal to the number of boxes \(u \in \dg(\alpha)\) such that \(|T(u)| = a\).
+The \vocab{content} of a filling \(T\) with labels in an alphabet \(\mathcal{A}\) is the multiset \(\content(T)\) whose elements are the labels \(a \in \mathcal{A}\), with multiplicity equal to the number of boxes \(u \in \dg(\alpha)\) such that \(T(u) = a\).
 
-When the alphabet is \(\positives\), \(\integers_\pm\), \(\interval{n}\), or \([n]_\pm\),
+When the alphabet is \(\positives\) or \(\interval{n}\),
 the content can be identified with the composition \(\beta = \content(T)\) where \(\beta_i\) is the multiplicity of \(i\) in \(\content(T)\).
 We define
 \[
@@ -556,7 +557,7 @@ We also remark that the south of a box in row \(0\) is not a box in row \(-1\) o
 
 An \vocab{augmented filling} of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\), basement \(\sigma = \composition{\sigma_1, \ldots, \sigma_n}\), and labels in an alphabet \(\mathcal{A}\) is a function \(T \colon \adg(\alpha) \to \mathcal{A}\) such that \(T(i, 0) = \sigma_i\) for all \(i \in \interval{n}\).
 Let \(\Fill[\mathcal{A}](\alpha, \sigma)\) denote the set of augmented fillings of shape \(\alpha\), basement \(\sigma\), and labels in \(\mathcal{A}\).
-The non-attacking condition for augmented fillings is defined as in \cref{subsec:non-augmented-fillings}.
+The absolute value and the non-attacking condition for augmented fillings are defined as in \cref{subsec:non-augmented-fillings}.
 Let \(\NAF[\mathcal{A}](\alpha, \sigma) \subseteq \Fill[\mathcal{A}](\alpha, \sigma)\) denote the set of non-attacking augmented fillings of shape \(\alpha\), basement \(\sigma\), and labels in \(\mathcal{A}\).
 
 See \Cref{fig:non-attacking-augmented-filling} for an example of a non-attacking augmented filling.
@@ -601,8 +602,12 @@ Therefore, the basement \(\sigma\) can be identified with a permutation of \(\in
 For (possibly attacking) augmented fillings with labels in \(\interval{n}\) or \(\interval{n}_\pm\), the definition allows for repeated or negative entries in the basement.
 However, the applications in this work only require the case of a permutation basement, that is, positive and distinct entries in the basement.
 
-The \vocab{content} of an augmented filling \(T\) is the composition \(\beta = \content(T)\) where \(\beta_i\) is the number of boxes \(u \in \dg(\alpha)\) such that \(T(u) = i\) if \(\mathcal{A} = \interval{n}\), or such that \(|T(u)| = i\) if \(\mathcal{A} = \interval{n}_\pm\).
+The \vocab{content} of an augmented filling \(T\) with labels in an alphabet \(\mathcal{A}\) is the multiset \(\content(T)\) whose elements are the labels \(a \in \mathcal{A}\), with multiplicity equal to the number of boxes \(u \in \dg(\alpha)\) such that \(T(u) = a\).
 Note that boxes in row \(0\) are not counted in the content.
+When the alphabet is \(\positives\) or \(\interval{n}\),
+the content can be identified with the composition \(\beta = \content(T)\) where \(\beta_i\) is the multiplicity of \(i\) in \(\content(T)\).
+We define
+\[	\mathbf{x}^T = \mathbf{x}^{\content(T)} = \prod_{i} x_i^{\beta_i}. \]
 For example, the augmented filling \(T\) in \cref{fig:non-attacking-augmented-filling} has content \(\content(T) = \composition{2, 1, 1, 2, 3}\) and \(\mathbf{x}^T = \mathbf{x}^{\content(T)} = x_1^2 x_2^1 x_3^1 x_4^2 x_5^3\).
 
 The definitions of descents, and major index for augmented fillings are as in \cref{subsec:non-augmented-fillings}.
@@ -791,35 +796,60 @@ In \Cref{chap:bijective}, we give a bijective proof of this rearrangement proper
 
 \subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ}} \label{subsec:integral-form-macdonald}
 
+% Recall that the integral form Macdonald polynomials \(J_\mu\) are a family of polynomials indexed by partitions \(\mu\).
+% From the plethystic formula in \Cref{eq:modified-macdonald-plethystic}, and using \(\tilde{H}_\mu(x; q, t) = \tilde{H}_{\mu'}(\mathbf{x}; t, q)\), we have
+% \begin{equation} \label{eq:J-in-terms-of-tilde-H}
+% 	J_\mu(\mathbf{x}; q, t)
+% 	= t^{n(\mu)} \tilde{H}_\mu\left[ X (1 - t^{-1}) ; q, t^{-1} \right]
+% 	= t^{n(\mu)+|\mu|} \tilde{H}_{\mu'}\left[ X (t^{-1} - 1) ; t^{-1}, q \right].
+% \end{equation}
+% Using a standard technique called superization,
+% \cite{HHL05} derive from \Cref{eq:modified-macdonald-Fill,eq:J-in-terms-of-tilde-H} the following combinatorial formula for \(J_\mu\) as a sum over all fillings using the signed alphabet \(\interval{n}_\pm\):
+% \begin{equation} \label{eq:J-Fill-signed}
+% 	J_\mu(\mathbf{x}; q, t)
+% 	= \sum_{T \in \Fill[\interval{n}_\pm](\mu)}
+% 	\mathbf{x}^{|T|}
+% 	q^{\maj(T)}
+% 	t^{\coinv(T)}
+% 	(-t)^{\operatorname{neg}(T)},
+% \end{equation}
+% where \(\operatorname{neg}(T)\) denotes the number of negative entries in \(T\).
+% We refer the reader to \cite[Section~7]{HHL05} for more details on this derivation.
+
 Recall that the integral form Macdonald polynomials \(J_\mu\) are a family of polynomials indexed by partitions \(\mu\).
-From the plethystic formula in \Cref{eq:modified-macdonald-plethystic}, and using \(\tilde{H}_\mu(x; q, t) = \tilde{H}_{\mu'}(\mathbf{x}; t, q)\)\todo{Cite.}, we have
+\citeauthor{HHL05} \cite[Section~7]{HHL05} derive a tableaux formula for the integral form Macdonald polynomials \(J_\mu\) from the combinatorial formula for the modified Macdonald polynomials \(\tilde{H}_\mu\) in \Cref{eq:modified-macdonald-Fill}.
+We briefly recall the main steps.  
+
+From the plethystic formula in \Cref{eq:modified-macdonald-plethystic}, and using the symmetry \(\tilde{H}_\mu(\mathbf{x}; q, t) = \tilde{H}_{\mu'}(\mathbf{x}; t, q)\), we have
 \begin{equation} \label{eq:J-in-terms-of-tilde-H}
 	J_\mu(\mathbf{x}; q, t)
-	= t^{n(\mu)} \tilde{H}_\mu\left[ X (1 - t^{-1}) ; q, t^{-1} \right]
-	= t^{n(\mu)+|\mu|} \tilde{H}_{\mu'}\left[ X (t^{-1} - 1) ; t^{-1}, q \right].
+	= t^{n(\mu)} \tilde{H}_\mu\left[ X (1 - t^{-1}); q, t^{-1} \right]
+	= t^{n(\mu)+|\mu|} \tilde{H}_{\mu'}\left[ X (t^{-1} - 1); t^{-1}, q \right],
 \end{equation}
-% \todo{Do I need to explain what this is? It's the only part I don't need for this work, so maybe I can just refer to the original paper. \cite{Man24} does a good job of \emph{not} explaining it by referring to \cite{HHL05}.}
-Using a standard technique called superization,
+where \(n(\mu) = \sum_{i} (i-1) \mu_i = \sum_{u \in \dg(\mu)} \arm(u)\) and \(|\mu| = \sum_i \mu_i\).
+Applying a standard technique called \emph{superization},
 \cite{HHL05} derive from \Cref{eq:modified-macdonald-Fill,eq:J-in-terms-of-tilde-H} the following combinatorial formula for \(J_\mu\) as a sum over all fillings using the signed alphabet \(\interval{n}_\pm\):
 \begin{equation} \label{eq:J-Fill-signed}
 	J_\mu(\mathbf{x}; q, t)
-	= \sum_{T \in \Fill[\interval{n}_\pm](\mu)} \mathbf{x}^T
+	= \sum_{T \in \Fill[\interval{n}_\pm](\mu)}
+	\mathbf{x}^{|T|}
 	q^{\maj(T)}
 	t^{\coinv(T)}
 	(-t)^{\operatorname{neg}(T)},
 \end{equation}
-where \(\operatorname{neg}(T)\) denotes the number of negative entries in \(T\).
-We refer the reader to \cite[Section~7]{HHL05} for more details on this derivation.
+where \(\operatorname{neg}(T)\) denotes the number of negative entries in \(T\).  
+We refer the reader to \cite[Section~7]{HHL05} for a complete derivation.
 
-Two other combinatorial formulas for \(J_\mu\) in terms of non-attacking fillings were also given in \cite{HHL05}, in \Cref{prop:J-NAF-signed,prop:J-NAF-unsigned}.
-We reproduce their proofs here because their ideas are useful in \Cref{sec:integral-form-permuted-basement}.
+Two other combinatorial formulas for \(J_\mu\) in terms of non-attacking fillings are also given in \cite{HHL05}, below in \Cref{prop:J-NAF-signed,prop:J-NAF-unsigned}.
+We reproduce their proofs because their ideas are useful in \Cref{sec:integral-form-permuted-basement}.
 
 \begin{proposition} \label{prop:J-NAF-signed}
 	For a partition \(\mu\) with at most \(n\) parts,
 	the integral form Macdonald polynomial \(J_\mu(\mathbf{x}; q, t)\) can be expressed as a sum one over all non-attacking fillings using the signed alphabet \(\interval{n}_\pm\),
 \begin{equation} \label{eq:J-NAF-signed}
 	J_\mu(\mathbf{x}; q, t)
-	= \sum_{T \in \NAF[\interval{n}_\pm](\mu)} \mathbf{x}^T
+	= \sum_{T \in \NAF[\interval{n}_\pm](\mu)}
+	\mathbf{x}^{|T|}
 	q^{\maj(T)}
 	t^{\coinv(T)}
 	(-t)^{\operatorname{neg}(T)}.
@@ -858,7 +888,7 @@ We reproduce their proofs here because their ideas are useful in \Cref{sec:integ
 	Hence, the map \(T \mapsto T'\) is an involution.
 
 	Without loss of generality, assume that \(T(u) = a\) and \(T'(u) = \bar{a}\).
-	It is straightforward to check that \(\mathbf{x}^{T'} = \mathbf{x}^{T}\) and \(\operatorname{neg}(T') = \operatorname{neg}(T) + 1\).
+	It is straightforward to check that \(\mathbf{x}^{|T'|} = \mathbf{x}^{|T|}\) and \(\operatorname{neg}(T') = \operatorname{neg}(T) + 1\).
 
 	I claim that \(\Des(T') = \Des(T)\), which implies that \(\maj(T') = \maj(T)\).
 	Let \(w\) be the box directly above \(u\), if it exists.
@@ -882,9 +912,9 @@ We reproduce their proofs here because their ideas are useful in \Cref{sec:integ
 
 	Putting this together, we have
 	\begin{align*}
-		\mathbf{x}^{T'} q^{\maj(T')} t^{\coinv(T')} (-t)^{\operatorname{neg}(T')}
-		&= \mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T) - 1} (-t)^{\operatorname{neg}(T) + 1} \\
-		&= - \mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)},
+		\mathbf{x}^{|T'|} q^{\maj(T')} t^{\coinv(T')} (-t)^{\operatorname{neg}(T')}
+		&= \mathbf{x}^{|T|} q^{\maj(T)} t^{\coinv(T) - 1} (-t)^{\operatorname{neg}(T) + 1} \\
+		&= - \mathbf{x}^{|T|} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)},
 	\end{align*}
 	which implies that the contributions of fillings in \(\Fill[\interval{n}_\pm](\mu) \setminus \NAF[\interval{n}_\pm](\mu)\) to the sum in \Cref{eq:J-Fill-signed} cancel out, and the result follows.
 \end{proof}
@@ -969,14 +999,14 @@ We reproduce their proofs here because their ideas are useful in \Cref{sec:integ
 
 	Note that all of these contributions only depend on the sign of the entry in box \(u\),
 	and are independent of the signs of the entries in other boxes.
-	Therefore, we can factor the sum over all \(S \in \mathcal{T}\) as a product over all boxes \(u \in \dg(\mu)\).
+	Therefore, we can factor the sum over all \(S\) with \(|S| = T\) as a product over all boxes \(u \in \dg(\mu)\).
 	If \(T(u) \neq T(\south{u})\) or \(u\) is in row \(1\), the contribution from box \(u\) is
 	\begin{equation}
 		1 + (-t) = 1 - t,
 	\end{equation}
 	while if \(T(u) = T(\south{u})\), the contribution from box \(u\) is
 	\begin{equation}
-		1 + q^{1 + \leg(u)} t^{1 + \arm(u)} (-t) = 1 - q^{1 + \leg(u)} t^{1 + \arm(u)}.
+		1 + q^{1 + \leg(u)} t^{\arm(u)} (-t) = 1 - q^{1 + \leg(u)} t^{1 + \arm(u)}.
 	\end{equation}
 	Therefore, the inner sum corresponding to a fixed \(T \in \NAF[\interval{n}](\mu)\) is
 	\begin{equation*}
@@ -1027,12 +1057,11 @@ See \cite[Section~4]{CHMMW22} for more details and other formulas for \(P_\mu\).
 \label{sec:tableau-formula}
 
 Recall that the permuted-basement Macdonald polynomials \(E_\alpha^\sigma\) are a family of polynomials indexed by a composition \(\alpha\) and a permutation \(\sigma\).
-
-\cite[Definition~4.4.2]{Fer11} give a tableau formula for permuted-basement Macdonald polynomials \(E_\alpha^\sigma\) as
+\citeauthor{Fer11} \cite[Definition~4.4.2]{Fer11} gives a tableau formula for permuted-basement Macdonald polynomials \(E_\alpha^\sigma\) as
 \begin{equation} \label{eq:E-NAF-unsigned}
 	E^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
-	\sum_{T \in \NAF(\alpha, \sigma)}
-	\mathbf{x}^{\content(T)}
+	\sum_{T \in \NAF[\interval{n}](\alpha, \sigma)}
+	\mathbf{x}^{T}
 	q^{\maj(T)} t^{\coinv(T)}
 	\prod_{\substack{u \in \dg(\alpha) \\ T(u) \neq T(\south{u})}}
 	\frac{1 - t}{1 - q^{1 + \leg(u)} t^{1 + \arm(u)}}.
@@ -1040,25 +1069,30 @@ Recall that the permuted-basement Macdonald polynomials \(E_\alpha^\sigma\) are 
 
 \subsection{Integral form permuted-basement Macdonald polynomials \texorpdfstring{\(\mathcal{E}_\alpha^\sigma\)}{Eασ}} \label{sec:integral-form-permuted-basement}
 
-Recall that the integral form permuted-basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\) are a family of polynomials indexed by a composition \(\alpha\) and a permutation \(\sigma\).
-The integral form permuted-basement nonsymmetric Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\) is a scalar multiple of \(E_\alpha^\sigma\), with relationship given by
+Recall that the integral form permuted-basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\) are defined in \Cref{eq:integral-form-permuted-basement-macdonald-polynomial} by
 \begin{equation}
 	\mathcal{E}_\alpha^\sigma(\mathbf{x}; q, t)
 	=
 	\left(
-		\prod_{u \in \dg(\alpha)} (1 - q^{1 + \leg(u)} t^{\arm(u)})
+		\prod_{u \in \dg(\alpha)} (1 - q^{1 + \leg(u)} t^{1 + \arm(u)})
 	\right)
 	E_\alpha^\sigma(\mathbf{x}; q, t).
 \end{equation}
 Therefore, from \Cref{eq:E-NAF-unsigned}, we obtain a tableaux formula for \(\mathcal{E}_\alpha^\sigma\) as
 \begin{equation} \label{eq:calE-NAF-unsigned}
 	\mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
-	\sum_{T \in \NAF(\alpha, \sigma)}
-	\mathbf{x}^{\content(T)}
+	\mkern 15mu
+	\sum_{\mathclap{T \in \NAF[\interval{n}](\alpha, \sigma)}}
+	\mkern 15mu
+	\mathbf{x}^{T}
 	q^{\maj(T)} t^{\coinv(T)}
-	\prod_{\substack{u \in \dg(\alpha) \\ T(u) \neq T(\south{u})}}
+	\mkern 15mu
+	\prod_{\mathclap{\substack{u \in \dg(\alpha) \\ T(u) \neq T(\south{u})}}}
+	\mkern 15mu
 	(1 - q^{1 + \leg(u)} t^{1 + \arm(u)})
-	\prod_{\substack{u \in \dg(\alpha) \\ T(u) \neq T(\south{u})}}
+	\mkern 15mu
+	\prod_{\mathclap{\substack{u \in \dg(\alpha) \\ T(u) \neq T(\south{u})}}}
+	\mkern 15mu
 	(1 - t).
 \end{equation}
 
@@ -1066,26 +1100,8 @@ Note the similarity of \Cref{eq:calE-NAF-unsigned} for the integral form permute
 with \Cref{eq:J-NAF-unsigned} for the integral form symmetric Macdonald polynomials \(J_\mu\), the third of three formulas for \(J_\mu\) given in \Cref{subsec:integral-form-macdonald}.
 
 We can repeat the arguments used in \Cref{prop:J-NAF-unsigned,prop:J-NAF-signed} (in reverse order) to obtain formulas for \(\mathcal{E}_\alpha^\sigma\) that are similar to \Cref{eq:J-NAF-signed}, the second formula for \(J_\mu\), and \Cref{eq:J-Fill-signed}, the first formula for \(J_\mu\).
-The arguments are nearly identical, with some minor adjustments to account for the basement \(\sigma\), but we nevertheless fully reproduce them below for self-containment.
-
-% Using similar methods as in \cite{HHL05} (in reverse order),
-% we can obtain two similar equations for \(\mathcal{E}_\alpha^\sigma\).
-% One over all non-attacking augmented fillings using the unsigned alphabet \(\interval{n}\),
-% \begin{equation} \label{eq:calE-NAF-signed}
-	% \mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
-	% \sum_{T \in \NAF[\interval{n}](\alpha, \sigma)}
-	% \mathbf{x}^{\content(T)}
-	% q^{\maj(T)} t^{\coinv(T)}
-	% (-t)^{\operatorname{neg}(T)};
-% \end{equation}
-% and one over all augmented fillings using the signed alphabet \(\interval{n}_\pm\),
-% \begin{equation} \label{eq:calE-Fill-signed}
-	% \mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
-	% \sum_{T \in \Fill[\interval{n}_\pm](\alpha, \sigma)}
-	% \mathbf{x}^{\content(T)}
-	% q^{\maj(T)} t^{\coinv(T)}
-	% (-t)^{\operatorname{neg}(T)}.
-% \end{equation}
+The arguments are nearly identical, with some minor adjustments to account for the basement \(\sigma\) and to account for the reverse order of the steps.
+We nevertheless fully reproduce them below for self-containment.
 
 \begin{proposition} \label{prop:calE-NAF-signed}
 	For a composition \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\) and a permutation \(\sigma\) of \(\interval{n}\),
@@ -1093,27 +1109,106 @@ The arguments are nearly identical, with some minor adjustments to account for t
 	\begin{equation} \label{eq:calE-NAF-signed}
 		\mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
 		\sum_{T \in \NAF[\interval{n}_\pm](\alpha, \sigma)}
-		\mathbf{x}^{\content(T)}
+		\mathbf{x}^{|T|}
 		q^{\maj(T)} t^{\coinv(T)}
 		(-t)^{\operatorname{neg}(T)}.
 	\end{equation}
 \end{proposition}
 
 \begin{proof}
-	Given a non-attacking unsigned augmented filling \(T \in \NAF[\interval{n}](\alpha, \sigma)\),
-	let \(\mathcal{T}\) be the set of signed fillings obtained from \(T\) by choosing the sign of each entry independently.
-	Then, \todo{Explain why the computation below.}
-	\begin{multline}
-		\sum_{T' \in \mathcal{T}} \mathbf{x}^{T'} q^{\maj(T')} t^{\coinv(T')} (-t)^{\operatorname{neg}(T')}
-		= \\ 
-		= \mathbf{x}^T q^{\maj(T)} t^{\coinv(T)}
-		\prod_{\substack{u \in \dg(\alpha) \\ T(u) = T(\south{u})}}
+	Let \(S \in \NAF[\interval{n}_\pm](\mu, \sigma)\) be a non-attacking signed augmented filling, and let \(|S| \in \NAF[\interval{n}](\mu, \sigma)\) be the non-attacking unsigned augmented filling obtained from \(S\) by taking the absolute value of each entry.
+
+	For any triple \((u, v, w)\), since \(u\) attacks \(v\) and \(v\) attacks \(w\), the non-attacking condition forces
+	\(|S(u)| \neq |S(v)|\) and \(|S(v)| \neq |S(w)|\).
+	Define the \emph{absolute coinversion number} \(\operatorname{acoinv}(S)\) to be the number of coinversion triples \((u, v, w)\) in \(S\) for which \(|S(u) \neq |S(w)|\) (and consequently \(|S(u)|\), \(|S(v)|\), and \(|S(w)|\) are all distinct).
+	Define the \emph{signed coinversion number} \(\operatorname{scoinv}(S)\) to be the number of coinversion triples \((u, v, w)\) in \(S\) for which \(|S(u)| = |S(w)|\).
+	Then, we have
+	\begin{equation}
+		\coinv(S) = \operatorname{acoinv}(S) + \operatorname{scoinv}(S).
+	\end{equation}
+	Note that, since \(\ind{a, b, a} = \ind{a, b} + \ind{b, a} - \ind{a, a} = 1\) for all distinct \(a, b \in \interval{n}_\pm\), we have \(\operatorname{scoinv}(|S|) = 0\) and consequently \(\operatorname{acoinv}(S) = \operatorname{acoinv}(|S|) = \coinv(|S|)\).
+
+	Similarly, define the \emph{absolute major index} \(\operatorname{amaj}(S)\) and the \emph{signed major index} \(\operatorname{smaj}(S)\) by
+	\begin{equation}
+		\operatorname{amaj}(S) = \sum_{\substack{u \in \Des(S) \\ |S(u)| \neq |S(\south{u})|}} (1 + \leg(u)) 
+		\quad \text{and} \quad
+		\operatorname{smaj}(S) = \sum_{\substack{u \in \Des(S) \\ |S(u)| = |S(\south{u})|}} (1 + \leg(u)).
+	\end{equation}
+	Then, we have
+	\begin{equation}
+		\maj(S) = \operatorname{amaj}(S) + \operatorname{smaj}(S).
+	\end{equation}
+	Note that, since \(\ind{a, a} = 0\) for all \(a \in \interval{n}_\pm\), we have \(\operatorname{smaj}(|S|) = 0\) and consequently \(\operatorname{amaj}(S) = \operatorname{amaj}(|S|) = \maj(|S|)\).
+
+	We group the augmented fillings \(S \in \NAF[\interval{n}_\pm](\mu, \sigma)\) by their absolute augmented filling \(|S|\) to rewrite the right-hand side of \Cref{eq:calE-NAF-signed} as
+	\begin{equation*}
+		\sum_{T \in \NAF[\interval{n}](\mu, \sigma)}
+		\sum_{\substack{S \in {\NAF[\interval{n}_\pm](\mu, \sigma)} \\ |S| = T}}
+		\mkern -10mu
+		\mathbf{x}^{|S|} q^{\maj(S)} t^{\coinv(S)} (-t)^{\operatorname{neg}(S)}.
+	\end{equation*}
+	Fix a non-attacking unsigned augmented filling \(T \in \NAF[\interval{n}](\mu, \sigma)\).
+	Using the decompositions of \(\maj(S)\) and \(\coinv(S)\) above,
+	the inner sum corresponding to \(T\) can be rewritten as
+	\begin{equation*}
+		\sum_{\substack{S \in {\NAF[\interval{n}_\pm](\mu, \sigma)} \\ |S| = T}}
+		\mkern -16mu
+		\mathbf{x}^{|S|} q^{\maj(S)} t^{\coinv(S)} (-t)^{\operatorname{neg}(S)}
+		= \mathbf{x}^T q^{\operatorname{maj}(T)} t^{\coinv(T)}
+		\mkern -16mu
+		\sum_{\substack{S \in {\NAF[\interval{n}_\pm](\mu, \sigma)} \\ |S| = T}}
+		\mkern -16mu
+		q^{\operatorname{smaj}(S)} t^{\operatorname{scoinv}(S)} (-t)^{\operatorname{neg}(S)}.
+	\end{equation*}
+
+	Let \(u \in \adg(\mu, \sigma)\) such that \(u\) is in row \(0\).
+	Then, in any signed augmented filling \(S\) with \(|S| = T\),
+	the box \(u\) does not contribute to \(\operatorname{smaj}(S)\) since there are no descents in row \(0\),
+	neither to \(\operatorname{neg}(S)\) since the basement entries are entries of \(\sigma\) and thus positive.
+	Moreover, there are no triples \((u, v, w)\) with \(u\) in row \(0\),
+	so there is no contribution to \(\operatorname{scoinv}(S)\) from such boxes.
+
+	Let \(u \in \dg(\mu)\) such that \(T(u) \neq T(\south{u})\).
+	Then, in any signed augmented filling \(S\) with \(|S| = T\),
+	the box \(u\) does not contribute to \(\operatorname{smaj}(S)\), and any triple \((u, v, w)\) does not contribute to \(\operatorname{scoinv}(S)\).
+	The entry in box \(u\) contributes to \(\operatorname{neg}(S)\) if and only if \(u \in \interval{n}_-\).
+
+	Now, let \(u \in \dg(\mu)\) such that \(T(u) = T(\south{u})\),
+	and let \(S\) be a signed augmented filling with \(|S| = T\).
+	The box \(u\) contributes to \(\operatorname{smaj}(S)\) if and only if \(\ind{S(u), S(\south{u})} = 1\),
+	which occurs if and only if \(S(u) \in \interval{n}_-\).
+	Moreover, any triple \((u, v, w)\) contributes to \(\operatorname{scoinv}(S)\) if and only if \(\ind{S(u), S(v), S(w)} = 0\),
+	which occurs if and only if \(S(u) \in \interval{n}_-\).
+	Recall that there are \(\arm(u)\) such triples \((u, v, w)\).
+	Finally, the entry in box \(u\) contributes to \(\operatorname{neg}(S)\) if and only if \(S(u) \in \interval{n}_-\).
+
+	Note that all contributions to \(\operatorname{smaj}(S)\), \(\operatorname{scoinv}(S)\), and \(\operatorname{neg}(S)\) are counted exactly once in the cases above,
+	and their contributions only depend on the sign of the entry in box \(u\).
+	Therefore, we can factor the sum over all \(S\) with \(|S| = T\) as a product over all boxes \(u \in \dg(\mu)\) (which excludes row \(0\), because there is no choice of sign and no contribution from those boxes).
+	If \(T(u) \neq T(\south{u})\), the contribution from box \(u\) is
+	\begin{equation}
+		1 + (-t) = 1 - t,
+	\end{equation}
+	while if \(T(u) = T(\south{u})\), the contribution from box \(u\) is
+	\begin{equation}
+		1 + q^{1 + \leg(u)} t^{\arm(u)} (-t) = 1 - q^{1 + \leg(u)} t^{1 + \arm(u)}.
+	\end{equation}
+	Therefore, the inner sum corresponding to a fixed \(T \in \NAF[\interval{n}](\mu, \sigma)\) is
+	\begin{equation*}
+		\sum_{\substack{S \in {\NAF[\interval{n}_\pm](\mu, \sigma)} \\ |S| = T}}
+		\mkern -10mu
+		q^{\operatorname{smaj}(S)} t^{\operatorname{scoinv}(S)} (-t)^{\operatorname{neg}(S)}
+		=
+		\mkern -10mu
+		\prod_{\substack{u \in \dg(\mu) \\ T(u) = T(\south{u})}}
+		\mkern -18mu
 		(1 - q^{1 + \leg(u)} t^{1 + \arm(u)})
-		\prod_{\substack{u \in \dg(\alpha) \\ T(u) \neq T(\south{u})}}
-		(1 - t).
-	\end{multline}
-	Summing over all \(T \in \NAF[\interval{n}](\alpha, \sigma)\) gives \Cref{eq:calE-Fill-signed},
-	which proves that \Cref{eq:calE-NAF-signed} implies \Cref{eq:calE-Fill-signed}.
+		\mkern -10mu
+		\prod_{\substack{u \in \dg(\mu) \\ T(u) \neq T(\south{u})}}
+		\mkern -18mu
+		(1 - t),
+	\end{equation*}
+	and adding over all \(T \in \NAF[\interval{n}](\mu, \sigma)\) gives the desired result.
 \end{proof}
 
 \begin{proposition} \label{prop:calE-Fill-signed}
@@ -1122,7 +1217,7 @@ The arguments are nearly identical, with some minor adjustments to account for t
 	\begin{equation} \label{eq:calE-Fill-signed}
 		\mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
 		\sum_{T \in \Fill[\interval{n}_\pm](\alpha, \sigma)}
-		\mathbf{x}^{\content(T)}
+		\mathbf{x}^{|T|}
 		q^{\maj(T)} t^{\coinv(T)}
 		(-t)^{\operatorname{neg}(T)}.
 	\end{equation}
@@ -1146,7 +1241,7 @@ The arguments are nearly identical, with some minor adjustments to account for t
 	Hence, the map \(T \mapsto T'\) is an involution.
 
 	Without loss of generality, assume that \(T(u) = a\) and \(T'(u) = \bar{a}\).
-	We have \(\mathbf{x}^{T'} = \mathbf{x}^{T}\) and \(\operatorname{neg}(T') = \operatorname{neg}(T) + 1\).
+	We have \(\mathbf{x}^{|T'|} = \mathbf{x}^{|T|}\) and \(\operatorname{neg}(T') = \operatorname{neg}(T) + 1\).
 
 	I claim that \(\Des(T') = \Des(T)\), which implies that \(\maj(T') = \maj(T)\).
 	Let \(w\) be the box directly above \(u\), if it exists.
@@ -1170,22 +1265,22 @@ The arguments are nearly identical, with some minor adjustments to account for t
 
 	Putting this together, we have
 	\begin{align*}
-		\mathbf{x}^{T'} q^{\maj(T')} t^{\coinv(T')} (-t)^{\operatorname{neg}(T')}
-		&= \mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T) - 1} (-t)^{\operatorname{neg}(T) + 1} \\
-		&= - \mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)},
+		\mathbf{x}^{|T'|} q^{\maj(T')} t^{\coinv(T')} (-t)^{\operatorname{neg}(T')}
+		&= \mathbf{x}^{|T|} q^{\maj(T)} t^{\coinv(T) - 1} (-t)^{\operatorname{neg}(T) + 1} \\
+		&= - \mathbf{x}^{|T|} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)},
 	\end{align*}
 	which implies that
 	\begin{equation*}
 		\sum_{T \in \Fill[\interval{n}_\pm](\alpha, \sigma) \setminus \NAF[\interval{n}_\pm](\alpha, \sigma)}
-		\mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)} = 0.
+		\mathbf{x}^{|T|} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)} = 0.
 	\end{equation*}
 	and consequently
 	\begin{equation*}
 		\sum_{T \in \Fill[\interval{n}_\pm](\alpha, \sigma)}
-		\mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}
+		\mathbf{x}^{|T|} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}
 		=
 		\sum_{T \in \NAF[\interval{n}_\pm](\alpha, \sigma)}
-		\mathbf{x}^{T} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}.
+		\mathbf{x}^{|T|} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}.
 	\end{equation*}
 	The right-hand side equals \(\mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t)\) by \Cref{prop:calE-NAF-signed},
 	so the result follows.
