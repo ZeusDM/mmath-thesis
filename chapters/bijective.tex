@@ -199,13 +199,15 @@ We have \Cref{prop:even-ind-magic,prop:odd-ind-magic} that give some other equiv
     \begin{enumerate}[start=4]
         \item \label{item:odd-ind}
         \(\ind{a, d} + \ind{b, c} - \ind{a, c} - \ind{b, d} = \pm 1\);
+        \item \label{item:odd-ind-2}
+        \(\ind{a, d} + \ind{b, c} + \ind{a, c} + \ind{b, d}\) is odd;
         \item \label{item:triple-equal-ind}
         \(\ind{a, b, c} = \ind{b, c, d} = \ind{a, d, c}\) and \(a \neq b\) and \(c \neq d\);
     \end{enumerate}
 \end{proposition}
 
 \begin{proof}
-    The equivalence between \Cref{item:odd-ind} and the negation of \Cref{item:even-ind} is immediate from \Cref{prop:ind-magic}.
+    The equivalence between \Cref{item:odd-ind} and the negation of \Cref{item:even-ind} is immediate from \Cref{prop:ind-magic}, as well as the equivalence between \Cref{item:odd-ind} and \Cref{item:odd-ind-2} using modulo \(2\).
     Computational verification shows that \Cref{item:odd-ind} and \Cref{item:triple-equal-ind}
     are satisfied for exactly the same relative configurations of \(a, b, c, d\), namely one of the following \(40\) configurations:
     %\todo{Attempt to find a neater proof.}
@@ -708,7 +710,95 @@ The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi
 \end{theorem}
 
 \begin{proof}[Proof (via block structure)]
-    \todo{Write the proof using the block structure.}
+    Without loss of generality, assume \(\alpha_i > \alpha_{i+1}\).
+    Let \(T \in \Fill(\alpha)\) and \(U = \phi(T)\).
+    We first study how \(\Des(T)\) and \(\Des(U)\) relate to each other.
+    Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtained by applying the transposition \(s_i\) to the column index of \(u\).
+
+    Clearly, for all boxes \(u\) not in columns \(i\) or \(i+1\), we have \(u \in \Des(T)\) if and only if \(u \in \Des(U)\), by \Cref{eq:restriction-other-columns}.
+    Since \(\leg_\alpha(u) = \leg_{s_i \permact \alpha}(u)\) for such boxes \(u\),
+    these descents contribute equally to \(\maj(T)\) and \(\maj(U)\).
+    Moreover, for all boxes \(u = (i, r)\) with \(r \geq \alpha_{i+1} + 2\),
+    we have \(u \in \Des(T)\) if and only if \(s_i \cdot u \in \Des(U)\), by \Cref{eq:restriction-top-entries}.
+    Note that \(\leg_\alpha(u) = \alpha_{i} - r = \leg_{s_i \permact \alpha}(s_i \cdot u)\) for such boxes \(u\),
+    so these descents contribute equally to \(\maj(T)\) and \(\maj(U)\).
+    Therefore, it remains to understand the descents occurring in columns \(i\) and \(i+1\) at rows \(\interval{2, \alpha_{i+1} + 1}\).
+
+    For any row \(r \in \interval{\alpha_{i+1}}\), let \(\ind{r} = \ind{T(i,r), T(i+1,r)}\).
+    If both or neither of the boxes \((i, r)\) and \((i+1, r)\) are descents of \(T\), we say that row \(r\) is \vocab{balanced} in \(T\);
+    if only \((i, r)\) is a descent of \(T\), we say that row \(r\) is \vocab{unbalanced to the left} in \(T\);
+    and if only \((i+1, r)\) is a descent of \(T\), we say that row \(r\) is \vocab{unbalanced to the right} in \(T\).
+
+    Each of the rows in \([2, \alpha_{i+1} + 1]\) will be \vocab{assigned} to a unique block of \(T\), which is not necessarily the block that contains that row.
+    We describe how the assignment is done.
+
+    As an edge case, row \(\alpha_{i+1} + 1\) is assigned to the topmost block (i.e., the block containing row \(\alpha_{i+1}\)).
+
+    Let \(r \in \interval{\alpha_{i+1}-1}\).
+    Let \(a = T(i, r+1)\), \(b = T(i+1, r+1)\), \(c = T(i, r)\), and \(d = T(i+1, r)\).
+    
+    First, assume rows \(r\) and \(r+1\) are not intertwined in \(T\), that is \(\ind{a, c} + \ind{b, d} = \ind{a, d} + \ind{b, c}\).
+    This means that \(r\) is the highest row of a block \(B_1\),
+    and \(r+1\) is the lowest row of the block immediately above \(B_1\), say \(B_2\).
+    If \(\ind{a, c} = \ind{b, d} = 1\), meaning that both \((i, r+1)\) and \((i + 1, r + 1)\) are descents of \(T\),
+    then we also have \(\ind{a, d} = \ind{b, c} = 1\), so independently of whether each of the blocks is swapped or not, both \((i, r+1)\) and \((i + 1, r + 1)\) are descents of \(U\) as well.
+    In this case, we \vocab{assign} these descents to the block \(B_1\).
+    Similarly, if \(\ind{a, c} = \ind{b, d} = 0\), meaning that neither \((i, r+1)\) nor \((i + 1, r + 1)\) is a descent of \(T\),
+    then we also have \(\ind{a, d} = \ind{b, c} = 0\), so independently of whether each of the blocks is swapped or not, neither \((i, r+1)\) nor \((i + 1, r + 1)\) is a descent of \(U\) as well.
+
+    The last (and more interesting) case is when \(\ind{a, c} + \ind{b, d} = 1\).
+    This means that exactly one of \((i, r+1)\) and \((i + 1, r + 1)\) is a descent of \(T\).
+    We also have \(\ind{a, d} + \ind{b, c} = 1\), so independently of whether each of the blocks is swapped or not, exactly one of \((i, r+1)\) and \((i + 1, r + 1)\) is a descent of \(U\) as well.
+    If \(\ind{a, c} = \ind{a, d}\) (and consequently \(\ind{b, d} = \ind{b, c}\)), then the descent in \(T\) and the descent in \(U\) depend on the position of \(a\) and \(b\) (which is determined by whether \(B_1\) swaps or not), and are independent of the position of \(c\) and \(d\) (i.e., independent of whether \(B_2\) swaps or not).
+    In this case, we \vocab{assign} the descent to the block \(B_1\).
+    Otherwise, if \(\ind{a, c} = \ind{b, c}\) (and consequently \(\ind{b, d} = \ind{a, d}\)), then the descent in \(T\) and the descent in \(U\) depend on the position of \(c\) and \(d\) (which is determined by whether \(B_2\) swaps or not), and are independent of the position of \(a\) and \(b\) (i.e., independent of whether \(B_1\) swaps or not).
+    In this case, we \vocab{assign} the descent to the block \(B_2\).
+
+    All of these descents occurring at the interface of two blocks (or at row \(\alpha_{i+1} + 1\)) are called \vocab{inter-block descents}.
+
+    Now, assume rows \(r\) and \(r+1\) are intertwined in \(T\), meaning that both rows belong to the same block \(B\), and that \(\ind{a, c} + \ind{b, d} + \ind{a, d} + \ind{b, c}\) is odd.
+    Any descent occurring at box \((i, r+1)\) or \((i + 1, r+1)\) is called an \vocab{intra-block descent}, and we \vocab{assign} it to the block \(B\).
+
+    If both or neither of \((i, r+1)\) and \((i + 1, r+1)\) are descents of \(T\), we say that row \(r+1\) is \vocab{balanced} with respect to \(T\).
+    In terms of the indicators, this means that \(\ind{a, c} = \ind{b, d}\).
+    Using the fact that \(\ind{a, c} + \ind{b, d} + \ind{a, d} + \ind{b, c}\) is odd,
+    we can conlcude that \(\ind{a, b} = \ind{c, d}\) in this case, that is, \(\ind{r+1} = \ind{r}\).
+
+    If only \((i, r+1)\) is a descent of \(T\), we say that row \(r+1\) is \vocab{unbalanced to the left} with respect to \(T\).
+    In terms of the indicators, this means that \(\ind{a, c} = 1\) and \(\ind{b, d} = 0\).
+    Using the fact that \(\ind{a, c} + \ind{b, d} + \ind{a, d} + \ind{b, c}\) is odd,
+    we can conlcude that \(\ind{r+1} = \ind{a, b} = 1\) and \(\ind{r} = \ind{c, d} = 0\) in this case.
+
+    If only \((i + 1, r+1)\) is a descent of \(T\), we say that row \(r+1\) is \vocab{unbalanced to the right} with respect to \(T\).
+    In terms of the indicators, this means that \(\ind{a, c} = 0\) and \(\ind{b, d} = 1\).
+    Using the fact that \(\ind{a, c} + \ind{b, d} + \ind{a, d} + \ind{b, c}\) is odd,
+    we can conlcude that \(\ind{r+1} = \ind{a, b} = 0\) and \(\ind{r} = \ind{c, d} = 1\) in this case.
+
+    Note that we can determine whether a row \(r+1\) is balanced, unbalanced to the left, or unbalanced to the right by looking only at \(\ind{r}\) and \(\ind{r+1}\): if \(\ind{r} = \ind{r+1}\), then row \(r+1\) is balanced; if \(\ind{r} = 0\) and \(\ind{r+1} = 1\), then row \(r+1\) is unbalanced to the left; and if \(\ind{r} = 1\) and \(\ind{r+1} = 0\), then row \(r+1\) is unbalanced to the right.
+
+    We define the \vocab{major contributions} of a block \(B\) with respect to the fillings \(T\) and \(U\) as
+    \begin{align*}
+        \maj(B; T) &= \sum_{u \in \Des(T) \text{ assigned to } B} (\leg_{\alpha}(u) + 1) \\
+        \maj(B; U) &= \sum_{u \in \Des(U) \text{ assigned to } B} (\leg_{s_i \permact \alpha}(u) + 1)
+    \end{align*}
+    We claim that for every block \(B\), we have \(\maj(B; T) = \maj(B; U)\).
+    Let \(B\) be a block with signature entries \((a, b, c, d, e, f)\).
+    Assume \(B\) is not the topmost block.
+
+    Assume that \(B\) is swapped between \(T\) and \(U\).
+    Then, if \(u\) is a descent assigned to \(B\) in \(T\), then \(s_i \cdot u\) is a descent assigned to \(B\) in \(U\), and vice versa, irregardless of whether the descent is inter-block or intra-block.
+    Since \(\leg_{\alpha}(u) = \leg_{s_i \permact \alpha}(s_i \cdot u)\) for all boxes \(u\) in columns \(i\) or \(i+1\),
+    we have \(\maj(B; T) = \maj(B; U)\) in this case.
+
+    Now, assume that \(B\) is not swapped between \(T\) and \(U\).
+    Let \(B = [r_1, r_2]\).
+    This means that \(\ind{c, d, f} = \ind{e, a, b}\), that is,
+    \begin{equation*}
+        \ind{c, d} + \ind{d, f} - \ind{c, f} = \ind{e, a} + \ind{a, b} - \ind{e, b}.
+    \end{equation*}
+    First, assume \(\ind{a, b} = \ind{c, d}\), that is, \(\ind{r_2} = \ind{r_1}\).
+    From our discussion about intra-block descents, in the sequence \((\ind{r_1}, \ind{r_1+1}, \dots, \ind{r_2})\), each time the indicator does not change, the corresponding row is balanced, and each time the indicator changes from \(0\) to \(1\) (resp. from \(1\) to \(0\)), the corresponding row is unbalanced to the left (resp. to the right).
+    Since \(\ind{r_2} = \ind{r_1}\), the number of unbalanced to the left rows is equal to the number of unbalanced to the right rows in this block.
 \end{proof}
 
 \begin{theorem}[{\cite[14]{KLO22}}] \label{thm:psi-maj-inv}
