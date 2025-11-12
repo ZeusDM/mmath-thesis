@@ -1,24 +1,18 @@
 \newcommand{\coinphi}{%
   \tikz[baseline=(char.base)]{
-    \node[scale=.95,shape=circle,fill=yellow!85!orange!70,draw=yellow!85!orange!70!black,inner sep=1pt] (char) {\textcolor{black}{$\phi$}};
+    \node[scale=.95,shape=circle,draw=black,inner sep=1pt] (char) {\textcolor{black}{$\phi$}};
   }%
 }
 
 \newcommand{\coinpsi}{%
   \tikz[baseline=(char.base)]{
-    \node[scale=.95,shape=circle,fill=gray!50!blue!30,draw=gray!50!blue!30!black!50,inner sep=1pt] (char) {\textcolor{black}{$\psi$}};
+    \node[scale=.95,shape=circle,draw=black,inner sep=1pt] (char) {\textcolor{black}{$\psi$}};
   }%
 }
 
-\newcommand{\labelS}{\tikz[baseline=(char.base)]{
-    \node[draw=green!70!black, fill=green!20, rounded corners=2pt, inner sep=2pt] (char) {\texttt{S}};
-}}
-\newcommand{\labelN}{\tikz[baseline=(char.base)]{
-    \node[draw=red!70!black, fill=red!20, rounded corners=2pt, inner sep=2pt] (char) {\texttt{N}};
-}}
-\newcommand{\labelC}{\tikz[baseline=(char.base)]{
-    \node[draw=orange!80!black, fill=orange!20, rounded corners=2pt, inner sep=2pt] (char) {\texttt{C}};
-}}
+\newcommand{\labelS}{\ensuremath{\mathtt{S}}}
+\newcommand{\labelN}{\ensuremath{\mathtt{N}}}
+\newcommand{\labelC}{\ensuremath{\mathtt{C}}}
 
 \chapter{Bijective combinatorics for Macdonald polynomials} \label{chap:bijective}
 
@@ -477,7 +471,6 @@ We describe the algorithm to compute \(U = \phi(T)\) or \(U = \psi(T)\).
 The algorithm uses a \vocab{coin} with two sides, \(\coinphi\) and \(\coinpsi\), as a bookkeeping device.
 Each row from \(1\) to \(\alpha_{i+1} - 1\) is, at some point of the algorithm, assigned a \vocab{coin value} in \(\{\coinphi, \coinpsi\}\).
 Initially, assign the coin value of row \(1\) to be \(\coinphi\) if computing \(U = \phi(T)\), or \(\coinpsi\) if computing \(U = \psi(T)\).
-\todo[caption={Coins and labels can be changed.}]{For anyone reading this: the colored \(\coinphi\), \(\coinpsi\), \(\labelN\), \(\labelS\), \(\labelC\) are defined as \LaTeX\ macros, so if the colors are jarring, they can be changed easily.}
 
 In addition to the coin value, each row from \(1\) to \(\alpha_{i+1}\) is labeled from \(\{\labelN, \labelS, \labelC\}\).
 A label of \(\labelN\) means the entries in row \(r\) of columns \(i\) and \(i+1\) in \(T\) and \(U\) are \emph{not} swapped;
