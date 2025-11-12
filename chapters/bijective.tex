@@ -471,11 +471,13 @@ We describe the algorithm to compute \(U = \phi(T)\) or \(U = \psi(T)\).
 The algorithm uses a \vocab{coin} with two sides, \(\coinphi\) and \(\coinpsi\), as a bookkeeping device.
 Each row from \(1\) to \(\alpha_{i+1} - 1\) is, at some point of the algorithm, assigned a \vocab{coin value} in \(\{\coinphi, \coinpsi\}\).
 Initially, assign the coin value of row \(1\) to be \(\coinphi\) if computing \(U = \phi(T)\), or \(\coinpsi\) if computing \(U = \psi(T)\).
+We denote by \(\operatorname{coin}_r\) the coin value assigned to row \(r\).
 
 In addition to the coin value, each row from \(1\) to \(\alpha_{i+1}\) is labeled from \(\{\labelN, \labelS, \labelC\}\).
 A label of \(\labelN\) means the entries in row \(r\) of columns \(i\) and \(i+1\) in \(T\) and \(U\) are \emph{not} swapped;
 a label of \(\labelS\) means they are \emph{swapped};
 and a label of \(\labelC\) indicates that the behavior for row \(r\) should \emph{copy} the behavior for the row above it.
+We denote by \(\operatorname{label}_r\) the label assigned to row \(r\).
 
 We process the rows iteratively from row \(1\) up to row \(\alpha_i\).
 For each \(r \in \{1,2,\dots,\alpha_{i+1}-1\}\),
@@ -486,42 +488,41 @@ thus \( \ind{a,d} + \ind{b,c} - \ind{a,c} - \ind{b,d} \in \{1, 0, -1\} \).
 \begin{description}
     \item[Case I.] If 
     \(\ind{a,d} + \ind{b,c} - \ind{a,c} - \ind{b,d} = \pm 1\),
-    (cases 3,4,9,10 in \cite{KLO22}),  
-    then assign row \(r\) the label \(\labelC\).
-    Assign row \(r+1\) the coin value of row \(r\) if \(\chi_{ab} = \chi_{cd}\) (cases 3,9),
-    and assign row \(r+1\) the opposite coin value of row \(r\) if \(\chi_{ab} \neq \chi_{cd}\) (cases 4,10).
+    (cases 3, 4, 9, 10 in \cite{KLO22}),  
+    then set \(\operatorname{label}_r = \labelC\).
+    Moreover, set \(\operatorname{coin}_{r+1} = \operatorname{coin}_r\) if \(\chi_{ab} = \chi_{cd}\) (cases 3, 9 in \cite{KLO22}),
+    and set \(\operatorname{coin}_{r+1} \neq \operatorname{coin}_r\) if \(\chi_{ab} \neq \chi_{cd}\) (cases 4, 10 in \cite{KLO22}).
 
     \item[Case II.] If
     \(\ind{a,c} = \ind{a,d} = \ind{b,c} = \ind{b,d}\)
-    (cases 1,2,11,12),
-    then label row \(r\) with \(\labelN\) (resp.~\(\labelS\)) if its coin value is \(\coinphi\) (resp.~\(\coinpsi\)).
-    Assign row \(r+1\) the coin value \(\coinphi\).
+    (cases 1, 2, 11, 12 in \cite{KLO22}),
+    then set \(\operatorname{label}_r = \labelN\) if \(\operatorname{coin}_r = \coinphi\), and set \(\operatorname{label}_r = \labelS\) if \(\operatorname{coin}_r = \coinpsi\).
+    Moreover, set \(\operatorname{coin}_{r+1} = \coinphi\).
     
     \item[Case III.] If 
     \(\ind{a,c} = \ind{b,c} \neq \ind{a,d} = \ind{b,d}\)  
-    (cases 7,8),  
-    then label row \(r\) with \(\labelS\) (resp.~\(\labelN\)) if its coin value is \(\coinphi\) (resp.~\(\coinpsi\)).
-    Assign row \(r+1\) the coin value \(\coinphi\).
+    (cases 7, 8 in \cite{KLO22}),
+    then set \(\operatorname{label}_r = \labelS\) if \(\operatorname{coin}_r = \coinphi\), and set \(\operatorname{label}_r = \labelN\) if \(\operatorname{coin}_r = \coinpsi\).
+    Moreover, set \(\operatorname{coin}_{r+1} = \coinphi\).
     
     \item[Case IV.] If
     \(\ind{a,c} = \ind{a,d} \neq \ind{b,c} = \ind{b,d}\)
-    (cases 5,6),
-    then label row \(r\) with \(\labelN\) (resp.~\(\labelS\)) if its coin value is \(\coinphi\) (resp.~\(\coinpsi\)).
-    Assign row \(r+1\) the coin value \(\coinpsi\).
+    (cases 5, 6 in \cite{KLO22}),
+    then set \(\operatorname{label}_r = \labelN\) if \(\operatorname{coin}_r = \coinphi\), and set \(\operatorname{label}_r = \labelS\) if \(\operatorname{coin}_r = \coinpsi\).
+    Moreover, set \(\operatorname{coin}_{r+1} = \coinpsi\).
 \end{description}
 
 Finally, we process row \(r = \alpha_{i+1}\) (the last row of column \(i+1\)) as follows.
 Let \( a = T(i,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
 
 \begin{description}
-    \item[Base I.] If \(\ind{a,c} \neq \ind{a,d}\), then label row \(r\) with
-    \(\labelS\) (resp.~\(\labelN\)) if its coin value is \(\coinphi\) (resp.~\(\coinpsi\)).
+    \item[Base I.] If \(\ind{a,c} \neq \ind{a,d}\),
+    then set \(\operatorname{label}_r = \labelS\) if \(\operatorname{coin}_r = \coinphi\), and set \(\operatorname{label}_r = \labelN\) if \(\operatorname{coin}_r = \coinpsi\).
 
-    \item[Base II.] If \(\ind{a,c} = \ind{a,d}\), then label row \(r\) with
-    \(\labelN\) (resp.~\(\labelS\)) if its coin value is \(\coinphi\) (resp.~\(\coinpsi\)).
+    \item[Base II.] If \(\ind{a,c} = \ind{a,d}\), then set \(\operatorname{label}_r = \labelN\) if \(\operatorname{coin}_r = \coinphi\), and set \(\operatorname{label}_r = \labelS\) if \(\operatorname{coin}_r = \coinpsi\).
 \end{description}
 
-\todo{There's a way to compactify these cases into overlapping conditions, which would also encompass the base cases.}
+% \todo{There's a way to compactify these cases into overlapping conditions, which would also encompass the base cases.}
 
 % Finally, build \(U\) row by row:
 % \begin{itemize}
