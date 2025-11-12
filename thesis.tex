@@ -229,6 +229,27 @@
 
 \DeclareMathOperator{\id}{id}
 
+% bijective.tex macros
+\newcommand{\coinphi}{%
+  \tikz[baseline=(char.base)]{
+    \node[scale=.95,shape=circle,draw=black,inner sep=1pt] (char) {\textcolor{black}{$\phi$}};
+  }%
+}
+
+\newcommand{\coinpsi}{%
+  \tikz[baseline=(char.base)]{
+    \node[scale=.95,shape=circle,draw=black,inner sep=1pt] (char) {\textcolor{black}{$\psi$}};
+  }%
+}
+
+\newcommand{\labelS}{\ensuremath{\mathtt{S}}}
+\newcommand{\labelN}{\ensuremath{\mathtt{N}}}
+\newcommand{\labelC}{\ensuremath{\mathtt{C}}}
+
+
+% probabilistic.tex macros
+\newcommand{\pp}[2][]{\rho_{#2}^{(#1)}}
+
 % Interval macro: generates set {1, ..., n}
 \newcommand{\interval}[1]{[#1]}
 
