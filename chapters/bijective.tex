@@ -548,6 +548,9 @@ Let \(c = T(i,h)\), and let \(d = T(i+1,h)\).
     \end{itemize}
 \end{definition}
 
+Refer to \Cref{fig:row-by-row-example} for an example of the row-by-row algorithm, with the same input filling as in \Cref{fig:blocks}.
+Note that the output filling in \Cref{fig:row-by-row-example} is the same as the output filling in \Cref{fig:output-filling}, confirming that the definitions of \(\phi\) in \Cref{def:phi-via-blocks,def:phi-psi-via-row-by-row} agree on this example.
+
 \begin{figure}[htbp]
     \centering
 	\begin{tikzpicture}[scale=.6]
@@ -635,12 +638,12 @@ Let \(c = T(i,h)\), and let \(d = T(i+1,h)\).
 
 The row-by-row algorithm may be described recursively instead of iteratively.
 
-Let \(T \in \Fill(\alpha)\) with \(\alpha_i > \alpha_{i+1}\).
+Let \(T \in \Fill(\alpha)\) with \(h = \min(\alpha_i, \alpha_{i+1})\).
 Assign the coin value of row \(1\) to be \(\coinphi\) if computing \(U = \phi(T)\), or \(\coinpsi\) if computing \(U = \psi(T)\).
 If column \(i+1\) consists of a single entry, then assign the label of this row according to Base~I or~II.
 Otherwise, assign the label of row \(1\) according one of Cases~I--IV,
 and at the same time determine the coin value to be used for the next row.
-Remove the first row to obtain the sub-filling \(T'\), and apply the algorithm recursively to \(T'\) with this new coin value, obtaining the labels for rows \(2,\dots,\alpha_{i+1}\).
+Remove the first row to obtain the sub-filling \(T'\), and apply the algorithm recursively to \(T'\) with this new coin value, obtaining the labels for rows \(2,\dots, h\).
 Once all labels are determined, construct \(U\) in a final pass by applying the rules for \(\labelN,\labelS,\labelC\) as before.
 
 It is straightforward to verify that both the iterative and recursive descriptions of the algorithm are equivalent.
