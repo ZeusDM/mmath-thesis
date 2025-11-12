@@ -287,8 +287,8 @@ The partition of \(\interval{\alpha_{i+1}}\) into blocks is called the \vocab{bl
 		\draw (0, 1) rectangle ++(1, 1)[fill=gray!50];
 		\node at (0.5, 7.5) {\(3\)};
 		\node at (1.5, 6.5) {\(5\)};
-		\node at (0.5, 6.5) {\(1\)};
-		\node at (1.5, 5.5) {\(2\)};
+		\node at (0.5, 6.5) {\(2\)};
+		\node at (1.5, 5.5) {\(1\)};
 		\node at (0.5, 5.5) {\(4\)};
 		\node at (1.5, 4.5) {\(8\)};
 		\node at (0.5, 4.5) {\(5\)};
@@ -430,8 +430,8 @@ while \(\psi\) swaps it if and only if \(\ind{c, d} = \ind{e, a, b}\).
 		\draw (0, 1) rectangle ++(1, 1)[fill=gray!50];
 		\node at (1.5, 7.5) {\(3\)};
 		\node at (1.5, 6.5) {\(5\)};
-		\node at (0.5, 6.5) {\(1\)};
-		\node at (1.5, 5.5) {\(2\)};
+		\node at (0.5, 6.5) {\(2\)};
+		\node at (1.5, 5.5) {\(1\)};
 		\node at (0.5, 5.5) {\(4\)};
 		\node at (1.5, 4.5) {\(5\)};
 		\node at (0.5, 4.5) {\(8\)};
@@ -441,9 +441,9 @@ while \(\psi\) swaps it if and only if \(\ind{c, d} = \ind{e, a, b}\).
 		\node at (0.5, 2.5) {\(7\)};
 		\node at (1.5, 1.5) {\(6\)};
 		\node at (0.5, 1.5) {\(4\)};
-		\draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 5.1) -- (2, 6.9) node[midway, anchor=west, xshift=10pt] {unchanged, since \(\ind{4, 2, 5} = 1 = \ind{3, 1, 5}\)};
+		\draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 5.1) -- (2, 6.9) node[midway, anchor=west, xshift=10pt] {not swapped, since \(\ind{4, 1, 5} = 1 = \ind{3, 2, 5}\)};
 		\draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 2.1) -- (2, 4.9) node[midway, anchor=west, xshift=10pt] {swapped, since \(\ind{2, 5, 8} = 0 \neq 1 = \ind{3, 7, 4}\)};
-		\draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 1.1) -- (2, 1.9) node[midway, anchor=west, xshift=10pt] {unchanged, since \(\ind{4, 6, \infty} = 0 = \ind{7, 4, 6}\)};
+		\draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 1.1) -- (2, 1.9) node[midway, anchor=west, xshift=10pt] {not swapped, since \(\ind{4, 6, \infty} = 0 = \ind{7, 4, 6}\)};
 	\end{tikzpicture}
 	\caption{Columns \(i\) and \(i+1\) of the filling \(U\) derived from the filling \(T\) in \cref{fig:blocks}.}
 	\label{fig:output-filling}
@@ -466,7 +466,7 @@ We prove this in \Cref{thm:phi-maj-inv}.
 It turns out that the bijections \(\phi\) and \(\psi\) are the same as the bijections defined in \cite{KLO22}.
 We now present the algorithm from \cite{KLO22}, in a clearer form than the original exposition.
 
-Let \(T \in \Fill(\alpha)\) with \(\alpha_i > \alpha_{i+1}\).
+Let \(T \in \Fill(\alpha)\). Let \(h = \min(\alpha_i, \alpha_{i+1})\).
 We describe the algorithm to compute \(U = \phi(T)\) or \(U = \psi(T)\).
 The algorithm uses a \vocab{coin} with two sides, \(\coinphi\) and \(\coinpsi\), as a bookkeeping device.
 Each row from \(1\) to \(\alpha_{i+1} - 1\) is, at some point of the algorithm, assigned a \vocab{coin value} in \(\{\coinphi, \coinpsi\}\).
@@ -479,9 +479,10 @@ a label of \(\labelS\) means they are \emph{swapped};
 and a label of \(\labelC\) indicates that the behavior for row \(r\) should \emph{copy} the behavior for the row above it.
 We denote by \(\operatorname{label}_r\) the label assigned to row \(r\).
 
-We process the rows iteratively from row \(1\) up to row \(\alpha_i\).
-For each \(r \in \{1,2,\dots,\alpha_{i+1}-1\}\),
-let \( a = T(i,r+1)\), \(b = T(i+1,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
+We process the rows iteratively from row \(1\) up to row \(h\).
+For each \(r \in \{1,2,\dots, h-1\}\),
+we assume that the coin value \(\operatorname{coin}_r\) has already been assigned.
+Let \( a = T(i,r+1)\), \(b = T(i+1,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
 Note that \(\ind{a, d} = \ind{b, c} \neq \ind{a, c} = \ind{b, d}\) is impossible by transitivity,
 thus \( \ind{a,d} + \ind{b,c} - \ind{a,c} - \ind{b,d} \in \{1, 0, -1\} \).
 
@@ -512,8 +513,9 @@ thus \( \ind{a,d} + \ind{b,c} - \ind{a,c} - \ind{b,d} \in \{1, 0, -1\} \).
     Moreover, set \(\operatorname{coin}_{r+1} = \coinpsi\).
 \end{description}
 
-Finally, we process row \(r = \alpha_{i+1}\) (the last row of column \(i+1\)) as follows.
-Let \( a = T(i,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
+Finally, we process row \(r = h\), assuming that the coin value \(\operatorname{coin}_h\) has already been assigned.
+Let \(a = T(i,h+1)\) if \(h = \alpha_{i+1} < \alpha_i\) or \(a = T(i+1,h+1)\) if \(h = \alpha_{i} < \alpha_{i+1}\), i.e., \(a\) is the only entry in row \(h+1\) on one of the two columns \(i\) or \(i+1\).
+Let \(c = T(i,h)\), and let \(d = T(i+1,h)\).
 
 \begin{description}
     \item[Base I.] If \(\ind{a,c} \neq \ind{a,d}\),
@@ -546,6 +548,90 @@ Let \( a = T(i,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
     \end{itemize}
 \end{definition}
 
+\begin{figure}[htbp]
+    \centering
+	\begin{tikzpicture}[scale=.6]
+		\node[anchor=north] at (0.5, 1) {\(\scriptstyle i\)};
+		\node[anchor=north] at (1.5, 1) {\(\scriptstyle i+1\)};
+		\draw (0, 7) rectangle ++(1, 1);
+		\draw (1, 6) rectangle ++(1, 1);
+		\draw (0, 6) rectangle ++(1, 1);
+		\draw (1, 5) rectangle ++(1, 1);
+		\draw (0, 5) rectangle ++(1, 1);
+		\draw (1, 4) rectangle ++(1, 1);
+		\draw (0, 4) rectangle ++(1, 1);
+		\draw (1, 3) rectangle ++(1, 1);
+		\draw (0, 3) rectangle ++(1, 1);
+		\draw (1, 2) rectangle ++(1, 1);
+		\draw (0, 2) rectangle ++(1, 1);
+		\draw (1, 1) rectangle ++(1, 1);
+		\draw (0, 1) rectangle ++(1, 1);
+		\node at (0.5, 7.5) {\(3\)};
+		\node at (1.5, 6.5) {\(5\)};
+		\node at (0.5, 6.5) {\(2\)};
+		\node at (1.5, 5.5) {\(1\)};
+		\node at (0.5, 5.5) {\(4\)};
+		\node at (1.5, 4.5) {\(8\)};
+		\node at (0.5, 4.5) {\(5\)};
+		\node at (1.5, 3.5) {\(6\)};
+		\node at (0.5, 3.5) {\(1\)};
+		\node at (1.5, 2.5) {\(7\)};
+		\node at (0.5, 2.5) {\(3\)};
+		\node at (1.5, 1.5) {\(6\)};
+		\node at (0.5, 1.5) {\(4\)};
+		\node[scale=.9] at (-0.6, 6.5) {\(\coinpsi\)};
+		\node[scale=.9] at (-0.6, 5.5) {\(\coinphi\)};
+		\node[scale=.9] at (-0.6, 4.5) {\(\coinpsi\)};
+		\node[scale=.9] at (-0.6, 3.5) {\(\coinpsi\)};
+		\node[scale=.9] at (-0.6, 2.5) {\(\coinpsi\)};
+		\node[scale=.9] at (-0.6, 1.5) {\(\coinphi\)};
+		\node at (2.5, 6.5) {\(\labelN\)};
+		\node at (2.5, 5.5) {\(\labelC\)};
+		\node at (2.5, 4.5) {\(\labelS\)};
+		\node at (2.5, 3.5) {\(\labelC\)};
+		\node at (2.5, 2.5) {\(\labelC\)};
+		\node at (2.5, 1.5) {\(\labelN\)};
+		\node[anchor=west] at (3.2, 6.5) {by Base I };
+		\node[anchor=west] at (3.2, 5.5) {by Case I };
+		\node[anchor=west] at (3.2, 4.5) {by Case II};
+		\node[anchor=west] at (3.2, 3.5) {by Case I };
+		\node[anchor=west] at (3.2, 2.5) {by Case I };
+		\node[anchor=west] at (3.2, 1.5) {by Case IV};
+	\end{tikzpicture}
+    \hspace{3cm}
+	\begin{tikzpicture}[scale=.6]
+		\node[anchor=north] at (0.5, 1) {\(\scriptstyle i\)};
+		\node[anchor=north] at (1.5, 1) {\(\scriptstyle i+1\)};
+		\draw (1, 7) rectangle ++(1, 1);
+		\draw (1, 6) rectangle ++(1, 1);
+		\draw (0, 6) rectangle ++(1, 1);
+		\draw (1, 5) rectangle ++(1, 1);
+		\draw (0, 5) rectangle ++(1, 1);
+		\draw (1, 4) rectangle ++(1, 1);
+		\draw (0, 4) rectangle ++(1, 1);
+		\draw (1, 3) rectangle ++(1, 1);
+		\draw (0, 3) rectangle ++(1, 1);
+		\draw (1, 2) rectangle ++(1, 1);
+		\draw (0, 2) rectangle ++(1, 1);
+		\draw (1, 1) rectangle ++(1, 1);
+		\draw (0, 1) rectangle ++(1, 1);
+		\node at (1.5, 7.5) {\(3\)};
+		\node at (1.5, 6.5) {\(5\)};
+		\node at (0.5, 6.5) {\(2\)};
+		\node at (1.5, 5.5) {\(1\)};
+		\node at (0.5, 5.5) {\(4\)};
+		\node at (1.5, 4.5) {\(5\)};
+		\node at (0.5, 4.5) {\(8\)};
+		\node at (1.5, 3.5) {\(1\)};
+		\node at (0.5, 3.5) {\(6\)};
+		\node at (1.5, 2.5) {\(3\)};
+		\node at (0.5, 2.5) {\(7\)};
+		\node at (1.5, 1.5) {\(6\)};
+		\node at (0.5, 1.5) {\(4\)};
+	\end{tikzpicture}
+    \caption{On the left, columns \(i\) and \(i+1\) of a filling \(T\), with the coin values and labels assigned by the row-by-row algorithm when computing \(U = \phi(T)\). On the right, columns \(i\) and \(i+1\) of the resulting filling \(U = \phi(T)\), following the labels.}
+	\label{fig:row-by-row-example}
+\end{figure}
 
 The row-by-row algorithm may be described recursively instead of iteratively.
 
@@ -559,8 +645,6 @@ Once all labels are determined, construct \(U\) in a final pass by applying the 
 
 It is straightforward to verify that both the iterative and recursive descriptions of the algorithm are equivalent.
 This recursive interpretation is particularly useful for proving properties about the bijections \(\phi\) and \(\psi\), as it allows us to use induction on the number of rows in the filling.
-
-\todo{Add an example of the recursive algorithm.}
 
 \subsection{Equivalence of the two definitions} \label{subsec:equivalence-of-definitions}
 
