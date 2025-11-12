@@ -15,7 +15,7 @@
 \raggedbottom
 
 \usepackage[nodisplayskipstretch]{setspace}
-\setstretch{1.2}
+% \setstretch{1.2}
 
 \newcommand{\href}[1]{#1} % does nothing, but defines the command so the print-optimized version will ignore \href tags (redefined by hyperref pkg).
 
@@ -142,6 +142,7 @@
 % Silence warnings about todo notes in margin
 \usepackage{silence}
 \WarningFilter{latex}{Marginpar on page}
+\WarningFilter{todonotes}{The length marginparwidth}
 
 % Draw a vertical line at the original page boundary
 \usepackage{tikzpagenodes}
