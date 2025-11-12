@@ -950,25 +950,61 @@ The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi
         (\alpha_{i+1} - \alpha_{i}) + (\alpha_{i+1} - r_1 + 1),
     \end{equation*}
     the contributions to \(\maj(B; T)\) and \(\maj(B; U)\) from rows \(r_1\) and \(\alpha_{i+1} + 1\) are equal as well.
-    This means that \(\maj(B; T) = \maj(B; U)\) in this case.
+    Therefore, we have \(\maj(B; T) = \maj(B; U)\) in this case.
     
-    Second, assume \(\ind{a, b} \neq \ind{c, d}\), that is, \(\ind{r_2} \neq \ind{r_1}\).
-    Assume moreover that \(\ind{a, b} = 1\) and \(\ind{c, d} = 0\).
+    Second, assume \(\ind{a, b} = 1\) and \(\ind{c, d} = 0\), that is, \(\ind{r_1} = 0\) and \(\ind{r_2} = 1\).
     There is exactly one more left-unbalanced row than right-unbalanced rows among rows \(r_1 + 1\) through \(\alpha_{i+1}\).
     We have that exactly one of \(\ind{d, f} \neq \ind{c, f}\) and \(\ind{e, a} \neq \ind{e, b}\) is true.
     If \(\ind{d, f} \neq \ind{c, f}\) and \(\ind{e, a} = \ind{e, b}\),
     then row \(r_1\) is unbalanced to the side of the largest of \(c\) and \(d\), which is \(d\) since \(\ind{c, d} = 0\), so row \(r_1\) is right-unbalanced;
     while the box \((i, \alpha_{i+1} + 1)\) is a descent of \(T\) if and only if the box \((i+1, \alpha_{i+1} + 1)\) is a descent of \(U\), so their contributions to \(\maj(B; T)\) and \(\maj(B; U)\) are equal (both zero or both \(\alpha_i - \alpha_{i+1}\)).
     Therefore, with the extra right-unbalanced row \(r_1\) assigned to \(B\),
-    the numbers of left-unbalanced and right-unbalanced rows assigned to \(B\) are equal,
-    as well as the contributions of row \(r_2 + 1\) to \(\maj(B; T)\) and \(\maj(B; U)\); thus, \(\maj(B; T) = \maj(B; U)\) in this case.
+    the numbers of left-unbalanced and right-unbalanced rows assigned to \(B\) are equal, and consequently \(\maj(B; T) = \maj(B; U)\).
     If \(\ind{d, f} = \ind{c, f}\) and \(\ind{e, a} \neq \ind{e, b}\),
     then row \(r_1\) is not assigned to \(B\);
     since \(\ind{a, b} = 1\), we have \(\ind{e, a} = 0\) and \(\ind{e, b} = 1\),
     so the box \((i, \alpha_{i+1} + 1)\) is not a descent of \(T\) while the box \((i+1, \alpha_{i+1} + 1)\) is a descent of \(U\),
     contributing \(0\) to \(\maj(B; T)\) and \(\alpha_i - \alpha_{i+1}\) to \(\maj(B; U)\).
+    We pair each right-unbalanced row assigned to \(B\) with a unique left-unbalanced row assigned to \(B\),
+    except for one extra left-unbalanced row.
+    This extra left-unbalanced row \(r\) contributes \(\leg_{\alpha}(i, r) + 1 = \alpha_{i} - r + 1\) to \(\maj(B; T)\) and \(\leg_{s_i \permact \alpha}(i, r) + 1 = \alpha_{i+1} - r + 1\) to \(\maj(B; U)\).
+    Therefore, since
+    \begin{equation*}
+        (\alpha_{i} - r + 1)
+        =
+        (\alpha_{i+1} - \alpha_{i}) + (\alpha_{i+1} - r + 1),
+    \end{equation*}
+    the contributions to \(\maj(B; T)\) and \(\maj(B; U)\) from the pair of the extra left-unbalanced row and row \(\alpha_{i+1} + 1\) are equal as well.
+    Therefore, we have \(\maj(B; T) = \maj(B; U)\) in this case as well.
 
-    \todo[inline]{Finish this last case.}
+    Third, assume \(\ind{a, b} = 0\) and \(\ind{c, d} = 1\), that is, \(\ind{r_1} = 1\) and \(\ind{r_2} = 0\).
+    There is exactly one more right-unbalanced row than left-unbalanced rows among rows \(r_1 + 1\) through \(\alpha_{i+1}\).
+    We have that exactly one of \(\ind{d, f} \neq \ind{c, f}\) and \(\ind{e, a} \neq \ind{e, b}\) is true.
+    If \(\ind{d, f} \neq \ind{c, f}\) and \(\ind{e, a} = \ind{e, b}\),
+    then row \(r_1\) is unbalanced to the side of the largest of \(c\) and \(d\), which is \(c\) since \(\ind{c, d} = 1\), so row \(r_1\) is left-unbalanced;
+    while the box \((i, \alpha_{i+1} + 1)\) is a descent of \(T\) if and only if the box \((i+1, \alpha_{i+1} + 1)\) is a descent of \(U\), so their contributions to \(\maj(B; T)\) and \(\maj(B; U)\) are equal (both zero or both \(\alpha_i - \alpha_{i+1}\)).
+    Therefore, with the extra left-unbalanced row \(r_1\) assigned to \(B\),
+    the numbers of left-unbalanced and right-unbalanced rows assigned to \(B\) are equal, and consequently \(\maj(B; T) = \maj(B; U)\).
+    If \(\ind{d, f} = \ind{c, f}\) and \(\ind{e, a} \neq \ind{e, b}\),
+    then row \(r_1\) is not assigned to \(B\);
+    since \(\ind{a, b} = 0\), we have \(\ind{e, a} = 1\) and \(\ind{e, b} = 0\),
+    so the box \((i, \alpha_{i+1} + 1)\) is a descent of \(T\) while the box \((i+1, \alpha_{i+1} + 1)\) is not a descent of \(U\),
+    contributing \(\alpha_i - \alpha_{i+1}\) to \(\maj(B; T)\) and \(0\) to \(\maj(B; U)\).
+    We pair each left-unbalanced row assigned to \(B\) with a unique right-unbalanced row assigned to \(B\),
+    except for one extra right-unbalanced row.
+    This extra right-unbalanced row \(r\) contributes \(\leg_{\alpha}(i+1, r) + 1 = \alpha_{i+1} - r + 1\) to \(\maj(B; T)\) and \(\leg_{s_i \permact \alpha}(i+1, r) + 1 = \alpha_{i} - r + 1\) to \(\maj(B; U)\).
+    Therefore, since
+    \begin{equation*}
+        (\alpha_{i+1} - r + 1) +
+        (\alpha_i - \alpha_{i+1})
+        =
+        (\alpha_{i} - r + 1),
+    \end{equation*}
+    the contributions to \(\maj(B; T)\) and \(\maj(B; U)\) from the pair of the extra right-unbalanced row and row \(\alpha_{i+1} + 1\) are equal as well.
+    Therefore, we have \(\maj(B; T) = \maj(B; U)\) in this case as well.
+
+    Finally, we have shown that for every block \(B\), we have \(\maj(B; T) = \maj(B; U)\).
+    Since each unbalanced row is assigned to exactly one block, we conclude that \(\maj(T) = \maj(U)\), completing the proof.
 \end{proof}
 
 \begin{proof}[Proof of \(\inv\)-preservation via block structure, independently of \cite{KLO22}]
