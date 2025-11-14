@@ -1127,8 +1127,8 @@ Recall that the integral forms have a combinatorial formula in terms of augmente
 \end{equation*}
 
 Recall from \Cref{subsec:augmented-to-non-augmented} that any augmented filling \(T \in \Fill(\alpha, \sigma)\) may be identified with a non-augmented filling \(T' \in \Fill(\alpha + \mathbf{1})\) by moving each box one unit up.
-This identification preserves \(\maj\), but changes \(\inv\) and \(\coinv\) by a constant depending only on \(\alpha\) and \(\sigma\).
-We defined \(\symcoinv(T) = \coinv(T')\) and \(\syminv(T) = \inv(T')\).
+This identification preserves \(\maj\), but changes \(\coinv\).
+We have \(\symcoinv(T) = \coinv(T') = \coinv(T) + \twinv(\alpha, \sigma)\).
 
 We can apply \(\phi\) to \(T'\) to obtain \(U' = \phi(T') \in \Fill(s_i \permact \alpha + \mathbf{1})\), and then identify \(U'\) with an augmented filling \(U\) of shape \(\alpha\).
 Note that \(\phi\) might or might not change the entries in positions \((i,1)\) and \((i+1,1)\) of \(T'\),
@@ -1151,36 +1151,36 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
     Assume that \(\alpha_i > \alpha_{i+1}\).
     Let \(T \in \Fill(\alpha, \sigma)\) and \(U = \psi(T)\).
     Let \(L = \leg(u)\) and \(A = \arm(u)\) for \(u = (i+1, \alpha_{i+1} + 1) \in \dg(s_i \permact \alpha)\).
-    If \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 1\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 1\), then
+    If \(\sigma_i > \sigma_{i+1}\) and \(\pi_i > \pi_{i+1}\), then
     \begin{align}
         \maj(T) &= \maj(U) - (L+1), &&\text{and}&
         \symcoinv(T) &= \symcoinv(U) - A. \\
-    \intertext{If \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 1\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 0\), then}
+    \intertext{If \(\sigma_i > \sigma_{i+1}\) and \(\pi_i < \pi_{i+1}\), then}
         \maj(T) &= \maj(U), &&\text{and}&
         \symcoinv(T) &= \symcoinv(U) - 1. \\
-    \intertext{If \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 0\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 1\), then}
+    \intertext{If \(\sigma_i < \sigma_{i+1}\) and \(\pi_i > \pi_{i+1}\), then}
         \maj(T) &= \maj(U), &&\text{and}&
         \symcoinv(T) &= \symcoinv(U) + 1. \\
-    \intertext{If \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 0\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 0\), then}
+    \intertext{If \(\sigma_i < \sigma_{i+1}\) and \(\pi_i < \pi_{i+1}\), then}
         \maj(T) &= \maj(U) + (L+1), &&\text{and}&
         \symcoinv(T) &= \symcoinv(U) + A.
     \end{align}
 \end{corollary}
 
 \begin{definition}
-    Define \(f \colon \Fill(\alpha, \sigma) \to \Fill(s_i \permact \alpha, \sigma)\)
-    and \(g \colon \Fill(\alpha, \sigma) \to \Fill(s_i \permact \alpha, \sigma s_i)\) by
+    Define \(f \colon \Fill(\alpha, \sigma) \to \Fill(s_i \permact \alpha, \sigma s_i)\)
+    and \(g \colon \Fill(\alpha, \sigma) \to \Fill(s_i \permact \alpha, \sigma)\) by
     \begin{equation}
         f(T) =
         \begin{cases}
-            \phi(T), & \text{if } \phi(T) \in {\Fill(s_i \cdot \alpha, \sigma)}, \\
-            \psi(T), & \text{if } \psi(T) \in {\Fill(s_i \cdot \alpha, \sigma)},
+            \phi(T), & \text{if } \phi(T) \in {\Fill(s_i \cdot \alpha, \sigma s_i)}, \\
+            \psi(T), & \text{if } \psi(T) \in {\Fill(s_i \cdot \alpha, \sigma s_i)},
         \end{cases}
         \quad \text{and} \quad
         g(T) =
         \begin{cases}
-            \phi(T), & \text{if } \phi(T) \in {\Fill(s_i \cdot \alpha, \sigma s_i)}, \\
-            \psi(T), & \text{if } \psi(T) \in {\Fill(s_i \cdot \alpha, \sigma s_i)}.
+            \phi(T), & \text{if } \phi(T) \in {\Fill(s_i \cdot \alpha, \sigma)}, \\
+            \psi(T), & \text{if } \psi(T) \in {\Fill(s_i \cdot \alpha, \sigma)}.
         \end{cases}
     \end{equation}
 \end{definition}
@@ -1207,11 +1207,12 @@ For the purposes of this section, let \(\wt(T) = \mathbf{x}^{|T|} q^{\maj(T)} t^
 In this subsection, we prove \cref{theorem:three-term} in the case where \(\sigma_i > \sigma_{i+1}\).
 Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
 \begin{equation*}
-    \twinv(s_i \permact \alpha, \sigma s_i) = \twinv(\alpha, \sigma).
+    \twinv(\alpha, \sigma) = \twinv(s_i \permact \alpha, \sigma s_i).
 \end{equation*}
 
 \begin{lemma} \label{lem:three-term-bijective-a}
     Assume that \(\alpha_i > \alpha_{i+1}\) and \(\sigma_i > \sigma_{i+1}\).
+    Let \(L = \leg(u)\) and \(A = \arm(u)\) for \(u = (i+1, \alpha_{i+1} + 1) \in \dg(s_i \permact \alpha)\).
     Let \(T\) be an augmented filling in \(\Fill(\alpha, \sigma)\).
     Let \(U = f(T)\) and \(V = g(T)\).
     Then
@@ -1225,10 +1226,23 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
 \end{lemma}
 
 \begin{proof}
-    If \(U = \phi(T)\) and \(V = \psi(T)\),
-    then \(\wt(U) = \wt(T)\) by \Cref{cor:phi-symcoinv},
-    and \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} q^{L+1} t^{A} \wt(T)\) by \Cref{cor:psi-symcoinv}.\todo[inline]{Explain these weight calculations more carefully.}
+    First, assume \(U = \phi(T)\) and \(V = \psi(T)\).
+    On the one hand, by \Cref{cor:phi-symcoinv}, \(\symcoinv(T) = \symcoinv(U)\) and \(\maj(T) = \maj(U)\).
+    Since \(\twinv(\alpha, \sigma) = \twinv(s_i \permact \alpha, \sigma s_i)\),
+    we have \[\coinv(T) = \symcoinv(T) - \twinv(\alpha, \sigma) = \symcoinv(U) - \twinv(s_i \permact \alpha, \sigma s_i) = \coinv(U).\]
+    Thus, \(\wt(U) = \wt(T)\).
+    On the other hand, by \Cref{cor:psi-symcoinv},
+    % we know that \sigma_i > \sigma_{i+1}, and that the basement for V is \sigma s_i, so (\sigma s_i)_i < (\sigma s_i)_{i+1}.
+    we have \(\maj(T) = \maj(V) - (L+1)\) and \(\symcoinv(T) = \symcoinv(V) - A\).
     Thus,
+    \begin{align*}
+        \coinv(T) 
+        & = \symcoinv(T) - \twinv(\alpha, \sigma) \\
+        & = \symcoinv(V) - A - \twinv(\alpha, \sigma)
+        = \coinv(V) - A + \rho(\alpha, \sigma, i),
+    \end{align*}
+    and consequently \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} q^{L+1} t^{A} \wt(T)\).
+    Therefore,
     \begin{multline*}
         \left( 1 - q^{L+1} t^{A} \right) \wt(U)
         +
@@ -1245,10 +1259,15 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
         \left( 1 - q^{L+1} t^{A + 1} \right) \wt(T).
         \end{aligned}
     \end{multline*}
-    If \(U = \psi(T)\) and \(V = \phi(T)\),
-    then \(\wt(U) = t \wt(T)\) by \Cref{cor:psi-symcoinv},
-    and \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} \wt(T)\) by \Cref{cor:phi-symcoinv}.
-    Thus,
+
+    Second, assume \(U = \psi(T)\) and \(V = \phi(T)\).
+    On the one hand, by \Cref{cor:psi-symcoinv}, \(\maj(T) = \maj(U)\) and \(\symcoinv(T) = \symcoinv(U) - 1\).
+    Since \(\twinv(\alpha, \sigma) = \twinv(s_i \permact \alpha, \sigma s_i)\),
+    Thus, \(\wt(U) = t \wt(T)\).
+    On the other hand, by \Cref{cor:phi-symcoinv}, \(\symcoinv(T) = \symcoinv(V)\) and \(\maj(T) = \maj(V)\).
+    Thus, \(\coinv(T) = \coinv(V) + \rho(\alpha, \sigma, i)\),
+    and consequently \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} \wt(T)\).
+    Therefore,
     \begin{multline*}
         \left( 1 - q^{L+1} t^{A} \right) \wt(U)
         +
@@ -1302,23 +1321,119 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
 
 \subsection{Case \texorpdfstring{$\sigma_i < \sigma_{i+1}$}{σi < σi+1}}
 
-\todo[inline]{Write the other version of the three-term identity, when \(\alpha_i < \alpha_{i+1}\).}
+In this subsection, we prove \cref{theorem:three-term} in the case where \(\sigma_i < \sigma_{i+1}\).
+Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
+\begin{equation*}
+    \twinv(\alpha, \sigma) = \twinv(s_i \permact \alpha, \sigma s_i) + 1.
+\end{equation*}
+
+\begin{lemma}
+    \label{lem:three-term-bijective-b}
+    Assume that \(\alpha_i > \alpha_{i+1}\) and \(\sigma_i < \sigma_{i+1}\).
+    Let \(L = \leg(u)\) and \(A = \arm(u)\) for \(u = (i+1, \alpha_{i+1} + 1) \in \dg(s_i \permact \alpha)\).
+    Let \(T\) be an augmented filling in \(\Fill(\alpha, \sigma)\).
+    Let \(U = f(T)\) and \(V = g(T)\).
+    Then
+    \begin{equation}
+        \left( 1 - q^{L+1} t^{A + 1} \right) \wt(T)
+        =
+        \left( 1 - q^{L+1} t^{A} \right) \wt(U)
+        +
+        (q^{L+1} t^{A}) (1 - t) t^{\rho(\alpha,\sigma,i)} \wt(V).
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    First, assume \(U = \phi(T)\) and \(V = \psi(T)\).
+    On the one hand, by \Cref{cor:phi-symcoinv}, \(\maj(T) = \maj(U)\) and \(\symcoinv(T) = \symcoinv(U)\).
+    Since \(\twinv(\alpha, \sigma) = \twinv(s_i \permact \alpha, \sigma s_i) + 1\),
+    we have
+    \begin{align*}
+        \coinv(T)
+        & = \symcoinv(T) - \twinv(\alpha, \sigma) \\
+        & = \symcoinv(U) - \twinv(s_i \permact \alpha, \sigma s_i) - 1
+        = \coinv(U) - 1.
+    \end{align*}
+    Thus, \(\wt(U) = t \wt(T)\).
+    On the other hand, by \Cref{cor:psi-symcoinv}, we have \(\maj(T) = \maj(V) + (L+1)\) and \(\symcoinv(T) = \symcoinv(V) + A\).
+    Thus,
+    \begin{align*}
+        \coinv(T)
+        & = \symcoinv(T) - \twinv(\alpha, \sigma) \\
+        & = \symcoinv(V) + A - \twinv(\alpha, \sigma)
+        = \coinv(V) + A + \rho(\alpha, \sigma, i),
+    \end{align*}
+    and consequently \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} q^{-(L+1)} t^{-A} \wt(T)\).
+    Therefore,
+    \begin{multline*}
+        \left( 1 - q^{L+1} t^{A} \right) \wt(U)
+        +
+        (q^{L+1} t^{A}) (1 - t) t^{\rho(\alpha,\sigma,i)} \wt(V)
+        = \\
+        \begin{aligned}
+        &=
+        \left( 1 - q^{L+1} t^{A} \right) t \wt(T)
+        +
+        (q^{L+1} t^{A}) (1 - t) t^{\rho(\alpha,\sigma,i)} t^{-\rho(\alpha,\sigma,i)} q^{-(L+1)} t^{-A} \wt(T) \\
+        &=
+        \left( t - q^{L+1} t^{A + 1} + q^{L+1} t^{A} - q^{L+1} t^{A + 1} \right) \wt(T) \\
+        &=
+        \left( 1 - q^{L+1} t^{A + 1} \right) \wt(T).
+        \end{aligned}
+    \end{multline*}
+
+    Second, assume \(U = \psi(T)\) and \(V = \phi(T)\).
+    On the one hand, by \Cref{cor:psi-symcoinv}, \(\maj(T) = \maj(U)\) and \(\symcoinv(T) = \symcoinv(U) + 1\).
+    Since \(\twinv(\alpha, \sigma) = \twinv(s_i \permact \alpha, \sigma s_i) + 1\),
+    \begin{align*}
+        \coinv(T)
+        & = \symcoinv(T) - \twinv(\alpha, \sigma) \\
+        & = \symcoinv(U) + 1 - \twinv(s_i \permact \alpha, \sigma s_i) - 1
+        = \coinv(U).
+    \end{align*}
+    Thus, \(\wt(U) = \wt(T)\).
+    On the other hand, by \Cref{cor:phi-symcoinv}, \(\maj(T) = \maj(V)\) and \(\symcoinv(T) = \symcoinv(V)\).
+    Thus, \(\coinv(T) = \coinv(V) + \rho(\alpha, \sigma, i)\),
+    and consequently \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} \wt(T)\).
+    Therefore,
+    \begin{multline*}
+        \left( 1 - q^{L+1} t^{A} \right) \wt(U)
+        +
+        (q^{L+1} t^{A}) (1 - t) t^{\rho(\alpha,\sigma,i)} \wt(V)
+        = \\
+        \begin{aligned}
+        &=
+        \left( 1 - q^{L+1} t^{A} \right) \wt(T)
+        +
+        (q^{L+1} t^{A}) (1 - t) t^{-\rho(\alpha,\sigma,i)} t^{\rho(\alpha,\sigma,i)} \wt(T) \\
+        &=
+        \left( 1 - q^{L+1} t^{A} + (1 - t) q^{L+1} t^{A} \right) \wt(T) \\
+        &=
+        \left( 1 - q^{L+1} t^{A + 1} \right) \wt(T).
+        \end{aligned}
+    \end{multline*}
+    Therefore, in either case, the equation holds.
+\end{proof}
 
 \begin{corollary} \label{cor:three-term-b}
     Let \(i \in \interval{n-1}\),
-    \(\alpha = \composition{\alpha_1, \dots, \alpha_n}\) be a composition with \(\alpha_i < \alpha_{i+1}\),
+    \(\alpha = \composition{\alpha_1, \dots, \alpha_n}\) be a composition with \(\alpha_i > \alpha_{i+1}\),
     and \(\sigma = \window{\sigma_1, \dots, \sigma_n} \in \sym{n}\) be a permutation with \(\sigma_i < \sigma_{i+1}\).
     Then, we have
     \begin{equation}
-        \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{s_i \permact \alpha}^\sigma
+        \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{\alpha}^\sigma
         = 
-        \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_{\alpha}^{\sigma} 
+        \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_{s_i \permact \alpha}^{\sigma s_i} 
         +
-        (q^{L+1} t^A) (1 - t) t^{\twinv(\alpha, \sigma) - \twinv(s_i \permact \alpha, \sigma)}
-        \mathcal{E}_{\alpha}^{s_i \sigma},
+        (q^{L+1} t^A) (1 - t) t^{\rho(\alpha,\sigma,i)}
+        \mathcal{E}_{s_i \permact \alpha}^\sigma,
     \end{equation}
     where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_i +1)\in\dg(\alpha)\).
 \end{corollary}
+
+\begin{proof}
+    This follows by summing the equation in \Cref{lem:three-term-bijective-b} over all \(T \in \Fill(\alpha, \sigma)\).
+\end{proof}
 
 \begin{theorem} \label{thm:three-term-b-non-integral}
     Let \(i \in \interval{n-1}\),
@@ -1337,3 +1452,7 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
     \end{equation}
     where \(L = \leg(x)\) and \(A = \arm(x)\) for \(x = (i+1, \alpha_i + 1) \in \dg(\alpha)\).
 \end{theorem}
+
+\begin{proof}
+    This follows from \Cref{lem:three-term-bijective-b} by dividing both sides of \Cref{cor:three-term-b} by the appropriate factors to convert the integral forms to non-integral forms.
+\end{proof}
