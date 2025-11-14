@@ -1013,34 +1013,27 @@ The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi
 \end{proof}
 
 \begin{theorem}[{\cite[14]{KLO22}}] \label{thm:psi-maj-inv}
-    The bijection \(\psi\) modifies the statistics \(\inv\) and \(\maj\) in a specific way. For any \(T \in \Fill(\alpha)\) and \(U = \psi(T)\), we have
-    \begin{itemize}
-        \item if \(\ind{{T(i,1)},{T(i+1,1)}} = 1\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 1\), then
-        \begin{equation}
-            \maj(T) = \maj(U) - (L+1)
-            \quad \text{and} \quad
-            \inv(T) = \inv(U) + A,
-        \end{equation}
-        \item if \(\ind{{T(i,1)},{T(i+1,1)}} = 1\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 0\), then
-        \begin{equation}
-            \maj(T) = \maj(U)
-            \quad \text{and} \quad
-            \inv(T) = \inv(U) + 1,
-        \end{equation}
-        \item if \(\ind{{T(i,1)},{T(i+1,1)}} = 0\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 1\), then
-        \begin{equation}
-            \maj(T) = \maj(U)
-            \quad \text{and} \quad
-            \inv(T) = \inv(U) - 1,
-        \end{equation}
-        \item and if \(\ind{{T(i,1)},{T(i+1,1)}} = 0\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 0\), then
-        \begin{equation}
-            \maj(T) = \maj(U) + (L+1)
-            \quad \text{and} \quad
-            \inv(T) = \inv(U) - A,
-        \end{equation}
-    \end{itemize}
-    where \(L = \leg(...)\) and \(A = \arm(...)\).
+    Assume that \(\alpha_i > \alpha_{i+1}\).
+    Let \(T \in \Fill(\alpha)\) and \(U = \psi(T)\).
+    Let \(L = \leg(u)\) and \(A = \arm(u)\) for \(u = (i+1, \alpha_{i+1} + 1) \in \dg(s_i \permact \alpha)\).
+    If \(\ind{{T(i,1)},{T(i+1,1)}} = 1\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 1\), then
+    \begin{align}
+        \maj(T) &= \maj(U) - (L+1),
+        &&\text{and}& 
+        \inv(T) &= \inv(U) + A. \\
+    \intertext{If \(\ind{{T(i,1)},{T(i+1,1)}} = 1\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 0\), then}
+        \maj(T) &= \maj(U),
+        &&\text{and}& 
+        \inv(T) &= \inv(U) + 1. \\
+    \intertext{If \(\ind{{T(i,1)},{T(i+1,1)}} = 0\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 1\), then}
+        \maj(T) &= \maj(U),
+        &&\text{and}&
+        \inv(T) &= \inv(U) - 1. \\
+    \intertext{If \(\ind{{T(i,1)},{T(i+1,1)}} = 0\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 0\), then}
+        \maj(T) &= \maj(U) + (L+1),
+        &&\text{and}&
+        \inv(T) &= \inv(U) - A.
+    \end{align}
 \end{theorem}
 
 \begin{proof}[Proof of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv} (via row-by-row algorithm)]
@@ -1063,25 +1056,32 @@ The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi
 
 \section{Bijections on augmented fillings and a three-term identity for \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ}} \label{sec:bijective-augmented}
 
-\cite{Ale19} established the following three-term identity for permuted-basement Macdonald polynomials \(E_\alpha^\sigma(X;q;t)\).
+In this section, we present bijections on augmented signed fillings to prove a three-term identity for permuted-basement Macdonald polynomials \(E_\alpha^\sigma(\mathbf{x}; q, t)\), in \cref{theorem:three-term}.
 
-\begin{theorem}[equivalent to {\cite[Proposition~17]{Ale19}}]\label{thm:Ale10:prop17}
-    Let \(\alpha=\alpha_1\cdots\alpha_n\) be a composition such that \(\alpha_i > \alpha_{i+1}\) and \(\sigma\in S_n\) such that \(\sigma_i = \sigma_{i+1} + 1\). Then
-    \begin{equation}
-        E_{\alpha}^\sigma(X;q;t)
-        =
-        E_{s_i \permact \alpha}^{\sigma s_i}(X;q;t)
-        +
-        \frac{1-t}{1-q^{L+1}t^{A}}
-        E_{s_i \permact \alpha}^\sigma(X;q;t)
-    \end{equation}
-    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_{i+1} +1)\in\dg(s_i \permact \alpha)\).
+\begin{theorem}
+	\label{theorem:three-term}
+	Let \(\alpha\) be a composition with \(\alpha_i > \alpha_{i+1}\) for some \(i \in \interval{n-1}\).
+	Then, 
+	\begin{equation}\label{eq:three term}
+		E_{\alpha}^{\sigma}(\mathbf{x}; q, t)
+		=
+		E_{s_i \permact \alpha}^{\sigma s_i}(\mathbf{x}; q, t)
+		+
+        \left(
+        (q^{L + 1} t^{A})^{\ind{\sigma_{i+1}, \sigma_i}}
+		%t^{\twinv(s_i \permact \alpha, \sigma) - \twinv(\alpha, \sigma)}
+        t^{\rho(\alpha, \sigma, i)}
+		\frac{(1 - t)}{(1 - q^{L + 1} t^{A})},
+        \right)
+		E_{s_i \permact \alpha}^{\sigma}(\mathbf{x}; q, t).
+	\end{equation}
+	where \(L = \leg(u)\) and \(A = \arm(u)\) for \(u = (i + 1, \alpha_{i+1} + 1) \in \dg(s_i \cdot \alpha)\), and \(\rho(\alpha, \sigma, i) = \twinv(s_i \permact \alpha, \sigma) - \twinv(\alpha, \sigma)\).
 \end{theorem}
 
-We extend this result to any \(\sigma_i>\sigma_{i+1}\) in \Cref{thm:three-term-a-non-integral};
-and also to \(\alpha_i < \alpha_{i+1}\) in \Cref{thm:three-term-b-non-integral}.
-In the \(q=0\) case, these results are found in \cite[Proposition~5.5]{AS19}.
-Our proofs use the integral form permuted-basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\) defined in \Cref{sec:integral-form-permuted-basement}.
+\textcite[Proposition~17]{Ale19} proves \cref{theorem:three-term} for the case where \(\sigma_i = \sigma_{i+1} + 1\).
+The specialization for \(q=0\) is proved in \cite[Proposition~5.5]{AS19}.
+
+Our proof uses the integral form permuted-basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\) defined in \Cref{sec:integral-form-permuted-basement}.
 
 % \begin{proof}[Algebraic proof]
 %     By \cref{thm:Ale}, if $\alpha_i > \alpha_{i+1}$ and $\sigma_i=\sigma_{i+1}+1$, we have
@@ -1130,7 +1130,7 @@ Recall from \Cref{subsec:augmented-to-non-augmented} that any augmented filling 
 This identification preserves \(\maj\), but changes \(\inv\) and \(\coinv\) by a constant depending only on \(\alpha\) and \(\sigma\).
 We defined \(\symcoinv(T) = \coinv(T')\) and \(\syminv(T) = \inv(T')\).
 
-We can apply \(\phi\) to \(T'\) to obtain \(U' = \phi(T') \in \Fill(s_i \permact (s_i \permact \alpha + \mathbf{1}))\), and then identify \(U'\) with an augmented filling \(U\) of shape \(\alpha\).
+We can apply \(\phi\) to \(T'\) to obtain \(U' = \phi(T') \in \Fill(s_i \permact \alpha + \mathbf{1})\), and then identify \(U'\) with an augmented filling \(U\) of shape \(\alpha\).
 Note that \(\phi\) might or might not change the entries in positions \((i,1)\) and \((i+1,1)\) of \(T'\),
 so the basement of \(U\) might be \(\sigma\) or \(\sigma s_i\).
 
@@ -1148,34 +1148,23 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
 \end{corollary}
 
 \begin{corollary} \label{cor:psi-symcoinv}
-    For any \(T \in \Fill(\alpha, \sigma)\) and \(U = \psi(T) \in \Fill(s_i \permact \alpha, \pi)\), we have
-    \begin{itemize}
-        \item if \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 1\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 1\), then
-        \begin{equation}
-            \maj(T) = \maj(U) - (L+1)
-            \quad \text{and} \quad
-            \symcoinv(T) = \symcoinv(U) - A,
-        \end{equation}
-        \item if \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 1\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 0\), then
-        \begin{equation}
-            \maj(T) = \maj(U)
-            \quad \text{and} \quad
-            \symcoinv(T) = \symcoinv(U) - 1,
-        \end{equation}
-        \item if \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 0\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 1\), then
-        \begin{equation}
-            \maj(T) = \maj(U)
-            \quad \text{and} \quad
-            \symcoinv(T) = \symcoinv(U) + 1,
-        \end{equation}
-        \item and if \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 0\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 0\), then
-        \begin{equation}
-            \maj(T) = \maj(U) + (L+1)
-            \quad \text{and} \quad
-            \symcoinv(T) = \symcoinv(U) + A,
-        \end{equation}
-    \end{itemize}
-    where \(L = \leg(u)\) and \(A = \arm(u)\) for \(u = (i+1, \alpha_{i+1} + 1) \in \dg(s_i \permact \alpha)\).
+    Assume that \(\alpha_i > \alpha_{i+1}\).
+    Let \(T \in \Fill(\alpha, \sigma)\) and \(U = \psi(T)\).
+    Let \(L = \leg(u)\) and \(A = \arm(u)\) for \(u = (i+1, \alpha_{i+1} + 1) \in \dg(s_i \permact \alpha)\).
+    If \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 1\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 1\), then
+    \begin{align}
+        \maj(T) &= \maj(U) - (L+1), &&\text{and}&
+        \symcoinv(T) &= \symcoinv(U) - A. \\
+    \intertext{If \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 1\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 0\), then}
+        \maj(T) &= \maj(U), &&\text{and}&
+        \symcoinv(T) &= \symcoinv(U) - 1. \\
+    \intertext{If \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 0\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 1\), then}
+        \maj(T) &= \maj(U), &&\text{and}&
+        \symcoinv(T) &= \symcoinv(U) + 1. \\
+    \intertext{If \(\ind{{\sigma_{i}},{\sigma_{i+1}}} = 0\) and \(\ind{{\pi_{i}},{\pi_{i+1}}} = 0\), then}
+        \maj(T) &= \maj(U) + (L+1), &&\text{and}&
+        \symcoinv(T) &= \symcoinv(U) + A.
+    \end{align}
 \end{corollary}
 
 \begin{definition}
@@ -1211,10 +1200,12 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
     The bijectivity of \(f\) and \(g\) follows from \Cref{prop:phi-inverse,prop:psi-inverse}.
 \end{proof}
 
-For the purposes of this section, let \(\wt(T) = \mathbf{x}^{\content(T)} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}\), for an augmented signed filling \(T\).
+For the purposes of this section, let \(\wt(T) = \mathbf{x}^{|T|} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}\), for an augmented signed filling \(T\).
+
+\subsection{Case \(\sigma_i > \sigma_{i+1}\)}
 
 \begin{lemma} \label{lem:three-term-bijective-a}
-    Assume that \(\alpha_i>\alpha_{i+1}\) and \(\sigma_i > \sigma_{i+1}\).
+    Assume that \(\alpha_i > \alpha_{i+1}\) and \(\sigma_i > \sigma_{i+1}\).
     Let \(T\) be an augmented filling in \(\Fill(\alpha, \sigma)\).
     Let \(U = f(T)\) and \(V = g(T)\).
     Then
@@ -1302,6 +1293,8 @@ For the purposes of this section, let \(\wt(T) = \mathbf{x}^{\content(T)} q^{\ma
 \end{proof}
 
 % -------
+
+\subsection{Case \(\sigma_i < \sigma_{i+1}\)}
 
 \todo[inline]{Write the other version of the three-term identity, when \(\alpha_i < \alpha_{i+1}\).}
 
