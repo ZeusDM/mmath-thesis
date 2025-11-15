@@ -1125,6 +1125,7 @@ Recall that the integral forms have a combinatorial formula in terms of augmente
     (-t)^{\operatorname{neg}(T)}.
     %\tag{\ref{eq:calE-Fill-signed}}
 \end{equation*}
+For the purposes of this section, let \(\wt(T) = \mathbf{x}^{|T|} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}\), for an augmented signed filling \(T\).
 
 Recall from \Cref{subsec:augmented-to-non-augmented} that any augmented filling \(T \in \Fill(\alpha, \sigma)\) may be identified with a non-augmented filling \(T' \in \Fill(\alpha + \mathbf{1})\) by moving each box one unit up.
 This identification preserves \(\maj\), but changes \(\coinv\).
@@ -1196,11 +1197,8 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
     exactly one of \(\phi(T)\) and \(\psi(T)\) has basement \(\sigma\),
     and the other has basement \(\sigma s_i\).
     Therefore, \(f\) and \(g\) are well-defined.
-
     The bijectivity of \(f\) and \(g\) follows from \Cref{prop:phi-inverse,prop:psi-inverse}.
 \end{proof}
-
-For the purposes of this section, let \(\wt(T) = \mathbf{x}^{|T|} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)}\), for an augmented signed filling \(T\).
 
 \subsection{Case \texorpdfstring{$\sigma_i > \sigma_{i+1}$}{σi > σi+1}}
 
@@ -1301,7 +1299,7 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
 \end{corollary}
 
 \begin{proof}
-    This follows by summing the equation in \Cref{lem:three-term-bijective-a} over all \(T \in \Fill(\alpha, \sigma)\).
+    The result follows by summing the equation in \Cref{lem:three-term-bijective-a} over all \(T \in \Fill(\alpha, \sigma)\).
 \end{proof}
 
 \begin{theorem} \label{thm:three-term-a-non-integral}
@@ -1314,7 +1312,7 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
 \end{theorem}
 
 \begin{proof}
-    This follows from \Cref{lem:three-term-bijective-a} by dividing both sides of \Cref{eq:three-term-a-integral} by the appropriate factors to convert the integral forms to non-integral forms.
+    The result follows from \Cref{lem:three-term-bijective-a} by dividing both sides of \Cref{eq:three-term-a-integral} by the appropriate factors to convert the integral forms to non-integral forms.
 \end{proof}
 
 % -------
@@ -1432,27 +1430,18 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
 \end{corollary}
 
 \begin{proof}
-    This follows by summing the equation in \Cref{lem:three-term-bijective-b} over all \(T \in \Fill(\alpha, \sigma)\).
+    The result follows by summing the equation in \Cref{lem:three-term-bijective-b} over all \(T \in \Fill(\alpha, \sigma)\).
 \end{proof}
 
 \begin{theorem} \label{thm:three-term-b-non-integral}
-    Let \(i \in \interval{n-1}\),
-    \(\alpha = \composition{\alpha_1, \dots, \alpha_n}\) be a composition with \(\alpha_i < \alpha_{i+1}\),
-    and \(\sigma = \window{\sigma_1, \dots, \sigma_n} \in \sym{n}\) be a permutation with \(\sigma_i < \sigma_{i+1}\).
-    Then, we have
-    \begin{equation} \label{eq:three-term-b}
-        E_{s_i \permact \alpha}^\sigma(\mathbf{x}; q, t)
-        =
-        E_\alpha^\sigma(\mathbf{x}; q, t)
-        +
-        (q^{L+1} t^A)
-        t^{\twinv(\alpha, \sigma) - \twinv(s_i \permact \alpha, \sigma)}
-        \frac{1 - t}{1 - q^{L+1} t^{A}}
-        E_\alpha^{s_i \sigma}(\mathbf{x}; q, t),
+    Let \(\alpha\) be a composition such that \(\alpha_i > \alpha_{i+1}\) and \(\sigma \in S_n\) such that \(\sigma_i < \sigma_{i+1}\).
+    Then,
+    \begin{equation}
+        E_{\alpha}^\sigma(X;q;t)=E_{s_i \permact \alpha}^{\sigma s_i}(X;q;t)+(q^{L+1}t^{A})t^{\rho(\alpha,\sigma,i)}\frac{1-t}{1-q^{L+1}t^{A}}E_{s_i \permact \alpha}^\sigma(X;q;t)
     \end{equation}
-    where \(L = \leg(x)\) and \(A = \arm(x)\) for \(x = (i+1, \alpha_i + 1) \in \dg(\alpha)\).
+    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_{i+1} +1)\in\dg(s_i \permact \alpha)\), and  \( \rho(\alpha,\sigma,i)=\twinv(s_i \permact \alpha,\sigma)-\twinv(\alpha,\sigma)\).
 \end{theorem}
 
 \begin{proof}
-    This follows from \Cref{lem:three-term-bijective-b} by dividing both sides of \Cref{cor:three-term-b} by the appropriate factors to convert the integral forms to non-integral forms.
+    The result follows from \Cref{lem:three-term-bijective-b} by dividing both sides of \Cref{cor:three-term-b} by the appropriate factors to convert the integral forms to non-integral forms.
 \end{proof}
