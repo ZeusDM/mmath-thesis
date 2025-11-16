@@ -774,7 +774,7 @@ The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi
     \end{equation}
 \end{theorem}
 
-\begin{proof}[Proof of \(\maj\)-preservation via block structure, independent of \cite{KLO22}]
+\begin{proof}[Proof of \(\maj\)-preservation via block structure, independent of \textup{\cite{KLO22}}]
     Without loss of generality, assume \(\alpha_i > \alpha_{i+1}\).
     Let \(T \in \Fill(\alpha)\) and \(U = \phi(T)\).
     We first study how \(\Des(T)\) and \(\Des(U)\) relate to each other.
@@ -1007,7 +1007,7 @@ The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi
     Since each unbalanced row is assigned to exactly one block, we conclude that \(\maj(T) = \maj(U)\), completing the proof.
 \end{proof}
 
-\begin{proof}[Proof of \(\inv\)-preservation via block structure, independently of \cite{KLO22}]
+\begin{proof}[Proof of \(\inv\)-preservation via block structure, independent of \textup{\cite{KLO22}}]
     
     \todo[inline]{Write this proof.}
 \end{proof}
@@ -1043,7 +1043,10 @@ The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi
     The full proof is given in \cite{KLO22}. \todo[inline]{This is a placeholder. Write the full proof, that parallels the proof in \cite{KLO22}.}
 \end{proof}
 
-\begin{theorem} \label{thm:tildeH-rearrangement}
+One important consequence of \Cref{thm:phi-maj-inv} is \Cref{eq:tildeH-rearrangement}, which shows that the combinatorial formula for \(\tilde{H}_{\mu'}(\mathbf{x}; q, t)\) can be taken over \(\Fill[\positives](\alpha)\) for any rearrangement \(\alpha\) of the partition \(\mu\).
+
+\begin{theorem}[{\cite{HHL08}}]
+    \label{thm:tildeH-rearrangement}
     Let \(\mu\) be a partition and \(\alpha\) be a rearrangement of \(\mu\).
     Then
     \begin{equation}
@@ -1069,7 +1072,6 @@ In this section, we present bijections on augmented signed fillings to prove a t
 		+
         \left(
         (q^{L + 1} t^{A})^{\ind{\sigma_{i+1}, \sigma_i}}
-		%t^{\twinv(s_i \permact \alpha, \sigma) - \twinv(\alpha, \sigma)}
         t^{\rho(\alpha, \sigma, i)}
 		\frac{(1 - t)}{(1 - q^{L + 1} t^{A})},
         \right)
