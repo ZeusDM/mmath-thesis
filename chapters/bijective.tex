@@ -32,16 +32,15 @@ one for each construction.
 An auxiliary bijection \(\psi \colon \Fill[\mathcal{A}](\alpha) \to \Fill[\mathcal{A}](s_i \permact \alpha)\) is also defined, that preserves \(\content\) but changes \(\inv\) and \(\maj\) in a controlled way, as specified in \Cref{thm:psi-maj-inv}.
 
 In \Cref{sec:bijective-augmented},
-we prove \Cref{thm:three-term-a-non-integral,thm:three-term-b-non-integral},
-pair of three-term identities for permuted-basement Macdonald polynomials of the form
+we prove \Cref{theorem:three-term}, which gives an identity for permuted-basement Macdonald polynomials of the form
 \begin{equation}
-    E_\alpha^\sigma(\mathbf{x}; q, t
+    E_\alpha^\sigma(\mathbf{x}; q, t)
     =
     E_{s_i \permact \alpha}^{\sigma s_i}(\mathbf{x}; q, t)
     +
     c_{\alpha, \sigma, i}(q, t) E_{s_i \permact \alpha}^\sigma(\mathbf{x}; q, t),
 \end{equation}
-where \(c_{\alpha, \sigma, i}(q, t)\) is an explicit rational function in \(q\) and \(t\).
+whenever \(\alpha_i > \alpha_{i+1}\), where \(c_{\alpha, \sigma, i}(q, t)\) is an explicit rational function in \(q\) and \(t\).
 
 We use the same bijection \(\phi\) on non-augmented fillings (as well as an auxiliary bijection \(\psi\)) as a building block for a bijection on augmented fillings.
 
@@ -767,122 +766,73 @@ The intended use of \(\phi\) is always clear from the shape of the input filling
 
 The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi-inverse}, with a minor modification to account for the different swapping condition of the bottommost block.
 
+In \Cref{thm:phi-maj-inv,thm:psi-maj-inv}, we describe how the bijections \(\phi\) and \(\psi\) interact with the statistics \(\inv\) and \(\maj\).
+Before then, we need \Cref{lem:leg-cancelation,lem:arm-cancelation} that describe certain cancelation properties of the \(\leg\) and \(\arm\) statistics.
+
+Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtained by applying the transposition \(s_i\) to the column index of \(u\).
+
+\begin{lemma} \label{lem:leg-cancelation}
+    Let \(\alpha\) be a composition.
+    Let \(u, v \in \dg(\alpha)\) be boxes in columns \(i\) and \(i+1\), respectively, such that \(u, v \in \dg(s_i \permact \alpha)\).
+    Then,
+    \begin{equation*}
+        \leg_{\alpha}(u) + \leg_{\alpha}(v)
+        =
+        \leg_{s_i \permact \alpha}(u) + \leg_{s_i \permact \alpha}(v).
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    Let \(u = (i, r)\) and \(v = (i+1, r')\).
+    Recall that \( \leg_{\alpha}(i, r) = \alpha_i - r \).
+    Therefore, both quantities are equal to \( \alpha_i + \alpha_{i+1} - r - r'. \)
+\end{proof}
+
+\begin{lemma} \label{lem:arm-cancelation}
+    Let \(\alpha\) be a composition.
+    Let \(u, v \in \dg(\alpha)\) be boxes in columns \(i\) and \(i+1\), respectively, such that \(u, v \in \dg(s_i \permact \alpha)\).
+    Then,
+    \begin{equation*}
+        \arm_{\alpha}(u) + \arm_{\alpha}(v)
+        =
+        \arm_{s_i \permact \alpha}(u) + \arm_{s_i \permact \alpha}(v).
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    Let \(u = (i, r)\) and \(v = (i+1, r')\).
+    Recall that 
+    \begin{equation*}
+        \arm_{\alpha}(i, r) = |\{j < i : \alpha_j \in \interval{r-1, \alpha_i - 1}\}| + |\{j > i : \alpha_j \in \interval{r, \alpha_i}\}|.
+    \end{equation*}
+    Let \(\chi_S(x)\) be the indicator function that is \(1\) if \(x \in S\) and \(0\) otherwise.
+    Therefore, for all both quantities, the contribution from \(j < i\) is
+    \begin{equation*}
+        \chi_{\interval{r-1, \alpha_i - 1}}(\alpha_j) + \chi_{\interval{r', \alpha_{i+1} - 1}}(\alpha_j) =
+        \chi_{\interval{r-1, \alpha_{i+1} - 1}}(\alpha_j) + \chi_{\interval{r', \alpha_i - 1}}(\alpha_j),
+    \end{equation*}
+    the contribution from \(j > i+1\) is
+    \begin{equation*}
+        \chi_{\interval{r, \alpha_i}}(\alpha_j) + \chi_{\interval{r' - 1, \alpha_{i+1}}}(\alpha_j) =
+        \chi_{\interval{r', \alpha_i}}(\alpha_j) + \chi_{\interval{r - 1, \alpha_{i+1}}}(\alpha_j),
+    \end{equation*}
+    and the combined contribution from \(j = i\) and \(j = i+1\) is one.
+    Hence, all three quantities are equal.
+\end{proof}
+
 \begin{theorem}[{\cite[Proposition~4.3]{KLO22}}] \label{thm:phi-maj-inv}
     The bijection \(\phi\) preserves the statistics \(\inv\) and \(\maj\); that is, for all \(T \in \Fill(\alpha)\), if \(U = \phi(T)\), then
-    \begin{equation} \label{eq:phi-inv-maj}
-        \inv(T) = \inv(U)
+    \begin{equation} \label{eq:phi-maj}
+        \maj(T) = \maj(U)
     \end{equation}
     and
-    \begin{equation} \label{eq:phi-maj-maj}
-        \maj(T) = \maj(U).
+    \begin{equation} \label{eq:phi-inv}
+        \inv(T) = \inv(U).
     \end{equation}
 \end{theorem}
 
-\begin{proof}[Proof of \eqref{eq:phi-inv-maj} via block structure, independent of \textup{\cite{KLO22}}]
-    Without loss of generality, assume \(\alpha_i > \alpha_{i+1}\).
-    Let \(T \in \Fill(\alpha)\) and \(U = \phi(T)\).
-    Let \(T_1, T_2, T_3, T_4\) be the subfillings of \(T\) where:
-    \begin{itemize}
-        \item \(T_1\) consists of entries in columns \(i\) and \(i+1\);
-        \item \(T_2\) consists of entries in all columns except column \(i\);
-        \item \(T_3\) consists of entries in all columns except column \(i+1\);
-        \item \(T_4\) consists of entries in all columns except columns \(i\) and \(i+1\).
-    \end{itemize}
-    Note that each triple \((u, v, w)\) in \(T\) either lies in exactly one of the subfillings \(T_1, T_2, T_3\),
-    or lies in \(T_2\), \(T_3\), and \(T_4\) but not in \(T_1\).
-    Therefore, we have
-    \begin{equation*}
-        \inv(T) = \inv(T_1) + \inv(T_2) + \inv(T_3) - \inv(T_4).
-    \end{equation*}
-    Define \(U_1, U_2, U_3, U_4\) similarly for \(U\), and we also have
-    \begin{equation*}
-        \inv(U) = \inv(U_1) + \inv(U_2) + \inv(U_3) - \inv(U_4).
-    \end{equation*}
-
-    By \Cref{eq:restriction-other-columns}, we have \(\inv(T_1) = \inv(U_1)\) and \(\inv(T_4) = \inv(U_4)\).
-    I claim that the local restrictions (i.e., \Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row}) imply that \( \inv(T_2) + \inv(T_3) = \inv(U_2) + \inv(U_3) \).
-
-    Note that \(T_2\) and \(U_3\) have the same shape up to zero parts, and consequently corresponding entries have the same arm values.
-    In particular, the sum of the arm lengths of all boxes in \(T_2\) is equal to the sum of the arm lengths of all boxes in \(U_3\).
-    The same holds for \(T_3\) and \(U_2\).
-    Therefore, using \Cref{prop:inv-via-inversion-pairs}, it suffices to show that \(|\InversionPairs(T_2)| + |\InversionPairs(T_3)| = |\InversionPairs(U_2)| + |\InversionPairs(U_3)|\).
-
-    Note that \(\InversionPairs(T_4) \subseteq \InversionPairs(T_2)\), and that \(\InversionPairs(T_2) \setminus \InversionPairs(T_4)\) consists of inversion pairs \((a, b)\) where one of \(a\) and \(b\) lies in column \(i\).
-    Similarly, \(\InversionPairs(T_3) \setminus \InversionPairs(T_4)\) consists of inversion pairs \((a, b)\) where one of \(a\) and \(b\) lies in column \(i+1\).
-    Analogous statements hold for \(U_2\), \(U_3\), and \(U_4\).
-    By \Cref{eq:restriction-swap-per-row}, 
-    for each row \(r\), we have
-    \begin{equation*}
-        \{T_2(i, r), T_3(i+1, r)\} = \{U_2(i, r), U_3(i+1, r)\}.
-    \end{equation*}
-    Note that a box \((i', r')\) with \(i' \notin \{i, i+1\}\) attacks (resp.~is attacked by) either none or both of \((i, r)\) and \((i+1, r)\).
-    Therefore, the number of inversion pairs in \(\InversionPairs(T_2) \setminus \InversionPairs(T_4)\) involving \((i, r)\)
-    plus the number of inversion pairs in \(\InversionPairs(T_3) \setminus \InversionPairs(T_4)\) involving \((i+1, r)\)
-    is equal to the number of inversion pairs in \(\InversionPairs(U_2) \setminus \InversionPairs(U_4)\) involving \((i, r)\)
-    plus the number of inversion pairs in \(\InversionPairs(U_3) \setminus \InversionPairs(U_4)\) involving \((i+1, r)\).
-    Consequently, we have
-    \begin{equation*}
-        |\InversionPairs(T_2) \setminus \InversionPairs(T_4)| +
-        |\InversionPairs(T_3) \setminus \InversionPairs(T_4)|
-        =
-        |\InversionPairs(U_2) \setminus \InversionPairs(U_4)| +
-        |\InversionPairs(U_3) \setminus \InversionPairs(U_4)|,
-    \end{equation*}
-    and therefore using \(T_4\) and \(U_4\), we conclude that
-    \begin{equation*}
-        |\InversionPairs(T_2)| + |\InversionPairs(T_3)|
-        =
-        |\InversionPairs(U_2)| + |\InversionPairs(U_3)|.
-    \end{equation*}
-    This completes the proof of the claim.
-
-    Lastly, we check that \(\inv(T_1) = \inv(U_1)\).
-    For each block \([r_1, r_2]\),
-    we consider the set of type \(A\) triples
-    \begin{equation*}
-        \left\{
-            a_r = 
-            \bigl(
-                (i, r), (i+1, r), (i, r-1)
-            \bigr)
-            : r \in \interval{r_1, r_2}
-        \right\}
-    \end{equation*}
-    associated to the block in \(T\),
-    and the set of type \(B\) triples
-    \begin{equation*}
-        \left\{
-            b_r =
-            \bigl(
-                (i+1, r+1), (i, r), (i+1, r)
-            \bigr)
-            : r \in \interval{r_1, r_2}
-        \right\}.
-    \end{equation*}
-    Note that this associates each triple in \(T_1\) to exactly one block, and similarly for \(U_1\).
-    For each \(r \in \interval{r_1+1, r_2}\),
-    since rows \(r\) and \(r-1\) are intertwined,
-    the triple \(a_r\) in \(T\) has same inversion type as the triple \(b_{r+1}\) in \(U\).
-    Finally, the remaining unmatched triples, \(a_{r_1}\) in \(T\) and \(b_{r_2}\) in \(U\),
-    the condition to swap or not swap the block ensures that they also have the same inversion type.
-    Therefore, the contributions to \(\inv(T_1)\) and \(\inv(U_1)\) from each block are equal, and consequently, \(\inv(T_1) = \inv(U_1)\).
-
-    Combining all these equalities, we have
-    \begin{align*}
-        \inv(T)
-        &= \inv(T_1) + \inv(T_2) + \inv(T_3) - \inv(T_4) \\
-        &= \inv(U_1) + \inv(U_2) + \inv(U_3) - \inv(U_4) 
-        = \inv(U),
-    \end{align*}
-    as desired.
-\end{proof}
-
-
-\begin{proof}[Proof of \eqref{eq:phi-maj-maj} via block structure, independent of \textup{\cite{KLO22}}]
+\begin{proof}[Proof of \eqref{eq:phi-maj} via block structure, independent of \textup{\cite{KLO22}}]
     Without loss of generality, assume \(\alpha_i > \alpha_{i+1}\).
     Let \(T \in \Fill(\alpha)\) and \(U = \phi(T)\).
     We first study how \(\Des(T)\) and \(\Des(U)\) relate to each other.
-    Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtained by applying the transposition \(s_i\) to the column index of \(u\).
 
     Clearly, for all boxes \(u\) not in columns \(i\) or \(i+1\), we have \(u \in \Des(T)\) if and only if \(u \in \Des(U)\), by \Cref{eq:restriction-other-columns}.
     Since \(\leg_\alpha(u) = \leg_{s_i \permact \alpha}(u)\) for such boxes \(u\),
@@ -907,9 +857,7 @@ The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi
     In this case,
     the number of descents at row \(r\) in \(U\) is given by \(\ind{a, d} + \ind{b, c}\), which is equal to \(\ind{a, c} + \ind{b, d}\), the same as in \(T\).
     Therefore, for any balanced row \(r\), the number of descents at row \(r\) is the same in \(T\) and \(U\) (either \(0\) or \(2\)).
-    Moreover, since
-    \(\leg_\alpha(i, r) + \leg_\alpha(i+1, r) = \leg_{s_i \permact \alpha}(i, r) + \leg_{s_i \permact \alpha}(i+1, r)\),
-    these descents contribute equally to \(\maj(T)\) and \(\maj(U)\).
+    Moreover, by \Cref{lem:leg-cancelation}, these descents contribute equally to \(\maj(T)\) and \(\maj(U)\).
 
     Therefore, it suffices to show that the contribution to \(\maj\) from unbalanced rows in \(T\) is the same as the contribution from unbalanced rows in \(U\).
 
@@ -966,7 +914,7 @@ The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi
     we have \(\maj(B; T) = \maj(B; U)\) in this case.
 
     Now, assume that \(B = [r_1, r_2]\) is not swapped between \(T\) and \(U\), and that it is not the topmost block.
-    Let \((a, b, c, d, e, f)\) be the signature entries of \(B\).
+    Let \((a, b, c, d, e, f)\) be signature entries of \(B\).
     This means that \(\ind{c, d, f} = \ind{e, a, b}\), that is,
     \begin{equation*}
         \ind{c, d} + \ind{d, f} - \ind{c, f} = \ind{e, a} + \ind{a, b} - \ind{e, b}.
@@ -1002,17 +950,11 @@ The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi
 
     Therefore, in all cases, the number of left-unbalanced rows assigned to \(B\) is equal to the number of right-unbalanced rows assigned to \(B\).
     This means that we can pair each left-unbalanced row assigned to \(B\) with a unique right-unbalanced row assigned to \(B\).
-    Since
-    \begin{align*}
-        \leg_{\alpha}(i, r) + \leg_{\alpha}(i+1, r')
-        &= \alpha_i - r + \alpha_{i+1} - r' \\
-        &= \alpha_i - r' + \alpha_{i+1} - r
-        = \leg_{s_i \permact \alpha}(i, r) + \leg_{s_i \permact \alpha}(i+1, r'),
-    \end{align*}
+    By \Cref{lem:leg-cancelation},
     the contributions to \(\maj(B; T)\) and \(\maj(B; U)\) from each such pair are equal, and consequently, \(\maj(B; T) = \maj(B; U)\).
 
     Finally, assume that \(B = [r_1, \alpha_{i+1}]\) is the topmost block of \(T\), and that it is not swapped between \(T\) and \(U\).
-    Let \((a, b, c, d, e, f)\) be the signature entries of \(B\).
+    Let \((a, b, c, d, e, f)\) be signature entries of \(B\).
     This means that \(\ind{c, d} + \ind{d, f} - \ind{c, f} = \ind{e, a} + \ind{a, b} - \ind{e, b}\).
     We know that unbalanced rows \(r_1 + 1\) through \(r_2\) are assigned to \(B\).
     We also know that row \(\alpha_{i+1} + 1\) is assigned to \(B\), as an edge case.
@@ -1111,15 +1053,172 @@ The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi
     Since each unbalanced row is assigned to exactly one block, we conclude that \(\maj(T) = \maj(U)\), completing the proof.
 \end{proof}
 
+\begin{proof}[Proof of \eqref{eq:phi-inv} via block structure, independent of \textup{\cite{KLO22}}]
+    Without loss of generality, assume \(\alpha_i > \alpha_{i+1}\).
+    Let \(T \in \Fill(\alpha)\) and \(U = \phi(T)\).
+    Let \(\beta = \composition{0, \dots, 0, \alpha_{i+1}, \alpha_{i+1}, 0, \dots, 0}\).
+    Let \(T_1 \in \Fill(\beta)\) and \(U_1 \in \Fill(s_i \permact \beta)\) be the fillings obtained from \(T\) and \(U\) by restricting to columns \(i\) and \(i+1\).
+
+    Using \Cref{prop:inv-via-inversion-pairs},
+    we decompose the inversion statistic as
+    \begin{equation*}
+		\inv(T) - \inv(U)
+        =
+        \left(
+            \left|\InversionPairs(T)\right|
+            - \left|\InversionPairs(U)\right|
+        \right)
+        -
+        \left(
+            \sum_{u \in \Des(T)} \arm_{\alpha}(u)
+            - \sum_{u \in \Des(U)} \arm_{s_i \permact \alpha}(u)
+        \right).
+    \end{equation*}
+
+    Note that a pair of boxes both not in columns \(i\) or \(i+1\) is an inversion pair in \(T\) if and only if it is an inversion pair in \(U\).
+    Note that a box \((i', r')\) with \(i' \notin \{i, i+1\}\) attacks (resp.~is attacked by) either none or both of \((i, r)\) and \((i+1, r)\).
+    Moreover, by \Cref{eq:restriction-swap-per-row}, 
+    for each row \(r\), we have
+    \begin{equation*}
+        \{T(i, r), T(i+1, r)\} = \{U(i, r), U(i+1, r)\}.
+    \end{equation*}
+    Therefore, the number of inversion pairs in \(T\) involving a box not in columns \(i\) or \(i+1\) and a box in column \(i\) or \(i+1\) is equal to the number of inversion pairs in \(U\) involving a box not in columns \(i\) or \(i+1\) and a box in column \(i\) or \(i+1\).
+    Consequently, the difference \(\left|\InversionPairs(T)\right| - \left|\InversionPairs(U)\right| = \left|\InversionPairs(T_1)\right| - \left|\InversionPairs(U_1)\right|\).
+
+    Next, we analyze the difference
+    \begin{equation*}
+        \sum_{u \in \Des(T)} \arm_{\alpha}(u)
+        - \sum_{u \in \Des(U)} \arm_{s_i \permact \alpha}(u).
+    \end{equation*}
+    Note that a box \(u\) not in columns \(i\) or \(i+1\) has the same arm length in \(\alpha\) and in \(s_i \permact \alpha\).
+    Moreover, by \Cref{eq:restriction-other-columns}, such a box \(u\) is a descent of \(T\) if and only if it is a descent of \(U\).
+    Therefore, the contributions to the above difference from boxes not in columns \(i\) or \(i+1\) cancel out.
+    Consequently, changing the summations to only consider descents in \(\dg(\beta)\) and \(\dg(s_i \cdot \beta)\), respectively, does not change the value of the difference.
+    Define
+    \begin{equation}
+        \arm_{\alpha}'(u) = \arm_{\alpha}(u) - \arm_{\beta}(u),
+        \quad\text{and}\quad
+        \arm_{s_i \permact \alpha}'(u) = \arm_{s_i \permact \alpha}(u) - \arm_{s_i \permact \beta}(u),
+    \end{equation}
+    which are the contributions to the arm lengths from boxes not in columns \(i\) or \(i+1\).
+    This implies that \(\arm{\alpha}'(u) = \arm{s_i \permact \alpha}'(s_i \cdot u)\) for all boxes \(u \in \dg(\beta)\).
+    We prove that 
+    \begin{equation} \label{eq:arm-prime-descent-sum}
+        \sum_{u \in \Des(T) \cap \dg(\beta)} \arm_{\alpha}'(u)
+        -
+        \sum_{u \in \Des(U) \cap \dg(s_i \cdot \beta)} \arm_{s_i \permact \alpha}'(u)
+        = 0.
+    \end{equation}
+
+    Consider the definitions of balanced rows, left-unbalanced rows, right-unbalanced, assignment of rows to blocks in the proof of \Cref{eq:phi-maj}.
+    Consider a block \(B = [r_1, r_2]\) in \(T\), and let's analyse the contributions to each side of \Cref{eq:arm-prime-descent-sum} from descents assigned to \(B\).
+
+    If \(B\) is swapped between \(T\) and \(U\),
+    then for each descent \(u\) in \(T\) assigned to \(B\), the box \(s_i \cdot u\) is a descent in \(U\) assigned to \(B\), and vice versa.
+    Since \(\arm_{\alpha}'(u) = \arm_{s_i \permact \alpha}'(s_i \cdot u)\),
+    the contributions to each side of \Cref{eq:arm-prime-descent-sum} from descents assigned to \(B\) are equal.
+
+    If \(B\) is not swapped between \(T\) and \(U\) and it is not the topmost block,
+    then in the proof of \Cref{eq:phi-maj}, we showed that the number of left-unbalanced rows assigned to \(B\) is equal to the number of right-unbalanced rows assigned to \(B\).
+    Therefore, we can pair each left-unbalanced row assigned to \(B\) with a unique right-unbalanced row assigned to \(B\).
+    By \Cref{lem:arm-cancelation},
+    the contributions to each side of \Cref{eq:arm-prime-descent-sum} from each such pair are equal.
+
+    Finally, if \(B\) is the topmost block and it is not swapped between \(T\) and \(U\),
+    then in the proof of \Cref{eq:phi-maj},
+    we showed that either
+    \begin{itemize}
+        \item the number of left-unbalanced rows assigned to \(B\) is equal to the number of right-unbalanced rows assigned to \(B\), in which case we can pair each left-unbalanced row assigned to \(B\) with a unique right-unbalanced row assigned to \(B\), and by \Cref{lem:arm-cancelation}, the contributions to each side of \Cref{eq:arm-prime-descent-sum} from each such pair are equal; or
+        \item there is one extra right-unbalanced row \(r\) assigned to \(B\), the box \((i, \alpha_{i+1} + 1)\) is a descent of \(T\), and the box \((i+1, \alpha_{i+1} + 1)\) is not a descent of \(U\), in which case we check that
+        \begin{multline*}
+            \arm_{\alpha}'(i, r)
+            +
+            \arm_{\alpha}'(i, \alpha_{i+1} + 1)
+            = \\
+            \begin{aligned}
+            &=
+            \left|\{ j < i : \alpha_j + 1 \in \interval{r, \alpha_i} \}\right| +
+            \left|\{ j > i+1 : \alpha_j \in \interval{r, \alpha_i} \}\right| \\
+            &\quad+
+            \left|\{ j < i : \alpha_j + 1 \in \interval{\alpha_{i+1} + 1, \alpha_i} \}\right| +
+            \left|\{ j > i+1 : \alpha_j \in \interval{\alpha_{i+1} + 1, \alpha_i} \}\right| \\
+            &=
+            \left|\{ j < i : \alpha_j + 1 \in \interval{r, \alpha_{i+1}} \}\right| +
+            \left|\{ j > i+1 : \alpha_j \in \interval{r, \alpha_{i+1}} \}\right| \\
+            &=
+            \arm_{s_i \permact \alpha}'(i+1, r),
+            \end{aligned}
+        \end{multline*}
+        so the contributions to each side of \Cref{eq:arm-prime-descent-sum} from the extra left-unbalanced row and the box \((i+1, \alpha_{i+1} + 1)\) are equal; or
+        \item there is one extra left-unbalanced row \(r\) assigned to \(B\), the box \((i, \alpha_{i+1} + 1)\) is not a descent of \(T\), and the box \((i+1, \alpha_{i+1} + 1)\) is a descent of \(U\), in which case we check that 
+        \begin{align*}
+            \arm_{\alpha}'(i, r)
+            &= \left|\{ j < i : \alpha_j + 1 \in \interval{r, \alpha_{i}} \}\right| +
+            \left|\{ j > i+1 : \alpha_j \in \interval{r, \alpha_{i}} \}\right| \\
+            &=
+            \left|\{ j < i : \alpha_j + 1 \in \interval{r, \alpha_{i+1}} \}\right| +
+            \left|\{ j > i+1 : \alpha_j \in \interval{r, \alpha_{i+1}} \}\right| \\
+            &\quad+
+            \left|\{ j < i : \alpha_j + 1 = \alpha_{i} + 1 \}\right| +
+            \left|\{ j > i+1 : \alpha_j = \alpha_{i} \}\right| \\
+            &=
+            \arm_{s_i \permact \alpha}'(i+1, r)
+            + \arm_{s_i \permact \alpha}'(i+1, \alpha_{i+1} + 1),
+        \end{align*}
+        so the contributions to each side of \Cref{eq:arm-prime-descent-sum} from the extra left-unbalanced row and the box \((i+1, \alpha_{i+1} + 1)\) are equal; or
+    \end{itemize}
+    In all cases, the contributions to each side of \Cref{eq:arm-prime-descent-sum} from descents assigned to \(B\) are equal.
+    Therefore, we have
+    \begin{align*}
+        \inv(T) - \inv(U) 
+        &= \left|\InversionPairs(T_1)\right| - \left|\InversionPairs(U_1)\right|
+        - \sum_{u \in \Des(T_1)} \arm_{\beta}(u) 
+        + \sum_{u \in \Des(U_1)} \arm_{s_i \permact \beta}(u) \\
+        &= \inv(T_1) - \inv(U_1).
+    \end{align*}
+
+    Finally, we check that \(\inv(T_1) = \inv(U_1)\).
+    For each block \([r_1, r_2]\),
+    we consider the set of type \(A\) triples
+    \begin{equation*}
+        \left\{
+            a_r = 
+            \bigl(
+                (i, r), (i+1, r), (i, r-1)
+            \bigr)
+            : r \in \interval{r_1, r_2}
+        \right\}
+    \end{equation*}
+    associated to the block in \(T\),
+    and the set of type \(B\) triples
+    \begin{equation*}
+        \left\{
+            b_r =
+            \bigl(
+                (i+1, r+1), (i, r), (i+1, r)
+            \bigr)
+            : r \in \interval{r_1, r_2}
+        \right\}.
+    \end{equation*}
+    Note that this associates each triple in \(T_1\) to exactly one block, and similarly for \(U_1\).
+    For each \(r \in \interval{r_1+1, r_2}\),
+    since rows \(r\) and \(r-1\) are intertwined,
+    the triple \(a_r\) in \(T\) has same inversion type as the triple \(b_{r+1}\) in \(U\).
+    Finally, the remaining unmatched triples, \(a_{r_1}\) in \(T\) and \(b_{r_2}\) in \(U\),
+    the condition to swap or not swap the block ensures that they also have the same inversion type.
+    Therefore, the contributions to \(\inv(T_1)\) and \(\inv(U_1)\) from each block are equal, and consequently, \(\inv(T_1) = \inv(U_1)\).
+\end{proof}
+
+
 \begin{theorem}[{\cite[14]{KLO22}}] \label{thm:psi-maj-inv}
     Assume that \(\alpha_i > \alpha_{i+1}\).
     Let \(T \in \Fill(\alpha)\) and \(U = \psi(T)\).
-    Let \(L = \leg(u)\) and \(A = \arm(u)\) for \(u = (i+1, \alpha_{i+1} + 1) \in \dg(s_i \permact \alpha)\).
+    Let \(L = \leg(u) = \alpha_i - \alpha_{i+1} - 1\) and \(A = \arm(u)\) for \(u = (i, \alpha_{i+1} + 1) \in \dg(\alpha)\).
     If \(\ind{{T(i,1)},{T(i+1,1)}} = 1\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 1\), then
     \begin{align}
         \maj(T) &= \maj(U) - (L+1),
         &&\text{and}& 
-        \inv(T) &= \inv(U) + A. \\
+        \inv(T) &= \inv(U) + (A+1). \\
     \intertext{If \(\ind{{T(i,1)},{T(i+1,1)}} = 1\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 0\), then}
         \maj(T) &= \maj(U),
         &&\text{and}& 
@@ -1131,15 +1230,185 @@ The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi
     \intertext{If \(\ind{{T(i,1)},{T(i+1,1)}} = 0\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 0\), then}
         \maj(T) &= \maj(U) + (L+1),
         &&\text{and}&
-        \inv(T) &= \inv(U) - A.
+        \inv(T) &= \inv(U) - (A+1).
     \end{align}
 \end{theorem}
 
-\begin{proof}[Proof of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv} (via row-by-row algorithm)]
-    We prove both theorems simultaneously, by induction on the number of rows in the filling.
-    The base case of a single row is straightforward to verify.
-    For the inductive step, we use the recursive description of the algorithm.
-    The full proof is given in \cite{KLO22}. \todo[inline]{This is a placeholder. Write the full proof, that parallels the proof in \cite{KLO22}.}
+\begin{proof}[Proof, independent of {\cite{KLO22}}] 
+    We assume the language in the proof of \Cref{thm:phi-maj-inv}.
+    Let \(T \in \Fill(\alpha)\) and \(U = \psi(T)\).
+    Most of the analysis is unchanged, except for the contributions to \(\maj(T)\) and \(\inv(U)\) from the bottommost block \(B = [1, r_2]\).
+
+    For the major statistic,
+    if the bottommost block \(B\) is swapped between \(T\) and \(U\),
+    then the contributions to \(\maj(T)\) and \(\maj(U)\) from descents assigned to \(B\) are equal.
+    This establishes the second and third cases of the theorem.
+
+    Assume that the bottommost block \(B = [1, r_2]\) is not swapped between \(T\) and \(U\), and that \(B\) is not the topmost block.
+    Let \((a, b, c, d, e, f)\) be signature entries of \(B\).
+    Since \(B\) is bottommost,
+    \(f = \infty\), and thus
+    \(\ind{c, d, f} = \ind{c, d} = \ind{{T(i,1)},{T(i+1,1)}} = \ind{{U(i,1)},{U(i+1,1)}}\).
+    Since \(T\) and \(U\) are not swapped under \(\psi\),
+    we have \(\ind{e, a, b} \neq \ind{c, d}\).
+
+    First, assume \(\ind{a, b} = \ind{c, d}\), and consequently \(\ind{e, a} \neq \ind{e, b}\).
+    As in the proof of \Cref{thm:phi-maj-inv},
+    the number of left-unbalanced rows assigned to \(B\) is equal to the number of right-unbalanced rows assigned to \(B\) among rows \(2\) through \(r_2\),
+    so we can pair each left-unbalanced row assigned to \(B\) with a unique right-unbalanced row assigned to \(B\).
+    By \Cref{lem:leg-cancelation},
+    the contributions to \(\maj(T)\) and \(\maj(U)\) from each such pair are equal.
+    Moreover, we have \(\ind{e, a} \neq \ind{e, b}\),
+    so row \(r_2 + 1\) is assigned to \(B\) and unbalanced to the side of the smallest of \(a\) and \(b\).
+    If \(\ind{c, d} = 0\), then the smallest of \(a\) and \(b\) is \(a\),
+    so row \(r_2 + 1\) is left-unbalanced, contributing \(\leg_{\alpha}(i, r_2 + 1) + 1 = \alpha_{i} - r_2\) to \(\maj(T)\) and \(\leg_{s_i \permact \alpha}(i, r_2 + 1) + 1 = \alpha_{i+1} - r_2\) to \(\maj(U)\).
+    Therefore, 
+    \begin{equation*}
+        \maj(T) - \maj(U) = (\alpha_{i} - r_2) - (\alpha_{i+1} - r_2) = \alpha_i - \alpha_{i+1} = L + 1,
+    \end{equation*}
+    which agrees with the fourth case of the theorem.
+    If \(\ind{c, d} = 1\), then the smallest of \(a\) and \(b\) is \(b\),
+    so row \(r_2 + 1\) is right-unbalanced, contributing \(\leg_{\alpha}(i+1, r_2 + 1) + 1 = \alpha_{i+1} - r_2\) to \(\maj(T)\) and \(\leg_{s_i \permact \alpha}(i+1, r_2 + 1) + 1 = \alpha_{i} - r_2\) to \(\maj(U)\).
+    Therefore, 
+    \begin{equation*}
+        \maj(T) - \maj(U) = (\alpha_{i+1} - r_2) - (\alpha_{i} - r_2) = \alpha_{i+1} - \alpha_i = -(L + 1),
+    \end{equation*}
+    which agrees with the first case of the theorem.
+
+    Second, assume \(\ind{a, b} \neq \ind{c, d}\), and consequently \(\ind{e, a} = \ind{e, b}\).
+    As in the proof of \Cref{thm:phi-maj-inv},
+    \(\ind{e, a} = \ind{e, b}\) implies that row \(r_2 + 1\) is not assigned to \(B\).
+    If \(\ind{c, d} = 0\) and \(\ind{a, b} = 1\),
+    as in the proof of \Cref{thm:phi-maj-inv},
+    there is exaclty one more left-unbalanced row than right-unbalanced rows among rows \(2\) through \(r_2\),
+    so we can pair each right-unbalanced row assigned to \(B\) with a unique left-unbalanced row assigned to \(B\).
+    By \Cref{lem:leg-cancelation},
+    the contributions to \(\maj(T)\) and \(\maj(U)\) from each such pair are equal.
+    The extra left-unbalanced row \(r\) contributes \(\leg_{\alpha}(i, r) + 1 = \alpha_{i} - r + 1\) to \(\maj(T)\) and \(\leg_{s_i \permact \alpha}(i, r) + 1 = \alpha_{i+1} - r + 1\) to \(\maj(U)\).
+    Therefore, 
+    \begin{equation*}
+        \maj(T) - \maj(U) = (\alpha_{i} - r + 1) - (\alpha_{i+1} - r + 1) = \alpha_i - \alpha_{i+1} = L + 1,
+    \end{equation*}
+    which agrees with the fourth case of the theorem.
+    The analysis for \(\ind{c, d} = 1\) and \(\ind{a, b} = 0\) is analogous, changing the roles of left-unbalanced and right-unbalanced rows,
+    the computation for \(\maj(T) - \maj(U)\) gives \(-(L + 1)\),
+    which agrees with the first case of the theorem.
+
+    Lastly, it might be that the bottommost block \(B = [1, r_2]\) is also the topmost block.
+    We omit the details, whose change from the details in the proof of \Cref{thm:phi-maj-inv} are analogous to the changes above: if \(\chi{c, d} = 1\), then there is one extra left-unbalanced row contributing \(L + 1\) to \(\maj(T) - \maj(U)\); and if \(\chi{c, d} = 0\), then there is one extra right-unbalanced row contributing \(-(L + 1)\) to \(\maj(T) - \maj(U)\).
+
+    Now, we analyze the inversion statistic.
+    We can decompose the inversion statistic as
+    \begin{equation*}
+        \inv(T) - \inv(U)
+        =
+        \left(
+            \left|\InversionPairs(T)\right|
+            - \left|\InversionPairs(U)\right|
+        \right)
+        -
+        \left(
+            \sum_{u \in \Des(T)} \arm_{\alpha}(u)
+            - \sum_{u \in \Des(U)} \arm_{s_i \permact \alpha}(u)
+        \right).
+    \end{equation*}
+
+    As in the proof of \Cref{thm:phi-maj-inv}, \(\left|\InversionPairs(T)\right| - \left|\InversionPairs(U)\right| = \left|\InversionPairs(T_1)\right| - \left|\InversionPairs(U_1)\right|\).
+    Moreover, as in the proof of \Cref{thm:phi-maj-inv}, the number of inversion pairs in \(T_1\) assigned to each non-bottommost block is equal to the number of inversion pairs in \(U_1\) assigned to the same block.
+    For the bottommost block \(B = [1, r_2]\),
+    the unmatched triples, \(a_1\) in \(T\) and \(b_{r_2}\) in \(U\), have different inversion types.
+    If \(\ind{c, d} = 1\), corresponding to the first and second cases of the theorem,
+    then \(a_1\) is an inversion triple while \(b_{r_2}\) is not, which makes \(\left|\InversionPairs(T_1)\right| - \left|\InversionPairs(U_1)\right| = 1\).
+    If \(\ind{c, d} = 0\), corresponding to the third and fourth cases of the theorem,
+    then \(a_1\) is not an inversion triple while \(b_{r_2}\) is, which makes \(\left|\InversionPairs(T_1)\right| - \left|\InversionPairs(U_1)\right| = -1\).
+    In summary, we have
+    \begin{equation} \label{eq:inversion-pair-difference-psi}
+        \left|\InversionPairs(T)\right| - \left|\InversionPairs(U)\right|
+        =
+        \begin{cases}
+            1, & \text{if } \ind{{T(i,1)}, {T(i+1,1)}} = 1, \\
+            -1, & \text{if } \ind{{T(i,1)}, {T(i+1,1)}} = 0.
+        \end{cases}
+    \end{equation}
+
+    Moreover, for each block except the bottommost one, the sum of \(\arm_{\alpha}'(u)\) over descents \(u\) assigned to the block in \(T\) is equal to the sum of \(\arm_{s_i \permact \alpha}'(u)\) over descents \(u\) assigned to the block in \(U\), by the same analysis as in the proof of \Cref{thm:phi-maj-inv}.
+    Therefore, it remains to analyze the contributions to the difference
+    \begin{equation*}
+        \sum_{u \in \Des(T)} \arm_{\alpha}'(u)
+        -
+        \sum_{u \in \Des(U)} \arm_{s_i \permact \alpha}'(u)
+    \end{equation*}
+    from descents assigned to the bottommost block \(B = [1, r_2]\).
+
+    For the bottommost block \(B = [1, r_2]\),
+    if it is swapped between \(T\) and \(U\),
+    which corresponds to the second and third cases of the theorem,
+    then the sum of \(\arm_{\alpha}'(u)\) over descents \(u\) assigned to \(B\) in \(T\) is equal to the sum of \(\arm_{s_i \permact \alpha}'(u)\) over descents \(u\) assigned to \(B\) in \(U\).
+
+    Assume that the bottommost block \(B = [1, r_2]\) is not swapped between \(T\) and \(U\).
+    If \(\ind{c, d} = 1\),
+    which corresponds to the first case of the theorem,
+    then there is one extra left-unbalanced row \(r\) assigned to \(B\) as established above.
+    This extra left-unbalanced row \(r\)
+    contributes \(\arm_{\alpha}'(i, r)\) to the sum over descents assigned to \(B\) in \(T\)
+    and contributes \(\arm_{s_i \permact \alpha}'(i, r)\) to the sum over descents assigned to \(B\) in \(U\).
+    Therefore, the difference in contributions from the extra left-unbalanced row is
+    \begin{multline*}
+        \arm_{\alpha}'(i, r)
+        -
+        \arm_{s_i \permact \alpha}'(i, r)
+        = \\
+        \begin{aligned}
+        &=
+        \left|\{ j < i : \alpha_j + 1 \in \interval{r, \alpha_i} \}\right| +
+        \left|\{ j > i+1 : \alpha_j \in \interval{r, \alpha_i} \}\right| \\
+        &\quad-
+        \left|\{ j < i : \alpha_j + 1 \in \interval{r, \alpha_{i+1}} \}\right| -
+        \left|\{ j > i+1 : \alpha_j \in \interval{r, \alpha_{i+1}} \}\right| \\
+        &=
+        \left|\{ j < i : \alpha_j + 1 \in \interval{\alpha_{i+1} + 1, \alpha_i} \}\right| +
+        \left|\{ j > i+1 : \alpha_j \in \interval{\alpha_{i+1} + 1, \alpha_i} \}\right| \\
+        &= A.
+        \end{aligned}
+    \end{multline*}
+    If \(\ind{c, d} = 0\),
+    which corresponds to the fourth case of the theorem,
+    then there is one extra right-unbalanced row \(r\) assigned to \(B\) as established above.
+    This extra right-unbalanced row \(r\) contributes \(\arm_{\alpha}'(i+1, r)\) to the sum over descents assigned to \(B\) in \(T\)
+    and contributes \(\arm_{s_i \permact \alpha}'(i+1, r)\) to the sum over descents assigned to \(B\) in \(U\).
+    Therefore, the difference in contributions from the extra right-unbalanced row is
+    \begin{multline*}
+        \arm_{\alpha}'(i+1, r)
+        -
+        \arm_{s_i \permact \alpha}'(i+1, r)
+        = \\
+        \begin{aligned}
+        &=
+        \left|\{ j < i : \alpha_j + 1 \in \interval{r, \alpha_{i+1}} \}\right| +
+        \left|\{ j > i+1 : \alpha_j \in \interval{r, \alpha_{i+1}} \}\right| \\
+        &\quad-
+        \left|\{ j < i : \alpha_j + 1 \in \interval{r, \alpha_i} \}\right| -
+        \left|\{ j > i+1 : \alpha_j \in \interval{r, \alpha_i} \}\right| \\
+        &=
+        - \left|\{ j < i : \alpha_j + 1 \in \interval{\alpha_{i+1} + 1, \alpha_i} \}\right| -
+        \left|\{ j > i+1 : \alpha_j \in \interval{\alpha_{i+1} + 1, \alpha_i} \}\right| \\
+        &= -A.
+        \end{aligned}
+    \end{multline*}
+    In summary, we have
+    \begin{equation} \label{eq:arm-prime-descent-sum-bottommost}
+        \sum_{u \in \Des(T)} \arm_{\alpha}'(u)
+        -
+        \sum_{u \in \Des(U)} \arm_{s_i \permact \alpha}'(u)
+        =
+        \begin{cases}
+            0, & \text{if } \ind{{T(i,1)}, {T(i+1,1)}} \neq \ind{{U(i,1)}, {U(i+1,1)}}, \\
+            -A, & \text{if } \ind{{T(i,1)}, {T(i+1,1)}} = \ind{{U(i,1)}, {U(i+1,1)}} = 1, \\
+            A, & \text{if } \ind{{T(i,1)}, {T(i+1,1)}} = \ind{{U(i,1)}, {U(i+1,1)}} = 0.
+        \end{cases}
+    \end{equation}
+
+    Adding \Cref{eq:inversion-pair-difference-psi,eq:arm-prime-descent-sum-bottommost} gives the desired result.
 \end{proof}
 
 One important consequence of \Cref{thm:phi-maj-inv} is \Cref{eq:tildeH-rearrangement}, which shows that the combinatorial formula for \(\tilde{H}_{\mu'}(\mathbf{x}; q, t)\) can be taken over \(\Fill[\positives](\alpha)\) for any rearrangement \(\alpha\) of the partition \(\mu\).
@@ -1153,7 +1422,7 @@ One important consequence of \Cref{thm:phi-maj-inv} is \Cref{eq:tildeH-rearrange
         =
         \sum_{T \in \Fill[\positives](\alpha)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T,
     \end{equation}
-    where \(\Fill[\positives](\mu)\) (resp. \(\Fill[\positives](\alpha)\)) is the set of fillings of shape \(\mu\) (resp. \(\alpha\)) with labels in the positive integers \(\positives\).
+    where \(\Fill[\positives](\mu)\) \textup{(}resp. \(\Fill[\positives](\alpha)\)\textup{)} is the set of fillings of shape \(\mu\) \textup{(}resp. \(\alpha\)\textup{)} with labels in the positive integers \(\positives\).
 \end{theorem}
 
 \section{Bijections on augmented fillings and a three-term identity for \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ}} \label{sec:bijective-augmented}
@@ -1164,19 +1433,19 @@ In this section, we present bijections on augmented signed fillings to prove a t
 	\label{theorem:three-term}
 	Let \(\alpha\) be a composition with \(\alpha_i > \alpha_{i+1}\) for some \(i \in \interval{n-1}\).
 	Then, 
-	\begin{equation}\label{eq:three term}
+	\begin{equation*}
 		E_{\alpha}^{\sigma}(\mathbf{x}; q, t)
 		=
 		E_{s_i \permact \alpha}^{\sigma s_i}(\mathbf{x}; q, t)
 		+
         \left(
-        (q^{L + 1} t^{A})^{\ind{\sigma_{i+1}, \sigma_i}}
+        (q^{L + 1} t^{A+1})^{\ind{\sigma_{i+1}, \sigma_i}}
         t^{\rho(\alpha, \sigma, i)}
-		\frac{(1 - t)}{(1 - q^{L + 1} t^{A})},
+		\frac{(1 - t)}{(1 - q^{L + 1} t^{A + 1})},
         \right)
 		E_{s_i \permact \alpha}^{\sigma}(\mathbf{x}; q, t).
-	\end{equation}
-	where \(L = \leg(u)\) and \(A = \arm(u)\) for \(u = (i + 1, \alpha_{i+1} + 1) \in \dg(s_i \cdot \alpha)\), and \(\rho(\alpha, \sigma, i) = \twinv(s_i \permact \alpha, \sigma) - \twinv(\alpha, \sigma)\).
+	\end{equation*}
+	where \(L = \leg(u) = \alpha_i - \alpha_{i+1} - 1\) and \(A = \arm(u)\) for \(u = (i, \alpha_{i+1} + 1) \in \dg(\alpha)\), and \(\rho(\alpha, \sigma, i) = \twinv(s_i \permact \alpha, \sigma) - \twinv(\alpha, \sigma)\).
 \end{theorem}
 
 \textcite[Proposition~17]{Ale19} proves \cref{theorem:three-term} for the case where \(\sigma_i = \sigma_{i+1} + 1\).
@@ -1252,11 +1521,11 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
 \begin{corollary} \label{cor:psi-symcoinv}
     Assume that \(\alpha_i > \alpha_{i+1}\).
     Let \(T \in \Fill(\alpha, \sigma)\) and \(U = \psi(T)\).
-    Let \(L = \leg(u)\) and \(A = \arm(u)\) for \(u = (i+1, \alpha_{i+1} + 1) \in \dg(s_i \permact \alpha)\).
+    Let \(L = \leg(u) = \alpha_i - \alpha_{i+1} - 1\) and \(A = \arm(u)\) for \(u = (i, \alpha_{i+1} + 1) \in \dg(\alpha)\).
     If \(\sigma_i > \sigma_{i+1}\) and \(\pi_i > \pi_{i+1}\), then
     \begin{align}
         \maj(T) &= \maj(U) - (L+1), &&\text{and}&
-        \symcoinv(T) &= \symcoinv(U) - A. \\
+        \symcoinv(T) &= \symcoinv(U) - (A+1). \\
     \intertext{If \(\sigma_i > \sigma_{i+1}\) and \(\pi_i < \pi_{i+1}\), then}
         \maj(T) &= \maj(U), &&\text{and}&
         \symcoinv(T) &= \symcoinv(U) - 1. \\
@@ -1265,7 +1534,7 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
         \symcoinv(T) &= \symcoinv(U) + 1. \\
     \intertext{If \(\sigma_i < \sigma_{i+1}\) and \(\pi_i < \pi_{i+1}\), then}
         \maj(T) &= \maj(U) + (L+1), &&\text{and}&
-        \symcoinv(T) &= \symcoinv(U) + A.
+        \symcoinv(T) &= \symcoinv(U) + (A+1).
     \end{align}
 \end{corollary}
 
@@ -1301,6 +1570,9 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
     The bijectivity of \(f\) and \(g\) follows from \Cref{prop:phi-inverse,prop:psi-inverse}.
 \end{proof}
 
+We split \Cref{theorem:three-term} into two cases, depending on the relative order of \(\sigma_i\) and \(\sigma_{i+1}\).
+The case \(\sigma_i < \sigma_{i+1}\) is established in \Cref{thm:three-term-a-non-integral}, while the case \(\sigma_i > \sigma_{i+1}\) is established in \Cref{lem:three-term-bijective-a}.
+
 \subsection{Case \texorpdfstring{$\sigma_i > \sigma_{i+1}$}{σi > σi+1}}
 
 In this subsection, we prove \cref{theorem:three-term} in the case where \(\sigma_i > \sigma_{i+1}\).
@@ -1311,19 +1583,18 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
 
 \begin{lemma} \label{lem:three-term-bijective-a}
     Assume that \(\alpha_i > \alpha_{i+1}\) and \(\sigma_i > \sigma_{i+1}\).
-    Let \(L = \leg(u)\) and \(A = \arm(u)\) for \(u = (i+1, \alpha_{i+1} + 1) \in \dg(s_i \permact \alpha)\).
+    Let \(L = \leg(u) = \alpha_i - \alpha_{i+1} - 1\) and \(A = \arm(u)\) for \(u = (i, \alpha_{i+1} + 1) \in \dg(\alpha)\).
     Let \(T\) be an augmented filling in \(\Fill(\alpha, \sigma)\).
     Let \(U = f(T)\) and \(V = g(T)\).
     Then
     \begin{equation}
-        \left( 1 - q^{L+1} t^{A + 1} \right) \wt(T)
+        \left( 1 - q^{L+1} t^{A + 2} \right) \wt(T)
         =
-        \left( 1 - q^{L+1} t^{A} \right) \wt(U)
+        \left( 1 - q^{L+1} t^{A + 1} \right) \wt(U)
         +
         t^{\rho(\alpha,\sigma,i)} (1 - t) \wt(V).
     \end{equation}
 \end{lemma}
-
 \begin{proof}
     First, assume \(U = \phi(T)\) and \(V = \psi(T)\).
     On the one hand, by \Cref{cor:phi-symcoinv}, \(\symcoinv(T) = \symcoinv(U)\) and \(\maj(T) = \maj(U)\).
@@ -1331,31 +1602,30 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
     we have \[\coinv(T) = \symcoinv(T) - \twinv(\alpha, \sigma) = \symcoinv(U) - \twinv(s_i \permact \alpha, \sigma s_i) = \coinv(U).\]
     Thus, \(\wt(U) = \wt(T)\).
     On the other hand, by \Cref{cor:psi-symcoinv},
-    % we know that \sigma_i > \sigma_{i+1}, and that the basement for V is \sigma s_i, so (\sigma s_i)_i < (\sigma s_i)_{i+1}.
-    we have \(\maj(T) = \maj(V) - (L+1)\) and \(\symcoinv(T) = \symcoinv(V) - A\).
+    we have \(\maj(T) = \maj(V) - (L+1)\) and \(\symcoinv(T) = \symcoinv(V) - (A+1)\).
     Thus,
     \begin{align*}
         \coinv(T) 
         & = \symcoinv(T) - \twinv(\alpha, \sigma) \\
-        & = \symcoinv(V) - A - \twinv(\alpha, \sigma)
-        = \coinv(V) - A + \rho(\alpha, \sigma, i),
+        & = \symcoinv(V) - (A+1) - \twinv(\alpha, \sigma)
+        = \coinv(V) - (A+1) + \rho(\alpha, \sigma, i),
     \end{align*}
-    and consequently \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} q^{L+1} t^{A} \wt(T)\).
+    and consequently \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} q^{L+1} t^{A+1} \wt(T)\).
     Therefore,
     \begin{multline*}
-        \left( 1 - q^{L+1} t^{A} \right) \wt(U)
+        \left( 1 - q^{L+1} t^{A+1} \right) \wt(U)
         +
         t^{\rho(\alpha,\sigma,i)} (1 - t) \wt(V)
         = \\
         \begin{aligned}
         &=
-        \left( 1 - q^{L+1} t^{A} \right) \wt(T)
+        \left( 1 - q^{L+1} t^{A+1} \right) \wt(T)
         +
-        t^{\rho(\alpha,\sigma,i)} (1 - t) t^{-\rho(\alpha,\sigma,i)} q^{L+1} t^{A} \wt(T) \\
+        t^{\rho(\alpha,\sigma,i)} (1 - t) t^{-\rho(\alpha,\sigma,i)} q^{L+1} t^{A+1} \wt(T) \\
         &=
-        \left( 1 - q^{L+1} t^{A} + (1 - t) q^{L+1} t^{A + 1} \right) \wt(T) \\
+        \left( 1 - q^{L+1} t^{A+1} + (1 - t) q^{L+1} t^{A+2} \right) \wt(T) \\
         &=
-        \left( 1 - q^{L+1} t^{A + 1} \right) \wt(T).
+        \left( 1 - q^{L+1} t^{A+2} \right) \wt(T).
         \end{aligned}
     \end{multline*}
 
@@ -1368,19 +1638,19 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
     and consequently \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} \wt(T)\).
     Therefore,
     \begin{multline*}
-        \left( 1 - q^{L+1} t^{A} \right) \wt(U)
+        \left( 1 - q^{L+1} t^{A+1} \right) \wt(U)
         +
         t^{\rho(\alpha,\sigma,i)} (1 - t) \wt(V)
         = \\
         \begin{aligned}
         &=
-        \left( 1 - q^{L+1} t^{A} \right) t \wt(T)
+        \left( 1 - q^{L+1} t^{A+1} \right) t \wt(T)
         +
         t^{\rho(\alpha,\sigma,i)} (1 - t) t^{-\rho(\alpha,\sigma,i)} \wt(T) \\
         &=
-        \left( t - q^{L+1} t^{A + 1} + 1 - t \right) \wt(T) \\
+        \left( t - q^{L+1} t^{A+2} + 1 - t \right) \wt(T) \\
         &=
-        \left( 1 - q^{L+1} t^{A + 1} \right) \wt(T).
+        \left( 1 - q^{L+1} t^{A+2} \right) \wt(T).
         \end{aligned}
     \end{multline*}
     Therefore, in either case, the equation holds.
@@ -1390,13 +1660,13 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
     Let \(\alpha\) be a composition such that \(\alpha_i > \alpha_{i+1}\) and \(\sigma \in S_n\) such that \(\sigma_i > \sigma_{i+1}\).
     Then,
     \begin{equation} \label{eq:three-term-a-integral}
-        \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{\alpha}^\sigma
+        \left( 1 - q^{L+1} t^{A + 2} \right) \mathcal{E}_{\alpha}^\sigma
         = 
-        \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_{s_i \permact \alpha}^{\sigma s_i} 
+        \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{s_i \permact \alpha}^{\sigma s_i} 
         +
         t^{\rho(\alpha,\sigma,i)} (1 - t) \mathcal{E}_{s_i \permact \alpha}^\sigma,
     \end{equation}
-    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_{i+1} +1)\in\dg(s_i \permact \alpha)\), and \( \rho(\alpha,\sigma,i)=\twinv(s_i \permact \alpha,\sigma)-\twinv(\alpha,\sigma)\).
+    where \(L = \leg(u) = \alpha_i - \alpha_{i+1} - 1\) and \(A = \arm(u)\) for \(u = (i,\alpha_{i+1} +1)\in\dg(\alpha)\).
 \end{corollary}
 
 \begin{proof}
@@ -1407,9 +1677,13 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
     Let \(\alpha\) be a composition such that \(\alpha_i > \alpha_{i+1}\) and \(\sigma \in S_n\) such that \(\sigma_i > \sigma_{i+1}\).
     Then,
     \begin{equation}
-        E_{\alpha}^\sigma(X;q;t)=E_{s_i \permact \alpha}^{\sigma s_i}(X;q;t)+t^{\rho(\alpha,\sigma,i)}\frac{1-t}{1-q^{L+1}t^{A}}E_{s_i \permact \alpha}^\sigma(X;q;t)
+        E_{\alpha}^\sigma(X;q;t)
+        =
+        E_{s_i \permact \alpha}^{\sigma s_i}(X;q;t)
+        +
+        t^{\rho(\alpha,\sigma,i)}\frac{1-t}{1-q^{L+1}t^{A+1}}E_{s_i \permact \alpha}^\sigma(X;q;t)
     \end{equation}
-    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_{i+1} +1)\in\dg(s_i \permact \alpha)\), and  \( \rho(\alpha,\sigma,i)=\twinv(s_i \permact \alpha,\sigma)-\twinv(\alpha,\sigma)\).
+    where \(L = \leg(u) = \alpha_i - \alpha_{i+1} - 1\) and \(A = \arm(u)\) for \(u = (i,\alpha_{i+1} +1)\in\dg(\alpha)\).
 \end{theorem}
 
 \begin{proof}
@@ -1429,19 +1703,18 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
 \begin{lemma}
     \label{lem:three-term-bijective-b}
     Assume that \(\alpha_i > \alpha_{i+1}\) and \(\sigma_i < \sigma_{i+1}\).
-    Let \(L = \leg(u)\) and \(A = \arm(u)\) for \(u = (i+1, \alpha_{i+1} + 1) \in \dg(s_i \permact \alpha)\).
+    Let \(L = \leg(u) = \alpha_i - \alpha_{i+1} - 1\) and \(A = \arm(u)\) for \(u = (i, \alpha_{i+1} + 1) \in \dg(\alpha)\).
     Let \(T\) be an augmented filling in \(\Fill(\alpha, \sigma)\).
     Let \(U = f(T)\) and \(V = g(T)\).
     Then
     \begin{equation}
-        \left( 1 - q^{L+1} t^{A + 1} \right) \wt(T)
+        \left( 1 - q^{L+1} t^{A + 2} \right) \wt(T)
         =
-        \left( 1 - q^{L+1} t^{A} \right) \wt(U)
+        \left( 1 - q^{L+1} t^{A + 1} \right) \wt(U)
         +
-        (q^{L+1} t^{A}) (1 - t) t^{\rho(\alpha,\sigma,i)} \wt(V).
+        (q^{L+1} t^{A+1}) (1 - t) t^{\rho(\alpha,\sigma,i)} \wt(V).
     \end{equation}
 \end{lemma}
-
 \begin{proof}
     First, assume \(U = \phi(T)\) and \(V = \psi(T)\).
     On the one hand, by \Cref{cor:phi-symcoinv}, \(\maj(T) = \maj(U)\) and \(\symcoinv(T) = \symcoinv(U)\).
@@ -1454,30 +1727,30 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
         = \coinv(U) - 1.
     \end{align*}
     Thus, \(\wt(U) = t \wt(T)\).
-    On the other hand, by \Cref{cor:psi-symcoinv}, we have \(\maj(T) = \maj(V) + (L+1)\) and \(\symcoinv(T) = \symcoinv(V) + A\).
+    On the other hand, by \Cref{cor:psi-symcoinv}, we have \(\maj(T) = \maj(V) + (L+1)\) and \(\symcoinv(T) = \symcoinv(V) + (A+1)\).
     Thus,
     \begin{align*}
         \coinv(T)
         & = \symcoinv(T) - \twinv(\alpha, \sigma) \\
-        & = \symcoinv(V) + A - \twinv(\alpha, \sigma)
-        = \coinv(V) + A + \rho(\alpha, \sigma, i),
+        & = \symcoinv(V) + (A+1) - \twinv(\alpha, \sigma)
+        = \coinv(V) + (A+1) + \rho(\alpha, \sigma, i),
     \end{align*}
-    and consequently \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} q^{-(L+1)} t^{-A} \wt(T)\).
+    and consequently \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} q^{-(L+1)} t^{-(A+1)} \wt(T)\).
     Therefore,
     \begin{multline*}
-        \left( 1 - q^{L+1} t^{A} \right) \wt(U)
+        \left( 1 - q^{L+1} t^{A+1} \right) \wt(U)
         +
-        (q^{L+1} t^{A}) (1 - t) t^{\rho(\alpha,\sigma,i)} \wt(V)
+        (q^{L+1} t^{A+1}) (1 - t) t^{\rho(\alpha,\sigma,i)} \wt(V)
         = \\
         \begin{aligned}
         &=
-        \left( 1 - q^{L+1} t^{A} \right) t \wt(T)
+        \left( 1 - q^{L+1} t^{A+1} \right) t \wt(T)
         +
-        (q^{L+1} t^{A}) (1 - t) t^{\rho(\alpha,\sigma,i)} t^{-\rho(\alpha,\sigma,i)} q^{-(L+1)} t^{-A} \wt(T) \\
+        (q^{L+1} t^{A+1}) (1 - t) t^{\rho(\alpha,\sigma,i)} t^{-\rho(\alpha,\sigma,i)} q^{-(L+1)} t^{-(A+1)} \wt(T) \\
         &=
-        \left( t - q^{L+1} t^{A + 1} + q^{L+1} t^{A} - q^{L+1} t^{A + 1} \right) \wt(T) \\
+        \left( t - q^{L+1} t^{A+2} + q^{L+1} t^{A+1} - q^{L+1} t^{A+2} \right) \wt(T) \\
         &=
-        \left( 1 - q^{L+1} t^{A + 1} \right) \wt(T).
+        \left( 1 - q^{L+1} t^{A+2} \right) \wt(T).
         \end{aligned}
     \end{multline*}
 
@@ -1496,19 +1769,19 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
     and consequently \(\wt(V) = t^{-\rho(\alpha,\sigma,i)} \wt(T)\).
     Therefore,
     \begin{multline*}
-        \left( 1 - q^{L+1} t^{A} \right) \wt(U)
+        \left( 1 - q^{L+1} t^{A+1} \right) \wt(U)
         +
-        (q^{L+1} t^{A}) (1 - t) t^{\rho(\alpha,\sigma,i)} \wt(V)
+        (q^{L+1} t^{A+1}) (1 - t) t^{\rho(\alpha,\sigma,i)} \wt(V)
         = \\
         \begin{aligned}
         &=
-        \left( 1 - q^{L+1} t^{A} \right) \wt(T)
+        \left( 1 - q^{L+1} t^{A+1} \right) \wt(T)
         +
-        (q^{L+1} t^{A}) (1 - t) t^{-\rho(\alpha,\sigma,i)} t^{\rho(\alpha,\sigma,i)} \wt(T) \\
+        (q^{L+1} t^{A+1}) (1 - t) t^{-\rho(\alpha,\sigma,i)} t^{\rho(\alpha,\sigma,i)} \wt(T) \\
         &=
-        \left( 1 - q^{L+1} t^{A} + (1 - t) q^{L+1} t^{A} \right) \wt(T) \\
+        \left( 1 - q^{L+1} t^{A+1} + (1 - t) q^{L+1} t^{A+1} \right) \wt(T) \\
         &=
-        \left( 1 - q^{L+1} t^{A + 1} \right) \wt(T).
+        \left( 1 - q^{L+1} t^{A+2} \right) \wt(T).
         \end{aligned}
     \end{multline*}
     Therefore, in either case, the equation holds.
@@ -1520,14 +1793,14 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
     and \(\sigma = \window{\sigma_1, \dots, \sigma_n} \in \sym{n}\) be a permutation with \(\sigma_i < \sigma_{i+1}\).
     Then, we have
     \begin{equation}
-        \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{\alpha}^\sigma
+        \left( 1 - q^{L+1} t^{A + 2} \right) \mathcal{E}_{\alpha}^\sigma
         = 
-        \left( 1 - q^{L+1} t^{A} \right) \mathcal{E}_{s_i \permact \alpha}^{\sigma s_i} 
+        \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{s_i \permact \alpha}^{\sigma s_i} 
         +
-        (q^{L+1} t^A) (1 - t) t^{\rho(\alpha,\sigma,i)}
+        (q^{L+1} t^{A+1}) (1 - t) t^{\rho(\alpha,\sigma,i)}
         \mathcal{E}_{s_i \permact \alpha}^\sigma,
     \end{equation}
-    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_i +1)\in\dg(\alpha)\).
+    where \(L = \leg(u) = \alpha_i - \alpha_{i+1} - 1\) and \(A = \arm(u)\) for \(u = (i,\alpha_{i+1} +1)\in\dg(\alpha)\).
 \end{corollary}
 
 \begin{proof}
@@ -1538,9 +1811,9 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
     Let \(\alpha\) be a composition such that \(\alpha_i > \alpha_{i+1}\) and \(\sigma \in S_n\) such that \(\sigma_i < \sigma_{i+1}\).
     Then,
     \begin{equation}
-        E_{\alpha}^\sigma(X;q;t)=E_{s_i \permact \alpha}^{\sigma s_i}(X;q;t)+(q^{L+1}t^{A})t^{\rho(\alpha,\sigma,i)}\frac{1-t}{1-q^{L+1}t^{A}}E_{s_i \permact \alpha}^\sigma(X;q;t)
+        E_{\alpha}^\sigma(X;q;t)=E_{s_i \permact \alpha}^{\sigma s_i}(X;q;t)+(q^{L+1}t^{A+1})t^{\rho(\alpha,\sigma,i)}\frac{1-t}{1-q^{L+1}t^{A+1}}E_{s_i \permact \alpha}^\sigma(X;q;t)
     \end{equation}
-    where \(A=\arm(u)\) and \(L=\leg(u)\) for \(u=(i+1,\alpha_{i+1} +1)\in\dg(s_i \permact \alpha)\), and  \( \rho(\alpha,\sigma,i)=\twinv(s_i \permact \alpha,\sigma)-\twinv(\alpha,\sigma)\).
+    where \(L = \leg(u) = \alpha_i - \alpha_{i+1} - 1\) and \(A = \arm(u)\) for \(u = (i,\alpha_{i+1} +1)\in\dg(\alpha)\).
 \end{theorem}
 
 \begin{proof}
