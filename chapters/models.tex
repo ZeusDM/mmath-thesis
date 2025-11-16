@@ -494,9 +494,9 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 \end{proposition}
 
 \begin{proof}
-	Recall that \((u, v, w)\) forms a triple if \(v \in \Arm(u)\) and \(w = \south{u}\).
-	Note that \(u\) attacks \(v\), and \(v\) attacks \(w\).
-	Moreover, such triple \((u, v, w)\) is an inversion triple if and only if \(\ind{T(u), T(v), T(w)} = \ind{T(u), T(v)} + \ind{T(v), T(w)} - \ind{T(u), T(w)} = 1\).
+	Recall that \((u, v, w)\) forms a triple if \(v \in \Arm(u)\) and \(w = \south{u}\),
+	and such triple is an inversion triple if and only if \(\ind{T(u), T(v)} + \ind{T(v), T(w)} - \ind{T(u), T(w)} = 1\).
+	Finally, note that \(u\) attacking \(v\) is equivalent to \(v\) attacking \(d(u)\).
 	Thus, the total number of inversion triples in \(T\) is
 	\begin{multline*}
 		\sum_{u \in \dg(\alpha)} \sum_{v \in \Arm(u)} \left(\ind{T(u), T(v)} + \ind{T(v), T(\south{u})} - \ind{T(u), T(\south{u})}\right) 
@@ -512,6 +512,9 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 		\end{aligned}
 	\end{multline*}
 	as desired.
+	One subtleties in the computation is that, if \(u\) is in row \(1\), then \(d(u)\) is in row \(0\) and thus not in \(\dg(\alpha)\); nevertheless, since \(T(d(u)) = \infty\) by convention, we have \(\ind{T(v), T(d(u))} = 0\) and \(\ind{T(u), T(d(u))} = 0\), so the formula still holds.
+	Another subtlety is that not all \(w \in \dg(w)\) are attained as the south of some \(u \in \dg(\alpha)\), so changing the variable from \(u\) to \(w\) in the second sum would incorrectly account for such boxes;
+	nevertheless, those boxes \(w \in \dg(\alpha)\) that are not attained as the south of some \(u \in \dg(\alpha)\) have \(\leg(w) = 0\), and therefore are not included in the sum since \(\leg(w) > \leg(v) \geq 0\) cannot hold.
 \end{proof}
 
 \Cref{prop:inv-via-inversion-pairs} gives an alternative description of \(\inv(T)\).
@@ -644,13 +647,56 @@ In the augmented setting, the total number of triples in \(\adg(\alpha)\) is
 Note that this sum does not include boxes \(u\) in row \(0\).
 We remark that this sum may be different from \(\sum_{u \in \dg(\alpha)} \arm_{\dg(\alpha)}(u)\) from \cref{subsec:non-augmented-fillings}, since the arm statistic for boxes in row \(1\) may be different in the two settings.
 
+Similarly to \cref{subsec:non-augmented-fillings},
+there is another interpretation of \(\inv(T)\) and \(\coinv(T)\), in terms of inversion pairs.
+An \vocab{inversion pair} in an augmented filling \(T\) is a pair \((u, v)\) of boxes with \(u \in \dg(\alpha)\) and \(v \in \adg(\alpha)\) such that \(u\) attacks \(v\) and \(\ind{T(u), T(v)} = 1\).
+Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
+
+\begin{proposition}[{\cite[739]{HHL05}}] \label{prop:inv-via-inversion-pairs-augmented}
+	Let \(T \in \Fill(\alpha)\).
+	Then
+	\begin{equation}
+		\inv(T) = \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u) - \left|\{(i, j) \suchthat i < j \text{ and } \alpha_i < \alpha_j \text{ and } \sigma_i > \sigma_j\}\right|.
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Recall that \((u, v, w)\) forms a triple if \(u \in \dg(\alpha)\), \(v \in \Arm(u)\) and \(w = \south{u}\).
+	Such triple is an inversion triple if and only if \(\ind{T(u), T(v)} + \ind{T(v), T(w)} - \ind{T(u), T(w)} = 1\).
+	Finally, note that \(u\) attacking \(v\) is equivalent to \(v\) attacking \(d(u)\).
+	Thus, the total number of inversion triples in \(T\) is
+	\begin{multline*}
+		\sum_{u \in \dg(\alpha)} \sum_{v \in \Arm(u)} \left(\ind{T(u), T(v)} + \ind{T(v), T(\south{u})} - \ind{T(u), T(\south{u})}\right) 
+		= \\
+		\begin{aligned}
+		&= \sum_{\substack{u \in \dg(\alpha), v \in \adg(\alpha) \\ v \in \Arm(u)}} \ind{T(u), T(v)} 
+		+ \sum_{\substack{u \in \dg(\alpha), v \in \adg(\alpha) \\ v \in \Arm(u)}} \ind{T(v), T(\south{u})}
+		- \sum_{\substack{u \in \dg(\alpha), v \in \adg(\alpha) \\ v \in \Arm(u)}} \ind{T(u), T(\south{u})} \\
+		&= \sum_{\substack{u \in \dg(\alpha), v \in \adg(\alpha) \\ u \text{ attacks } v \\ \leg(v) \leq \leg(u)}} \ind{T(u), T(v)}
+		+ \sum_{\substack{v, w \in \adg(\alpha) \\ v \text{ attacks } w \\ \leg(w) > \leg(v)}} \ind{T(v), T(w)}
+		- \sum_{u \in \dg(\alpha)} \ind{T(u), T(\south{u})} \arm(u) \\
+		&= \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u)
+		- \sum_{\substack{v, w \text{ in row } 0 \\ v \text{ attacks } w \\ \leg(w) > \leg(v)}} \ind{T(v), T(w)} \\
+		&= \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u) - \left|\{(i, j) \suchthat i < j \text{ and } \alpha_i < \alpha_j \text{ and } \sigma_i > \sigma_j\}\right|,
+		\end{aligned}
+	\end{multline*}
+	as desired.
+\end{proof}
+
+\Cref{prop:inv-via-inversion-pairs-augmented} gives an alternative description of \(\inv(T)\).
+Together with \Cref{eq:total-triples-augmented}, we also obtain an alternative description of \(\coinv(T)\) by
+\begin{align*}
+	\coinv(T) &= \sum_{u \in \dg(\alpha)} \arm(u) - \inv(T) \\
+	&= \sum_{u \in \dg(\alpha) \setminus \Des(T)} \arm(u) - \left|\InversionPairs(T)\right| + \left|\{(i, j) \suchthat i < j \text{ and } \alpha_i < \alpha_j \text{ and } \sigma_i > \sigma_j\}\right|.
+\end{align*}
+
 \subsection{Mistaking augmented fillings for non-augmented fillings} \label{subsec:augmented-to-non-augmented}
 
 If we didn't shade the basement in gray,
 it would be easy to mistake an augmented filling for a non-augmented filling.
 This would lead to mistakes in computing the statistics \(\inv\) and \(\coinv\).
 However, the mistakes would be systematic, and we can quantify them.
-In a later chapter, we will use this difference create a bijection for non-attacking fillings using a bijection for augmented fillings.
+In \cref{sec:bijective-augmented}, we will use this difference create a bijection for non-attacking fillings using a bijection for augmented fillings.
 
 Let \(T \in \Fill[\mathcal{A}](\alpha, \sigma)\) be an augmented filling of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\), basement \(\sigma = \composition{\sigma_1, \ldots, \sigma_n}\), and labels in an alphabet \(\mathcal{A}\).
 Let \(T' \in \Fill[\mathcal{A}](\alpha')\) be the non-augmented filling of shape \(\alpha' = \composition{(\alpha_1 + 1), \ldots, (\alpha_n + 1)}\) defined by \(T'(i, r) = T(i, r - 1)\) for all \((i, r) \in \dg(\alpha')\).
@@ -897,7 +943,7 @@ We reproduce their proofs because their ideas are useful in \Cref{sec:integral-f
 	Thus, we have shown that \(\Des(T') = \Des(T)\), which implies that \(\maj(T') = \maj(T)\).
 
 	I claim that \(\inv(T') = \inv(T) + 1\).
-	Using \Cref{prop:inv-via-inversion-pairs-augmented}, since \(\Des(T') = \Des(T)\), it suffices to show that \(\left|\InversionPairs(T')\right| = \left|\InversionPairs(T)\right| + 1\).
+	Using \Cref{prop:inv-via-inversion-pairs}, since \(\Des(T') = \Des(T)\), it suffices to show that \(\left|\InversionPairs(T')\right| = \left|\InversionPairs(T)\right| + 1\).
 	Any pair of attacking boxes that does not involve box \(u\) is an inversion pair in \(T\) if and only if it is an inversion pair in \(T'\).
 	Moreover, by \Cref{eq:involution-property-1}, any box \(b\) that attacks \(u\) forms an inversion pair \((b, u)\) in \(T\) if and only if it forms an inversion pair \((b, u)\) in \(T'\).
 	Consider a box \(b\) that is attacked by \(u\).
