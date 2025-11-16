@@ -769,12 +769,17 @@ The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi
 
 \begin{theorem}[{\cite[Proposition~4.3]{KLO22}}] \label{thm:phi-maj-inv}
     The bijection \(\phi\) preserves the statistics \(\inv\) and \(\maj\); that is, for all \(T \in \Fill(\alpha)\), if \(U = \phi(T)\), then
-    \begin{equation}
-        \inv(T) = \inv(U) \quad \text{and} \quad \maj(T) = \maj(U).
+    \begin{equation} \label{eq:phi-inv-maj}
+        \inv(T) = \inv(U)
+    \end{equation}
+    and
+    \begin{equation} \label{eq:phi-maj-maj}
+        \maj(T) = \maj(U).
     \end{equation}
 \end{theorem}
 
-\begin{proof}[Proof of \(\inv\)-preservation via block structure, independent of \textup{\cite{KLO22}}]
+\begin{proof}[Proof of \eqref{eq:phi-inv-maj} via block structure, independent of \textup{\cite{KLO22}}]
+    Without loss of generality, assume \(\alpha_i > \alpha_{i+1}\).
     Let \(T \in \Fill(\alpha)\) and \(U = \phi(T)\).
     Let \(T_1, T_2, T_3, T_4\) be the subfillings of \(T\) where:
     \begin{itemize}
@@ -873,7 +878,7 @@ The proof of \Cref{prop:psi-inverse} is analogous to the proof of \Cref{prop:phi
 \end{proof}
 
 
-\begin{proof}[Proof of \(\maj\)-preservation via block structure, independent of \textup{\cite{KLO22}}]
+\begin{proof}[Proof of \eqref{eq:phi-maj-maj} via block structure, independent of \textup{\cite{KLO22}}]
     Without loss of generality, assume \(\alpha_i > \alpha_{i+1}\).
     Let \(T \in \Fill(\alpha)\) and \(U = \phi(T)\).
     We first study how \(\Des(T)\) and \(\Des(U)\) relate to each other.
