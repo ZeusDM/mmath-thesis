@@ -493,7 +493,26 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 	\end{equation}
 \end{proposition}
 
-\todo[inline]{Write short proof of alternate description of \(\inv(T)\).}
+\begin{proof}
+	Recall that \((u, v, w)\) forms a triple if \(v \in \Arm(u)\) and \(w = \south{u}\).
+	Note that \(u\) attacks \(v\), and \(v\) attacks \(w\).
+	Moreover, such triple \((u, v, w)\) is an inversion triple if and only if \(\ind{T(u), T(v), T(w)} = \ind{T(u), T(v)} + \ind{T(v), T(w)} - \ind{T(u), T(w)} = 1\).
+	Thus, the total number of inversion triples in \(T\) is
+	\begin{multline*}
+		\sum_{u \in \dg(\alpha)} \sum_{v \in \Arm(u)} \left(\ind{T(u), T(v)} + \ind{T(v), T(\south{u})} - \ind{T(u), T(\south{u})}\right) 
+		= \\
+		\begin{aligned}
+		&= \sum_{\substack{u, v \in \dg(\alpha) \\ v \in \Arm(u)}} \ind{T(u), T(v)} 
+		+ \sum_{\substack{u, v \in \dg(\alpha) \\ v \in \Arm(u)}} \ind{T(v), T(\south{u})}
+		- \sum_{\substack{u, v \in \dg(\alpha) \\ v \in \Arm(u)}} \ind{T(u), T(\south{u})} \\
+		&= \sum_{\substack{u, v \in \dg(\alpha) \\ u \text{ attacks } v \\ \leg(v) \leq \leg(u)}} \ind{T(u), T(v)}
+		+ \sum_{\substack{v, w \in \dg(\alpha) \\ v \text{ attacks } w \\ \leg(w) > \leg(v)}} \ind{T(v), T(w)}
+		- \sum_{u \in \dg(\alpha)} \ind{T(u), T(\south{u})} \arm(u) \\
+		&= \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u),
+		\end{aligned}
+	\end{multline*}
+	as desired.
+\end{proof}
 
 \Cref{prop:inv-via-inversion-pairs} gives an alternative description of \(\inv(T)\).
 Together with \Cref{eq:inv-plus-coinv}, we also obtain an alternative description of \(\coinv(T)\) by
@@ -624,28 +643,6 @@ In the augmented setting, the total number of triples in \(\adg(\alpha)\) is
 \end{equation}
 Note that this sum does not include boxes \(u\) in row \(0\).
 We remark that this sum may be different from \(\sum_{u \in \dg(\alpha)} \arm_{\dg(\alpha)}(u)\) from \cref{subsec:non-augmented-fillings}, since the arm statistic for boxes in row \(1\) may be different in the two settings.
-
-Similarly to \cref{subsec:non-augmented-fillings},
-there is another interpretation of \(\inv(T)\) and \(\coinv(T)\), in terms of inversion pairs.
-An \vocab{inversion pair} in an augmented filling \(T\) is a pair \((u, v)\) of boxes with \(u \in \dg(\alpha)\) and \(v \in \adg(\alpha)\) such that \(u\) attacks \(v\) and \(\ind{T(u), T(v)} = 1\).
-Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
-
-\begin{proposition}[{\cite[739]{HHL05}}] \label{prop:inv-via-inversion-pairs-augmented}
-	Let \(T \in \Fill(\alpha)\).
-	Then
-	\begin{equation}
-		\inv(T) = \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u).
-	\end{equation}
-\end{proposition}
-
-\todo[inline]{Write short proof of alternate description of \(\inv(T)\).}
-
-\Cref{prop:inv-via-inversion-pairs-augmented} gives an alternative description of \(\inv(T)\).
-Together with \Cref{eq:total-triples-augmented}, we also obtain an alternative description of \(\coinv(T)\) by
-\begin{equation}
-	\coinv(T) = \sum_{u \in \dg(\alpha)} \arm(u) - \inv(T)
-	= \sum_{u \in \dg(\alpha) \setminus \Des(T)} \arm(u) - \left|\InversionPairs(T)\right|.
-\end{equation}
 
 \subsection{Mistaking augmented fillings for non-augmented fillings} \label{subsec:augmented-to-non-augmented}
 
