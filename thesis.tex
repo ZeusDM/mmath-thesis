@@ -17,6 +17,7 @@
 
 \usepackage[nodisplayskipstretch]{setspace}
 % \setstretch{1.2}
+\setlength{\parskip}{\medskipamount}
 
 \newcommand{\href}[1]{#1} % does nothing, but defines the command so the print-optimized version will ignore \href tags (redefined by hyperref pkg).
 
@@ -30,17 +31,27 @@
 \usepackage[T1]{fontenc}
 \usepackage{microtype} % Typography enhancements
 
-\usepackage{draftwatermark}
-\usepackage{datetime}
+% \usepackage{draftwatermark}
+% \usepackage{datetime}
+% 
+% % Configure watermark
+% \newdateformat{customdate}{\THEYEAR-\twodigit{\THEMONTH}-\twodigit{\THEDAY}\ \currenttime}
+% \SetWatermarkText{\normalfont DRAFT (\customdate\today)}
+% \SetWatermarkLightness{0.6}
+% \SetWatermarkFontSize{12pt}
+% \SetWatermarkScale{2}
+% \SetWatermarkAngle{90}
+% \SetWatermarkHorCenter{0.05\paperwidth}
 
-% Configure watermark
-\newdateformat{customdate}{\THEYEAR-\twodigit{\THEMONTH}-\twodigit{\THEDAY}\ \currenttime}
-\SetWatermarkText{\normalfont DRAFT (\customdate\today)}
-\SetWatermarkLightness{0.6}
-\SetWatermarkFontSize{12pt}
-\SetWatermarkScale{2}
-\SetWatermarkAngle{90}
-\SetWatermarkHorCenter{0.05\paperwidth}
+% messing with the table of contents
+\usepackage{tocloft}
+\setlength\cftparskip{3pt}
+%\renewcommand\cftchapafterpnum{\vskip8pt}
+%\renewcommand\cftsecafterpnum{\vskip-2pt}
+%\renewcommand\cftsubsecafterpnum{\vskip-2pt}
+% \setlength\cftbeforechapskip{22pt}
+% \setlength\cftbeforesecskip{0pt}
+% \setlength\cftbeforesubsecskip{-3pt}
 
 \usepackage[style=alphabetic,backend=biber,backref=true,maxbibnames=99,maxalphanames=5,doi=false,url=false,isbn=false]{biblatex}
 \addbibresource{references.bib}
@@ -280,9 +291,7 @@
 }
 
 
-\usepackage[automake,toc,abbreviations]{glossaries-extra}
-
-\setlength{\parskip}{\medskipamount}
+%\usepackage[automake,toc,abbreviations]{glossaries-extra}
 
 % Ensure blank left-hand pages are unnumbered
 \let\origdoublepage\cleardoublepage
@@ -290,8 +299,8 @@
   \clearpage{\pagestyle{empty}\origdoublepage}}
 \let\cleardoublepage\clearemptydoublepage
 
-\input{glossaries}
-\makeglossaries
+%\input{glossaries}
+%\makeglossaries
 
 \begin{document}
 
@@ -302,14 +311,10 @@
 \include{chapters/bijective}
 \include{chapters/probabilistic}
 
+\cleardoublepage
 \renewcommand*{\bibname}{References}
+\addcontentsline{toc}{chapter}{References}
 \printbibliography
-\cleardoublepage
-\phantomsection
-\addcontentsline{toc}{chapter}{\textbf{References}}
 
-\printglossary
-\cleardoublepage
-\phantomsection
 
 \end{document}
