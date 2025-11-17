@@ -18,22 +18,22 @@ and we say that \(a \in \mathcal{A}\) is
 the \vocab{absolute value} of \(a \in \mathcal{A}_+\) and of \(\bar{a} \in \mathcal{A}_-\),
 denoted by \(|a| = |\bar{a}| = a\).
 Some signed alphabets we use are \(\integers_\pm\), with the total order
-\begin{equation}
+\begin{equation*}
 	1 < \bar{1} < 2 < \bar{2} < 3 < \bar{3} < \cdots,
-\end{equation}
+\end{equation*}
 and its subalphabet \([n]_\pm\).
 
-For both unsigned and signed alphabets, define
-\begin{equation}
-	\ind{a, b, c} = \ind{a, b} + \ind{b, c} - \ind{a, c}.
-\end{equation}
-We have \(\ind{a, b, c} \in \{0, 1\}\)
-since it is impossible for \(\ind{a, b} = \ind{b, c} = 1 - \ind{a, c}\).
-
-We will also use the symbol \(\infty\) to denote
+We also use the symbol \(\infty\) to denote
 an element larger than any element in \(\mathcal{A}\),
-so that \(\ind{a, \infty} = 1\) and \(\ind{\infty, a} = 0\) for all \(a \in \mathcal{A}\).
+so that \(\ind{a, \infty} = 0\) and \(\ind{\infty, a} = 1\) for all \(a \in \mathcal{A}\).
 Note that \(\infty\) is not an element of \(\mathcal{A}\).
+
+For both unsigned and signed alphabets, define
+\begin{equation*}
+	\ind{a, b, c} = \ind{a, b} + \ind{b, c} - \ind{a, c}.
+\end{equation*}
+We have \(\ind{a, b, c} \in \{0, 1\}\),
+since it is impossible for \(\ind{a, b} = \ind{b, c} = 1 - \ind{a, c}\) by transitivity.
 
 Here's one way to think about \(\ind{a, b, c}\).
 For an unsigned alphabet,
@@ -41,9 +41,9 @@ For an unsigned alphabet,
 where the earlier of two equal entries is considered smaller than the later one.
 That is, in an unsigned alphabet,
 \(\ind{a, b, c} = 1\) if and only if
-\begin{equation}
+\begin{equation*}
 	a > b > c \quad \text{or} \quad b > c \geq a \quad \text{or} \quad c \geq a > b.
-\end{equation}
+\end{equation*}
 \Cref{fig:indicator} provides examples of the indicator function \(\ind{a, b, c}\).
 
 \begin{figure}[htbp]
@@ -113,11 +113,11 @@ In signed alphabets, \(\ind{a, b, c}\) indicates whether \(a, b, c\) is cyclical
 The \vocab{(non-augmented) skyline diagram} of a composition
 \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\)
 is the set
-\begin{equation}
+\begin{equation*}
 	\dg(\alpha) = \left\{ (i, r) \suchthat i \in \interval{n} \text{ and } r \in \interval{\alpha_i} \right\},
-\end{equation}
+\end{equation*}
 where the first coordinate indexes the columns and the second coordinate indexes the rows.
-In \cref{subsec:augmented-fillings}, we will define the \vocab{augmented skyline diagram} of a composition, hence the optional term \emph{non-augmented} is used when the distinction is necessary.
+In \cref{subsec:augmented-fillings}, we define the \vocab{augmented skyline diagram} of a composition, hence the optional term \emph{non-augmented} is used when the distinction is necessary.
 The elements of \(\dg(\alpha)\) are called \vocab{boxes}.
 We draw the box \((i, r)\) as a square in column \(i\) and row \(r\).
 \Cref{fig:skyline} provides an example of a skyline diagram.
@@ -158,7 +158,7 @@ Let \(\Attack_{\dg(\alpha)}(u) \subset \dg(\alpha)\) be the set of boxes attacke
 When there is no ambiguity, we may simply write \(\Attack(u)\).
 
 \begin{figure}[htbp]
-	\begin{equation}
+	\begin{equation*}
 		\vcenter{\hbox{
 				\begin{tikzpicture}[x=.5cm, y=.5cm]
 					\draw[black] (0, 0) rectangle (1, 1);
@@ -176,7 +176,7 @@ When there is no ambiguity, we may simply write \(\Attack(u)\).
 					\draw[black, shift={(0,.5)}] (3, 0) rectangle (4, 1);
 					\node at (3.5, .5+.5) {\(u\)};
 				\end{tikzpicture}}}.
-	\end{equation}
+	\end{equation*}
 	\caption{Configurations in which a box \(u\) attacks a box \(v\): either in the same row (left), or in consecutive rows (right). }
 	\label{fig:attacking}
 \end{figure}
@@ -185,15 +185,27 @@ Let \(u = (i, r) \in \dg(\alpha)\).
 The \vocab{leg set} of \(u\) is the set \(\Leg_{\dg(\alpha)}(u) \subset \dg(\alpha)\) of boxes above \(u\) in the same column, that is, \(\Leg_{\dg(\alpha)}(u) = \left\{ (i, r') \in \dg(\alpha) \suchthat r' > r \right\}\).
 The \vocab{leg statistic} of \(u\) is defined as \(\leg_{\dg(\alpha)}(u) = \left|\Leg_{\dg(\alpha)}(u)\right| = \alpha_i - r\).
 The \vocab{arm set} of \(u\) is the set \(\Arm_{\dg(\alpha)}(u) \subset \dg(\alpha)\) of boxes \(v\) attacked by \(u\) such that \(\leg_{\dg(\alpha)}(v) \leq \leg_{\dg(\alpha)}(u)\), that is,
-\begin{equation}
+\begin{equation*}
 	\Arm_{\dg(\alpha)}(u) = \left\{ v \in \Attack_{\dg(\alpha)}(u) \suchthat \leg_{\dg(\alpha)}(v) \leq \leg_{\dg(\alpha)}(u) \right\}.
-\end{equation}
+\end{equation*}
 The \vocab{arm statistic} of \(u\) is defined as \(\arm_{\dg(\alpha)}(u) = \left|\Arm_{\dg(\alpha)}(u)\right|\).
 When there is no ambiguity, we may simply write \(\Leg(u)\), \(\leg(u)\), \(\Arm(u)\), and \(\arm(u)\).
 The box \vocab{south} of \(u = (i, r)\) is the box \(\south{u} = (i, r-1)\), that is, the box directly below \(u\).
 If \(r > 1\), then \(\south{u} \in \dg(\alpha)\); while if \(r = 1\), then \(\south{u}\) is still defined (in row \(0\)),
 but it is not in \(\dg(\alpha)\).
 See \cref{fig:leg-arm} for an example of the leg set, arm set, and south of a box.
+
+The arm set \(\Arm(u)\) of a box \(u = (i, r)\) can be equivalently described as
+\begin{equation*}
+	\{(j, r-1) \in \dg(\alpha) : j < i \text{ and } \alpha_j \in \interval{r-1, \alpha_i-1}\}
+	\cup
+	\{(j, r) \in \dg(\alpha) : j > i \text{ and } \alpha_j \in \interval{r, \alpha_i}\}
+\end{equation*}
+and consequently, the arm statistic \(\arm(u)\) can be computed as
+\begin{equation*}
+	\arm(u) = \left| \{j < i \suchthat \alpha_j \in \interval{r-1, \alpha_i-1}\} \right|
+	+ \left| \{j > i \suchthat \alpha_j \in \interval{r, \alpha_i}\} \right|.
+\end{equation*}
 
 \begin{figure}[htbp]
     \centering
@@ -226,14 +238,14 @@ See \cref{fig:leg-arm} for an example of the leg set, arm set, and south of a bo
 				\if\i u
 					\draw[fill=black] (B\j) rectangle ++(1, 1);
 				\else\if\i z
-						\draw[pattern color=cyan, pattern=horizontal lines] (B\j) rectangle ++(1, 1);
-						\draw[pattern color=magenta, pattern=north east lines] (B\j) rectangle ++(1, 1);
+						\draw[pattern color=red, pattern={Lines[angle=90,distance=2.9]}] (B\j) rectangle ++(1, 1);
+						\draw[pattern color=cyan!50!blue, pattern={Lines[distance=3]}] (B\j) rectangle ++(1, 1);
 					\else\if\i x
-							\draw[pattern color=green!70!black, pattern=vertical lines] (B\j) rectangle ++(1, 1);
+							\draw[pattern color=green!60!black, pattern={Lines[angle=45,distance=2]}] (B\j) rectangle ++(1, 1);
 						\else\if\i d
 								\draw[pattern color=yellow!50!black, pattern=dots] (B\j) rectangle ++(1, 1);
 							\else\if\i y
-									\draw[pattern color=cyan, pattern=horizontal lines] (B\j) rectangle ++(1, 1);
+									\draw[pattern color=cyan!50!blue, pattern={Lines[distance=3]}] (B\j) rectangle ++(1, 1);
 								\else
 									\draw[fill=white] (B\j) rectangle ++(1, 1);
 								\fi\fi\fi\fi\fi
@@ -241,10 +253,10 @@ See \cref{fig:leg-arm} for an example of the leg set, arm set, and south of a bo
 
 	\end{tikzpicture}
 	\caption{
-		The leg set (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=green!70!black, pattern=vertical lines] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,),
-		the arm set (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=magenta, pattern=north east lines] (0, 1) rectangle ++(1, 1); \end{tikzpicture}}\,),
-		the attacked set (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=cyan, pattern=horizontal lines] (0, 1) rectangle ++(1, 1); \end{tikzpicture}}\,),
-		and the south (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=yellow!50!black, pattern=dots] (1, 4) rectangle ++(1, 1); \end{tikzpicture}}\,)
+		The leg set (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=green!60!black, pattern={Lines[angle=45,distance=2]}] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,),
+		the arm set (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=red, pattern={Lines[angle=90,distance=2.9,xshift=1pt]}] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,),
+		the attacked set (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=cyan!50!blue, pattern={Lines[distance=3]}] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,),
+		and the south (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[pattern color=yellow!50!black, pattern=dots] (2, 8) rectangle ++(1, 1); \end{tikzpicture}}\,)
 		of the box \(u = (8, 3)\) (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[fill=black] (5, 2) rectangle ++(1, 1); \end{tikzpicture}}\,)
 		in the skyline diagram of \(\alpha = \composition{4, 3, 3, 5, 5, 1, 4, 4, 4, 5, 3, 2, 4}\) with \(\leg(u)=1\) and \(\arm(u)=5\).
 	}
@@ -300,7 +312,7 @@ See \Cref{fig:non-attacking-filling} for an example of a non-attacking filling.
 The \vocab{content} of a filling \(T\) with labels in an alphabet \(\mathcal{A}\) is the multiset \(\content(T)\) whose elements are the labels \(a \in \mathcal{A}\), with multiplicity equal to the number of boxes \(u \in \dg(\alpha)\) such that \(T(u) = a\).
 
 When the alphabet is \(\positives\) or \(\interval{n}\),
-the content can be identified with the composition \(\beta = \content(T)\) where \(\beta_i\) is the multiplicity of \(i\) in \(\content(T)\).
+the content is identified with the composition \(\beta = \content(T)\) where \(\beta_i\) is the multiplicity of \(i\) in \(\content(T)\).
 We define
 \[
 	\mathbf{x}^T = \mathbf{x}^{\content(T)} = \prod_{i} x_i^{\beta_i}.
@@ -308,7 +320,7 @@ We define
 For example, the filling \(T\) in \cref{fig:non-attacking-filling} has content \(\content(T) = \composition{2, 1, 1, 2, 3}\) and \(\mathbf{x}^T = \mathbf{x}^{\content(T)} = x_1^2 x_2^1 x_3^1 x_4^2 x_5^3\).
 
 Recall that boxes in row \(0\), which are not in \(\dg(\alpha)\),
-can be obtained as the south of boxes in row \(1\).
+are obtained as the south of boxes in row \(1\).
 By convention, if \(w\) is a box in row \(0\),
 then we define \(T(w) = \infty\).
 
@@ -319,11 +331,11 @@ Note that boxes in row \(1\) are never descents,
 since the label of the south of a box in row \(1\) is always \(\infty\), by convention.
 Let \(\Des(T) \subseteq \dg(\alpha)\) denote the set of descents in \(T\).
 The \vocab{major index} of \(T\) is
-\begin{equation}
+\begin{equation*}
 	\maj(T)
 	= \sum_{u \in \Des(T)} \left( \leg(u) + 1 \right)
 	= \sum_{u \in \dg(\alpha)} \ind{T(u), T(\south{u})} \left( \leg(u) + 1 \right).
-\end{equation}
+\end{equation*}
 See \cref{fig:major-index} for an example.
 \begin{figure}[htbp]
 	\centering
@@ -361,7 +373,7 @@ See \cref{fig:major-index} for an example.
 A \vocab{triple} is an ordered tuple \((u, v, w)\) of boxes
 such that \(u \in \dg(\alpha)\), \(v \in \Arm(u)\), and \(w = \south{u}\).
 The total number of triples in \(\dg(\alpha)\) is
-\begin{equation}
+\begin{equation} \label{eq:total-triples}
 	\sum_{u \in \dg(\alpha)} \arm(u).
 \end{equation}
 If \(v\) is to the right of \(u\) in the same row as \(u\),
@@ -488,9 +500,9 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 \begin{proposition}[{\cite[739]{HHL05}}] \label{prop:inv-via-inversion-pairs}
 	Let \(T \in \Fill(\alpha)\).
 	Then
-	\begin{equation}
+	\begin{equation*}
 		\inv(T) = \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u).
-	\end{equation}
+	\end{equation*}
 \end{proposition}
 
 \begin{proof}
@@ -519,10 +531,10 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 
 \Cref{prop:inv-via-inversion-pairs} gives an alternative description of \(\inv(T)\).
 Together with \Cref{eq:inv-plus-coinv}, we also obtain an alternative description of \(\coinv(T)\) by
-\begin{equation}
+\begin{equation*}
 	\coinv(T) = \sum_{u \in \dg(\alpha)} \arm(u) - \inv(T)
 	= \sum_{u \in \dg(\alpha) \setminus \Des(T)} \arm(u) - \left|\InversionPairs(T)\right|.
-\end{equation}
+\end{equation*}
 
 \subsection{Augmented Fillings} \label{subsec:augmented-fillings}
 
@@ -533,9 +545,9 @@ or the signed alphabet \(\mathcal{A}_\pm = [n]_\pm\).
 The \vocab{augmented skyline diagram} of a composition
 \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\)
 is the set
-\begin{equation}
+\begin{equation*}
 	\adg(\alpha) = \dg(\alpha) \cup \{(i, 0) \suchthat i \in \interval{n}\},
-\end{equation}
+\end{equation*}
 which is obtained from \(\dg(\alpha)\) by adding an extra row of \(n\) boxes below row \(1\),
 called the \vocab{row \(0\)} or the \vocab{basement}.
 \Cref{fig:augmented-skyline} provides an example of an augmented skyline diagram.
@@ -577,7 +589,7 @@ Given a box \(u = (i, r)\), if \(r \geq 1\), the \vocab{south} of \(u\) is the b
 Note that the south of a box in row \(1\) of \(\adg(\alpha)\) is also a box in \(\adg(\alpha)\), unlike in \Cref{subsec:non-augmented-fillings} where the south of a box in row \(1\) is not in \(\dg(\alpha)\).
 We also remark that the south of a box in row \(0\) is not a box in row \(-1\) outside \(\adg(\alpha)\), but rather is simply undefined.
 
-An \vocab{augmented filling} of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\), basement \(\sigma = \composition{\sigma_1, \ldots, \sigma_n}\), and labels in an alphabet \(\mathcal{A}\) is a function \(T \colon \adg(\alpha) \to \mathcal{A}\) such that \(T(i, 0) = \sigma_i\) for all \(i \in \interval{n}\).
+An \vocab{augmented filling} of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\), basement \(\sigma = \window{\sigma_1, \ldots, \sigma_n}\), and labels in an alphabet \(\mathcal{A}\) is a function \(T \colon \adg(\alpha) \to \mathcal{A}\) such that \(T(i, 0) = \sigma_i\) for all \(i \in \interval{n}\).
 Let \(\Fill[\mathcal{A}](\alpha, \sigma)\) denote the set of augmented fillings of shape \(\alpha\), basement \(\sigma\), and labels in \(\mathcal{A}\).
 The absolute value and the non-attacking condition for augmented fillings are defined as in \cref{subsec:non-augmented-fillings}.
 Let \(\NAF[\mathcal{A}](\alpha, \sigma) \subseteq \Fill[\mathcal{A}](\alpha, \sigma)\) denote the set of non-attacking augmented fillings of shape \(\alpha\), basement \(\sigma\), and labels in \(\mathcal{A}\).
@@ -612,7 +624,7 @@ Augmented fillings are always drawn with the basement shaded in gray to distingu
 	\caption{
 		A non-attacking augmented filling of
 		shape \(\alpha = \composition{3, 3, 0, 1, 2}\) and
-		basement \(\sigma = \composition{2, 1, 3, 5, 4}\),
+		basement \(\sigma = \window{2, 1, 3, 5, 4}\),
 		with labels in \(\interval{5}\).
 		The basement is shaded in gray (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[fill=gray!30] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,).
 	}
@@ -620,14 +632,14 @@ Augmented fillings are always drawn with the basement shaded in gray to distingu
 \end{figure}
 
 Note that the non-attacking condition implies that, for a non-attacking augmented filling with labels in \(\interval{n}\), the entries \(\sigma_1, \ldots, \sigma_n\) in the basement are distinct.
-Therefore, the basement \(\sigma\) can be identified with a permutation of \(\interval{n}\).
+Therefore, the basement \(\sigma\) is identified with a permutation of \(\interval{n}\).
 For (possibly attacking) augmented fillings with labels in \(\interval{n}\) or \(\interval{n}_\pm\), the definition allows for repeated or negative entries in the basement.
 However, the applications in this work only require the case of a permutation basement, that is, positive and distinct entries in the basement.
 
 The \vocab{content} of an augmented filling \(T\) with labels in an alphabet \(\mathcal{A}\) is the multiset \(\content(T)\) whose elements are the labels \(a \in \mathcal{A}\), with multiplicity equal to the number of boxes \(u \in \dg(\alpha)\) such that \(T(u) = a\).
 Note that boxes in row \(0\) are not counted in the content.
 When the alphabet is \(\positives\) or \(\interval{n}\),
-the content can be identified with the composition \(\beta = \content(T)\) where \(\beta_i\) is the multiplicity of \(i\) in \(\content(T)\).
+the content is identified with the composition \(\beta = \content(T)\) where \(\beta_i\) is the multiplicity of \(i\) in \(\content(T)\).
 We define
 \[	\mathbf{x}^T = \mathbf{x}^{\content(T)} = \prod_{i} x_i^{\beta_i}. \]
 For example, the augmented filling \(T\) in \cref{fig:non-attacking-augmented-filling} has content \(\content(T) = \composition{2, 1, 1, 2, 3}\) and \(\mathbf{x}^T = \mathbf{x}^{\content(T)} = x_1^2 x_2^1 x_3^1 x_4^2 x_5^3\).
@@ -645,7 +657,7 @@ In the augmented setting, the total number of triples in \(\adg(\alpha)\) is
 	\sum_{u \in \dg(\alpha)} \arm_{\adg(\alpha)}(u)
 \end{equation}
 Note that this sum does not include boxes \(u\) in row \(0\).
-We remark that this sum may be different from \(\sum_{u \in \dg(\alpha)} \arm_{\dg(\alpha)}(u)\) from \cref{subsec:non-augmented-fillings}, since the arm statistic for boxes in row \(1\) may be different in the two settings.
+We remark that this sum may be different from \(\sum_{u \in \dg(\alpha)} \arm_{\dg(\alpha)}(u)\) in \cref{eq:total-triples}, since the arm statistic for boxes in row \(1\) may be different in the two settings.
 
 Similarly to \cref{subsec:non-augmented-fillings},
 there is another interpretation of \(\inv(T)\) and \(\coinv(T)\), in terms of inversion pairs.
@@ -655,9 +667,9 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 \begin{proposition}[{\cite[739]{HHL05}}] \label{prop:inv-via-inversion-pairs-augmented}
 	Let \(T \in \Fill(\alpha)\).
 	Then
-	\begin{equation}
+	\begin{equation*}
 		\inv(T) = \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u) - \left|\{(i, j) \suchthat i < j \text{ and } \alpha_i < \alpha_j \text{ and } \sigma_i > \sigma_j\}\right|.
-	\end{equation}
+	\end{equation*}
 \end{proposition}
 
 \begin{proof}
@@ -695,10 +707,10 @@ Together with \Cref{eq:total-triples-augmented}, we also obtain an alternative d
 If we didn't shade the basement in gray,
 it would be easy to mistake an augmented filling for a non-augmented filling.
 This would lead to mistakes in computing the statistics \(\inv\) and \(\coinv\).
-However, the mistakes would be systematic, and we can quantify them.
-In \cref{sec:bijective-augmented}, we will use this difference create a bijection for non-attacking fillings using a bijection for augmented fillings.
+However, the mistakes are be systematic, and we quantify them below.
+In \cref{sec:bijective-augmented}, we use this difference create a bijection for non-attacking fillings using a bijection for augmented fillings.
 
-Let \(T \in \Fill[\mathcal{A}](\alpha, \sigma)\) be an augmented filling of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\), basement \(\sigma = \composition{\sigma_1, \ldots, \sigma_n}\), and labels in an alphabet \(\mathcal{A}\).
+Let \(T \in \Fill[\mathcal{A}](\alpha, \sigma)\) be an augmented filling of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\), basement \(\sigma = \window{\sigma_1, \ldots, \sigma_n}\), and labels in an alphabet \(\mathcal{A}\).
 Let \(T' \in \Fill[\mathcal{A}](\alpha')\) be the non-augmented filling of shape \(\alpha' = \composition{(\alpha_1 + 1), \ldots, (\alpha_n + 1)}\) defined by \(T'(i, r) = T(i, r - 1)\) for all \((i, r) \in \dg(\alpha')\).
 See \cref{fig:augmented-to-non-augmented} for an example.
 
@@ -751,7 +763,7 @@ See \cref{fig:augmented-to-non-augmented} for an example.
 	\caption{
 		An augmented filling \(T\) of
 		shape \(\alpha = \composition{3, 3, 0, 1, 2}\) and
-		basement \(\sigma = \composition{2, 1, 3, 5, 4}\),
+		basement \(\sigma = \window{2, 1, 3, 5, 4}\),
 		with labels in \(\interval{5}\) (left);
 		and the corresponding non-augmented filling \(T'\) of
 		shape \(\alpha' = \composition{4, 4, 1, 2, 3}\)
@@ -764,27 +776,29 @@ It's straightforward to check that \(\maj(T) = \maj(T')\).
 
 However, \(\inv(T)\) and \(\coinv(T)\) may differ from \(\inv(T')\) and \(\coinv(T')\), respectively.
 We define new statistics \(\syminv\) and \(\symcoinv\) on augmented fillings by
-\begin{equation}
+\begin{equation*}
 	\syminv(T) = \inv(T')
 	\quad \text{and} \quad
 	\symcoinv(T) = \coinv(T').
-\end{equation}
+\end{equation*}
 
 \begin{proposition}
-	Let \(T \in \Fill[\mathcal{A}](\alpha, \sigma)\) be an augmented filling of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\), basement \(\sigma = \composition{\sigma_1, \ldots, \sigma_n}\).
+	Let \(T \in \Fill[\mathcal{A}](\alpha, \sigma)\) be an augmented filling of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\) and basement \(\sigma = \window{\sigma_1, \ldots, \sigma_n}\).
 	Then,
-	\begin{equation}
+	\begin{equation} \label{eq:syminv-inv}
 		\syminv(T)
 		= \inv(T) +
-		\left| \left\{ (i, j) \suchthat 1 \leq i < j \leq n \text{ and } \alpha_i \geq \alpha_j \text{ and } \ind{\sigma_i, \sigma_j} = 1 \right\} \right|
+		\left| \left\{ (i, j) \suchthat 1 \leq i < j \leq n \text{ and } \alpha_i \geq \alpha_j \text{ and } \sigma_i > \sigma_j = 1 \right\} \right|
 	\end{equation}
 	and
-	\begin{equation}
+	\begin{equation} \label{eq:symcoinv-coinv}
 		\symcoinv(T)
 		= \coinv(T) +
-		\left| \left\{ (i, j) \suchthat 1 \leq i < j \leq n \text{ and } \alpha_i \geq \alpha_j \text{ and } \ind{\sigma_i, \sigma_j} = 0 \right\} \right|.
+		\left| \left\{ (i, j) \suchthat 1 \leq i < j \leq n \text{ and } \alpha_i \geq \alpha_j \text{ and } \sigma_i > \sigma_j = 0 \right\} \right|.
 	\end{equation}
 \end{proposition}
+
+Note that the correction term in \Cref{eq:symcoinv-coinv} is \(\twinv(\sigma, \alpha)\) as defined in \cref{definition:permutedbasement}.
 
 \begin{proof}
 	Consider a triple \((u, v, w)\) in \(\adg(\alpha)\).
@@ -805,19 +819,18 @@ We define new statistics \(\syminv\) and \(\symcoinv\) on augmented fillings by
 
 	Now, consider triples \((u', v', w')\) in \(\dg(\alpha')\) such that \(u'\) is in row \(1\).
 	This is equivalent to \(u' = (i, 1)\) for some \(i \in \interval{n}\), and \(v' = (j, 1)\) for some \(j \in \interval{n}\) such that \(j > i\) and \(\alpha'_i \geq \alpha'_j\).
-	This is an inversion triple in \(T'\) if and only if \(\ind{\sigma_i, \sigma_j, \infty} = 1\), which is equivalent to \(\ind{\sigma_i, \sigma_j} = 1\).
+	This is an inversion triple in \(T'\) if and only if \(\ind{\sigma_i, \sigma_j, \infty} = 1\), which is equivalent to \(\sigma_i > \sigma_j\).
 	Therefore,
 	\begin{multline} \label{eq:inv-prime-row-1}
 		\left| \{ \text{inversion triples } (u', v', w') \text{ in } T' \suchthat u' \text{ is in row } 1 \} \right| = \\
-		= \left| \left\{ (i, j) \suchthat 1 \leq i < j \leq n \text{ and } \alpha_i \geq \alpha_j \text{ and } \ind{\sigma_i, \sigma_j} = 1 \right\} \right|,
+		= \left| \left\{ (i, j) \suchthat 1 \leq i < j \leq n \text{ and } \alpha_i \geq \alpha_j \text{ and } \sigma_i > \sigma_j \right\} \right|,
 	\end{multline}
 	and similarly,
 	\begin{multline} \label{eq:coinv-prime-row-1}
 		\left| \{ \text{coinversion triples } (u', v', w') \text{ in } T' \suchthat u' \text{ is in row } 1 \} \right| = \\
-		= \left| \left\{{(i, j) \suchthat 1 \leq i < j \leq n \text{ and } \alpha_i \geq \alpha_j \text{ and } \ind{\sigma_i, \sigma_j} = 0} \right\} \right|.
+		= \left| \left\{{(i, j) \suchthat 1 \leq i < j \leq n \text{ and } \alpha_i \geq \alpha_j \text{ and } \sigma_i < \sigma_j} \right\} \right|.
 	\end{multline}
-
-	The results follow by adding \Cref{eq:inv-prime-not-row-1} and \Cref{eq:inv-prime-row-1}, and adding \Cref{eq:coinv-prime-not-row-1} and \Cref{eq:coinv-prime-row-1}.
+	The results follow by adding \Cref{eq:inv-prime-not-row-1,eq:inv-prime-row-1}, and adding \Cref{eq:coinv-prime-not-row-1,eq:coinv-prime-row-1}.
 \end{proof}
 
 \section{Tableaux formulas for Macdonald polynomials}
@@ -902,9 +915,9 @@ We reproduce their proofs because their ideas are useful in \Cref{sec:integral-f
 \begin{proof}[Proof ({\cite[744]{HHL05}})]
 	We define a sign-reversing involution on the set of attacking fillings in \(\Fill[\interval{n}_\pm](\mu) \setminus \NAF[\interval{n}_\pm](\mu)\).
 	Recall that, in \(\interval{n}_\pm\), we have
-	\begin{equation} \label{eq:signed-alphabet-ordering}
+	\begin{equation*}
 		1 < \bar{1} < 2 < \bar{2} < \cdots < n < \bar{n}.
-	\end{equation}
+	\end{equation*}
 	This ordering has two useful properties:
 	% First, for any \(a \in \interval{n}\) and any \(x \in \interval{n}_\pm\), we have
 	% \begin{equation}
@@ -987,31 +1000,31 @@ We reproduce their proofs because their ideas are useful in \Cref{sec:integral-f
 	Define the \emph{absolute coinversion number} \(\operatorname{acoinv}(S)\) to be the number of coinversion triples \((u, v, w)\) in \(S\) for which \(|S(u) \neq |S(w)|\) (and consequently \(|S(u)|\), \(|S(v)|\), and \(|S(w)|\) are all distinct).
 	Define the \emph{signed coinversion number} \(\operatorname{scoinv}(S)\) to be the number of coinversion triples \((u, v, w)\) in \(S\) for which \(|S(u)| = |S(w)|\).
 	Then, we have
-	\begin{equation}
+	\begin{equation*}
 		\coinv(S) = \operatorname{acoinv}(S) + \operatorname{scoinv}(S).
-	\end{equation}
+	\end{equation*}
 	Note that, since \(\ind{a, b, a} = \ind{a, b} + \ind{b, a} - \ind{a, a} = 1\) for all distinct \(a, b \in \interval{n}_\pm\), we have \(\operatorname{scoinv}(|S|) = 0\) and consequently \(\operatorname{acoinv}(S) = \operatorname{acoinv}(|S|) = \coinv(|S|)\).
 
 	Similarly, define the \emph{absolute major index} \(\operatorname{amaj}(S)\) and the \emph{signed major index} \(\operatorname{smaj}(S)\) by
-	\begin{equation}
+	\begin{equation*}
 		\operatorname{amaj}(S) = \sum_{\substack{u \in \Des(S) \\ |S(u)| \neq |S(\south{u})|}} (1 + \leg(u)) 
 		\quad \text{and} \quad
 		\operatorname{smaj}(S) = \sum_{\substack{u \in \Des(S) \\ |S(u)| = |S(\south{u})|}} (1 + \leg(u)).
-	\end{equation}
+	\end{equation*}
 	Then, we have
-	\begin{equation}
+	\begin{equation*}
 		\maj(S) = \operatorname{amaj}(S) + \operatorname{smaj}(S).
-	\end{equation}
+	\end{equation*}
 	Note that, since \(\ind{a, a} = 0\) for all \(a \in \interval{n}_\pm\), we have \(\operatorname{smaj}(|S|) = 0\) and consequently \(\operatorname{amaj}(S) = \operatorname{amaj}(|S|) = \maj(|S|)\).
 
 	We group the fillings \(S \in \NAF[\interval{n}_\pm](\mu)\) by their absolute filling \(|S|\) to rewrite \Cref{eq:J-NAF-signed} as
-	\begin{equation}
+	\begin{equation*}
 		J_\mu(\mathbf{x}; q, t)
 		= \sum_{T \in \NAF[\interval{n}](\mu)}
 		\sum_{\substack{S \in {\NAF[\interval{n}_\pm](\mu)} \\ |S| = T}}
 		\mkern -10mu
 		\mathbf{x}^{|S|} q^{\maj(S)} t^{\coinv(S)} (-t)^{\operatorname{neg}(S)}.
-	\end{equation}
+	\end{equation*}
 	Fix a non-attacking unsigned filling \(T \in \NAF[\interval{n}](\mu)\).
 	Using the decompositions of \(\maj(S)\) and \(\coinv(S)\) above,
 	the inner sum corresponding to \(T\) can be rewritten as
@@ -1044,13 +1057,13 @@ We reproduce their proofs because their ideas are useful in \Cref{sec:integral-f
 	and are independent of the signs of the entries in other boxes.
 	Therefore, we can factor the sum over all \(S\) with \(|S| = T\) as a product over all boxes \(u \in \dg(\mu)\).
 	If \(T(u) \neq T(\south{u})\) or \(u\) is in row \(1\), the contribution from box \(u\) is
-	\begin{equation}
+	\begin{equation*}
 		1 + (-t) = 1 - t,
-	\end{equation}
+	\end{equation*}
 	while if \(T(u) = T(\south{u})\), the contribution from box \(u\) is
-	\begin{equation}
+	\begin{equation*}
 		1 + q^{1 + \leg(u)} t^{\arm(u)} (-t) = 1 - q^{1 + \leg(u)} t^{1 + \arm(u)}.
-	\end{equation}
+	\end{equation*}
 	Therefore, the inner sum corresponding to a fixed \(T \in \NAF[\interval{n}](\mu)\) is
 	\begin{equation*}
 		\sum_{\substack{S \in {\NAF[\interval{n}_\pm](\mu)} \\ |S| = T}}
@@ -1082,7 +1095,7 @@ The integral form Macdonald polynomials \(J_\mu\) is a scalar multiple of \(P_\m
 where the normalization factor \(c_\mu(q, t)\) is given in \Cref{eq:normalization-factor-c-mu}.
 
 Therefore, from \Cref{eq:J-NAF-unsigned}, we obtain a tableaux formula for \(P_\mu\) as
-\begin{equation} %\label{eq:P-NAF-unsigned}
+\begin{equation*}
 	P_\mu(\mathbf{x}; q, t)
 	=
 	\frac{d_\mu(q, t)}{c_\mu(q, t)}
@@ -1090,7 +1103,7 @@ Therefore, from \Cref{eq:J-NAF-unsigned}, we obtain a tableaux formula for \(P_\
 	q^{\maj(T)} t^{\coinv(T)}
 	\prod_{\substack{u \in \dg(\mu) \\ T(u) \neq T(\south{u})}}
 	\frac{1 - t}{1 - q^{1 + \leg(u)} t^{1 + \arm(u)}},
-\end{equation}
+\end{equation*}
 where the factor \(d_\mu(q, t)\) is given in \Cref{eq:normalization-factor-d-alpha}.
 
 The normalization factors make this formula less appealing.
@@ -1113,14 +1126,14 @@ Recall that the permuted-basement Macdonald polynomials \(E_\alpha^\sigma\) are 
 \subsection{Integral form permuted-basement Macdonald polynomials \texorpdfstring{\(\mathcal{E}_\alpha^\sigma\)}{Eασ}} \label{sec:integral-form-permuted-basement}
 
 Recall that the integral form permuted-basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\) are defined in \Cref{eq:integral-form-permuted-basement-macdonald-polynomial} by
-\begin{equation}
+\begin{equation*}
 	\mathcal{E}_\alpha^\sigma(\mathbf{x}; q, t)
 	=
 	\left(
 		\prod_{u \in \dg(\alpha)} (1 - q^{1 + \leg(u)} t^{1 + \arm(u)})
 	\right)
 	E_\alpha^\sigma(\mathbf{x}; q, t).
-\end{equation}
+\end{equation*}
 Therefore, from \Cref{eq:E-NAF-unsigned}, we obtain a tableaux formula for \(\mathcal{E}_\alpha^\sigma\) as
 \begin{equation} \label{eq:calE-NAF-unsigned}
 	\mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
@@ -1166,21 +1179,21 @@ We nevertheless fully reproduce them below for self-containment.
 	Define the \emph{absolute coinversion number} \(\operatorname{acoinv}(S)\) to be the number of coinversion triples \((u, v, w)\) in \(S\) for which \(|S(u) \neq |S(w)|\) (and consequently \(|S(u)|\), \(|S(v)|\), and \(|S(w)|\) are all distinct).
 	Define the \emph{signed coinversion number} \(\operatorname{scoinv}(S)\) to be the number of coinversion triples \((u, v, w)\) in \(S\) for which \(|S(u)| = |S(w)|\).
 	Then, we have
-	\begin{equation}
+	\begin{equation*}
 		\coinv(S) = \operatorname{acoinv}(S) + \operatorname{scoinv}(S).
-	\end{equation}
-	Note that, since \(\ind{a, b, a} = \ind{a, b} + \ind{b, a} - \ind{a, a} = 1\) for all distinct \(a, b \in \interval{n}_\pm\), we have \(\operatorname{scoinv}(|S|) = 0\) and consequently \(\operatorname{acoinv}(S) = \operatorname{acoinv}(|S|) = \coinv(|S|)\).
+	\end{equation*}
+	Note that, since \(\ind{a, b, a} = \ind{a, b} + \ind{b, a} - \ind{a, a} = 1\) for all distinct \(a, b \in \interval{n}\), we have \(\operatorname{scoinv}(|S|) = 0\) and consequently \(\operatorname{acoinv}(S) = \operatorname{acoinv}(|S|) = \coinv(|S|)\).
 
 	Similarly, define the \emph{absolute major index} \(\operatorname{amaj}(S)\) and the \emph{signed major index} \(\operatorname{smaj}(S)\) by
-	\begin{equation}
+	\begin{equation*}
 		\operatorname{amaj}(S) = \sum_{\substack{u \in \Des(S) \\ |S(u)| \neq |S(\south{u})|}} (1 + \leg(u)) 
 		\quad \text{and} \quad
 		\operatorname{smaj}(S) = \sum_{\substack{u \in \Des(S) \\ |S(u)| = |S(\south{u})|}} (1 + \leg(u)).
-	\end{equation}
+	\end{equation*}
 	Then, we have
-	\begin{equation}
+	\begin{equation*}
 		\maj(S) = \operatorname{amaj}(S) + \operatorname{smaj}(S).
-	\end{equation}
+	\end{equation*}
 	Note that, since \(\ind{a, a} = 0\) for all \(a \in \interval{n}_\pm\), we have \(\operatorname{smaj}(|S|) = 0\) and consequently \(\operatorname{amaj}(S) = \operatorname{amaj}(|S|) = \maj(|S|)\).
 
 	We group the augmented fillings \(S \in \NAF[\interval{n}_\pm](\mu, \sigma)\) by their absolute augmented filling \(|S|\) to rewrite the right-hand side of \Cref{eq:calE-NAF-signed} as
@@ -1229,13 +1242,13 @@ We nevertheless fully reproduce them below for self-containment.
 	and their contributions only depend on the sign of the entry in box \(u\).
 	Therefore, we can factor the sum over all \(S\) with \(|S| = T\) as a product over all boxes \(u \in \dg(\mu)\) (which excludes row \(0\), because there is no choice of sign and no contribution from those boxes).
 	If \(T(u) \neq T(\south{u})\), the contribution from box \(u\) is
-	\begin{equation}
+	\begin{equation*}
 		1 + (-t) = 1 - t,
-	\end{equation}
+	\end{equation*}
 	while if \(T(u) = T(\south{u})\), the contribution from box \(u\) is
-	\begin{equation}
+	\begin{equation*}
 		1 + q^{1 + \leg(u)} t^{\arm(u)} (-t) = 1 - q^{1 + \leg(u)} t^{1 + \arm(u)}.
-	\end{equation}
+	\end{equation*}
 	Therefore, the inner sum corresponding to a fixed \(T \in \NAF[\interval{n}](\mu, \sigma)\) is
 	\begin{equation*}
 		\sum_{\substack{S \in {\NAF[\interval{n}_\pm](\mu, \sigma)} \\ |S| = T}}
