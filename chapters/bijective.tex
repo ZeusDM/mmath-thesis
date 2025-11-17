@@ -16,24 +16,23 @@ The left-hand sum over \(\Fill[\positives](\mu)\) is the celebrated combinatoria
 In \cite{HHL08}, the rearrangement property was established by proving that the right-hand sum over \(\Fill[\positives](\alpha)\) is also equal to \(\tilde{H}_{\mu'}(\mathbf{x}; q, t)\),
 by showing that it also satisfies the conditions of \Cref{prop:modified-macdonald-characterization}.
 
-Here, we present a direct bijective proof of \Cref{eq:tildeH-rearrangement}, without going through the algebraic characterization of
+We present a bijective proof of \Cref{eq:tildeH-rearrangement}, without going through the algebraic characterization of
 \(\tilde{H}_\mu(\mathbf{x}; q, t)\) from \Cref{prop:modified-macdonald-characterization}.
 The key step is \Cref{thm:phi-maj-inv},
-which guarantees the existence of a bijection \(\phi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) that preserves \(\content\), \(\inv\), and \(\maj\).
+which guarantees the existence of a bijection \(\phi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) that preserves the content, the inversion number, and the major index.
 
-We present two equivalent constructions of such bijection \(\phi\).
+There are two equivalent constructions of such bijection \(\phi\).
 The first construction partitions the filling into blocks and decides how to transform each block based on local conditions.
 The second construction is an iterative row-by-row algorithm from \cite{KLO22}, which we reformulate in a clearer way than the original presentation.
-Each construction has its advantages, and we present both for completeness.
+Each construction has its advantages, and we include both for completeness.
 We prove that both algorithms coincide in \Cref{subsec:equivalence-of-definitions},
-and then prove \Cref{thm:phi-maj-inv} in two different ways,
-one for each construction.
+and then prove that \(\phi\) satisfies the desired properties in \Cref{subsec:properties-of-bijections} using the first construction.
 
 An auxiliary bijection \(\psi \colon \Fill[\mathcal{A}](\alpha) \to \Fill[\mathcal{A}](s_i \permact \alpha)\) is also defined, that preserves \(\content\) but changes \(\inv\) and \(\maj\) in a controlled way, as specified in \Cref{thm:psi-maj-inv}.
 
 In \Cref{sec:bijective-augmented},
 we prove \Cref{theorem:three-term}, which gives an identity for permuted-basement Macdonald polynomials of the form
-\begin{equation}
+\begin{equation} \label{eq:three-term-intro}
     E_\alpha^\sigma(\mathbf{x}; q, t)
     =
     E_{s_i \permact \alpha}^{\sigma s_i}(\mathbf{x}; q, t)
@@ -42,7 +41,8 @@ we prove \Cref{theorem:three-term}, which gives an identity for permuted-basemen
 \end{equation}
 whenever \(\alpha_i > \alpha_{i+1}\), where \(c_{\alpha, \sigma, i}(q, t)\) is an explicit rational function in \(q\) and \(t\).
 
-We use the same bijection \(\phi\) on non-augmented fillings (as well as an auxiliary bijection \(\psi\)) as a building block for a bijection on augmented fillings.
+We present a bijective proof of \Cref{eq:three-term-intro}.
+We use the bijection \(\phi\) on non-augmented fillings from \Cref{sec:bijective-non-augmented} and an auxiliary bijection \(\psi\) as a building blocks for a bijection on augmented fillings that implies \Cref{eq:three-term-intro}.
 
 \section{Bijections on non-augmented fillings and the rearrangement property of \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ}} \label{sec:bijective-non-augmented}
 
@@ -54,35 +54,38 @@ This auxiliary bijection \(\psi\) is also important in \Cref{sec:bijective-augme
 % \todo{Can I remove this ``without loss of generality''?}
 
 Both of \(\phi\) and \(\psi\) follow a very rigid structure.
-For now, assume \(\alpha_{i} > \alpha_{i+1}\).
-If a non-augmented filling \(T \in \Fill(\alpha)\) is mapped to a filling \(U \in \Fill(s_i \permact \alpha)\) by one of these maps, then:
+For a non-augmented filling \(T \in \Fill(\alpha)\) mapped
+to a filling \(U \in \Fill(s_i \permact \alpha)\) by one of these maps, then:
 all columns except \(i\) and \(i+1\) are identical in \(T\) and \(U\), that is,
 \begin{equation} \label{eq:restriction-other-columns}
-    T(j, r) = U(j, r) \quad \text{for all } j \in \interval{n} \setminus \{i, i+1\} \text{ and all } r \in \interval{\alpha_j};
+    T(j, r) = U(j, r)
+    \quad\text{for all } j \in \interval{n} \setminus \{i, i+1\}
+    \text{ and all } r \in \interval{\alpha_j};
 \end{equation}
-the topmost \(\alpha_i - \alpha_{i+1}\) entries in column \(i\) of \(T\) are copied to the topmost \(\alpha_i - \alpha_{i+1}\) entries in column \(i+1\) of \(U\), that is,
-\begin{equation} \label{eq:restriction-top-entries}
-    T(i, r) = U(i+1, r) \quad \text{for all } r \in \interval{\alpha_{i+1} + 1, \alpha_i};
-\end{equation}
-and the entries in rows \(1, \dots, \alpha_{i+1}\) of columns \(i\) and \(i+1\) in \(T\) and \(U\) are the same, but they might be in the same positions or in swapped positions, that is,
+and the entries in each row \(r \in \interval{\max(\alpha_i, \alpha_{i+1})}\) of columns \(i\) and \(i+1\) in \(T\) and \(U\) are the same, that is,
 \begin{equation} \label{eq:restriction-swap-per-row}
-    \{ T(i, r), T(i+1, r) \} = \{ U(i, r), U(i+1, r) \} \quad \text{for all } r \in \interval{\alpha_{i+1}}.
+    \{ T(i, r), T(i+1, r) \}
+    =
+    \{ U(i, r), U(i+1, r) \}
+    \quad\text{for all } r \in \interval{\max(\alpha_i, \alpha_{i+1})}.
 \end{equation}
-If \(\alpha_{i} < \alpha_{i+1}\) instead, the only difference is that the second condition swaps the roles of columns \(i\) and \(i+1\): the topmost \(\alpha_{i+1} - \alpha_{i}\) entries in column \(i+1\) of \(T\) are copied to the topmost \(\alpha_{i+1} - \alpha_{i}\) entries in column \(i\) of \(U\).
-We refer to these three conditions as the \vocab{local restrictions}.
+We refer to these as the \vocab{local restrictions}.
 
-By requiring that \(\phi\) and \(\psi\) satisfy these local restrictions, the only remaining freedom in determining \(\phi\) and \(\psi\) is to decide, for each \(r \in \interval{\alpha_{i+1}}\), whether to set
+When \(r > \min(\alpha_i, \alpha_{i+1})\) in \Cref{eq:restriction-swap-per-row}, exactly one of the two entries involved is undefined in each filling, so the condition should be interpreted as stating that the defined entry in \(T\) is copied to the corresponding defined position in \(U\).
+
+By requiring that \(\phi\) and \(\psi\) satisfy these local restrictions, the only remaining freedom in determining \(\phi\) and \(\psi\) is to decide, for each \(r \in \interval{\min(\alpha_i, \alpha_{i+1})}\), whether to set
 \begin{multline}
     \big(U(i,r), U(i+1,r)\big) = \big(T(i,r), T(i+1,r)\big) \text{ or }\\ \big(U(i,r), U(i+1,r)\big) = \big(T(i+1,r), T(i,r)\big).
 \end{multline}
 In the first case, we say the entries of \(T\) and \(U\) in row \(r\) of columns \(i\) and \(i+1\) are \vocab{not swapped};
 in the second case, we say they are \vocab{swapped}.
-Below, we present two different algorithms to decide, for each \(r \in \interval{\alpha_{i+1}}\), whether the entries in row \(r\) of columns \(i\) and \(i+1\) are swapped or not swapped.
+Below, we present two different algorithms to decide, for each \(r \in \interval{\min(\alpha_i, \alpha_{i+1})}\), whether the entries in row \(r\) of columns \(i\) and \(i+1\) are swapped or not swapped.
 
 \subsection{Block structure algorithm} \label{subsec:block-structure}
 
+Let \(h = \min(\alpha_i, \alpha_{i+1})\).
 For the block structure algorithm,
-we split the rows \(\interval{\alpha_{i+1}}\) into intervals, called \emph{blocks},
+we split the rows \(\interval{h}\) into intervals, called \emph{blocks},
 and then decide, for each block, whether to swap all its rows or not swap all its rows.
 
 To define the blocks, we define a criterion for when two consecutive rows are grouped together.
@@ -234,13 +237,13 @@ We have \Cref{prop:even-ind-magic,prop:odd-ind-magic} that give some other equiv
     where \(x \overset{+}{=} y\) means \(x = y \in \mathcal{A}_+\) and \(x \overset{-}{=} y\) means \(x = y \in \mathcal{A}_-\).
 \end{proof}
 
-Let \(r \in \interval{\alpha_{i+1} - 1}\).
+Let \(r \in \interval{h - 1}\).
 Let \( a = T(i,r+1)\), \(b = T(i+1,r+1)\), \(c = T(i,r)\), and \(d = T(i+1,r)\).
 We say that rows \(r\) and \(r + 1\) of \(T\) are \vocab{not intertwined} if \(a, b, c, d\) satisfy the equivalent conditions of \Cref{prop:even-ind-magic}, and \vocab{intertwined} if they satisfy the equivalent conditions of \Cref{prop:odd-ind-magic}.
 Note that the condition is invariant under swapping \(a\) with \(b\), as well as invariant under swapping \(c\) with \(d\).
 
-The interval of rows \(\interval{\alpha_{i+1}}\) is uniquely partitioned into intervals, called \vocab{blocks}, such that two consecutive rows in the same block are intertwined, and two consecutive rows in different blocks are not intertwined.
-The partition of \(\interval{\alpha_{i+1}}\) into blocks is called the \vocab{block structure (of columns \(i\) and \(i+1\)) of the filling \(T\)}.
+The interval of rows \(\interval{h}\) is uniquely partitioned into intervals, called \vocab{blocks}, such that two consecutive rows in the same block are intertwined, and two consecutive rows in different blocks are not intertwined.
+The partition of \(\interval{h}\) into blocks is called the \vocab{block structure \textup{(}of columns \(i\) and \(i+1\)\textup{)} of the filling \(T\)}.
 \Cref{fig:blocks} shows a filling and its blocks.
  
 \begin{figure}[htbp]
@@ -314,7 +317,7 @@ Let
 \end{align*}
 Edge cases are when the block is the bottommost one, i.e. \(r_1 = 1\),
 in which case \(f_1 = f_2 = \infty\) by convention;
-and when the block is the topmost one, i.e. \(r_2 = \alpha_{i+1}\), in which case one of \(e_1, e_2\) is undefined.
+and when the block is the topmost one, i.e. \(r_2 = h\), in which case one of \(e_1, e_2\) is undefined.
 For any well-defined \(e \in \{e_1, e_2\}\) and \(f \in \{f_1, f_2\}\),
 we say that \((a, b, c, d, e, f)\) are \vocab{signature entries} of the block.
 See \Cref{fig:general-block} for an illustration of the entries \(a, b, c, d, e_1, e_2, f_1, f_2\).
@@ -361,7 +364,7 @@ In all cases, the values \(\ind{c, d, f}\) and \(\ind{e, a, b}\) are uniquely de
 \begin{definition}[The bijection \(\phi\) via blocks] \label{def:phi-via-blocks}
     Let \(T \in \Fill(\alpha)\).
     We define \(U = \phi(T) \in \Fill(s_i \permact \alpha)\)
-    by requiring the local restrictions (i.e., \Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row})
+    by requiring the local restrictions (i.e., \Cref{eq:restriction-other-columns,eq:restriction-swap-per-row})
     and requiring that, for each block of \(T\) with signature entries \((a, b, c, d, e, f)\),
     the rows of the block are swapped in \(U\) if and only if
     \begin{equation}
@@ -372,12 +375,14 @@ In all cases, the values \(\ind{c, d, f}\) and \(\ind{e, a, b}\) are uniquely de
 \begin{definition}[The bijection \(\psi\) via blocks] \label{def:psi-via-blocks}
     Let \(T \in \Fill(\alpha)\).
     We define \(U = \psi(T) \in \Fill(s_i \permact \alpha)\)
-    by requiring the local restrictions (i.e., \Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row})
+    by requiring the local restrictions (i.e., \Cref{eq:restriction-other-columns,eq:restriction-swap-per-row})
     and requiring that, for each block of \(T\) with signature entries \((a, b, c, d, e, f)\),
     the rows of the block are swapped in \(U\) if and only if
     \begin{equation}
-        \ind{c, d, f} \neq \ind{e, a, b} \quad \text{xor} \quad \text{(the block is the bottommost block)}.
+        \ind{c, d, f} \neq \ind{e, a, b} \quad \mathbin{\mathrm{xor}} \quad \text{(the block is the bottommost block)},
     \end{equation}
+    where \(\mathbin{\mathrm{xor}}\) denotes the exclusive or operation, 
+    whose result is true if and only if an odd number of its operands are true.
 \end{definition}
 
 To make things explicitly, both \(\phi\) and \(\psi\) swap a non-bottommost block if and only if \(\ind{c, d, f} \neq \ind{e, a, b}\).
@@ -449,14 +454,15 @@ We prove this in \Cref{thm:phi-maj-inv}.
 It turns out that the bijections \(\phi\) and \(\psi\) are the same as the bijections defined in \cite{KLO22}.
 We now present the algorithm from \cite{KLO22}, in a clearer form than the original exposition.
 
-Let \(T \in \Fill(\alpha)\). Let \(h = \min(\alpha_i, \alpha_{i+1})\).
+Let \(h = \min(\alpha_i, \alpha_{i+1})\).
+Let \(T \in \Fill(\alpha)\).
 We describe the algorithm to compute \(U = \phi(T)\) or \(U = \psi(T)\).
 The algorithm uses a \vocab{coin} with two sides, \(\coinphi\) and \(\coinpsi\), as a bookkeeping device.
-Each row from \(1\) to \(\alpha_{i+1} - 1\) is, at some point of the algorithm, assigned a \vocab{coin value} in \(\{\coinphi, \coinpsi\}\).
+Each row from \(1\) to \(h\) is, at some point of the algorithm, assigned a \vocab{coin value} in \(\{\coinphi, \coinpsi\}\).
 Initially, assign the coin value of row \(1\) to be \(\coinphi\) if computing \(U = \phi(T)\), or \(\coinpsi\) if computing \(U = \psi(T)\).
 We denote by \(\operatorname{coin}_r\) the coin value assigned to row \(r\).
 
-In addition to the coin value, each row from \(1\) to \(\alpha_{i+1}\) is labeled from \(\{\labelN, \labelS, \labelC\}\).
+In addition to the coin value, each row from \(1\) to \(h\) is labeled from \(\{\labelN, \labelS, \labelC\}\).
 A label of \(\labelN\) means the entries in row \(r\) of columns \(i\) and \(i+1\) in \(T\) and \(U\) are \emph{not} swapped;
 a label of \(\labelS\) means they are \emph{swapped};
 and a label of \(\labelC\) indicates that the behavior for row \(r\) should \emph{copy} the behavior for the row above it.
@@ -497,7 +503,7 @@ thus \( \ind{a,d} + \ind{b,c} - \ind{a,c} - \ind{b,d} \in \{1, 0, -1\} \).
 \end{description}
 
 Finally, we process row \(r = h\), assuming that the coin value \(\operatorname{coin}_h\) has already been assigned.
-Let \(a = T(i,h+1)\) if \(h = \alpha_{i+1} < \alpha_i\) or \(a = T(i+1,h+1)\) if \(h = \alpha_{i} < \alpha_{i+1}\), i.e., \(a\) is the only entry in row \(h+1\) on one of the two columns \(i\) or \(i+1\).
+Let \(a = T(i,h+1)\) if \(h = \alpha_{i+1} < \alpha_i\) or \(a = T(i+1,h+1)\) if \(h = \alpha_{i} < \alpha_{i+1}\), i.e., \(a\) is the only entry in row \(h+1\) and in one of the two columns \(i\) or \(i+1\).
 Let \(c = T(i,h)\), and let \(d = T(i+1,h)\).
 
 \begin{description}
@@ -521,13 +527,13 @@ Let \(c = T(i,h)\), and let \(d = T(i+1,h)\).
 
 \begin{definition}[The bijections \(\phi\) and \(\psi\) via the row-by-row algorithm] \label{def:phi-psi-via-row-by-row}
     Let \(T \in \Fill(\alpha)\).
-    The row-by-row algorithm described above, with initial coin value \(\coinphi\) (resp.~\(\coinpsi\)), produces a label for each row \(r \in \interval{\alpha_{i+1}}\).
+    The row-by-row algorithm described above, with initial coin value \(\coinphi\) (resp.~\(\coinpsi\)), produces a label for each row \(r \in \interval{h}\).
     We define \(U = \phi(T) \in \Fill(s_i \permact \alpha)\) (resp.~\(U = \psi(T) \in \Fill(s_i \permact \alpha)\))
-    by requiring the local restrictions (i.e., \Cref{eq:restriction-other-columns,eq:restriction-top-entries,eq:restriction-swap-per-row}) and requiring that, for each row \(r \in \interval{\alpha_{i+1}}\),
+    by requiring the local restrictions (i.e., \Cref{eq:restriction-other-columns,eq:restriction-swap-per-row}) and requiring that, for each row \(r \in \interval{h}\),
     \begin{itemize}
         \item if row \(r\) is labeled \(\labelN\), then row \(r\) is not swapped in \(U\);
         \item if row \(r\) is labeled \(\labelS\), then row \(r\) is swapped in \(U\);
-        \item if row \(r\) is labeled \(\labelC\), then row \(r\) copies the behavior of the nearest row above \(r\) labeled \(\labelN\) or \(\labelS\).\footnote{Note that since row \(\alpha_{i+1}\) is always labeled \(\labelN\) or \(\labelS\), there is always a row above \(r\) labeled \(\labelN\) or \(\labelS\).}
+        \item if row \(r\) is labeled \(\labelC\), then row \(r\) copies the behavior of the nearest row above \(r\) labeled \(\labelN\) or \(\labelS\).\footnote{Note that since row \(h\) is always labeled \(\labelN\) or \(\labelS\), there is always a row above \(r\) labeled \(\labelN\) or \(\labelS\).}
     \end{itemize}
 \end{definition}
 
@@ -623,9 +629,8 @@ The row-by-row algorithm may be described recursively instead of iteratively.
 
 Let \(T \in \Fill(\alpha)\) with \(h = \min(\alpha_i, \alpha_{i+1})\).
 Assign the coin value of row \(1\) to be \(\coinphi\) if computing \(U = \phi(T)\), or \(\coinpsi\) if computing \(U = \psi(T)\).
-If column \(i+1\) consists of a single entry, then assign the label of this row according to Base~I or~II.
-Otherwise, assign the label of row \(1\) according one of Cases~I--IV,
-and at the same time determine the coin value to be used for the next row.
+If \(h=1\), then assign the label of this row according to Base~I or~II.
+Otherwise, assign the label of row \(1\) and the coin value of row \(2\) according one of Cases~I--IV.
 Remove the first row to obtain the sub-filling \(T'\), and apply the algorithm recursively to \(T'\) with this new coin value, obtaining the labels for rows \(2,\dots, h\).
 Once all labels are determined, construct \(U\) in a final pass by applying the rules for \(\labelN,\labelS,\labelC\) as before.
 
@@ -644,11 +649,8 @@ We do so by applying the row-by-row algorithm and observing what happens to each
 \begin{proof}
     Let \(\phi\) be defined as in \Cref{def:phi-psi-via-row-by-row}.
     We show that \(\phi\) satisfies the conditions in \Cref{def:phi-via-blocks}.
-    Without loss of generality, assume \(\alpha_i > \alpha_{i+1}\).
     Let \(T \in \Fill(\alpha)\).
-    Consider a block \([r_1, r_2]\) of \(T\).
-    Let \(e_1 = T(i, r_2 + 1)\), \(a = T(i, r_2)\), \(b = T(i+1, r_2)\), \(c = T(i, r_1)\), \(d = T(i+1, r_1)\), and \(f_1 = T(i, r_1 - 1)\),
-    so that \((a, b, c, d, e_1, f_1)\) are signature entries of the block.
+    Consider a block \([r_1, r_2]\) of \(T\) with signature entries \((a, b, c, d, e, f)\).
 
     First, if \(r_1 > 1\),
     consider the row-by-row algorithm at row \(r_1 - 1\), and let's compute the coin value for row \(r_1\).
@@ -658,10 +660,10 @@ We do so by applying the row-by-row algorithm and observing what happens to each
     \begin{equation} \label{eq:coin-r1}
         \operatorname{coin}_{r_1} = \coinphi
         \quad \text{if and only if} \quad
-        \ind{c, f_1} - \ind{d, f_1} = 0.
+        \ind{c, f} - \ind{d, f} = 0.
     \end{equation}
     If \(r_1 = 1\), then by definition, \(\operatorname{coin}_{r_1} = \coinphi\),
-    and by convention, \(\ind{c, f_1} - \ind{d, f_1} = 0\) since \(f_1 = \infty\).
+    and by convention, \(\ind{c, f} - \ind{d, f} = 0\) since \(f = \infty\).
     Thus, \Cref{eq:coin-r1} holds independently of whether \(r_1 = 1\) or \(r_1 > 1\).
 
     Second, for each \(r \in \{r_1, r_1 + 1, \dots, r_2 - 1\}\),
@@ -679,45 +681,46 @@ We do so by applying the row-by-row algorithm and observing what happens to each
     \end{equation}
 
     Third, consider the row-by-row algorithm at row \(r_2\), and let's compute the label for row \(r_2\).
-    Since \(r_2\) and \(r_2 + 1\) are not intertwined,
-    we are in Case~II, III, or~IV or Base~I or~II.
+    If \(r_2 = h\), then we are in Base~I or~II,
+    otherwise, rows \(r_2\) and \(r_2 + 1\) are not intertwined,
+    and thus we are in Case~II, III, or~IV.
     In all of these cases, we have
     \begin{equation} \label{eq:label-r2}
         \operatorname{label}_{r_2} = \labelS
         \quad \text{if and only if} \quad
-        (\ind{e_1, a} - \ind{e_1, b} = 0) \mathbin{\text{xor}} (\operatorname{coin}_{r_2} = \coinpsi).
+        (\ind{e, a} - \ind{e, b} = 0) \mathbin{\mathrm{xor}} (\operatorname{coin}_{r_2} = \coinpsi).
     \end{equation}
 
-    Finally, using that \(\operatorname{coin}_{r_2} = \coinpsi\) if and only if \( (\operatorname{coin}_{r_2} = \operatorname{coin}_{r_1} ) \mathbin{\text{xor}} (\operatorname{coin}_{r_1} = \coinphi) \),
+    Finally, using that \(\operatorname{coin}_{r_2} = \coinpsi\) if and only if \( (\operatorname{coin}_{r_2} = \operatorname{coin}_{r_1} ) \mathbin{\mathrm{xor}} (\operatorname{coin}_{r_1} = \coinphi) \),
     we have
     \begin{align*}
         \operatorname{label}_{r_2} = \labelS
-        &\iff (\ind{e_1, a} - \ind{e_1, b} = 0) \mathbin{\text{xor}} (\operatorname{coin}_{r_2} = \operatorname{coin}_{r_1} ) \mathbin{\text{xor}} (\operatorname{coin}_{r_1} = \coinphi) \\
-        &\iff (\ind{e_1, a} - \ind{e_1, b} = 0) \mathbin{\text{xor}} (\ind{a, b} - \ind{c, d} = 0) \mathbin{\text{xor}} (\ind{c, f_1} - \ind{d, f_1} = 0) \\
-        &\iff \ind{e_1, a} - \ind{e_1, b} + \ind{a, b} - \ind{c, d} + \ind{c, f_1} - \ind{d, f_1} \equiv 1 \pmod{2} \\
-        &\iff \ind{e_1, a, b} \neq \ind{c, d, f_1}.
+        &\iff (\ind{e, a} - \ind{e, b} = 0) \mathbin{\mathrm{xor}} (\operatorname{coin}_{r_2} = \operatorname{coin}_{r_1} ) \mathbin{\mathrm{xor}} (\operatorname{coin}_{r_1} = \coinphi) \\
+        &\iff (\ind{e, a} - \ind{e, b} = 0) \mathbin{\mathrm{xor}} (\ind{a, b} - \ind{c, d} = 0) \mathbin{\mathrm{xor}} (\ind{c, f} - \ind{d, f} = 0) \\
+        &\iff \ind{e, a} - \ind{e, b} + \ind{a, b} - \ind{c, d} + \ind{c, f} - \ind{d, f} \equiv 1 \pmod{2} \\
+        &\iff \ind{e, a, b} \neq \ind{c, d, f}.
     \end{align*}
     which is the same swapping condition as in \Cref{def:phi-via-blocks}.
     Therefore, the two definitions of \(\phi\) are equivalent.
 
     The analysis for \(\psi\) is analogous.
     For \(\psi\), \Cref{eq:coin-r1} becomes
-    \begin{equation}
+    \begin{equation*}
         \operatorname{coin}_{r_1} = \coinphi
         \quad \text{if and only if} \quad
         (\ind{c, f_1} - \ind{d, f_1} = 0) \mathrel{\text{xor}} (r_1 = 1),
-    \end{equation}
+    \end{equation*}
     while \Cref{eq:coin-r2-coin-r1,eq:label-r2} remain unchanged.
     Therefore, the conclusion becomes
     \begin{equation*}
         \operatorname{label}_{r_2} = \labelS
-        \iff (\ind{e_1, a, b} \neq \ind{c, d, f_1}) \mathbin{\text{xor}} (r_1 = 1),
+        \iff (\ind{e_1, a, b} \neq \ind{c, d, f_1}) \mathbin{\mathrm{xor}} (r_1 = 1),
     \end{equation*}
     which is the same swapping condition as in \Cref{def:psi-via-blocks}.
     Therefore, the two definitions of \(\psi\) are equivalent.
 \end{proof}
 
-\subsection{Properties of the bijections \texorpdfstring{\(\phi\)}{φ} and \texorpdfstring{\(\psi\)}{ψ}} \label{subsec:properties-of-bijections}
+\subsection{Properties of \texorpdfstring{\(\phi\)}{φ} and \texorpdfstring{\(\psi\)}{ψ} via the block structure algorithm} \label{subsec:properties-of-bijections}
 
 As an abuse of notation, let \(\phi\) denote both the function \(\phi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) and the function \(\phi \colon \Fill(s_i \permact \alpha) \to \Fill(\alpha)\).
 The intended use of \(\phi\) is always clear from the shape of the input filling.
@@ -727,7 +730,7 @@ The intended use of \(\phi\) is always clear from the shape of the input filling
     Moreover, \(\phi\) is a bijection.
 \end{proposition}
 
-\begin{proof}[Proof (via block structure)]
+\begin{proof}[Proof]
     Let \(T \in \Fill(\alpha)\).
     Let \(U = \phi(T)\) and \(T' = \phi(U)\).
     Since the condition of two rows being intertwined only depends on the set of entries in two rows, not the order of the entries,
@@ -753,7 +756,7 @@ The intended use of \(\phi\) is always clear from the shape of the input filling
     Thus, the rows in \([r_1, r_2]\) are swapped between \(U\) and \(T'\).
     Since the rows in \([r_1, r_2]\) are also swapped between \(T\) and \(U\), then \(T\) and \(T'\) are identical in this block.
 
-    Therefore, for all blocks of \(T\), the corresponding blocks of \(T'\) are identical.
+    Therefore, for each block of \(T\), the corresponding block of \(T'\) is identical.
     All other entries of \(T\) and \(T'\) outside of blocks are equal by the local restrictions.
     Thus, \(T = T'\), and consequently \(\phi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) is the inverse of \(\phi \colon \Fill(s_i \permact \alpha) \to \Fill(\alpha)\).
     Since \(\phi\) has an inverse, it is a bijection.
@@ -819,7 +822,7 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
 \end{proof}
 
 \begin{theorem}[{\cite[Proposition~4.3]{KLO22}}] \label{thm:phi-maj-inv}
-    The bijection \(\phi\) preserves the statistics \(\inv\) and \(\maj\); that is, for all \(T \in \Fill(\alpha)\), if \(U = \phi(T)\), then
+    The bijection \(\phi\) preserves the statistics \(\maj\) and \(\inv\); that is, for all \(T \in \Fill(\alpha)\), if \(U = \phi(T)\), then
     \begin{equation} \label{eq:phi-maj}
         \maj(T) = \maj(U)
     \end{equation}
@@ -829,8 +832,8 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     \end{equation}
 \end{theorem}
 
-\begin{proof}[Proof of \eqref{eq:phi-maj} via block structure, independent of \textup{\cite{KLO22}}]
-    Without loss of generality, assume \(\alpha_i > \alpha_{i+1}\).
+\begin{proof}[Proof of \cref{eq:phi-maj}, independent of \textup{\cite{KLO22}}]
+    Without loss of generality, assume that \(\alpha_i > \alpha_{i+1}\).
     Let \(T \in \Fill(\alpha)\) and \(U = \phi(T)\).
     We first study how \(\Des(T)\) and \(\Des(U)\) relate to each other.
 
@@ -838,7 +841,7 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     Since \(\leg_\alpha(u) = \leg_{s_i \permact \alpha}(u)\) for such boxes \(u\),
     these descents contribute equally to \(\maj(T)\) and \(\maj(U)\).
     Moreover, for all boxes \(u = (i, r)\) with \(r \geq \alpha_{i+1} + 2\),
-    we have \(u \in \Des(T)\) if and only if \(s_i \cdot u \in \Des(U)\), by \Cref{eq:restriction-top-entries}.
+    we have \(u \in \Des(T)\) if and only if \(s_i \cdot u \in \Des(U)\), by \Cref{eq:restriction-swap-per-row}.
     Note that \(\leg_\alpha(u) = \alpha_{i} - r = \leg_{s_i \permact \alpha}(s_i \cdot u)\) for such boxes \(u\),
     so these descents contribute equally to \(\maj(T)\) and \(\maj(U)\).
     Therefore, it suffices to show that the contribution to \(\maj\) from the boxes in columns \(i\) and \(i+1\) at rows \(2\) through \(\alpha_{i+1} + 1\) are the same in both \(T\) and \(U\).
@@ -860,7 +863,6 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     Moreover, by \Cref{lem:leg-cancelation}, these descents contribute equally to \(\maj(T)\) and \(\maj(U)\).
 
     Therefore, it suffices to show that the contribution to \(\maj\) from unbalanced rows in \(T\) is the same as the contribution from unbalanced rows in \(U\).
-
     Each of the unbalanced rows in \([2, \alpha_{i+1} + 1]\) will be \vocab{assigned} to a unique block of \(T\), which is not necessarily the block that contains that row.
     We describe how the assignment is done.
 
@@ -883,20 +885,15 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     and \(r\) is unbalanced on opposite sides in \(T\) and \(U\) if \(r-1\) is swapped between \(T\) and \(U\).
     In this case, we \vocab{assign} row \(r\) to the block \(B_2\), which is the block that determines the swapping behavior of row \(r-1\).
 
-    Now, assume rows \(r-1\) and \(r\) are intertwined in \(T\), meaning that both rows belong to the same block \(B\), and that \(\ind{a, c} + \ind{b, d} + \ind{a, d} + \ind{b, c}\) is odd.
-
-    If row \(r\) is balanced with respect to \(T\), meaning that both or neither of the boxes \((i, r)\) and \((i+1, r)\) are descents of \(T\),
+    Second, assume rows \(r-1\) and \(r\) are intertwined in \(T\), meaning that both rows belong to the same block \(B\), and that \(\ind{a, c} + \ind{b, d} + \ind{a, d} + \ind{b, c}\) is odd.
     we have \(\ind{a, c} = \ind{b, d}\).
     Using the fact that \(\ind{a, c} + \ind{b, d} + \ind{a, d} + \ind{b, c}\) is odd,
     we can conclude that \(\ind{a, b} = \ind{c, d}\) in this case, that is, \(\ind{r} = \ind{r-1}\).
-
     If row \(r\) is left-unbalanced with respect to \(T\), meaning that only \((i, r)\) is a descent of \(T\) (equivalently \(\ind{a, c} = 1\) and \(\ind{b, d} = 0\)), then we have
     \(\ind{r} = \ind{a, b} = 1\) and \(\ind{r-1} = \ind{c, d} = 0\).
-
     If row \(r\) is right-unbalanced with respect to \(T\), meaning that only \((i+1, r)\) is a descent of \(T\) (equivalently \(\ind{a, c} = 0\) and \(\ind{b, d} = 1\)), then we have
     \(\ind{r} = \ind{a, b} = 0\) and \(\ind{r-1} = \ind{c, d} = 1\).
-
-    Note that we can determine whether a row \(r\) is balanced, left-unbalanced, or right-unbalanced by looking only at \(\ind{r-1}\) and \(\ind{r}\): if \(\ind{r-1} = \ind{r}\), then row \(r\) is balanced; if \(\ind{r-1} = 0\) and \(\ind{r} = 1\), then row \(r\) is left-unbalanced; and if \(\ind{r-1} = 1\) and \(\ind{r} = 0\), then row \(r\) is right-unbalanced.
+    Note that we can determine whether such row \(r\) is balanced, left-unbalanced, or right-unbalanced by looking only at \(\ind{r-1}\) and \(\ind{r}\): if \(\ind{r-1} = \ind{r}\), then row \(r\) is balanced; if \(\ind{r-1} = 0\) and \(\ind{r} = 1\), then row \(r\) is left-unbalanced; and if \(\ind{r-1} = 1\) and \(\ind{r} = 0\), then row \(r\) is right-unbalanced.
 
     Let \(\Des(B; T)\) be the set of descents of \(T\) in rows assigned to the block \(B\).
     We define the \vocab{major contributions} of a block \(B\) with respect to the fillings \(T\) and \(U\) as
@@ -911,7 +908,7 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     Then, if \(u\) is a descent assigned to \(B\) in \(T\), then \(s_i \cdot u\) is a descent assigned to \(B\) in \(U\), and vice versa,
     regardless of whether the descent is in row \(r_1\), row \(r_2 + 1\), or any row in between.
     Since \(\leg_{\alpha}(u) = \leg_{s_i \permact \alpha}(s_i \cdot u)\) for all boxes \(u\) in columns \(i\) or \(i+1\),
-    we have \(\maj(B; T) = \maj(B; U)\) in this case.
+    we have \(\maj(B; T) = \maj(B; U)\) for all blocks \(B\) that are swapped between \(T\) and \(U\).
 
     Now, assume that \(B = [r_1, r_2]\) is not swapped between \(T\) and \(U\), and that it is not the topmost block.
     Let \((a, b, c, d, e, f)\) be signature entries of \(B\).
@@ -930,28 +927,29 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     Moreover, we have \(\ind{d, f} - \ind{c, f} = \ind{e, a} - \ind{e, b}\).
     This means that \(\ind{d, f} = \ind{c, f}\) if, and only if, \(\ind{e, a} = \ind{e, b}\).
     If both are true, then rows \(r_1\) and \(r_2 + 1\) are not assigned to \(B\), and consequently, the numbers of left-unbalanced and right-unbalanced rows assigned to \(B\) are equal.
-    If both are false, then rows \(r_1\) and \(r_2 + 1\) are unbalanced and assigned to \(B\), with row \(r_1\) unbalanced to the side of the smallest of \(a\) and \(b\), and row \(r_2 + 1\) unbalanced to the side of the largest of \(c\) and \(d\).
+    If both are false, then rows \(r_1\) and \(r_2 + 1\) are unbalanced and assigned to \(B\), with row \(r_1\) unbalanced to the side of the largest of \(c\) and \(d\), and row \(r_2 + 1\) unbalanced to the side of the smallest of \(a\) and \(b\).
     Since \(\ind{a, b} = \ind{c, d}\), the largest of \(c\) and \(d\) is in the opposite column as the smallest of \(a\) and \(b\),
     and consequently, row \(r_1\) is left-unbalanced while row \(r_2 + 1\) is right-unbalanced, or vice versa.
     Therefore, in this case, the number of left-unbalanced rows assigned to \(B\) is equal to the number of right-unbalanced rows assigned to \(B\) as well.
 
     Second, assume \(\ind{a, b} \neq \ind{c, d}\), that is, \(\ind{r_2} \neq \ind{r_1}\).
-    Without loss of generality, assume \(\ind{a, b} = 1\) and \(\ind{c, d} = 0\). (The argument for the other case swaps the roles of left and right.)
+    Moreover, assume \(\ind{a, b} = 1\) and \(\ind{c, d} = 0\).
     In the sequence \((\ind{r_1}, \ind{r_1+1}, \dots, \ind{r_2})\), each time the indicator does not change, the corresponding row is balanced, and each time the indicator changes from \(0\) to \(1\) (resp. from \(1\) to \(0\)), the corresponding row is left-unbalanced (resp. right-unbalanced).
     Since this sequence starts with \(0\) and ends with \(1\), there is exactly one more left-unbalanced row than right-unbalanced rows among rows \(r_1 + 1\) through \(r_2\).
     Moreover, we have \(\ind{d, f} - \ind{c, f} \neq \ind{e, a} - \ind{e, b}\).
     This means that exactly one of \(\ind{d, f} \neq \ind{c, f}\) and \(\ind{e, a} \neq \ind{e, b}\) is true.
-    If \(\ind{d, f} \neq \ind{c, f}\), then row \(r_2 + 1\) is unbalanced to the side of the largest of \(c\) and \(d\), which is \(d\) since \(\ind{c, d} = 0\), that is, row \(r_2 + 1\) is right-unbalanced; while row \(r_1\) is not assigned to \(B\).
+    If \(\ind{d, f} \neq \ind{c, f}\) and \(\ind{e, a} = \ind{e, b}\), then row \(r_1\) is unbalanced to the side of the largest of \(c\) and \(d\), which is \(d\) since \(\ind{c, d} = 0\), that is, row \(r_1\) is right-unbalanced; while row \(r_2 + 1\) is not assigned to \(B\).
     Therefore, with this extra right-unbalanced row assigned to \(B\),
     the numbers of left-unbalanced and right-unbalanced rows assigned to \(B\) are equal.
-    If \(\ind{e, a} \neq \ind{e, b}\), then row \(r_1\) is unbalanced to the side of the smallest of \(a\) and \(b\), which is \(a\) since \(\ind{a, b} = 1\), that is, row \(r_1\) is left-unbalanced; while row \(r_2 + 1\) is not assigned to \(B\).
+    If \(\ind{d, f} = \ind{c, f}\) and \(\ind{e, a} \neq \ind{e, b}\), then row \(r_2 + 1\) is unbalanced to the side of the smallest of \(a\) and \(b\), which is \(a\) since \(\ind{a, b} = 1\), that is, row \(r_2 + 1\) is left-unbalanced; while row \(r_1\) is not assigned to \(B\).
     Therefore, with this extra left-unbalanced row assigned to \(B\),
     the numbers of left-unbalanced and right-unbalanced rows assigned to \(B\) are equal as well.
+    The argument for the case \(\ind{a, b} = 0\) and \(\ind{c, d} = 1\) is analogous, by swapping the roles of left and right throughout.
 
     Therefore, in all cases, the number of left-unbalanced rows assigned to \(B\) is equal to the number of right-unbalanced rows assigned to \(B\).
     This means that we can pair each left-unbalanced row assigned to \(B\) with a unique right-unbalanced row assigned to \(B\).
     By \Cref{lem:leg-cancelation},
-    the contributions to \(\maj(B; T)\) and \(\maj(B; U)\) from each such pair are equal, and consequently, \(\maj(B; T) = \maj(B; U)\).
+    the contributions to \(\maj(B; T)\) and \(\maj(B; U)\) from each such pair are equal, and consequently, \(\maj(B; T) = \maj(B; U)\) for all non-topmost blocks \(B\) that are not swapped between \(T\) and \(U\).
 
     Finally, assume that \(B = [r_1, \alpha_{i+1}]\) is the topmost block of \(T\), and that it is not swapped between \(T\) and \(U\).
     Let \((a, b, c, d, e, f)\) be signature entries of \(B\).
@@ -1053,8 +1051,8 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     Since each unbalanced row is assigned to exactly one block, we conclude that \(\maj(T) = \maj(U)\), completing the proof.
 \end{proof}
 
-\begin{proof}[Proof of \eqref{eq:phi-inv} via block structure, independent of \textup{\cite{KLO22}}]
-    Without loss of generality, assume \(\alpha_i > \alpha_{i+1}\).
+\begin{proof}[Proof of \cref{eq:phi-inv}, independent of \textup{\cite{KLO22}}]
+    Without loss of generality, assume that \(\alpha_i > \alpha_{i+1}\).
     Let \(T \in \Fill(\alpha)\) and \(U = \phi(T)\).
     Let \(\beta = \composition{0, \dots, 0, \alpha_{i+1}, \alpha_{i+1}, 0, \dots, 0}\).
     Let \(T_1 \in \Fill(\beta)\) and \(U_1 \in \Fill(s_i \permact \beta)\) be the fillings obtained from \(T\) and \(U\) by restricting to columns \(i\) and \(i+1\).
@@ -1131,14 +1129,14 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
         \item the number of left-unbalanced rows assigned to \(B\) is equal to the number of right-unbalanced rows assigned to \(B\), in which case we can pair each left-unbalanced row assigned to \(B\) with a unique right-unbalanced row assigned to \(B\), and by \Cref{lem:arm-cancelation}, the contributions to each side of \Cref{eq:arm-prime-descent-sum} from each such pair are equal; or
         \item there is one extra right-unbalanced row \(r\) assigned to \(B\), the box \((i, \alpha_{i+1} + 1)\) is a descent of \(T\), and the box \((i+1, \alpha_{i+1} + 1)\) is not a descent of \(U\), in which case we check that
         \begin{multline*}
-            \arm_{\alpha}'(i, r)
+            \arm_{\alpha}'(i+1, r)
             +
             \arm_{\alpha}'(i, \alpha_{i+1} + 1)
             = \\
             \begin{aligned}
             &=
-            \left|\{ j < i : \alpha_j + 1 \in \interval{r, \alpha_i} \}\right| +
-            \left|\{ j > i+1 : \alpha_j \in \interval{r, \alpha_i} \}\right| \\
+            \left|\{ j < i : \alpha_j + 1 \in \interval{r, \alpha_{i+1}} \}\right| +
+            \left|\{ j > i+1 : \alpha_j \in \interval{r, \alpha_{i+1}} \}\right| \\
             &\quad+
             \left|\{ j < i : \alpha_j + 1 \in \interval{\alpha_{i+1} + 1, \alpha_i} \}\right| +
             \left|\{ j > i+1 : \alpha_j \in \interval{\alpha_{i+1} + 1, \alpha_i} \}\right| \\
@@ -1149,7 +1147,7 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
             \arm_{s_i \permact \alpha}'(i+1, r),
             \end{aligned}
         \end{multline*}
-        so the contributions to each side of \Cref{eq:arm-prime-descent-sum} from the extra left-unbalanced row and the box \((i+1, \alpha_{i+1} + 1)\) are equal; or
+        so the contributions to each side of \Cref{eq:arm-prime-descent-sum} from the extra left-unbalanced row \(r\) and the row \(\alpha_{i+1} + 1\) are equal; or
         \item there is one extra left-unbalanced row \(r\) assigned to \(B\), the box \((i, \alpha_{i+1} + 1)\) is not a descent of \(T\), and the box \((i+1, \alpha_{i+1} + 1)\) is a descent of \(U\), in which case we check that 
         \begin{align*}
             \arm_{\alpha}'(i, r)
@@ -1159,22 +1157,24 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
             \left|\{ j < i : \alpha_j + 1 \in \interval{r, \alpha_{i+1}} \}\right| +
             \left|\{ j > i+1 : \alpha_j \in \interval{r, \alpha_{i+1}} \}\right| \\
             &\quad+
-            \left|\{ j < i : \alpha_j + 1 = \alpha_{i} + 1 \}\right| +
-            \left|\{ j > i+1 : \alpha_j = \alpha_{i} \}\right| \\
+            \left|\{ j < i : \alpha_j + 1 \in \interval{\alpha_{i+1} + 1, \alpha_i} \}\right| +
+            \left|\{ j > i+1 : \alpha_j \in \interval{\alpha_{i+1} + 1, \alpha_i} \}\right| \\
             &=
-            \arm_{s_i \permact \alpha}'(i+1, r)
+            \arm_{s_i \permact \alpha}'(i, r)
             + \arm_{s_i \permact \alpha}'(i+1, \alpha_{i+1} + 1),
         \end{align*}
-        so the contributions to each side of \Cref{eq:arm-prime-descent-sum} from the extra left-unbalanced row and the box \((i+1, \alpha_{i+1} + 1)\) are equal; or
+        so the contributions to each side of \Cref{eq:arm-prime-descent-sum} from the extra left-unbalanced row \(r\) and the row \(\alpha_{i+1} + 1\) are equal.
     \end{itemize}
     In all cases, the contributions to each side of \Cref{eq:arm-prime-descent-sum} from descents assigned to \(B\) are equal.
+
     Therefore, we have
     \begin{align*}
         \inv(T) - \inv(U) 
-        &= \left|\InversionPairs(T_1)\right| - \left|\InversionPairs(U_1)\right|
-        - \sum_{u \in \Des(T_1)} \arm_{\beta}(u) 
-        + \sum_{u \in \Des(U_1)} \arm_{s_i \permact \beta}(u) \\
-        &= \inv(T_1) - \inv(U_1).
+        &= \left(\left|\InversionPairs(T)\right| - \left|\InversionPairs(U)\right|\right)
+        - \left(\sum_{u \in \Des(T)} \arm_{\alpha}(u) - \sum_{u \in \Des(U)} \arm_{s_i \permact \alpha}(u)\right) \\
+        &= \left(\left|\InversionPairs(T_1)\right| - \left|\InversionPairs(U_1)\right|\right)
+        - \left(\sum_{u \in \Des(T_1)} \arm_{\beta}(u) - \sum_{u \in \Des(U_1)} \arm_{s_i \permact \beta}(u)\right) \\
+        &= \inv(T_1) - \inv(U_1). 
     \end{align*}
 
     Finally, we check that \(\inv(T_1) = \inv(U_1)\).
@@ -1298,23 +1298,34 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     We omit the details, whose change from the details in the proof of \Cref{thm:phi-maj-inv} are analogous to the changes above: if \(\chi{c, d} = 1\), then there is one extra left-unbalanced row contributing \(L + 1\) to \(\maj(T) - \maj(U)\); and if \(\chi{c, d} = 0\), then there is one extra right-unbalanced row contributing \(-(L + 1)\) to \(\maj(T) - \maj(U)\).
 
     Now, we analyze the inversion statistic.
-    We can decompose the inversion statistic as
-    \begin{equation*}
-        \inv(T) - \inv(U)
-        =
-        \left(
-            \left|\InversionPairs(T)\right|
-            - \left|\InversionPairs(U)\right|
-        \right)
-        -
-        \left(
-            \sum_{u \in \Des(T)} \arm_{\alpha}(u)
-            - \sum_{u \in \Des(U)} \arm_{s_i \permact \alpha}(u)
-        \right).
-    \end{equation*}
-
     As in the proof of \Cref{thm:phi-maj-inv}, \(\left|\InversionPairs(T)\right| - \left|\InversionPairs(U)\right| = \left|\InversionPairs(T_1)\right| - \left|\InversionPairs(U_1)\right|\).
-    Moreover, as in the proof of \Cref{thm:phi-maj-inv}, the number of inversion pairs in \(T_1\) assigned to each non-bottommost block is equal to the number of inversion pairs in \(U_1\) assigned to the same block.
+    We decompose the difference \(\inv(T) - \inv(U)\) as
+    \begin{gather*}
+            \left(
+                \left|\InversionPairs(T_1)\right|
+                - \left|\InversionPairs(U_1)\right|
+            \right)
+            -
+            \left(
+                \sum_{\mathclap{\mkern60mu u \in \Des(T_1)}} \arm_{\beta}(u)
+                - \sum_{\mathclap{\mkern40mu u \in \Des(U_1)}} \arm_{s_i \permact \beta}(u)
+            \right)
+            -
+            \left(
+                \sum_{\mathclap{\mkern60mu u \in \Des(T_1)}} \arm_{\alpha}'(u)
+                - \sum_{\mathclap{\mkern40mu u \in \Des(U_1)}} \arm_{s_i \permact \alpha}'(u)
+            \right)
+            = \\
+            =
+            \left(\inv(T_1) - \inv(U_1)\right)
+            -
+            \left(
+                \sum_{u \in \Des(T_1)} \arm_{\alpha}'(u)
+                - \sum_{u \in \Des(U_1)} \arm_{s_i \permact \alpha}'(u)
+            \right).
+    \end{gather*}
+
+    On the one hand, as in the proof of \Cref{thm:phi-maj-inv}, the number of inversion pairs in \(T_1\) assigned to each non-bottommost block is equal to the number of inversion pairs in \(U_1\) assigned to the same block.
     For the bottommost block \(B = [1, r_2]\),
     the unmatched triples, \(a_1\) in \(T\) and \(b_{r_2}\) in \(U\), have different inversion types.
     If \(\ind{c, d} = 1\), corresponding to the first and second cases of the theorem,
@@ -1323,7 +1334,7 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     then \(a_1\) is not an inversion triple while \(b_{r_2}\) is, which makes \(\left|\InversionPairs(T_1)\right| - \left|\InversionPairs(U_1)\right| = -1\).
     In summary, we have
     \begin{equation} \label{eq:inversion-pair-difference-psi}
-        \left|\InversionPairs(T)\right| - \left|\InversionPairs(U)\right|
+        \left|\InversionPairs(T_1)\right| - \left|\InversionPairs(U_1)\right|
         =
         \begin{cases}
             1, & \text{if } \ind{{T(i,1)}, {T(i+1,1)}} = 1, \\
@@ -1331,12 +1342,12 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
         \end{cases}
     \end{equation}
 
-    Moreover, for each block except the bottommost one, the sum of \(\arm_{\alpha}'(u)\) over descents \(u\) assigned to the block in \(T\) is equal to the sum of \(\arm_{s_i \permact \alpha}'(u)\) over descents \(u\) assigned to the block in \(U\), by the same analysis as in the proof of \Cref{thm:phi-maj-inv}.
+    On hthe other hand, for each non-bottommost block, the sum of \(\arm_{\alpha}'(u)\) over descents \(u\) assigned to the block in \(T\) is equal to the sum of \(\arm_{s_i \permact \alpha}'(u)\) over descents \(u\) assigned to the block in \(U\), by the same analysis as in the proof of \Cref{thm:phi-maj-inv}.
     Therefore, it remains to analyze the contributions to the difference
     \begin{equation*}
-        \sum_{u \in \Des(T)} \arm_{\alpha}'(u)
+        \sum_{u \in \Des(T_1)} \arm_{\alpha}'(u)
         -
-        \sum_{u \in \Des(U)} \arm_{s_i \permact \alpha}'(u)
+        \sum_{u \in \Des(U_1)} \arm_{s_i \permact \alpha}'(u)
     \end{equation*}
     from descents assigned to the bottommost block \(B = [1, r_2]\).
 
