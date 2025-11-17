@@ -139,11 +139,16 @@
 \usepackage{ytableau}
 
 %%%%%%%%%%
+% Footnotes
+%%%%%%%%%%
+\usepackage[perpage,symbol*]{footmisc}
+
+%%%%%%%%%%
 % Todo Notes
 %%%%%%%%%%
 
-\usepackage{todonotes}
-\setuptodonotes{size=\footnotesize}
+% \usepackage{todonotes}
+% \setuptodonotes{size=\footnotesize}
 
 % Expanding the paper and margin for todo notes
 % The layout of the content will not change
@@ -152,22 +157,22 @@
 % \marginparwidth=\dimexpr \marginparwidth + 2.2in\relax
 
 % Silence warnings about todo notes in margin
-\usepackage{silence}
-\WarningFilter{latex}{Marginpar on page}
-\WarningFilter{todonotes}{The length marginparwidth}
+% \usepackage{silence}
+% \WarningFilter{latex}{Marginpar on page}
+% \WarningFilter{todonotes}{The length marginparwidth}
 
-% Draw a vertical line at the original page boundary
-\usepackage{tikzpagenodes}
-\usepackage{atbegshi}
-\AtBeginShipout{%
-  \AtBeginShipoutUpperLeft{%
-    \begin{tikzpicture}[remember picture,overlay]
-      \draw[gray!60, dashed, line width=0.7pt]
-        ([xshift=8.5in,yshift=0pt]current page.north west) -- 
-        ([xshift=8.5in,yshift=-\paperheight]current page.north west);
-    \end{tikzpicture}%
-  }
-}
+% % Draw a vertical line at the original page boundary
+% \usepackage{tikzpagenodes}
+% \usepackage{atbegshi}
+% \AtBeginShipout{%
+%   \AtBeginShipoutUpperLeft{%
+%     \begin{tikzpicture}[remember picture,overlay]
+%       \draw[gray!60, dashed, line width=0.7pt]
+%         ([xshift=8.5in,yshift=0pt]current page.north west) -- 
+%         ([xshift=8.5in,yshift=-\paperheight]current page.north west);
+%     \end{tikzpicture}%
+%   }
+% }
 
 %%%%%%%%%%
 % Custom Macros
