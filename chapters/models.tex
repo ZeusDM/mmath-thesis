@@ -388,7 +388,7 @@ when the tuple \((u, v, w)\) is of type A or type B are shown in \cref{fig:tripl
 Note that if \(\alpha\) is a partition, there are no triples of type B.
 \begin{figure}[ht]
 	\centering
-	\begin{subfigure}[t]{0.45\textwidth}
+	\begin{subfigure}[t]{0.46\textwidth}
 		\centering
 		\begin{ytableau}
 			u & \none[\cdots] & v \\
@@ -396,8 +396,8 @@ Note that if \(\alpha\) is a partition, there are no triples of type B.
 		\end{ytableau}
 		\caption*{(\textsc{Type A})
 		The column containing \(u\) and \(w\) is at least as high as the column containing \(v\).}
-	\end{subfigure}\hspace{0.05\textwidth}
-	\begin{subfigure}[t]{0.45\textwidth}
+	\end{subfigure}\hspace{0.04\textwidth}
+	\begin{subfigure}[t]{0.46\textwidth}
 		\centering
 		\begin{ytableau}
 			\none & \none & u \\
@@ -438,8 +438,8 @@ See \cref{fig:inversion-coinversion} for an example.
 \begin{figure}[htbp]
     \centering
 	\ytableausetup{boxsize=0.5cm}
-	\colorlet{inversion}{orange!70!white}
-	\colorlet{coinversion}{purple!50!white}
+	\colorlet{inversion}{orange!50!white}
+	\colorlet{coinversion}{purple!60!white}
 	\renewcommand{\arraystretch}{1.5}
 	\begin{tabular}{ccccc}
 		\begin{ytableau}
@@ -484,10 +484,10 @@ See \cref{fig:inversion-coinversion} for an example.
 	\end{tabular}
 	\caption{
 		We show all five triples of
-		the filling \(T\) in \cref{fig:non-attacking-filling};
-		the first four are of type A, and the last one is of type B.
-		There are two inversion triples (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[fill=orange!70!white] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,)
-		and three coinversion triples (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[fill=purple!50!white] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,),
+		the filling \(T\) in \cref{fig:non-attacking-filling}.
+		The first four are of type A, and the last one is of type B.
+		There are two inversion triples (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[fill=orange!50!white] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,)
+		and three coinversion triples (\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm] \protect\draw[fill=purple!60!white] (0, 0) rectangle ++(1, 1); \end{tikzpicture}}\,),
 		which gives \(\inv(T) = 2\) and \(\coinv(T) = 3\).
 	}
 	\label{fig:inversion-coinversion}
@@ -524,8 +524,9 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 		\end{aligned}
 	\end{multline*}
 	as desired.
-	One subtleties in the computation is that, if \(u\) is in row \(1\), then \(d(u)\) is in row \(0\) and thus not in \(\dg(\alpha)\); nevertheless, since \(T(d(u)) = \infty\) by convention, we have \(\ind{T(v), T(d(u))} = 0\) and \(\ind{T(u), T(d(u))} = 0\), so the formula still holds.
-	Another subtlety is that not all \(w \in \dg(w)\) are attained as the south of some \(u \in \dg(\alpha)\), so changing the variable from \(u\) to \(w\) in the second sum would incorrectly account for such boxes;
+	There are two subtleties in the computation.
+	First, if \(u\) is in row \(1\), then \(d(u)\) is in row \(0\) and thus not in \(\dg(\alpha)\); nevertheless, since \(T(d(u)) = \infty\) by convention, we have \(\ind{T(v), T(d(u))} = 0\) and \(\ind{T(u), T(d(u))} = 0\), so the formula still holds.
+	Second, not all \(w \in \dg(w)\) are attained as the south of some \(u \in \dg(\alpha)\), so changing the variable from \(u\) to \(w\) in the second sum would incorrectly account for such boxes;
 	nevertheless, those boxes \(w \in \dg(\alpha)\) that are not attained as the south of some \(u \in \dg(\alpha)\) have \(\leg(w) = 0\), and therefore are not included in the sum since \(\leg(w) > \leg(v) \geq 0\) cannot hold.
 \end{proof}
 
