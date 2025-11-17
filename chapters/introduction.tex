@@ -1,6 +1,6 @@
 \chapter{Introduction} \label{chap:introduction}
 
-Macdonald polynomials form a rich family of symmetric functions connecting representation theory, algebraic geometry, and algebraic combinatorics.
+Macdonald polynomials, in their many versions, form a family of polynomials studied in symmetric function theory that connect representation theory, algebra, combinatorics, statistical mechanics, and other areas of mathematics.
 A particularly fruitful approach to their study is through combinatorial formulas:
 many variants of Macdonald polynomials can be expressed as weight generating functions of tableaux,
 where the weights depend on classical tableaux statistics such as the inversion number and the major index.
@@ -8,15 +8,22 @@ This perspective suggests that many identities and properties of Macdonald polyn
 
 We focus on the \emph{permuted-basement Macdonald polynomials} \(E_\alpha^\sigma(\mathbf{x};q,t)\) introduced by \textcite{Fer11},
 a generalization of the nonsymmetric Macdonald polynomials \(E_\alpha(\mathbf{x};q,t)\) first studied by \textcite{Opd95,Mac96,Che95}.
-These polynomials depend on a composition \(\alpha\) and a permutation \(\sigma\), and they specialize to several important families of polynomials in symmetric function theory, including the nonsymmetric Macdonald polynomials themselves, as well as ASEP polynomials, key polynomials, Demazure atoms, and Schur polynomials.
+These polynomials depend on a composition \(\alpha\) and a permutation \(\sigma\),
+and they specialize to several important families of polynomials in symmetric function theory,
+including nonsymmetric Macdonald polynomials,
+ASEP polynomials,
+key polynomials,
+Demazure atoms,
+and Schur polynomials.
 For a fixed permutation \(\sigma\), the polynomials \(E_\alpha^\sigma(\mathbf{x};q,t)\) form a basis for the polynomial ring \(\rationals(q, t)[\mathbf{x}]\).
 These polynomials admit a combinatorial formula as a weighted generating function over augmented non-attacking fillings with composition shape \(\alpha\) and basement permutation \(\sigma\).
 
 We employ two complementary combinatorial tools for proving identities of such weight generating functions.
 The first, and most standard, is the method of weight-preserving bijections.
-These maps are standard and elegant: they directly match fillings of one type with fillings of another while exactly preserving the combinatorial weight.
+These maps directly match fillings of one type with fillings of another while exactly preserving the combinatorial weight, proving the equality of the corresponding generating functions.
 The second tool is a generalization known as probabilistic bijections,
 where the bijection are replaced by transition probabilities and the weight-preservation condition is replaced by a suitable balance condition between the weights and the probabilities.
+The existence of such a probabilistic bijection also implies the equality of the corresponding generating functions.
 
 In the combinatorial study of Macdonald polynomials, certain descriptions involve summations over fillings subject to restrictive conditions.
 These restrictions reduce the number of terms to consider,
@@ -29,7 +36,7 @@ In these settings, weight-preserving bijections are often possible, and can be e
 We prove two identities for permuted-basement Macdonald polynomials using these two methods.
 The first is proved via a weight-preserving bijection,
 and shows that, for a composition \(\alpha\) with \(\alpha_i > \alpha_{i+1}\),
-\[
+\begin{equation*}
     E_{\alpha}^\sigma(\mathbf{x};q,t)
     =
     E_{s_i \permact \alpha}^{\sigma s_i}(\mathbf{x};q,t)
@@ -37,15 +44,15 @@ and shows that, for a composition \(\alpha\) with \(\alpha_i > \alpha_{i+1}\),
     c_{\alpha,\sigma,i}(q,t)
     \,
     E_{s_i \permact \alpha}^\sigma(\mathbf{x};q,t),
-\]
+\end{equation*}
 with an explicit coefficient \(c_{\alpha,\sigma,i}(q,t) \in \rationals(q,t)\).
 The second identity is proved via a probabilistic bijection,
 and shows that, for a composition \(\alpha\) with \(\alpha_i = \alpha_{i+1}\),
-\[
+\begin{equation*}
     E_{\alpha}^\sigma(\mathbf{x};q,t)
     =
     E_{\alpha}^{\sigma s_i}(\mathbf{x};q,t).
-\]
+\end{equation*}
 
 \section*{Structure of the thesis}
 
@@ -53,10 +60,10 @@ The remainder of this thesis is organized into four chapters.
 
 \Cref{chap:polynomials} introduces Macdonald polynomials from an algebraic perspective.
 We define several variations of Macdonald polynomials including
-the modified Macdonald polynomials $\tilde{H}_\mu$,
-the integral form symmetric Macdonald polynomials $J_\mu$,
-the symmetric Macdonald polynomials $P_\mu$,
-and the permuted-basement Macdonald polynomials $E_\alpha^\sigma$.
+the modified Macdonald polynomials \(\tilde{H}_\mu\),
+the integral form symmetric Macdonald polynomials \(J_\mu\),
+the symmetric Macdonald polynomials \(P_\mu\),
+and the permuted-basement Macdonald polynomials \(E_\alpha^\sigma\).
 Readers interested primarily in the combinatorial aspects may safely skip this chapter,
 as alternate combinatorial descriptions of these polynomials are provided in \Cref{chap:models}.
 
@@ -69,12 +76,12 @@ the major index (\(\maj\)) and the inversion number (\(\inv\)).
 
 \Cref{chap:bijective} presents bijective results for Macdonald polynomials.
 On the first part of this chapter, following the work of \cite{KLO22},
-we describe the bijection between fillings $\Fill(\alpha)$ and $\Fill(s_i \permact \alpha)$
-that preserves the statistics $\inv$ and $\maj$.
-This bijection implies that $\tilde{H}_\alpha(\mathbf{x};q,t) = \tilde{H}_{s_i \permact \alpha}(\mathbf{x};q,t)$,
+we describe the bijection between fillings \(\Fill(\alpha)\) and \(\Fill(s_i \permact \alpha)\)
+that preserves the statistics \(\inv\) and \(\maj\).
+This bijection implies that \(\tilde{H}_\alpha(\mathbf{x};q,t) = \tilde{H}_{s_i \permact \alpha}(\mathbf{x};q,t)\),
 and by repeated application shows that the modified Macdonald polynomials are invariant under rearrangements of the partition.
 On the second part of this chapter, we adapt the bijection to the setting of
-permuted-basement Macdonald polynomials $E_\alpha^\sigma(\mathbf{x};q,t)$,
+permuted-basement Macdonald polynomials \(E_\alpha^\sigma(\mathbf{x};q,t)\),
 to obtain an identity relating \(E_\alpha^\sigma(\mathbf{x};q,t)\),
 \(E_{s_i \permact \alpha}^\sigma(\mathbf{x};q,t)\),
 and \(E_{s_i \permact \alpha}^{\sigma s_i}(\mathbf{x};q,t)\).
@@ -82,4 +89,4 @@ and \(E_{s_i \permact \alpha}^{\sigma s_i}(\mathbf{x};q,t)\).
 \Cref{chap:probabilistic} extends the bijective methods to a probabilistic setting.
 We introduce the concept of probabilistic bijections as a generalization of weight-preserving bijections,
 which can also be used to prove identities between generating functions.
-We explore their applications to Macdonald polynomials by proving that \(E_\alpha^\sigma(\mathbf{x};q,t) = E_\alpha^{\sigma s_i}(\mathbf{x};q,t)\) when $\alpha_i = \alpha_{i+1}$.
+We explore their applications to Macdonald polynomials by proving that \(E_\alpha^\sigma(\mathbf{x};q,t) = E_\alpha^{\sigma s_i}(\mathbf{x};q,t)\) when \(\alpha_i = \alpha_{i+1}\).
