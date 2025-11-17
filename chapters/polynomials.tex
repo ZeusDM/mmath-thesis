@@ -42,19 +42,19 @@ The \vocab{exponent notation} for a composition \(\alpha = \composition{\alpha_1
 is given by a sequence of nonnegative integers \(p_1, p_2, \ldots, p_k\)
 and positive integers \(m_1, m_2, \ldots, m_k\) that sum to \(n\)
 such that \(p_i \neq p_{i+1}\) for \(i\in[k-1]\), written as
-\begin{equation}
+\begin{equation*}
 	\alpha = \composition{
 		\underbrace{p_1 p_1 \ldots p_1}_{m_1},
 		\underbrace{p_2 p_2 \ldots p_2}_{m_2},
 		\ldots,
 		\underbrace{p_k p_k \ldots p_k}_{m_k}
 	} = p_1^{m_1} p_2^{m_2} \ldots p_k^{m_k}.
-\end{equation}
+\end{equation*}
 
 The \vocab{conjugate} of a partition \(\lambda\) is the partition \(\lambda'\) defined by
-\begin{equation}
+\begin{equation*}
 	\lambda'_i = |\{ j \suchthat \lambda_j \geq i \}|.
-\end{equation}
+\end{equation*}
 
 Given a permutation \(\pi \in \sym{n}\) and a composition \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\),
 the \vocab{left action} of \(\pi\) on \(\alpha\) is the composition
@@ -120,27 +120,27 @@ We refer the reader to \cite[Chapter~7]{EC2} for a comprehensive introduction to
 We take the coefficient field to be \(F = \rationals(q, t)\), the field of rational functions in the variables \(q\) and \(t\) with rational coefficients.
 
 Recall that the \vocab{power sum symmetric functions} \(p_k\) for \(k \geq 1\) are defined by
-\begin{equation}
+\begin{equation*}
 	p_k = \sum_{i \geq 1} x_i^k.
-\end{equation}
+\end{equation*}
 Any symmetric function can be uniquely expressed as a polynomial in the power sum symmetric functions.
 In other words,
-\begin{equation}
+\begin{equation*}
 	\Lambda(F) = F[p_1, p_2, p_3, \ldots].
-\end{equation}
+\end{equation*}
 We adopt plethystic notation as in \cite[Section~2]{Hai99}, defined as follows.
 
 Let \(A\) be a formal series (not necessarily symmetric, and not necessarily with \(x_1, x_2, \dots\) as indeterminates).
 We define \(p_k[A]\) to be the formal series obtained by replacing each indeterminate \(a\) in \(A\) by \(a^k\) (including the indeterminates \(q\) and \(t\), if they appear in \(A\)).
 For a symmetric function \(f \in \Lambda(F)\), let
-\begin{equation}
+\begin{equation*}
 	f = Q_f(p_1, p_2, \ldots, p_m)
-\end{equation}
+\end{equation*}
 be the expression of \(f\) as a polynomial \(Q_f\) in the power sum symmetric functions.
 Then, the \vocab{plethystic substitution} of \(A\) into \(f\) is defined as
-\begin{equation}
+\begin{equation*}
 	f[A] = Q_f(p_1[A], p_2[A], \ldots, p_m[A]).
-\end{equation}
+\end{equation*}
 
 If \(A\) is a sum of indeterminates, \(A = a_1 + a_2 + \cdots\), then \(p_k[A] = a_1^k + a_2^k + \cdots = p_k(a_1, a_2, \ldots)\), and thus \(f[A] = f(a_1, a_2, \ldots)\).
 This explains why we call \(f[A]\) a kind of substitution.
@@ -174,9 +174,9 @@ In this section, we define multiple variations of Macdonald polynomials:
 We follow \cite[Chapter VI]{Mac96} for the definition of symmetric Macdonald polynomials.
 
 Define the scalar product \(\langle \cdot, \cdot \rangle_{(q, t)}\) on \(\Lambda(\rationals(q, t))\) by
-\begin{equation}
+\begin{equation*}
 	\langle p_\lambda, p_\mu \rangle_{(q, t)} = \delta_{\lambda\mu} z_\lambda \prod_{i=1}^{\ell(\lambda)} \frac{1 - q^{\lambda_i}}{1 - t^{\lambda_i}},
-\end{equation}
+\end{equation*}
 where \( z_\lambda = \prod_{i \geq 1} i^{m_i} m_i!\), with \(m_i\) being the multiplicity of the part \(i\) in the partition \(\lambda\).
 When \(q = t\), this scalar product reduces to the usual Hall inner product on symmetric functions.
 % If \(q, t\) are treated as real parameters lying in \( (0, 1) \), then the scalar product is positive definite.
@@ -190,13 +190,13 @@ When \(q = t\), this scalar product reduces to the usual Hall inner product on s
 \end{theorem}
 
 For any polynomial \( f(x_1, \ldots, x_n) \) and \(1 \le i \le n\), define the \(q\)-shift operator \(T_{q,x_i}\) by
-\begin{equation}
+\begin{equation*}
 	(T_{q,x_i} f)(x_1, \ldots, x_n) = f(x_1, \ldots, qx_i, \ldots, x_n).
-\end{equation}
+\end{equation*}
 Then, the operator \( D \) is defined as
-\begin{equation}
+\begin{equation*}
 	D = \sum_{i=1}^n \left( \prod_{j \ne i} \frac{t x_i - x_j}{x_i - x_j} \right) T_{q,x_i}.
-\end{equation}
+\end{equation*}
 The operator \(D\) has distinct eigenfunction, and these eigenfunctions are the symmetric Macdonald polynomials \(P_\lambda(x_1, \ldots, x_n; q, t)\) where \(\lambda\) is a partition with at most \(n\) parts.
 
 \subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ}}
@@ -217,7 +217,7 @@ The notions of skyline diagrams, leg lengths, and arm lengths are defined in \Cr
 For now, it suffices to note \(c_\mu(q,t)\) is a polynomial in \(q\) and \(t\) that admits an explicit formula.
 
 The \vocab{integral form symmetric Macdonald polynomial} \(J_\mu = J_\mu(\mathbf{x}; q, t)\) is defined by
-\begin{equation}
+\begin{equation} \label{eq:J-algebraic-definition}
 	J_\mu(\mathbf{x}; q, t) = c_\mu(q, t) P_\mu(\mathbf{x}; q, t).
 \end{equation}
 The naming ``integral form'' is due to the fact that
@@ -268,23 +268,23 @@ For example, the permtutation \(\sigma = \window{2, 3, 1}\) sends the monomial \
 The \vocab{Demazure--Lusztig operators}
 \(T_1\), \dots, \(T_{n-1}\) on \(\rationals(q, t)[\mathbf{x}]\)
 are defined by
-\begin{equation}
+\begin{equation*}
 	T_i(f) = ts_i(f) + (1-t) x_{i+1} \frac{f - s_i(f)}{x_i - x_{i+1}},
-\end{equation}
+\end{equation*}
 for \(i \in \interval{n-1}\),
 and the operator \(g\) on \(\rationals(q, t)[\mathbf{x}]\) is defined by
-\begin{equation}
+\begin{equation*}
 	g(f(x_1, \ldots, x_n)) = f(x_2, x_3, \ldots, x_n, q^{-1}x_1).
-\end{equation}
+\end{equation*}
 For a reduced expression \( \sigma = s_{i_1} \cdots s_{i_k} \),
 we write \(T_\sigma\) to denote the composition \(T_{i_1} \circ \cdots \circ T_{i_k}\).
 The \vocab{Cherednik--Dunkl operators}
 \(Y_1\), \dots, \(Y_n\) on \(\rationals(q, t)[\mathbf{x}]\)
 are defined by,
 for each \(i \in \interval{n}\),
-\begin{equation}
+\begin{equation*}
 	Y_i = t^{i-1} T_{i-1}^{-1} \cdots T_1^{-1} g T_{n-1} \cdots T_i.
-\end{equation}
+\end{equation*}
 
 \begin{definition}[{\cite[Theorem 4.1.4]{Fer11}}]
 	For a composition \(\alpha=\composition{\alpha_1,\ldots,\alpha_n}\),
@@ -292,9 +292,9 @@ for each \(i \in \interval{n}\),
 	the unique element of \(\rationals(q, t)[\mathbf{x}]\) such that
 	the coefficient of \(\mathbf{x}^{\alpha}\) is \(1\),
 	and for all \(i\in\interval{n}\),
-	\begin{equation}
+	\begin{equation*}
 		Y_i E_\alpha = q^{-\alpha_i} t^{k_i} E_\alpha,
-	\end{equation}
+	\end{equation*}
 	where
 	\(
 	k_i = |\{ j \in \interval{i-1} \suchthat \alpha_j > \alpha_i \}|
@@ -317,20 +317,20 @@ for each \(i \in \interval{n}\),
 	\(E_{\composition{1, 0, 1, 1}}(\mathbf{x}; q, t)\)
 	is the unique element of \(\rationals(q, t)[x_1, x_2, x_3, x_4]\) such that
 	the coefficient of \(x_1 x_3 x_4\) is \(1\), and
-	\begin{align}
+	\begin{align*}
 		Y_1 E_{\composition{1, 0, 1, 1}} & = q^{-1} t^{2} E_{\composition{1, 0, 1, 1}}, &
 		Y_2 E_{\composition{1, 0, 1, 1}} & = q^{0}  t^{3} E_{\composition{1, 0, 1, 1}},   \\
 		Y_3 E_{\composition{1, 0, 1, 1}} & = q^{-1} t^{1} E_{\composition{1, 0, 1, 1}}, &
 		Y_4 E_{\composition{1, 0, 1, 1}} & = q^{-1} t^{0} E_{\composition{1, 0, 1, 1}}.
-	\end{align}
+	\end{align*}
 	The unique polynomial satisfying the above is
-	\begin{equation}
+	\begin{equation*}
 		E_{\composition{1, 0, 1, 1}}(x_1, x_2, x_3, x_4; q, t)
 		=
 		x_1 x_2 x_3 \frac{1 - t}{1 - q t^2} +
 		x_1 x_2 x_4 \frac{1 - t}{1 - q t^2} +
 		x_1 x_3 x_4.
-	\end{equation}
+	\end{equation*}
 \end{example}
 
 The following definition is a reformulation based on \cite[Corollary 16]{Ale19} and \cite[Remark 4.4.5]{Fer11}.
@@ -342,10 +342,10 @@ The following definition is a reformulation based on \cite[Corollary 16]{Ale19} 
 	the \vocab{permuted-basement Macdonald polynomial}
 	\(E_\alpha^\sigma = E_{\alpha}^{\sigma}(\mathbf{x}; q, t)\)
 	is given by
-	\begin{equation}
+	\begin{equation*}
 		E_{\alpha}^{\sigma} =
 		t^{-\twinv(\alpha, \sigma)} T_{\rev(\sigma)} E_{\rev(\alpha)},
-	\end{equation}
+	\end{equation*}
 	where
 	\(
 	\twinv(\alpha, \sigma) =
@@ -396,21 +396,21 @@ is the nonsymmetric Macdonald polynomial \(E_{\rev(\alpha)}(\mathbf{x}; q, t)\).
 	the permuted-basement Macdonald polynomial
 	\(E_{\composition{1, 1, 0, 1}}^{\window{2, 4, 1, 3}}(\mathbf{x}; q, t)\)
 	is given by
-	\begin{equation}
+	\begin{equation*}
 		E_{\composition{1, 1, 0, 1}}^{\window{2, 4, 1, 3}}(\mathbf{x}; q, t)
 		=
 		t^{-2}
 		T_2 T_1 T_3
 		E_{\composition{1, 0, 1, 1}}(\mathbf{x}; q, t),
-	\end{equation}
+	\end{equation*}
 	which can be computed from \cref{example:nonsymmetric-macdonald-polynomial} as
-	\begin{equation}
+	\begin{equation*}
 		E_{\composition{1, 1, 0, 1}}^{\window{2, 4, 1, 3}}
 		=
 		x_{1} x_{2} x_{3} \frac{t(1 - t)}{1 - q t^2} +
 		x_{1} x_{3} x_{4} \frac{1 - t}{1 - q t^2} +
 		x_{2} x_{3} x_{4}.
-	\end{equation}
+	\end{equation*}
 \end{example}
 
 \begin{example}
@@ -429,21 +429,21 @@ is the nonsymmetric Macdonald polynomial \(E_{\rev(\alpha)}(\mathbf{x}; q, t)\).
 	Therefore, the permuted-basement Macdonald polynomial
 	\(E_{\composition{1, 1, 0, 1}}^{\window{4, 2, 1, 3}}(\mathbf{x}; q, t)\)
 	is given by
-	\begin{equation}
+	\begin{equation*}
 		E_{\composition{1, 1, 0, 1}}^{\window{4, 2, 1, 3}}(\mathbf{x}; q, t)
 		=
 		t^{-1}
 		T_2 T_1
 		E_{\composition{1, 0, 1, 1}}(\mathbf{x}; q, t),
-	\end{equation}
+	\end{equation*}
 	which can be computed as
-	\begin{equation}
+	\begin{equation*}
 		E_{\composition{1, 1, 0, 1}}^{\window{4, 2, 1, 3}}
 		=
 		x_{1} x_{2} x_{3} \frac{t(1 - t)}{1 - q t^2} +
 		x_{1} x_{3} x_{4} \frac{1 - t}{1 - q t^2} +
 		x_{2} x_{3} x_{4}.
-	\end{equation}
+	\end{equation*}
 \end{example}
 
 Note that the computations in \Cref{example:permuted-basement-macdonald-polynomial} and \Cref{example:permuted-basement-macdonald-polynomial-2} yield the same result, which exemplifies a property that will be explored in \Cref{chap:probabilistic}.
@@ -451,10 +451,10 @@ Note that the computations in \Cref{example:permuted-basement-macdonald-polynomi
 \begin{theorem}[{\cite{Fer11}}]
 	Let \(\sigma\) be a permutation in \(\sym{n}\).
 	The set of permuted-basement Macdonald polynomials
-	\begin{equation}
+	\begin{equation*}
 		\{ E_\alpha^\sigma(\mathbf{x}; q, t) \suchthat
 		\alpha \text{ is a composition of length } n \}
-	\end{equation}
+	\end{equation*}
 	is a basis of \(\rationals(q, t)[\mathbf{x}]\).
 \end{theorem}
 
