@@ -981,14 +981,20 @@ We reproduce their proofs because their ideas are useful in \Cref{sec:integral-f
 	the integral form Macdonald polynomial \(J_\mu(\mathbf{x}; q, t)\) can be expressed as a sum one over all non-attacking fillings using the unsigned alphabet \(\interval{n}\),
 	\begin{equation} \label{eq:J-NAF-unsigned}
 		J_\mu(\mathbf{x}; q, t)
-		= \sum_{T \in \NAF[\interval{n}](\mu)} \mathbf{x}^T
+		=
 		\mkern -10mu
+		\sum_{T \in \NAF[\interval{n}](\mu)}
+		\mkern -10mu
+		\mathbf{x}^T
+		q^{\maj(T)}
+		t^{\coinv(T)}
+		\mkern -20mu
 		\prod_{\substack{u \in \dg(\mu) \\ T(u) = T(\south{u})}}
-		\mkern -18mu
+		\mkern -20mu
 		(1 - q^{1 + \leg(u)} t^{1 + \arm(u)})
-		\mkern -30mu
+		\mkern -40mu
 		\prod_{\substack{u \in \dg(\mu) \\ T(u) \neq T(\south{u}) \text{ or } u \text{ in row } 1}}
-		\mkern -38mu
+		\mkern -50mu
 		(1 - t).
 	\end{equation}
 \end{proposition}
