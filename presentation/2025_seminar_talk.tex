@@ -4,7 +4,7 @@
 \pdfstringdefDisableCommands{\def\translate{}}
 
 %\usepackage[latin1]{inputenc}
-\usepackage{amsmath}
+\usepackage{amsmath, mathtools}
 \usepackage{amsfonts}
 \usepackage{amssymb,stmaryrd}
 \usepackage{amsthm}
@@ -19,7 +19,8 @@
 \usepackage{makecell}
 
 \usepackage{tikz}
-\usetikzlibrary{calc, patterns, arrows, arrows.meta, positioning, arrows.meta}
+\usetikzlibrary{calc, patterns, arrows, arrows.meta, decorations.pathreplacing,patterns.meta, positioning}
+\usepackage{tikz-cd}
 
 \usepackage{qrcode} % Generates QR codes
 \usepackage[absolute,overlay]{textpos} % For absolute positioning
@@ -135,11 +136,18 @@
 \institute[Waterloo]{University of Waterloo}
 \date{November 27, 2025}
 
+\makeatletter
 \AtBeginPart{
   \begin{frame}{}
-    \partpage
+    \begin{block}{}
+      \centering 
+      \vspace{2em}
+      \Huge \beamer@partnameshort
+      \vspace{1em}
+    \end{block}
   \end{frame}
 }
+\makeatother
 
 \begin{document}
 
@@ -152,19 +160,7 @@
   \end{textblock*}
 \end{frame}
 
-\part{Macdonald Polynomials}
-
-\begin{frame}{Macdonald Polynomials}
-  There are many families of Macdonald polynomials:
-  \begin{itemize}
-    \item Symmetric Macdonald polynomials \(P_\lambda\).
-    \item Integral form symmetric Macdonald polynomials \(J_\lambda\).
-    \item Modified Macdonald polynomials \(\tilde{H}_\lambda\).
-    \item Nonsymmetric Macdonald polynomials \(E_\alpha\).
-    \item Permuted basement Macdonald polynomials \(E_\alpha^\sigma\).
-    \item Integral form permuted basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\).
-  \end{itemize}
-\end{frame}
+\part{(Macdonald Polynomials)s}
 
 \begin{frame}{Symmetric Macdonald Polynomials}
   \setlength{\abovedisplayskip}{2pt}
@@ -278,47 +274,32 @@
 \begin{frame}{Leg, attacking, arm sets of \(u = (i, r)\)}
   \begin{minipage}[t]{.3\textwidth}
     \uncover<1->{
-    \begin{gather*}
-      \Leg(u) = \\
-      \{(i, s) : s > r\}\\
-      {}
-    \end{gather*}
-    \begin{equation*}
-      \leg(u) = \left|\Leg(u)\right| = \alpha_i - r
-    \end{equation*}
+      \begin{center}
+        The leg set of \(u\):
+      \end{center}
     }
   \end{minipage}
   \hfill
   \begin{minipage}[t]{.3\textwidth}
     % \(\Attack(u) = \{(j, r) : j > i\} \cup \{(j, r - 1) : j < i\}\)
     \uncover<2->{
-    \begin{gather*}
-      \Attack(u) = \\
-      \left\{(j, r-1) : j < i\right\} \\
-      \cup \left\{(j, r) : j > i\right\}
-    \end{gather*}
-    \begin{center}
-      ``\(u\) attacks \(v \in \Attack(u)\)''
-    \end{center}
+      \begin{center}
+        The attacking set of \(u\):\\[.5em]
+        ``\(u\) attacks \(v \in \Attack(u)\)''
+      \end{center}
     }
   \end{minipage}
   \hfill
   \begin{minipage}[t]{.3\textwidth}
     \uncover<3->{
-    \begin{gather*}
-      \Arm(u) = \\
-      \left\{(j, r-1) : j < i, \alpha_j < \alpha_i\right\} \\
-      \cup \left\{(j, r) : j > i, \alpha_j \leq \alpha_i\right\}
-    \end{gather*}
-    \begin{equation*}
-      \arm(u) = \left|\Arm(u)\right|
-    \end{equation*}
+      \begin{center}
+        The arm set of \(u\):
+      \end{center}
     }
   \end{minipage}
 
   \vspace{2em}
 
-  E.g.~
   \begin{center}
     \uncover<1->{
     \begin{tikzpicture}[x=.5cm, y=.5cm, scale=.7, baseline={(0,0)}]
@@ -418,54 +399,12 @@
         }
       \end{tikzpicture}
     \end{center}
-\end{frame}
 
-\begin{frame}{Alphabet}
+  \vspace{2em}
+
   The \textbf{alphabet} is the set of possible labels in a filling.
-  Alphabets are ordered.
   Often (but not always),
   \[\mathcal{A} = [n] = \{1 < 2 < \cdots < n\}\] (the same \(n\) as the number of columns in \(\alpha\), and as the number of variables \(x_1, \dots, x_n\)).
-
-  \vspace{1em}
-
-  Define \(\ind{a, b} = 1\) if \(a > b\), and \(0\) otherwise.
-  E.g. \(\ind{5, 3} = 1\), \(\ind{3, 5} = 0\), \(\ind{3, 3} = 0\).
-
-  \vspace{1em}
-  \pause
-
-  \begin{minipage}{.45\textwidth}
-  Define \(\ind{a, b, c} = \ind{a, b} + \ind{b, c} - \ind{a, c} \in \{0, 1\}\). E.g.
-  \[
-    \ind{1, 3, 2} = \ind{1, 3} + \ind{3, 2} - \ind{1, 2} = 0 + 1 - 0 = 1
-  \]
-  \[
-    \ind{1, 2, 3} = \ind{1, 2} + \ind{2, 3} - \ind{1, 3} = 0 + 0 - 0 = 0
-  \]
-  \end{minipage}
-  \hfill
-  \begin{minipage}{.45\textwidth}
-    \ 
-    \hfill
-	\begin{tikzpicture}
-		\draw[black] (0, 0) circle (1);
-		\node[rectangle, fill=white] at (90:1) {\(a = 1\)};
-		\node[rectangle, fill=white] at (-30:1) {\(b = 3\)};
-		\node[rectangle, fill=white] at (-150:1) {\(c = 2\)};
-		\draw[->, green!60!black, rotate=-120] (90:.4) arc (90:-150:.4);
-		\node[green!60!black] at (0, -1.5) {\(\ind{1, 3, 2} = 1\)};
-	\end{tikzpicture} \hfill
-	\begin{tikzpicture}
-		\draw[black] (0, 0) circle (1);
-		\node[rectangle, fill=white] at (90:1) {\(a = 1\)};
-		\node[rectangle, fill=white] at (-30:1) {\(b = 2\)};
-		\node[rectangle, fill=white] at (-150:1) {\(c = 3\)};
-		\draw[->, red!60!black] (105:.3) arc (105:-180:.3);
-		\draw[red!60!black] (.3,.3) -- (-.3,-.3);
-		\draw[red!60!black] (.3,-.3) -- (-.3,.3);
-		\node[red!60!black] at (0, -1.5) {\(\ind{1, 2, 3} = 0\)};
-	\end{tikzpicture}
-  \end{minipage}
 \end{frame}
 
 \begin{frame}{Content of a Filling}
@@ -536,162 +475,102 @@
   }
 \end{frame}
 
-\begin{frame}{Statistics on Fillings: Major Index \(\maj\)}
-
-For \(u = (i, r)\), define its \textbf{south} \(\south{u} = (i, r - 1)\), the box directly below \(u\).
-
-\vspace{1em}
-
-A box \(u\) is a \textbf{descent} if \(\ind{{T(u)}, {T(\south{u})}} = 1\), i.e. if \(T(u) > T(\south{u})\).
-
-\vspace{1em}
-
-The \textbf{major index} of \(T\) is
-\[\maj(T) = \displaystyle \sum_{\text{descent } u \text{ in } T} (\leg(u) + 1)\]
-
-E.g.
+\begin{frame}{Statistics of Fillings: \(\maj\) and \(\inv\)/\(\coinv\)}
+  \begin{itemize}
+    \item major index:
+    \uncover<2->{ \(\maj(T) = \displaystyle \sum_{T(u) > T(d(u))} (1 + \leg(u))\),
 \begin{figure}[h]
-  \begin{tikzpicture}[x=.5cm, y=.5cm]
-    \def\shape{2, 2, 0, 1}
-    \def\filling{
-      3, 1, \textbf2,
-      1, \textbf2, \textbf4,
-      2,
-      4, 4}
+	\begin{tikzpicture}[x=.5cm, y=.5cm, scale=.7]
+		\def\shape{2, 2, 0, 1}
+		\def\filling{
+			3, 1, \textbf2,
+			1, \textbf2, \textbf4,
+			2,
+			4, 4}
     \draw[white] (0,1) rectangle (6,3.5);
-    \xdef\reading{0}
-    \fill[black!20] (1,2) rectangle ++(1,1);
-    \fill[black!20] (2,1) rectangle ++(1,1);
-    \fill[black!20] (2,2) rectangle ++(1,1);
-    \only<2>{
-      \draw[thick, red!80!black] (1.5, 2.5) circle (.8);
-    }
-    \only<3>{
-      \draw[thick, red!80!black] (2.5, 2.5) circle (.8);
-    }
-    \only<4>{
-      \draw[thick, red!80!black] (2.5, 1.5) circle (.8);
-    }
-    \foreach \height [count = \column] in \shape{
-      \foreach \row in {0,...,\height}{
-          \pgfmathparse{int(\reading + 1)}
-          \xdef\reading{\pgfmathresult}
-          \draw[black] (\column, \row) rectangle (\column + 1, \row + 1);
-          \coordinate (B\reading) at (\column + .5, \row + .5);
+		\xdef\reading{0}
+        \fill[black!20] (1,2) rectangle ++(1,1);
+        \fill[black!20] (2,1) rectangle ++(1,1);
+        \fill[black!20] (2,2) rectangle ++(1,1);
+        \only<3>{
+          \draw[thick, red!80!black] (1.5, 2.5) circle (.8);
         }
-    }
-    \foreach \i [count = \j] in \filling{
-      \node at (B\j) {\i};
-    }
-  \end{tikzpicture}
+        \only<4>{
+          \draw[thick, red!80!black] (2.5, 2.5) circle (.8);
+        }
+        \only<5>{
+          \draw[thick, red!80!black] (2.5, 1.5) circle (.8);
+        }
+		\foreach \height [count = \column] in \shape{
+			\foreach \row in {0,...,\height}{
+					\pgfmathparse{int(\reading + 1)}
+					\xdef\reading{\pgfmathresult}
+					\draw[black] (\column, \row) rectangle (\column + 1, \row + 1);
+					\coordinate (B\reading) at (\column + .5, \row + .5);
+				}
+		}
+		\foreach \i [count = \j] in \filling{
+			\node at (B\j) {\footnotesize \i};
+		}
+	\end{tikzpicture}
 \end{figure}
 \[
-  \maj(T) = \textcolor<2>{red!80!black}{1} + \textcolor<3>{red!80!black}{1} + \textcolor<4>{red!80!black}{2} = 4
-\]
-\end{frame}
+\maj(T) = \textcolor<3>{red!80!black}{1} + \textcolor<4>{red!80!black}{1} + \textcolor<5>{red!80!black}{2} = 4
+\]}
 
-\begin{frame}{Statistics on Fillings: Inversion and Coinversion}
-  The boxes \((u, v, w)\) form a \textbf{triple} if
-  \(u \in \dg(\alpha)\),
-  \(v \in \Arm(u)\),
-  \(w = \south{u}\).
-  
-  \vspace{1em}
+    \item inversion/coinversion number: \onslide<8->{\(\inv(T) = \#\{ \text{inversion triples} \}\), \(\coinv(T) = \#\{ \text{coinversion triples} \}\)}
 
-  \begin{minipage}[c]{0.4\textwidth}
-    \centering
-    {\footnotesize Type A triples:}
-    \begin{tikzpicture}[x=.4cm, y=.4cm,baseline={(0,0)}]
-      \draw (0,0) rectangle (1,1); % u
-      \draw (3,0) rectangle (4,1); % v
-      \draw (0,-1) rectangle (1,0); % w
-      \node at (.5,.5) {$u$};
-      \node at (3.5,.5) {$v$};
-      \node at (.5,-.5) {$w$};
-      \node at (2,.5) {\small $\cdots$};
-      \node[below=1.5pt] at (.5,-1) {\scriptsize $\alpha_i$};
-      \node[below=1.5pt] at (3.5,-1) {\scriptsize $\alpha_j$};
-      \node[below=.8pt] at (2,-1) {\scriptsize $\geq$};
-    \end{tikzpicture}
-  \end{minipage}
-  \begin{minipage}[c]{0.4\textwidth}
-    \centering
-    {\footnotesize Type B triples:}
-    \begin{tikzpicture}[x=.4cm, y=.4cm,baseline={(0,0)}]
-      \draw (0,0) rectangle (1,1); % u
-      \draw (-3,-1) rectangle (-2,0); % v
-      \draw (0,-1) rectangle (1,0); % w
-      \node at (.5,.5) {$u$};
-      \node at (-2.5,-.5) {$v$};
-      \node at (.5,-.5) {$w$};
-      \node at (-1, -0.5) {\small $\cdots$};
-      \node[below=1.5pt] at (.5,-1) {\scriptsize $\alpha_i$};
-      \node[below=1.5pt] at (-2.5,-1) {\scriptsize $\alpha_j$};
-      \node[below=1pt] at (-1,-1) {\scriptsize $<$};
-    \end{tikzpicture}  
-  \end{minipage}
-
-  \vspace{2em}
-  
-  A triple \((u, v, w)\) in \(T\) is an \textbf{inversion} triple if \(\ind{{T(u)}, {T(v)}, {T(w)}} = 1\), and a \textbf{coinversion} triple otherwise.
-
-  \colorlet{inversionbase}{orange}
-  \colorlet{coinversionbase}{purple}
-
-  \[
-    \textcolor{inversionbase!60!black}{\inv(T) = \#\text{inversion triples in } T}
-    \quad
-    \textcolor{coinversionbase!60!black}{\coinv(T) = \#\text{coinversion triples in } T}
-  \]
-
-  \begin{figure}[htbp]
-    \colorlet{coinversion}{coinversionbase!50}
-    \colorlet{inversion}{inversionbase!50}
-    \ytableausetup{smalltableaux}
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{ccccc}
-      \begin{ytableau}
-        *(coinversion) \textbf2 & *(coinversion) \textbf4 \\
-        *(coinversion) \textbf1 & 2 & \none & 4 \\
-        3 & 1 & 2 & 4
-      \end{ytableau}
-       &
-      \begin{ytableau}
-        2 & 4 \\
-        *(coinversion) \textbf1 & *(coinversion) \textbf2 & \none & 4 \\
-        *(coinversion) \textbf3 & 1 & 2 & 4
-      \end{ytableau}
-       &
-      \begin{ytableau}
-        2 & 4 \\
-        *(inversion) \textbf1 & 2 & \none & *(inversion) \textbf4 \\
-        *(inversion) \textbf3 & 1 & 2 & 4
-      \end{ytableau}
-       &
-      \begin{ytableau}
-        2 & 4 \\
-        1 & *(coinversion) \textbf2 & \none & *(coinversion) \textbf4 \\
-        3 & *(coinversion) \textbf1 & 2 & 4
-      \end{ytableau}
-       &
-      \begin{ytableau}
-        2 & 4 \\
-        1 & 2 & \none & *(inversion) \textbf4 \\
-        3 & 1 & *(inversion) \textbf2 & *(inversion) \textbf4
-      \end{ytableau}
-      \\
-      \(\ind{2, 4, 1} = 0\)
-       &
-      \(\ind{1, 2, 3} = 0\)
-       &
-      \(\ind{1, 4, 3} = 1\)
-       &
-      \(\ind{2, 4, 1} = 0\)
-       &
-      \(\ind{4, 2, 4} = 1\)
-    \end{tabular}
-  \end{figure}
-  \[ \textcolor{inversionbase!60!black}{\inv(T) = 2} \quad \textcolor{coinversionbase!60!black}{\coinv(T) = 3}\]
+    \onslide<7->{
+\begin{figure}[htbp]
+	\ytableausetup{smalltableaux}
+	\colorlet{inversion}{orange!70!white}
+	\colorlet{coinversion}{purple!50!white}
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{ccccc}
+		\begin{ytableau}
+			*(coinversion) \textbf2 & *(coinversion) \textbf4 \\
+			*(coinversion) \textbf1 & 2 & \none & 4 \\
+			3 & 1 & 2 & 4
+		\end{ytableau}
+		&
+		\begin{ytableau}
+			2 & 4 \\
+			*(coinversion) \textbf1 & *(coinversion) \textbf2 & \none & 4 \\
+			*(coinversion) \textbf3 & 1 & 2 & 4
+		\end{ytableau}
+		&
+		\begin{ytableau}
+			2 & 4 \\
+			*(inversion) \textbf1 & 2 & \none & *(inversion) \textbf4 \\
+			*(inversion) \textbf3 & 1 & 2 & 4
+		\end{ytableau}
+		&
+		\begin{ytableau}
+			2 & 4 \\
+			1 & *(coinversion) \textbf2 & \none & *(coinversion) \textbf4 \\
+			3 & *(coinversion) \textbf1 & 2 & 4
+		\end{ytableau}
+		&
+		\begin{ytableau}
+			2 & 4 \\
+			1 & 2 & \none & *(inversion) \textbf4 \\
+			3 & 1 & *(inversion) \textbf2 & *(inversion) \textbf4
+		\end{ytableau}
+		\\
+		\(1 < 2 < 4\)
+		&
+		\(1 < 2 < 3\)
+		&
+		\(4 > 3 > 1\)
+		&
+		\(1 < 2 < 4\)
+		&
+		\(4 \geq 4 > 2\)
+	\end{tabular}
+\end{figure}
+    }
+    \onslide<8->{ \[ \inv(T) = 2, \quad \coinv(T) = 3\] }
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Tableaux Formula for Modified \(\tilde{H}_\lambda\)}
@@ -726,27 +605,35 @@ E.g.
 \end{frame}
 
 \begin{frame}{Plethysm and Superization}
-  Recall that the modified Macdonald polynomial \(\tilde{H}_\lambda\) is related to the integral form Macdonald polynomial \(J_\lambda\) by a plethystic substitution:
-  \[J_\lambda[X; q, t]
-  = t^{\#(\text{triples in } \lambda) + |\lambda|} \tilde{H}_{\lambda'}\left[X (t^{-1} - 1); t^{-1}, q\right].\]
+  Recall
+  \[J_\lambda \quad \xleftrightarrow{\text{ plethystic substitution }} \quad \tilde{H}_{\lambda'}\]
 
-  \vspace{1em}
+  \vspace{2em}
 
   Combinatorially,
   plethysm corresponds to \textbf{superization},
-  which uses an signed alphabet with positive and negative labels.
-  For us:
+  which means using a signed alphabet:
   \begin{equation*}
     \mathcal{A}_{\pm} = [n]_{\pm} = \{1 < \bar{1} < 2 < \bar{2} < \cdots < n < \bar{n}\},
   \end{equation*}
-  \begin{equation*}
-    \ind{a, b} = 1 \text{ iff } a > b \text{ or } (a = b \text{ with both negative}).
-  \end{equation*}
-  Everything is the same, but with this extended definition of \(\ind{a, b}\) (e.g. descents, inversions).
-  \begin{gather*}
-    \ind{5, 3} = \ind{5, \bar{3}} = \ind{\bar{5}, 3} = \ind{\bar{5}, \bar{3}} = 1, \\
-    \ind{2, 2} = 0, \quad \ind{2, \bar{2}} = 0, \quad \ind{\bar{2}, 2} = 1, \quad \ind{\bar{2}, \bar{2}} = 1.
-  \end{gather*}
+  Everything is the mostly the same, except that
+  \begin{align*}
+    \text{``}a \not > a\text{''} \qquad \text{but } \text{``}\bar{a} > \bar{a}\text{''}.
+  \end{align*}
+
+  \vspace{1em}
+
+  \ytableausetup{boxsize=1.5em}
+
+  E.g.~
+  \begin{ytableau}
+    2 \\ 2
+  \end{ytableau}
+  is not a descent, but
+  \begin{ytableau}
+    \overline{2} \\ \overline{2}
+  \end{ytableau}
+  is a descent.
 \end{frame}
 
 \begin{frame}{Signed Tableaux Formula for Integral Form \(J_\lambda\)}
@@ -756,8 +643,10 @@ E.g.
   q^{\inv(T)}
   t^{\maj(T)},
   \qquad
-  J_\lambda(X; q, t)
-  = t^{\#\text{tr}(\lambda) + |\lambda|} \tilde{H}_{\lambda'}\left[X (t^{-1} - 1); t^{-1}, q\right].\]
+  \text{and}
+  \qquad
+  J_\lambda(X; q, t) \xleftrightarrow{\text{plethysm}} H_{\lambda'}.
+  \]
 
   \begin{block}{Theorem \parencite{HHL05}}
     The integral form Macdonald polynomial \(J_{\lambda}(x_1, \dots, x_n; q, t)\) is given by
@@ -851,7 +740,7 @@ E.g.
   \begin{block}{Definition/Theorem \parencite{Fer11}}
     The permuted-basement Macdonald polynomial \(E_\alpha^\sigma(x_1, \dots, x_n; q, t)\) is given by
     \[
-      E_\alpha^\sigma(x_1, \dots, x_n; q, t)
+      E_\alpha^\sigma
       =
       \sum_{\substack{T \text{ nonattacking filling} \\ \text{of shape } \alpha \\ \text{with basement } \sigma}}
       \mkern-18mu
@@ -866,6 +755,7 @@ E.g.
   \begin{block}{Corollary}
     The integral form permuted-basement Macdonald polynomial \(\mathcal{E}_\alpha^\sigma(x_1, \dots, x_n; q, t)\) is given by
     \[
+      \mathcal{E}_\alpha^\sigma = 
       \sum_{\substack{T \text{ nonattacking filling} \\ \text{of shape } \alpha \\ \text{with basement } \sigma}}
       \mkern-18mu
       x^{T}
@@ -912,7 +802,7 @@ E.g.
 
 \begin{frame}{Main Results}
 
-    \textbf{Using bijections:}
+    \textbf{Using (deterministic) bijections:}
     \begin{itemize}
         \item 
         For any rearrangement \(\alpha\) of \(\lambda\), we have:
@@ -939,6 +829,406 @@ E.g.
 \end{frame}
 
 \part{(Deterministic) Bijections}
+
+\begin{frame}{Goal: Prove \(C_\alpha = C_{s_i \alpha}\)}
+  \begin{block}{Goal}
+    \[
+      \sum_{\substack{T \text{ fillings} \\ \text{of shape } \alpha}}
+      x^T q^{\inv(T)} t^{\maj(T)}
+      =
+      \sum_{\substack{T \text{ fillings} \\ \text{of shape } s_i \alpha}}
+      x^T q^{\inv(T)} t^{\maj(T)}
+    \]
+  \end{block}
+
+  \begin{block}{Combinatorial Goal}
+    Construct a bijection between the set of fillings of shape \(\alpha\)
+    and the set of fillings of shape \(s_i \alpha\) that preserves content, \(\inv\), and \(\maj\).
+  \end{block}
+\end{frame}
+
+\begin{frame}{Some structure on this bijeciton}
+  \[
+    % \{\text{fillings of shape } \composition{\alpha_1, \dots, \alpha_{i-1}, \alpha_i, \alpha_{i+1}, \alpha_{i+2}, \dots, \alpha_n} \}
+    % \xrightarrow{\text{bijection}}
+    % \{\text{fillings of shape } \composition{\alpha_1, \dots, \alpha_{i-1}, \alpha_{i+1}, \alpha_i, \alpha_{i+2}, \dots, \alpha_n} \}
+    \left\{ \begin{array}{c} \text{fillings of shape} \\ \composition{\alpha_1, \dots, \alpha_{i-1}, \alpha_i, \alpha_{i+1}, \alpha_{i+2}, \dots, \alpha_n} \end{array} \right\}
+    \xrightarrow{\text{bijection } \phi }
+    \left\{ \begin{array}{c} \text{fillings of shape} \\ \composition{\alpha_1, \dots, \alpha_{i-1}, \alpha_{i+1}, \alpha_i, \alpha_{i+2}, \dots, \alpha_n} \end{array} \right\}
+  \]
+
+  Without loss of generality, assume \(\alpha_i > \alpha_{i+1}\).
+
+  \begin{itemize}
+    \item Columns other than \(i\) and \(i+1\) are unchanged.
+    \item The top \(\alpha_i - \alpha_{i+1}\) boxes of column \(i\) are moved to the top of column \(i+1\).
+    \item Each row \(r \in \{1, 2, \dots, \alpha_{i+1}\}\) are either \textbf{copied as is}, or are \textbf{swapped} between columns \(i\) and \(i+1\).
+  \end{itemize}
+
+  \begin{center}
+    \begin{tikzpicture}[scale=.4]
+      \draw[fill = blue!40] (0, 0) rectangle (3, 3);
+      \draw[fill = magenta!40] (3, 4) rectangle (4, 7);
+      \draw[fill = blue!40] (5, 0) rectangle (8, 3);
+      \draw[fill = green!50] (3, 0) rectangle (5, 1);
+      \draw[fill = green!40] (3, 1) rectangle (5, 2);
+      \draw[fill = green!30] (3, 2) rectangle (5, 3);
+      \draw[fill = green!20] (3, 3) rectangle (5, 4);
+      \node at (3.2, -.95) {\scriptsize \(i\)};
+      \node at (4.6, -1) {\scriptsize \({i+1}\)};
+    \end{tikzpicture}
+    \raisebox{3em}{\(\xrightarrow{\phi}\)}
+    \begin{tikzpicture}[scale=.4]
+      \draw[fill = blue!40] (0, 0) rectangle (3, 3);
+      \draw[fill = magenta!40] (4, 4) rectangle (5, 7);
+      \draw[fill = blue!40] (5, 0) rectangle (8, 3);
+      \draw[fill = green!50] (3, 0) rectangle (5, 1);
+      \draw[fill = green!40] (3, 1) rectangle (5, 2);
+      \draw[fill = green!30] (3, 2) rectangle (5, 3);
+      \draw[fill = green!20] (3, 3) rectangle (5, 4);
+      \node at (3.2, -.95) {\scriptsize \(i\)};
+      \node at (4.6, -1) {\scriptsize \({i+1}\)};
+      \draw[<->] (3.5, 0.5) -- (4.5, 0.5);
+      \draw[<->] (3.5, 1.5) -- (4.5, 1.5);
+      \draw[<->] (3.5, 2.5) -- (4.5, 2.5);
+      \draw[<->] (3.5, 3.5) -- (4.5, 3.5);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Idea: Split into blocks}
+  \begin{minipage}{0.4\textwidth}
+    \centering
+      \begin{ytableau}
+        \none[{\scriptstyle \text{row }r+1}] & \none & a & b \\
+        \none[{\scriptstyle \text{row }r}] & \none & c & d 
+      \end{ytableau}\\[1em]
+      \textbf{not intertwined:}\\[1em]
+        \begin{tikzpicture}[x=1.4cm]
+            \node at (0, 0.5) {\(a = 1\)};
+            \node at (1, 0.5) {\(c = 2\)};
+            \node at (2, 0.5) {\(d = 3\)};
+            \node at (3, 0.5) {\(b = 4\)};
+            \draw (-.5, 1) -- (3.5, 1);
+            \draw (0, .8) -- (0, 1);
+            \draw (1, .8) -- (1, 1);
+            \draw (2, .8) -- (2, 1);
+            \draw (3, .8) -- (3, 1);
+            \draw (0, 1) arc (180:0:1.5);
+            \draw (1, 1) arc (180:0:0.5);
+        \end{tikzpicture}\\[2em]
+      \textbf{intertwined:}\\[1em]
+        \begin{tikzpicture}[x=1.4cm]
+            \node at (0, 0.5) {\(a = 1\)};
+            \node at (1, 0.5) {\(c = 2\)};
+            \node at (2, 0.5) {\(b = 3\)};
+            \node at (3, 0.5) {\(d = 4\)};
+            \draw (-.5, 1) -- (3.5, 1);
+            \draw (0, .8) -- (0, 1);
+            \draw (1, .8) -- (1, 1);
+            \draw (2, .8) -- (2, 1);
+            \draw (3, .8) -- (3, 1);
+            \draw (0, 1) arc (180:0:1);
+            \draw (1, 1) arc (180:0:1);
+        \end{tikzpicture}
+  \end{minipage} \hfill
+  \begin{minipage}{0.55\textwidth}
+    \pause
+    \begin{center}
+      \begin{tikzpicture}[scale=.5]
+        \node at (-0.5, 7.5) {\tiny \(7\)};
+        \node at (-0.5, 6.5) {\tiny \(6\)};
+        \node at (-0.5, 5.5) {\tiny \(5\)};
+        \node at (-0.5, 4.5) {\tiny \(4\)};
+        \node at (-0.5, 3.5) {\tiny \(3\)};
+        \node at (-0.5, 2.5) {\tiny \(2\)};
+        \node at (-0.5, 1.5) {\tiny \(1\)};
+        \node[anchor=north] at (0.5, 1) {\(\scriptstyle i\)};
+        \node[anchor=north] at (1.5, 1) {\(\scriptstyle i+1\)};
+        \draw (0, 7) rectangle ++(1, 1);
+        \draw (1, 6) rectangle ++(1, 1)[fill=gray!50];
+        \draw (0, 6) rectangle ++(1, 1)[fill=gray!50];
+        \draw (1, 5) rectangle ++(1, 1)[fill=gray!50];
+        \draw (0, 5) rectangle ++(1, 1)[fill=gray!50];
+        \draw (1, 4) rectangle ++(1, 1);
+        \draw (0, 4) rectangle ++(1, 1);
+        \draw (1, 3) rectangle ++(1, 1);
+        \draw (0, 3) rectangle ++(1, 1);
+        \draw (1, 2) rectangle ++(1, 1);
+        \draw (0, 2) rectangle ++(1, 1);
+        \draw (1, 1) rectangle ++(1, 1)[fill=gray!50];
+        \draw (0, 1) rectangle ++(1, 1)[fill=gray!50];
+        \node at (0.5, 7.5) {\(3\)};
+        \node at (1.5, 6.5) {\(5\)};
+        \node at (0.5, 6.5) {\(2\)};
+        \node at (1.5, 5.5) {\(1\)};
+        \node at (0.5, 5.5) {\(4\)};
+        \node at (1.5, 4.5) {\(8\)};
+        \node at (0.5, 4.5) {\(5\)};
+        \node at (1.5, 3.5) {\(6\)};
+        \node at (0.5, 3.5) {\(1\)};
+        \node at (1.5, 2.5) {\(7\)};
+        \node at (0.5, 2.5) {\(3\)};
+        \node at (1.5, 1.5) {\(6\)};
+        \node at (0.5, 1.5) {\(4\)};
+        \draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 5.1) -- (2, 6.9) node[midway, anchor=west, xshift=10pt] {third block};
+        \draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 2.1) -- (2, 4.9) node[midway, anchor=west, xshift=10pt] {second block};
+        \draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 1.1) -- (2, 1.9) node[midway, anchor=west, xshift=10pt] {first block};
+      \end{tikzpicture}
+    \end{center}
+      
+    \vspace{1em}
+
+    \pause
+
+    The map \(\phi\) copy the blocks as is, or swaps all rows in the block.
+
+    \vspace{.5em}
+
+    This requirement takes care of the inversion triples inside each block.
+  \end{minipage}
+\end{frame}
+
+\begin{frame}{To swap or not to swap (each block)?}
+  \begin{minipage}[c]{.3\textwidth}
+    \centering
+	\begin{tikzpicture}[scale=.5]
+		\draw (0, 0) rectangle ++(1, 1);
+		\draw (1, 0) rectangle ++(1, 1);
+		\draw[fill=gray!50] (0, 1) rectangle ++(1, 1);
+		\draw[fill=gray!50] (1, 1) rectangle ++(1, 1);
+		\fill[gray!50] (0, 2) rectangle ++(2, 2);
+		\node at (1, 3.25) {\(\vdots\)};
+		\draw[fill=gray!50] (0, 4) rectangle ++(1, 1);
+		\draw[fill=gray!50] (1, 4) rectangle ++(1, 1);
+		\draw (0, 5) rectangle ++(1, 1);
+		\draw (1, 5) rectangle ++(1, 1);
+		\node at (0.5, 5.5) {\(e_1\)};
+		\node at (1.5, 5.5) {\(e_2\)};
+		\node at (0.5, 4.5) {\(a\)};
+		\node at (1.5, 4.5) {\(b\)};
+		\node at (0.5, 1.5) {\(c\)};
+		\node at (1.5, 1.5) {\(d\)};
+		\node at (0.5, 0.5) {\(f_1\)};
+		\node at (1.5, 0.5) {\(f_2\)};
+	\end{tikzpicture}
+  \end{minipage}
+  \begin{minipage}[c]{0.65\textwidth}
+    \pause
+    Swap the block if and only if the triples
+    \[
+      \begin{ytableau}
+        \none & e_\bullet \\
+        a & b
+      \end{ytableau}
+      \text{ and }
+      \begin{ytableau}
+        c & d \\
+        f_\bullet & \none
+      \end{ytableau}
+    \]
+    have different inversion type.
+
+    \vspace{1em}
+
+    \pause
+
+    \begin{block}{Theorem}
+      The map \(\phi\) is a bijection that preserves content, \(\inv\), and \(\maj\)!
+    \end{block}
+
+    \begin{block}{Corollary}
+      For any rearrangement \(\alpha\) of \(\lambda\),
+      \[ H_{\lambda'} = \textstyle \sum_{\substack{T \text{ filling of shape } \alpha}} 
+      x^T
+      q^{\inv(T)}
+      t^{\maj(T)}.
+      \]
+    \end{block}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}{Example of \(\phi\)}
+  \centering
+
+    \begin{tikzpicture}[scale=.5]
+      \node at (-0.5, 7.5) {\tiny \(7\)};
+      \node at (-0.5, 6.5) {\tiny \(6\)};
+      \node at (-0.5, 5.5) {\tiny \(5\)};
+      \node at (-0.5, 4.5) {\tiny \(4\)};
+      \node at (-0.5, 3.5) {\tiny \(3\)};
+      \node at (-0.5, 2.5) {\tiny \(2\)};
+      \node at (-0.5, 1.5) {\tiny \(1\)};
+      \node[anchor=north] at (0.5, 1) {\(\scriptstyle i\)};
+      \node[anchor=north] at (1.5, 1) {\(\scriptstyle i+1\)};
+      \draw (0, 7) rectangle ++(1, 1);
+      \draw (1, 6) rectangle ++(1, 1)[fill=gray!50];
+      \draw (0, 6) rectangle ++(1, 1)[fill=gray!50];
+      \draw (1, 5) rectangle ++(1, 1)[fill=gray!50];
+      \draw (0, 5) rectangle ++(1, 1)[fill=gray!50];
+      \draw (1, 4) rectangle ++(1, 1);
+      \draw (0, 4) rectangle ++(1, 1);
+      \draw (1, 3) rectangle ++(1, 1);
+      \draw (0, 3) rectangle ++(1, 1);
+      \draw (1, 2) rectangle ++(1, 1);
+      \draw (0, 2) rectangle ++(1, 1);
+      \draw (1, 1) rectangle ++(1, 1)[fill=gray!50];
+      \draw (0, 1) rectangle ++(1, 1)[fill=gray!50];
+      \node at (0.5, 7.5) {\(3\)};
+      \node at (1.5, 6.5) {\(5\)};
+      \node at (0.5, 6.5) {\(2\)};
+      \node at (1.5, 5.5) {\(1\)};
+      \node at (0.5, 5.5) {\(4\)};
+      \node at (1.5, 4.5) {\(8\)};
+      \node at (0.5, 4.5) {\(5\)};
+      \node at (1.5, 3.5) {\(6\)};
+      \node at (0.5, 3.5) {\(1\)};
+      \node at (1.5, 2.5) {\(7\)};
+      \node at (0.5, 2.5) {\(3\)};
+      \node at (1.5, 1.5) {\(6\)};
+      \node at (0.5, 1.5) {\(4\)};
+    \end{tikzpicture}
+    \qquad \raisebox{2cm}{\(\xrightarrow{\phi}\)} \qquad
+	\begin{tikzpicture}[scale=.5]
+		\node at (-0.5, 7.5) {\tiny \(7\)};
+		\node at (-0.5, 6.5) {\tiny \(6\)};
+		\node at (-0.5, 5.5) {\tiny \(5\)};
+		\node at (-0.5, 4.5) {\tiny \(4\)};
+		\node at (-0.5, 3.5) {\tiny \(3\)};
+		\node at (-0.5, 2.5) {\tiny \(2\)};
+		\node at (-0.5, 1.5) {\tiny \(1\)};
+		\node[anchor=north] at (0.5, 1) {\(\scriptstyle i\)};
+		\node[anchor=north] at (1.5, 1) {\(\scriptstyle i+1\)};
+		\draw (1, 7) rectangle ++(1, 1);
+		\draw (1, 6) rectangle ++(1, 1)[fill=gray!50];
+		\draw (0, 6) rectangle ++(1, 1)[fill=gray!50];
+		\draw (1, 5) rectangle ++(1, 1)[fill=gray!50];
+		\draw (0, 5) rectangle ++(1, 1)[fill=gray!50];
+		\draw (1, 4) rectangle ++(1, 1);
+		\draw (0, 4) rectangle ++(1, 1);
+		\draw (1, 3) rectangle ++(1, 1);
+		\draw (0, 3) rectangle ++(1, 1);
+		\draw (1, 2) rectangle ++(1, 1);
+		\draw (0, 2) rectangle ++(1, 1);
+		\draw (1, 1) rectangle ++(1, 1)[fill=gray!50];
+		\draw (0, 1) rectangle ++(1, 1)[fill=gray!50];
+		\node at (1.5, 7.5) {\(3\)};
+		\node at (1.5, 6.5) {\(5\)};
+		\node at (0.5, 6.5) {\(2\)};
+		\node at (1.5, 5.5) {\(1\)};
+		\node at (0.5, 5.5) {\(4\)};
+		\node at (1.5, 4.5) {\(5\)};
+		\node at (0.5, 4.5) {\(8\)};
+		\node at (1.5, 3.5) {\(1\)};
+		\node at (0.5, 3.5) {\(6\)};
+		\node at (1.5, 2.5) {\(3\)};
+		\node at (0.5, 2.5) {\(7\)};
+		\node at (1.5, 1.5) {\(6\)};
+		\node at (0.5, 1.5) {\(4\)};
+		\draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 5.1) -- (2, 6.9) node[midway, anchor=west, xshift=10pt] {not swapped};
+		\draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 2.1) -- (2, 4.9) node[midway, anchor=west, xshift=10pt] {swapped};
+		\draw[decorate, decoration={brace, amplitude=5pt, mirror, raise=5pt}] (2, 1.1) -- (2, 1.9) node[midway, anchor=west, xshift=10pt] {not swapped};
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Second goal with bijections}
+  \begin{block}{Goal}
+    When \(\alpha_i > \alpha_{i+1}\), prove
+    \(
+      E_\alpha^\sigma = 
+      E_{s_i \alpha}^{\sigma s_i} +
+      (\text{coefficient}) \cdot
+      E_{s_i \alpha}^\sigma,
+    \)
+    that is,
+    \[
+      \textstyle
+      \sum_{\substack{T \text{ signed fillings} \\ \text{of shape } \alpha \\ \text{with basement } \sigma}}
+      \wt(T)
+      =
+      \sum_{\substack{U \text{ signed fillings} \\ \text{of shape } s_i \alpha \\ \text{with basement } \sigma s_i}}
+      \wt(U)
+      +
+      (\text{coefficient}) \cdot
+      \sum_{\substack{V \text{ signed fillings} \\ \text{of shape } s_i \alpha \\ \text{with basement } \sigma}}
+      \wt(V).
+    \]
+  \end{block}
+
+  \begin{block}{Combinatorial Goal}
+    Construct bijections
+    \begin{gather*}
+      f \colon \left\{ \begin{array}{c} \text{signed fillings of shape} \\ \alpha \text{ with basement } \sigma \end{array} \right\}
+      \to
+      \left\{ \begin{array}{c} \text{signed fillings of shape} \\ s_i \alpha \text{ with basement } \sigma s_i \end{array} \right\} \\
+      g \colon \left\{ \begin{array}{c} \text{signed fillings of shape} \\ \alpha \text{ with basement } \sigma \end{array} \right\}
+      \to
+      \left\{ \begin{array}{c} \text{signed fillings of shape} \\ s_i \alpha \text{ with basement } \sigma \end{array} \right\}
+    \end{gather*}
+    such that, for all \(T\),
+    \[
+    \wt(T) = \wt(f(T)) + (\text{coefficient}) \cdot \wt(g(T)).
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{The new bijections \(f\) and \(g\)}
+  Naively applying the previous bijection \(\phi\) \textbf{might or might not} swap \(\sigma_i\) and \(\sigma_{i+1}\) in the basement.
+  \[
+    \phi \colon \operatorname{Fill}_\pm(\alpha, \sigma)
+    \to
+    \operatorname{Fill}_\pm(s_i \alpha, \sigma s_i)
+    \cup
+    \operatorname{Fill}_\pm(s_i \alpha, \sigma).
+  \]
+
+  Define \(\psi\) to be the same as \(\phi\), except do the opposite action on the bottom block.
+  \[
+    \psi \colon \operatorname{Fill}_\pm(\alpha, \sigma)
+    \to
+    \operatorname{Fill}_\pm(s_i \alpha, \sigma)
+    \cup
+    \operatorname{Fill}_\pm(s_i \alpha, \sigma s_i).
+  \]
+
+  \begin{block}{Proposition}
+    The map \(\psi\) changes \(\inv\) and \(\maj\) in a predictable way. 
+    (That's where the coefficient comes from.)
+  \end{block}
+
+  \vspace{.5em}
+
+  Define \(f\) and \(g\) such that
+  \[
+    \{f(T), g(T)\} = \{\phi(T), \psi(T)\}
+  \]
+  in the correct order so that \(f(T)\) has basement \(\sigma s_i\) and \(g(T)\) has basement \(\sigma\).
+\end{frame}
+
+\begin{frame}{The bijections \(f\) and \(g\) work!}
+  Define \(f\) and \(g\) such that
+  \[
+    \{f(T), g(T)\} = \{\phi(T), \psi(T)\}
+  \]
+  in the correct order so that \(f(T)\) has basement \(\sigma s_i\) and \(g(T)\) has basement \(\sigma\).
+
+  \begin{block}{Lemma}
+    The maps \(f\) and \(g\) are bijections such that, for all \(T\),
+    \[
+    \wt(T) = \wt(f(T)) + (\text{coefficient}) \cdot \wt(g(T)).
+    \]
+  \end{block}
+
+  \begin{block}{Corollary}
+    When \(\alpha_i > \alpha_{i+1}\), we have:
+    \[
+      E_\alpha^\sigma = 
+      E_{s_i \alpha}^{\sigma s_i} +
+      (\text{coefficient}) \cdot
+      E_{s_i \alpha}^\sigma.
+    \]
+  \end{block}
+\end{frame}
 
 \part{Probabilistic Bijections}
 
@@ -1440,8 +1730,8 @@ E.g.
 
 If \(\alpha_i < \alpha_{i+1}\) and \(\sigma_i > \sigma_{i+1}\), then
 \[
-  \setlength{\thickmuskip}{20mu}
-  \setlength{\medmuskip}{15mu}
+  %\setlength{\thickmuskip}{20mu}
+  %\setlength{\medmuskip}{15mu}
   \textcolor{red!70!black}{E_{s_i\alpha}^\sigma(X;q;t)}
   =
   \textcolor{red!70!black}{E_{\alpha}^{\sigma s_i}(X;q;t)}
