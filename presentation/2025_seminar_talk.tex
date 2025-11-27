@@ -11,6 +11,8 @@
 \usepackage{verbatim}
 \usepackage{ytableau}
 
+\usepackage{graphicx}
+
 \usepackage{appendixnumberbeamer}
 
 \usepackage{fontawesome5}
@@ -263,7 +265,7 @@
             }
           \node at (\column + .5, .5) {\(\scriptstyle \column\)};
           }
-        \foreach \row in {1, 2, 3}{
+        \foreach \row in {1, 2, 3, 4, 5, 6}{
             \node at (0, \row + .5) {\(\scriptstyle \row\)};
           }
         \draw (1,1) -- (13,1);
@@ -519,14 +521,16 @@
 \]}
 
     \item inversion/coinversion number: \onslide<8->{\(\inv(T) = \#\{ \text{inversion triples} \}\), \(\coinv(T) = \#\{ \text{coinversion triples} \}\)}
+\end{itemize}
 
     \onslide<7->{
-\begin{figure}[htbp]
+\begin{center}
 	\ytableausetup{smalltableaux}
 	\colorlet{inversion}{orange!70!white}
 	\colorlet{coinversion}{purple!50!white}
 	\renewcommand{\arraystretch}{1.5}
-	\begin{tabular}{ccccc}
+  \scalebox{.85}{
+	\begin{tabular}{cccccccccc}
 		\begin{ytableau}
 			*(coinversion) \textbf2 & *(coinversion) \textbf4 \\
 			*(coinversion) \textbf1 & 2 & \none & 4 \\
@@ -556,21 +560,71 @@
 			1 & 2 & \none & *(inversion) \textbf4 \\
 			3 & 1 & *(inversion) \textbf2 & *(inversion) \textbf4
 		\end{ytableau}
+		&
+		\begin{ytableau}
+			2 & 4 \\
+			1 & 2 & \none & 4 \\
+			*(inversion) \textbf3 & *(inversion) \textbf1 & 2 & 4
+		\end{ytableau}
+		&
+		\begin{ytableau}
+			2 & 4 \\
+			1 & 2 & \none & 4 \\
+			*(inversion) \textbf3 & 1 & *(inversion) \textbf2 & 4
+		\end{ytableau}
+		&
+		\begin{ytableau}
+			2 & 4 \\
+			1 & 2 & \none & 4 \\
+			*(coinversion) \textbf3 & 1 & 2 & *(coinversion) \textbf4
+		\end{ytableau}
+		&
+		\begin{ytableau}
+			2 & 4 \\
+			1 & 2 & \none & 4 \\
+			3 & *(coinversion) \textbf1 & *(coinversion) \textbf2 & 4
+		\end{ytableau}
+		&
+		\begin{ytableau}
+			2 & 4 \\
+			1 & 2 & \none & 4 \\
+			3 & *(coinversion) \textbf1 & 2 & *(coinversion) \textbf4
+		\end{ytableau}
 		\\
+    \small
 		\(1 < 2 < 4\)
 		&
+    \small
 		\(1 < 2 < 3\)
 		&
+    \small
 		\(4 > 3 > 1\)
 		&
+    \small
 		\(1 < 2 < 4\)
 		&
+    \small
 		\(4 \geq 4 > 2\)
+    &
+    \small
+    \(3 > 1\)
+    &
+    \small
+    \(3 > 2\)
+    &
+    \small
+    \(3 < 4\)
+    &
+    \small
+    \(1 < 2\)
+    &
+    \small
+    \(1 < 4\)
 	\end{tabular}
-\end{figure}
+  }
+\end{center}
     }
-    \onslide<8->{ \[ \inv(T) = 2, \quad \coinv(T) = 3\] }
-  \end{itemize}
+    \onslide<8->{ \[ \inv(T) = 4, \quad \coinv(T) = 6\] }
 \end{frame}
 
 \begin{frame}{Tableaux Formula for Modified \(\tilde{H}_\lambda\)}
