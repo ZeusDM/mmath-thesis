@@ -1,6 +1,6 @@
 \chapter{Combinatorial formulas for Macdonald polynomials} \label{chap:models}
 
-\section{Unsigned and Signed Alphabets}
+\section{Unsigned and signed alphabets}
 
 An \vocab{unsigned alphabet} \(\mathcal{A}\) is a totally ordered set.
 We write \(\ind{a, b}\) to denote the indicator function of \(a > b\).
@@ -108,16 +108,16 @@ In signed alphabets, \(\ind{a, b, c}\) indicates whether \(a, b, c\) is cyclical
 
 \section{Fillings} \label{sec:fillings}
 
-\subsection{Non-augmented Fillings} \label{subsec:non-augmented-fillings}
+\subsection{Non-augmented fillings} \label{subsec:non-augmented-fillings}
 
-The \vocab{(non-augmented) skyline diagram} of a composition
+The \vocab{skyline diagram} of a composition
 \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\)
 is the set
 \begin{equation*}
 	\dg(\alpha) = \left\{ (i, r) \suchthat i \in \interval{n} \text{ and } r \in \interval{\alpha_i} \right\},
 \end{equation*}
 where the first coordinate indexes the columns and the second coordinate indexes the rows.
-In \cref{subsec:augmented-fillings}, we define the \vocab{augmented skyline diagram} of a composition, hence the optional term \emph{non-augmented} is used when the distinction is necessary.
+In \cref{subsec:augmented-fillings}, we define the \vocab{augmented skyline diagram} of a composition. The optional term \emph{non-augmented} is used when the distinction is necessary.
 The elements of \(\dg(\alpha)\) are called \vocab{boxes}.
 We draw the box \((i, r)\) as a square in column \(i\) and row \(r\).
 \Cref{fig:skyline} provides an example of a skyline diagram.
@@ -537,7 +537,7 @@ Together with \Cref{eq:inv-plus-coinv}, we also obtain an alternative descriptio
 	= \sum_{u \in \dg(\alpha) \setminus \Des(T)} \arm(u) - \left|\InversionPairs(T)\right|.
 \end{equation*}
 
-\subsection{Augmented Fillings} \label{subsec:augmented-fillings}
+\subsection{Augmented fillings} \label{subsec:augmented-fillings}
 
 In the context of augmented fillings,
 we either take the unsigned alphabet \(\mathcal{A} = \interval{n}\),
