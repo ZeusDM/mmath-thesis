@@ -56,6 +56,9 @@ The \vocab{conjugate} of a partition \(\lambda\) is the partition \(\lambda'\) d
 	\lambda'_i = |\{ j \suchthat \lambda_j \geq i \}|.
 \end{equation*}
 
+For two partitions \(\mu\) and \(\lambda\) of the same integer, write \(\mu \leq \lambda\) if \(\mu_1 + \mu_2 + \cdots + \mu_k \leq \lambda_1 + \lambda_2 + \cdots + \lambda_k\) for all \(k \geq 1\).
+This defines a partial order called the \vocab{dominance order}.
+
 Given a permutation \(\pi \in \sym{n}\) and a composition \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\),
 the \vocab{left action} of \(\pi\) on \(\alpha\) is the composition
 \(\pi \permact \alpha = \composition{\alpha_{\pi^{-1}(1)}, \alpha_{\pi^{-1}(2)}, \ldots, \alpha_{\pi^{-1}(n)}}\).
@@ -197,7 +200,7 @@ Then, the operator \( D \) is defined as
 \begin{equation*}
 	D = \sum_{i=1}^n \left( \prod_{j \ne i} \frac{t x_i - x_j}{x_i - x_j} \right) T_{q,x_i}.
 \end{equation*}
-The operator \(D\) has distinct eigenfunction, and these eigenfunctions are the symmetric Macdonald polynomials \(P_\lambda(x_1, \ldots, x_n; q, t)\) where \(\lambda\) is a partition with at most \(n\) parts.
+The operator \(D\) has distinct eigenfunctions, and these eigenfunctions are the symmetric Macdonald polynomials \(P_\lambda(x_1, \ldots, x_n; q, t)\) where \(\lambda\) is a partition with at most \(n\) parts.
 
 \subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ}}
 
@@ -247,15 +250,15 @@ The modified Macdonald polynomials \(\tilde{H}_\mu\) satisfy and are uniquely de
 We follow the exposition of \cite{Fer11} and the notation of \cite{Ale19}
 for the definition of nonsymmetric Macdonald polynomials
 and permuted-basement Macdonald polynomials,
-which are polynomials in the ring \(\rationals(q, t)[\mathbf{x}_n] = \rationals(q, t)[x_1, x_2, \ldots, x_n]\).
+which are polynomials in the ring \(\rationals(q, t)[x_1, x_2, \ldots, x_n]\).
+Now, we have finitely many variables \(\mathbf{x} = (x_1, x_2, \ldots, x_n)\).
 For more background on this topic, see \cite{GR22},
 where these polynomials are referred to as the \emph{relative Macdonald polynomials}.
 
-Recall that a permutation \(\sigma \in \sym{n}\) acts on
-a polynomial \(f(\mathbf{x})\) by permuting the variables,
-that is,
-\(\sigma (\mathbf{x}^{\alpha}) = \mathbf{x}^{\sigma \permact \alpha}\)
-for a composition \(\alpha\).
+Given a composition \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\), we write \(\mathbf{x}^\alpha\) to denote the monomial \(x_1^{\alpha_1} x_2^{\alpha_2} \cdots x_n^{\alpha_n}\).
+A permutation \(\sigma \in \sym{n}\) acts on
+a polynomial \(f(\mathbf{x})\) by permuting the variables.
+In other words, \(\sigma (\mathbf{x}^{\alpha}) = \mathbf{x}^{\sigma \permact \alpha}\) for a composition \(\alpha\), and this action extends linearly to all polynomials in \(\rationals(q, t)[\mathbf{x}]\).
 For example, the permutation \(\sigma = \window{2, 3, 1}\) sends the monomial \(x_1^2 x_2 = \mathbf{x}^{\composition{2, 1, 0}}\) to the monomial
 \(
 	\window{2, 3, 1} (x_1^2 x_2)
@@ -446,19 +449,21 @@ is the nonsymmetric Macdonald polynomial \(E_{\rev(\alpha)}(\mathbf{x}; q, t)\).
 	\end{equation*}
 \end{example}
 
-Note that the computations in \Cref{example:permuted-basement-macdonald-polynomial} and \Cref{example:permuted-basement-macdonald-polynomial-2} yield the same result, which exemplifies a property that will be explored in \Cref{chap:probabilistic}.
+Note that the computations in \Cref{example:permuted-basement-macdonald-polynomial} and \Cref{example:permuted-basement-macdonald-polynomial-2} yield the same result,
+where the permutations \(\sigma = \window{2, 4, 1, 3}\) and \(\tau = \window{4, 2, 1, 3}\) differ by an application of the simple transposition \(s_1\).
+This equality exemplifies a property that will be explored in \Cref{chap:probabilistic}.
 
 \begin{theorem}[{\cite{Fer11}}]
 	Let \(\sigma\) be a permutation in \(\sym{n}\).
 	The set of permuted-basement Macdonald polynomials
 	\begin{equation*}
-		\{ E_\alpha^\sigma(\mathbf{x}; q, t) \suchthat
+		\{ E_\alpha^\sigma(x_1, \ldots, x_n; q, t) \suchthat
 		\alpha \text{ is a composition of length } n \}
 	\end{equation*}
-	is a basis of \(\rationals(q, t)[\mathbf{x}]\).
+	is a basis of \(\rationals(q, t)[x_1, \ldots, x_n]\).
 \end{theorem}
 
-\subsection{Integral form permuted-basement Macdonald polynomials \texorpdfstring{\(\mathcal{E}_\alpha^\sigma\)}{Eασ}}
+\subsection{\texorpdfstring{\textls[-8]{Integral form permuted-basement Macdonald polynomials~\(\mathcal{E}_\alpha^\sigma\)}}{Integral form permuted-basement Macdonald polynomials Eασ}}
 
 We define the integral form permuted-basement Macdonald polynomials following \cite[Section~5]{Kno97}.
 While \cite{Kno97} only defined the integral form nonsymmetric Macdonald polynomials (i.e., the case \(\sigma = w_0\)),

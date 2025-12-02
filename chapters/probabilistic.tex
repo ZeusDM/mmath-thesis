@@ -47,7 +47,7 @@ for partition-shaped non-attacking fillings.
 In this chapter,
 we generalize this probabilistic bijection
 to composition-shaped non-attacking fillings,
-thereby giving a bijective proof of \cref{theorem:main}.
+thereby giving a combinatorial proof of \cref{theorem:main}.
 
 As implications of \cref{theorem:main},
 certain assumptions can be removed from
@@ -63,12 +63,12 @@ We follow the exposition given in~\cite{AF22}.
 
 \begin{definition}[Probability map]
 	Let \(\algebra\) be an algebra.
-	Let \(\mathbf{T}\) and \(\mathbf{U}\) be sets.
+	Let \(\mathbf{T}\) and \(\mathbf{U}\) be finite sets.
 	A \vocab{probability map} from \(\mathbf{T}\) to \(\mathbf{U}\) is
 	a function \(\prob{} \colon \mathbf{T} \times \mathbf{U} \to \algebra\) such that
-	\begin{equation}
+	\begin{equation*}
 		\sum_{U \in\mathbf{U}} \prob{}(T, U) = 1
-	\end{equation}
+	\end{equation*}
 	for every \(T \in \mathbf{T}\).
 \end{definition}
 
@@ -90,10 +90,10 @@ are not required to be in the interval \([0, 1]\) or even real numbers.
 	\(\prob{\mathbf{T}} \colon \mathbf{T} \times \mathbf{U} \to \algebra\) and
 	\(\prob{\mathbf{U}} \colon \mathbf{U} \times \mathbf{T} \to \algebra\)
 	such that
-	\begin{equation}
+	\begin{equation*}
 		\wt_{\mathbf{T}}(T) \prob{\mathbf{T}}(T, U)
 		= \wt_{\mathbf{U}}(U) \prob{\mathbf{U}}(U, T)
-	\end{equation}
+	\end{equation*}
 	for every \(T \in \mathbf{T}\) and \(U \in \mathbf{U}\).
 \end{definition}
 
@@ -101,13 +101,13 @@ A weight-preserving bijection \( f \colon \mathbf{T} \to \mathbf{U} \)
 canonically induces a probabilistic bijection
 between \((\mathbf{T}, \wt_{\mathbf{T}})\) and \((\mathbf{U}, \wt_{\mathbf{U}})\)
 by setting
-\begin{equation}
+\begin{equation*}
 	\prob{\mathbf{T}}(T, U) = \prob{\mathbf{U}}(U, T) =
 	\begin{cases}
 		1 & \text{if } f(T) = U, \\
 		0 & \text{otherwise},
 	\end{cases}
-\end{equation}
+\end{equation*}
 explaining the choice of terminology.
 Moreover, as shown in \cref{proposition:equal-weight-sum},
 this generalization retains a key property of weight-preserving bijections:
@@ -121,21 +121,21 @@ the sum of the weights of \(\mathbf{T}\) and of \(\mathbf{U}\) are equal.
 	\( (\mathbf{T}, \wt_{\mathbf{T}}) \) and
 	\( (\mathbf{U}, \wt_{\mathbf{U}}) \).
 	Then,
-	\begin{equation}
+	\begin{equation*}
 		\sum_{T \in \mathbf{T}} \wt(T) = \sum_{U \in\mathbf{U}} \wt(U).
-	\end{equation}
+	\end{equation*}
 \end{proposition}
 
 \begin{proof}
 	We compute
-	\begin{align}
+	\begin{align*}
 		\sum_{T \in \mathbf{T}} \wt_{\mathbf{T}}(T)
 		&= \sum_{T \in \mathbf{T}} \sum_{U \in \mathbf{U}}
 			\wt_{\mathbf{T}}(T) \prob{\mathbf{T}}(T, U) \\
 		&= \sum_{U \in \mathbf{U}} \sum_{T \in \mathbf{T}}
 			\wt_{\mathbf{U}}(U) \prob{\mathbf{U}}(U, T)
 		= \sum_{U \in \mathbf{U}} \wt_{\mathbf{U}}(U). \qedhere
-	\end{align}
+	\end{align*}
 \end{proof}
 
 A Markov-theoretical interpretation of a probabilistic bijection is that
@@ -392,7 +392,7 @@ As a convention, we set \(\pp[\alpha_i]{i}(T) = 0\).
 			4 & 1 & 2 \\
 			3 & 4 & 1 \\
 			3 & 4 & 2 \\
-			5 & 1 & 3 & 4 & 2
+			*(gray!30) 5 & *(gray!30) 1 & *(gray!30) 3 & *(gray!30) 4 & *(gray!30) 2
 		\end{ytableau}.
 	\end{equation*}
 	The values of \(\pp[r]{2}(T)\) and \(1 - \pp[r]{2}(T)\) are
@@ -431,7 +431,7 @@ As a convention, we set \(\pp[\alpha_i]{i}(T) = 0\).
 			4 & 1 & 2 \\
 			3 & 4 & 1 \\
 			3 & 2 & 4 \\
-			5 & 3 & 1 & 4 & 2
+			*(gray!30) 5 & *(gray!30) 3 & *(gray!30) 1 & *(gray!30) 4 & *(gray!30) 2
 		\end{ytableau}
 		\quad \text{and} \qquad
 		\begin{ytableau}
@@ -439,7 +439,7 @@ As a convention, we set \(\pp[\alpha_i]{i}(T) = 0\).
 			4 & 1 & 2 \\
 			3 & 1 & 4 \\
 			3 & 2 & 4 \\
-			5 & 3 & 1 & 4 & 2
+			*(gray!30) 5 & *(gray!30) 3 & *(gray!30) 1 & *(gray!30) 4 & *(gray!30) 2
 		\end{ytableau}.
 	\end{equation*}
 \end{example}
@@ -463,7 +463,7 @@ By construction, the \(\prob{i}\) is nonzero only for pairs of non-attacking fil
 
 	If \(\prob{i}(T, U) \neq 0\),
 	there exists \(h \in \interval{0, \alpha_i}\) such that \(U = \sswap[0, h]{i}(T)\),
-	and thus by \Cref{eq:prob factors},
+	and thus by \eqref{eq:prob factors},
 	\(\pp[r]{i}(T) \neq 0\) for all \(r \in \interval{0, h-1}\) and \(\pp[h]{i}(T) \neq 1\).
 	Therefore,
 	it suffices to show that if \(T\) is non-attacking,
@@ -602,7 +602,7 @@ yielding the decomposition
 		=
 		\ind{d, c, b} - \ind{c, d, a}.
 	\end{equation*}
-	We show that \Cref{eq:wtqt-prob-balanced-r} holds
+	We show that \eqref{eq:wtqt-prob-balanced-r} holds
 	for all cases of \((a,b,c,d)\) with \(b\neq c\).
 
 	First, suppose \(|\{a, b, c, d\}| = 4\).
@@ -622,7 +622,7 @@ yielding the decomposition
 			\(\coinv[r, r + 1](T) - \coinv[r, r + 1](U) = \ind{d, c, b} - \ind{c, d, a} = 0\).
 	\end{itemize}
 	Thus, in both cases for \(\ind{c,d,a}\),
-	\Cref{eq:wtqt-prob-balanced-r} holds for \(|\{a,b,c,d\}| = 4\).
+	\eqref{eq:wtqt-prob-balanced-r} holds for \(|\{a,b,c,d\}| = 4\).
 
 	Next, suppose \(|\{a, b, c, d\}| = 3\).
 	Since \(b\neq c\), we either have \(b=d\) or \(a=c\).
@@ -669,7 +669,7 @@ yielding the decomposition
 		t^{1 - \ind{c, b, a}} \frac{1 - q^{\ell+1}t^{A+1}}{1 - q^{\ell+1}t^{A+2}}
 		= \pp[r]{i}(T, U),
 	\end{equation*}
-	confirming \Cref{eq:wtqt-prob-balanced-r}.
+	confirming \eqref{eq:wtqt-prob-balanced-r}.
 
 	Finally, if \(|\{a, b, c, d\}| = 2\),
 	then \(a = c\) and \(b = d\).
@@ -678,7 +678,7 @@ yielding the decomposition
 	\(\coinv[r, r + 1](T) - \coinv[r, r + 1](U) = \ind{b, a, b} - \ind{a, b, a} = 1 - 1 = 0\).
 	Moreover, the sets \(\{u \in \Arm(i+1, r+1) \suchthat T(u) \neq T(\south{u})\}\)
 	and \(\{u \in \Arm(i+1, r+1) \suchthat U(u) \neq U(\south{u})\}\) are equal.
-	Thus, \Cref{eq:wtqt-prob-balanced-r} holds in this final case, as well.
+	Thus, \eqref{eq:wtqt-prob-balanced-r} holds in this final case, as well.
 \end{proof}
 
 \begin{lemma} \label{lemma:wtqt-prob-balanced-h}
@@ -694,7 +694,7 @@ yielding the decomposition
 	If \(h = \alpha_i\),
 	then \(\wtqt[\alpha_i](T) = \wtqt[\alpha_i](U) = 1\)
 	and \(1 - \pp[\alpha_i]{i}(T) = 1 - \pp[\alpha_i]{i}(U) = 1\),
-	so \Cref{eq:wtqt-prob-balanced-h} holds trivially.
+	so \eqref{eq:wtqt-prob-balanced-h} holds trivially.
 	Assume that \(h < \alpha_i\).
 	Then
 	\begin{align*}
@@ -719,7 +719,7 @@ yielding the decomposition
 	\( (A+1) \left( \ind{c, a} + \ind{d, b} - \ind{c, b} - \ind{d, a} \right)\)
 	using \cref{lemma:useful-ind-five-variables}, where \(A = \arm(i+1, h+1)\).
 
-	We show that \Cref{eq:wtqt-prob-balanced-h} holds
+	We show that \eqref{eq:wtqt-prob-balanced-h} holds
 	for all possible cases for \((a,b,c,d)\) with \(b\neq d\).
 
 	First, suppose \(|\{a, b, c, d\}| = 4\).
@@ -741,7 +741,7 @@ yielding the decomposition
 			Then, it also holds that \(\ind{d, c, b} = \ind{c, d, a}\),
 			and hence \(1 - \pp[h]{i}(U) = 0\) by \cref{item:pp-cda-dcb}.
 	\end{itemize}
-	Thus, in both cases for \(\ind{c,d,a}\), \Cref{eq:wtqt-prob-balanced-h} holds for \(|\{a,b,c,d\}|=4\).
+	Thus, in both cases for \(\ind{c,d,a}\), \eqref{eq:wtqt-prob-balanced-h} holds for \(|\{a,b,c,d\}|=4\).
 
 	Now suppose that \(|\{a, b, c, d\}| = 3\).
 	Since \(b\neq d\), without loss of generality we may assume \(b=c\).
@@ -780,11 +780,11 @@ yielding the decomposition
 		q^{(\ell+1)\ind{d, b, a}} t^{(A+1)\ind{d, b, a}} \frac{(1 - t)}{1 - q^{\ell+1}t^{A+1}}
 		= \pp[r]{i}(T, U),
 	\end{equation*}
-	and thus \Cref{eq:wtqt-prob-balanced-h} holds for this case as well.
+	and thus \eqref{eq:wtqt-prob-balanced-h} holds for this case as well.
 
 	Finally, the case \(|\{a, b, c, d\}| = 2\) does not happen as \(b \neq d\)
 	by the non-attacking property of \(U\).
-	Therefore, \Cref{eq:wtqt-prob-balanced-h} holds in all cases.
+	Therefore, \eqref{eq:wtqt-prob-balanced-h} holds in all cases.
 \end{proof}
 
 We are now ready to prove the main result of this section, \cref{theorem:wt-prob}.
@@ -807,9 +807,9 @@ We are now ready to prove the main result of this section, \cref{theorem:wt-prob
 		\wtqt[h](U)\left(1 - \pp[h]{i}(U)\right) = \wtqt[h](T)\left(1 - \pp[h]{i}(T)\right).
 	\end{equation}
 	Multiplying
-	\Cref{eq:wtqt-prob-balanced-r-large} for each \(r \in \interval{h + 1, \alpha_i-1}\),
-	\Cref{eq:wtqt-prob-balanced-r-repeated} for all \(r \in \interval{0, h-1}\), and
-	\Cref{eq:wtqt-prob-balanced-h-repeated},
+	\eqref{eq:wtqt-prob-balanced-r-large} for each \(r \in \interval{h + 1, \alpha_i-1}\),
+	\eqref{eq:wtqt-prob-balanced-r-repeated} for all \(r \in \interval{0, h-1}\), and
+	\eqref{eq:wtqt-prob-balanced-h-repeated},
 	we obtain
 	\begin{equation*}
 		\left( \prod_{r = 0}^{\alpha_i-1} \wtqt[r](U) \right)
@@ -820,7 +820,7 @@ We are now ready to prove the main result of this section, \cref{theorem:wt-prob
 		\left( \prod_{r = 0}^{h-1} \pp[r]{i}(T) \right)
 		( 1 - \pp[h]{i}(T) ).
 	\end{equation*}
-	By \Cref{eq:rthcomponent}, and \cref{definition:prob}, we obtain
+	By \eqref{eq:rthcomponent}, and \cref{definition:prob}, we obtain
 	\begin{equation*}
 		\wtqt(U)\prob{i}(U, T) = \wtqt(T)\prob{i}(T, U). \qedhere
 	\end{equation*}
@@ -879,7 +879,7 @@ to obtain a probabilistic bijection between
 				\begin{ytableau}
 					2 & 4 \\
 					1 & 2 & \none & 4 \\
-					3 & 1 & 2 & 4
+					*(gray!30) 3 & *(gray!30) 1 & *(gray!30) 2 & *(gray!30) 4
 				\end{ytableau}\)
 			};
 			\node[red!50!black]  (T2) at (-4,  0) {
@@ -887,7 +887,7 @@ to obtain a probabilistic bijection between
 				\begin{ytableau}
 					2 & 4 \\
 					2 & 1 & \none & 4 \\
-					3 & 1 & 2 & 4
+					*(gray!30) 3 & *(gray!30) 1 & *(gray!30) 2 & *(gray!30) 4
 				\end{ytableau}\)
 			};
 			\node[red!50!black]  (T3) at (-4, -3) {
@@ -895,21 +895,21 @@ to obtain a probabilistic bijection between
 				\begin{ytableau}
 					4 & 2 \\
 					1 & 2 & \none & 4 \\
-					3 & 1 & 2 & 4
+					*(gray!30) 3 & *(gray!30) 1 & *(gray!30) 2 & *(gray!30) 4
 				\end{ytableau}\)
 			};
 			\node[blue!50!black] (U1) at ( 4,  1.5) {
 				\(\begin{ytableau}
 					2 & 4 \\
 					1 & 2 & \none & 4 \\
-					1 & 3 & 2 & 4
+					*(gray!30) 1 & *(gray!30) 3 & *(gray!30) 2 & *(gray!30) 4
 				\end{ytableau} = U_1\)
 			};
 			\node[blue!50!black] (U2) at ( 4, -1.5) {
 				\(\begin{ytableau}
 					4 & 2 \\
 					1 & 2 & \none & 4 \\
-					1 & 3 & 2 & 4
+					*(gray!30) 1 & *(gray!30) 3 & *(gray!30) 2 & *(gray!30) 4
 				\end{ytableau} = U_2\)
 			};
 			% Weights
@@ -1227,7 +1227,7 @@ Finally, for a partition \(\lambda=\composition{\lambda_1,\ldots,\lambda_n}\), i
 \end{equation}
 where \(S_n\permact \lambda\) is the set of rearrangements of \(\lambda\), \(\inc(\lambda)=(\lambda_n,\ldots,\lambda_1)\), and \(\sigma_\mu\) is the longest permutation that rearranges \(\inc(\lambda)\) into \(\mu\).
 
-\Cref{corollary:partition-antipartition-symmetry} allows us to rewrite \Cref{eq:P in Es} without the length restriction on \(\sigma_\mu\).
+\Cref{corollary:partition-antipartition-symmetry} allows us to rewrite \eqref{eq:P in Es} without the length restriction on \(\sigma_\mu\).
 \begin{corollary}
 	Let \(\lambda=\composition{\lambda_1,\ldots,\lambda_n}\) be a partition. Then the symmetric Macdonald polynomial satisfies
 	\begin{equation*}

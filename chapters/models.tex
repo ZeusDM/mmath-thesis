@@ -23,6 +23,13 @@ Some signed alphabets we use are \(\integers_\pm\), with the total order
 \end{equation*}
 and its subalphabet \([n]_\pm\).
 
+For example, in the signed alphabet \(\integers_\pm\), we have
+\begin{equation*}
+	\ind{5, 3} = \ind{\bar{5}, 3} = \ind{5, \bar{3}} = \ind{\bar{5}, \bar{3}} = 1, \quad
+	\ind{2, 2} = \ind{2, \bar{2}} = 0, \quad \text{and} \quad
+	\ind{\bar{2}, 2} = \ind{\bar{2}, \bar{2}} = 1.
+\end{equation*}
+
 We also use the symbol \(\infty\) to denote
 an element larger than any element in \(\mathcal{A}\),
 so that \(\ind{a, \infty} = 0\) and \(\ind{\infty, a} = 1\) for all \(a \in \mathcal{A}\).
@@ -182,6 +189,9 @@ When there is no ambiguity, we may simply write \(\Attack(u)\).
 \end{figure}
 
 Let \(u = (i, r) \in \dg(\alpha)\).
+The box \vocab{south} of \(u = (i, r)\) is the box \(\south{u} = (i, r-1)\), that is, the box directly below \(u\).
+If \(r > 1\), then \(\south{u} \in \dg(\alpha)\); while if \(r = 1\), then \(\south{u}\) is still defined (in row \(0\)),
+but it is not in \(\dg(\alpha)\).
 The \vocab{leg set} of \(u\) is the set \(\Leg_{\dg(\alpha)}(u) \subset \dg(\alpha)\) of boxes above \(u\) in the same column, that is, \(\Leg_{\dg(\alpha)}(u) = \left\{ (i, r') \in \dg(\alpha) \suchthat r' > r \right\}\).
 The \vocab{leg statistic} of \(u\) is defined as \(\leg_{\dg(\alpha)}(u) = \left|\Leg_{\dg(\alpha)}(u)\right| = \alpha_i - r\).
 The \vocab{arm set} of \(u\) is the set \(\Arm_{\dg(\alpha)}(u) \subset \dg(\alpha)\) of boxes \(v\) attacked by \(u\) such that \(\leg_{\dg(\alpha)}(v) \leq \leg_{\dg(\alpha)}(u)\), that is,
@@ -190,11 +200,6 @@ The \vocab{arm set} of \(u\) is the set \(\Arm_{\dg(\alpha)}(u) \subset \dg(\alp
 \end{equation*}
 The \vocab{arm statistic} of \(u\) is defined as \(\arm_{\dg(\alpha)}(u) = \left|\Arm_{\dg(\alpha)}(u)\right|\).
 When there is no ambiguity, we may simply write \(\Leg(u)\), \(\leg(u)\), \(\Arm(u)\), and \(\arm(u)\).
-The box \vocab{south} of \(u = (i, r)\) is the box \(\south{u} = (i, r-1)\), that is, the box directly below \(u\).
-If \(r > 1\), then \(\south{u} \in \dg(\alpha)\); while if \(r = 1\), then \(\south{u}\) is still defined (in row \(0\)),
-but it is not in \(\dg(\alpha)\).
-See \cref{fig:leg-arm} for an example of the leg set, arm set, and south of a box.
-
 The arm set \(\Arm(u)\) of a box \(u = (i, r)\) can be equivalently described as
 \begin{equation*}
 	\{(j, r-1) \in \dg(\alpha) : j < i \text{ and } \alpha_j \in \interval{r-1, \alpha_i-1}\}
@@ -206,6 +211,7 @@ and consequently, the arm statistic \(\arm(u)\) can be computed as
 	\arm(u) = \left| \{j < i \suchthat \alpha_j \in \interval{r-1, \alpha_i-1}\} \right|
 	+ \left| \{j > i \suchthat \alpha_j \in \interval{r, \alpha_i}\} \right|.
 \end{equation*}
+See \cref{fig:leg-arm} for an example of the south, leg set, arm set, and attacked set of a box \(u\).
 
 \begin{figure}[htbp]
     \centering
@@ -317,7 +323,7 @@ We define
 \[
 	\mathbf{x}^T = \mathbf{x}^{\content(T)} = \prod_{i} x_i^{\beta_i}.
 \]
-For example, the filling \(T\) in \cref{fig:non-attacking-filling} has content \(\content(T) = \composition{2, 1, 1, 2, 3}\) and \(\mathbf{x}^T = \mathbf{x}^{\content(T)} = x_1^2 x_2^1 x_3^1 x_4^2 x_5^3\).
+For example, the filling \(T\) in \cref{fig:non-attacking-filling} has content \(\content(T) = \composition{2, 1, 1, 3, 2}\) and \(\mathbf{x}^T = \mathbf{x}^{\content(T)} = x_1^2 x_2^1 x_3^1 x_4^3 x_5^2\).
 
 Recall that boxes in row \(0\), which are not in \(\dg(\alpha)\),
 are obtained as the south of boxes in row \(1\).
@@ -531,7 +537,7 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 \end{proof}
 
 \Cref{prop:inv-via-inversion-pairs} gives an alternative description of \(\inv(T)\).
-Together with \Cref{eq:inv-plus-coinv}, we also obtain an alternative description of \(\coinv(T)\) by
+Together with \eqref{eq:inv-plus-coinv}, we also obtain an alternative description of \(\coinv(T)\) by
 \begin{equation*}
 	\coinv(T) = \sum_{u \in \dg(\alpha)} \arm(u) - \inv(T)
 	= \sum_{u \in \dg(\alpha) \setminus \Des(T)} \arm(u) - \left|\InversionPairs(T)\right|.
@@ -552,7 +558,7 @@ is the set
 which is obtained from \(\dg(\alpha)\) by adding an extra row of \(n\) boxes below row \(1\),
 called the \vocab{row \(0\)} or the \vocab{basement}.
 \Cref{fig:augmented-skyline} provides an example of an augmented skyline diagram.
-Augmented skyline diagrams are always be drawn with the basement shaded in gray to distinguish them from non-augmented skyline diagrams.
+Augmented skyline diagrams are always drawn with the basement shaded in gray to distinguish them from non-augmented skyline diagrams.
 
 \begin{figure}[htbp]
 	\centering
@@ -643,7 +649,7 @@ When the alphabet is \(\positives\) or \(\interval{n}\),
 the content is identified with the composition \(\beta = \content(T)\) where \(\beta_i\) is the multiplicity of \(i\) in \(\content(T)\).
 We define
 \[	\mathbf{x}^T = \mathbf{x}^{\content(T)} = \prod_{i} x_i^{\beta_i}. \]
-For example, the augmented filling \(T\) in \cref{fig:non-attacking-augmented-filling} has content \(\content(T) = \composition{2, 1, 1, 2, 3}\) and \(\mathbf{x}^T = \mathbf{x}^{\content(T)} = x_1^2 x_2^1 x_3^1 x_4^2 x_5^3\).
+For example, the augmented filling \(T\) in \cref{fig:non-attacking-augmented-filling} has content \(\content(T) = \composition{2, 1, 1, 3, 2}\) and \(\mathbf{x}^T = \mathbf{x}^{\content(T)} = x_1^2 x_2^1 x_3^1 x_4^3 x_5^2\).
 
 The definitions of descents, and major index for augmented fillings are as in \cref{subsec:non-augmented-fillings}.
 Note that boxes in row \(1\) can be descents, since the label of the south of a box in row \(1\) is now given by the basement, rather than being \(\infty\) by convention.
@@ -658,7 +664,7 @@ In the augmented setting, the total number of triples in \(\adg(\alpha)\) is
 	\sum_{u \in \dg(\alpha)} \arm_{\adg(\alpha)}(u)
 \end{equation}
 Note that this sum does not include boxes \(u\) in row \(0\).
-We remark that this sum may be different from \(\sum_{u \in \dg(\alpha)} \arm_{\dg(\alpha)}(u)\) in \cref{eq:total-triples}, since the arm statistic for boxes in row \(1\) may be different in the two settings.
+We remark that this sum may be different from \(\sum_{u \in \dg(\alpha)} \arm_{\dg(\alpha)}(u)\) in \eqref{eq:total-triples}, since the arm statistic for boxes in row \(1\) may be different in the two settings.
 
 Similarly to \cref{subsec:non-augmented-fillings},
 there is another interpretation of \(\inv(T)\) and \(\coinv(T)\), in terms of inversion pairs.
@@ -697,7 +703,7 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 \end{proof}
 
 \Cref{prop:inv-via-inversion-pairs-augmented} gives an alternative description of \(\inv(T)\).
-Together with \Cref{eq:total-triples-augmented}, we also obtain an alternative description of \(\coinv(T)\) by
+Together with \eqref{eq:total-triples-augmented}, we also obtain an alternative description of \(\coinv(T)\) by
 \begin{align*}
 	\coinv(T) &= \sum_{u \in \dg(\alpha)} \arm(u) - \inv(T) \\
 	&= \sum_{u \in \dg(\alpha) \setminus \Des(T)} \arm(u) - \left|\InversionPairs(T)\right| + \left|\{(i, j) \suchthat i < j \text{ and } \alpha_i < \alpha_j \text{ and } \sigma_i > \sigma_j\}\right|.
@@ -708,8 +714,8 @@ Together with \Cref{eq:total-triples-augmented}, we also obtain an alternative d
 If we didn't shade the basement in gray,
 it would be easy to mistake an augmented filling for a non-augmented filling.
 This would lead to mistakes in computing the statistics \(\inv\) and \(\coinv\).
-However, the mistakes are be systematic, and we quantify them below.
-In \cref{sec:bijective-augmented}, we use this difference create a bijection for non-attacking fillings using a bijection for augmented fillings.
+However, the mistakes are systematic, and we quantify them below.
+In \cref{sec:bijective-augmented}, this difference is relevant when we define a bijection for non-attacking fillings from a bijection for augmented fillings.
 
 Let \(T \in \Fill[\mathcal{A}](\alpha, \sigma)\) be an augmented filling of shape \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\), basement \(\sigma = \window{\sigma_1, \ldots, \sigma_n}\), and labels in an alphabet \(\mathcal{A}\).
 Let \(T' \in \Fill[\mathcal{A}](\alpha')\) be the non-augmented filling of shape \(\alpha' = \composition{(\alpha_1 + 1), \ldots, (\alpha_n + 1)}\) defined by \(T'(i, r) = T(i, r - 1)\) for all \((i, r) \in \dg(\alpha')\).
@@ -799,7 +805,7 @@ We define new statistics \(\syminv\) and \(\symcoinv\) on augmented fillings by
 	\end{equation}
 \end{proposition}
 
-Note that the correction term in \Cref{eq:symcoinv-coinv} is \(\twinv(\sigma, \alpha)\) as defined in \cref{definition:permutedbasement}.
+Note that the correction term in \eqref{eq:symcoinv-coinv} is \(\twinv(\sigma, \alpha)\) as defined in \cref{definition:permutedbasement}.
 
 \begin{proof}
 	Consider a triple \((u, v, w)\) in \(\adg(\alpha)\).
@@ -831,7 +837,7 @@ Note that the correction term in \Cref{eq:symcoinv-coinv} is \(\twinv(\sigma, \a
 		\left| \{ \text{coinversion triples } (u', v', w') \text{ in } T' \suchthat u' \text{ is in row } 1 \} \right| = \\
 		= \left| \left\{{(i, j) \suchthat 1 \leq i < j \leq n \text{ and } \alpha_i \geq \alpha_j \text{ and } \sigma_i < \sigma_j} \right\} \right|.
 	\end{multline}
-	The results follow by adding \Cref{eq:inv-prime-not-row-1,eq:inv-prime-row-1}, and adding \Cref{eq:coinv-prime-not-row-1,eq:coinv-prime-row-1}.
+	The results follow by adding \eqref{eq:inv-prime-not-row-1} and \eqref{eq:inv-prime-row-1}, and adding \eqref{eq:coinv-prime-not-row-1} and \eqref{eq:coinv-prime-row-1}.
 \end{proof}
 
 \section{Tableaux formulas for Macdonald polynomials}
@@ -854,14 +860,14 @@ In \Cref{chap:bijective}, we give a bijective proof of this rearrangement proper
 \subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ}} \label{subsec:integral-form-macdonald}
 
 % Recall that the integral form Macdonald polynomials \(J_\mu\) are a family of polynomials indexed by partitions \(\mu\).
-% From the plethystic formula in \Cref{eq:modified-macdonald-plethystic}, and using \(\tilde{H}_\mu(x; q, t) = \tilde{H}_{\mu'}(\mathbf{x}; t, q)\), we have
+% From the plethystic formula in \eqref{eq:modified-macdonald-plethystic}, and using \(\tilde{H}_\mu(x; q, t) = \tilde{H}_{\mu'}(\mathbf{x}; t, q)\), we have
 % \begin{equation} \label{eq:J-in-terms-of-tilde-H}
 % 	J_\mu(\mathbf{x}; q, t)
 % 	= t^{n(\mu)} \tilde{H}_\mu\left[ X (1 - t^{-1}) ; q, t^{-1} \right]
 % 	= t^{n(\mu)+|\mu|} \tilde{H}_{\mu'}\left[ X (t^{-1} - 1) ; t^{-1}, q \right].
 % \end{equation}
 % Using a standard technique called superization,
-% \cite{HHL05} derive from \Cref{eq:modified-macdonald-Fill,eq:J-in-terms-of-tilde-H} the following combinatorial formula for \(J_\mu\) as a sum over all fillings using the signed alphabet \(\interval{n}_\pm\):
+% \cite{HHL05} derive from \eqref{eq:modified-macdonald-Fill,eq:J-in-terms-of-tilde-H} the following combinatorial formula for \(J_\mu\) as a sum over all fillings using the signed alphabet \(\interval{n}_\pm\):
 % \begin{equation} \label{eq:J-Fill-signed}
 % 	J_\mu(\mathbf{x}; q, t)
 % 	= \sum_{T \in \Fill[\interval{n}_\pm](\mu)}
@@ -874,10 +880,10 @@ In \Cref{chap:bijective}, we give a bijective proof of this rearrangement proper
 % We refer the reader to \cite[Section~7]{HHL05} for more details on this derivation.
 
 Recall that the integral form Macdonald polynomials \(J_\mu\) are a family of polynomials indexed by partitions \(\mu\).
-\citeauthor{HHL05} \cite[Section~7]{HHL05} derive a tableaux formula for the integral form Macdonald polynomials \(J_\mu\) from the combinatorial formula for the modified Macdonald polynomials \(\tilde{H}_\mu\) in \Cref{eq:modified-macdonald-Fill}.
+\citeauthor{HHL05} \cite[Section~7]{HHL05} derive a tableaux formula for the integral form Macdonald polynomials \(J_\mu\) from the combinatorial formula for the modified Macdonald polynomials \(\tilde{H}_\mu\) in \eqref{eq:modified-macdonald-Fill}.
 We briefly recall the main steps.  
 
-From the plethystic formula in \Cref{eq:modified-macdonald-plethystic}, and using the symmetry \(\tilde{H}_\mu(\mathbf{x}; q, t) = \tilde{H}_{\mu'}(\mathbf{x}; t, q)\), we have
+From the plethystic formula in \eqref{eq:modified-macdonald-plethystic}, and using the symmetry \(\tilde{H}_\mu(\mathbf{x}; q, t) = \tilde{H}_{\mu'}(\mathbf{x}; t, q)\), we have
 \begin{equation} \label{eq:J-in-terms-of-tilde-H}
 	J_\mu(\mathbf{x}; q, t)
 	= t^{n(\mu)} \tilde{H}_\mu\left[ X (1 - t); q, t^{-1} \right]
@@ -885,7 +891,7 @@ From the plethystic formula in \Cref{eq:modified-macdonald-plethystic}, and usin
 \end{equation}
 where \(n(\mu) = \sum_{i} (i-1) \mu_i = \sum_{u \in \dg(\mu)} \arm(u)\) and \(|\mu| = \sum_i \mu_i\).
 Applying a standard technique called \emph{superization},
-\cite{HHL05} derive from \Cref{eq:modified-macdonald-Fill,eq:J-in-terms-of-tilde-H} the following combinatorial formula for \(J_\mu\) as a sum over all fillings using the signed alphabet \(\interval{n}_\pm\):
+\cite{HHL05} derive from \eqref{eq:modified-macdonald-Fill} and \eqref{eq:J-in-terms-of-tilde-H} the following combinatorial formula for \(J_\mu\) as a sum over all fillings using the signed alphabet \(\interval{n}_\pm\):
 \begin{equation} \label{eq:J-Fill-signed}
 	J_\mu(\mathbf{x}; q, t)
 	= \sum_{T \in \Fill[\interval{n}_\pm](\mu)}
@@ -902,7 +908,7 @@ We reproduce their proofs because their ideas are useful in \Cref{sec:integral-f
 
 \begin{proposition} \label{prop:J-NAF-signed}
 	For a partition \(\mu\) with at most \(n\) parts,
-	the integral form Macdonald polynomial \(J_\mu(\mathbf{x}; q, t)\) can be expressed as a sum one over all non-attacking fillings using the signed alphabet \(\interval{n}_\pm\),
+	the integral form Macdonald polynomial \(J_\mu(\mathbf{x}; q, t)\) can be expressed as a sum over all non-attacking fillings using the signed alphabet \(\interval{n}_\pm\),
 \begin{equation} \label{eq:J-NAF-signed}
 	J_\mu(\mathbf{x}; q, t)
 	= \sum_{T \in \NAF[\interval{n}_\pm](\mu)}
@@ -951,18 +957,18 @@ We reproduce their proofs because their ideas are useful in \Cref{sec:integral-f
 	Let \(w\) be the box directly above \(u\), if it exists.
 	For any box \(b \notin \{w, u\}\), the fillings \(T\) and \(T'\) agree on the entries in boxes \(b\) and \(\south{b}\),
 	so \(b\) is a descent in \(T\) if and only if it is a descent in \(T'\).
-	For \(w\), if it exists, we can apply \Cref{eq:involution-property-1} to conclude that \(w\) is a descent in \(T\) if and only if it is a descent in \(T'\).
+	For \(w\), if it exists, we can apply \eqref{eq:involution-property-1} to conclude that \(w\) is a descent in \(T\) if and only if it is a descent in \(T'\).
 	For \(u\), note that \( d(u) \) is attacked by \(v\) and is earlier than \(v\) in reading order.
-	Therefore, by minimality of \(v\), we have \(|T(d(u))| \neq a\), so we can apply \Cref{eq:involution-property-2} to conclude that \(u\) is a descent in \(T\) if and only if it is a descent in \(T'\).
+	Therefore, by minimality of \(v\), we have \(|T(d(u))| \neq a\), so we can apply \eqref{eq:involution-property-2} to conclude that \(u\) is a descent in \(T\) if and only if it is a descent in \(T'\).
 	Thus, we have shown that \(\Des(T') = \Des(T)\), which implies that \(\maj(T') = \maj(T)\).
 
 	I claim that \(\inv(T') = \inv(T) + 1\).
 	Using \Cref{prop:inv-via-inversion-pairs}, since \(\Des(T') = \Des(T)\), it suffices to show that \(\left|\InversionPairs(T')\right| = \left|\InversionPairs(T)\right| + 1\).
 	Any pair of attacking boxes that does not involve box \(u\) is an inversion pair in \(T\) if and only if it is an inversion pair in \(T'\).
-	Moreover, by \Cref{eq:involution-property-1}, any box \(b\) that attacks \(u\) forms an inversion pair \((b, u)\) in \(T\) if and only if it forms an inversion pair \((b, u)\) in \(T'\).
+	Moreover, by \eqref{eq:involution-property-1}, any box \(b\) that attacks \(u\) forms an inversion pair \((b, u)\) in \(T\) if and only if it forms an inversion pair \((b, u)\) in \(T'\).
 	Consider a box \(b\) that is attacked by \(u\).
 	If \(b = v\), then \((u, v)\) is an inversion pair in \(T'\) but not in \(T\).
-	If \(b \neq v\), then by minimality of \(u\), we have \(|T(b)| \neq a\), so by \Cref{eq:involution-property-2}, \((u, b)\) is an inversion pair in \(T\) if and only if it is an inversion pair in \(T'\).
+	If \(b \neq v\), then by minimality of \(u\), we have \(|T(b)| \neq a\), so by \eqref{eq:involution-property-2}, \((u, b)\) is an inversion pair in \(T\) if and only if it is an inversion pair in \(T'\).
 	Therefore, \(\InversionPairs(T')\) has exactly one more inversion pair than \(\InversionPairs(T)\), namely \((u, v)\),
 	which proves the claim.
 	Consequently, \(\coinv(T') = \coinv(T) - 1\).
@@ -973,12 +979,12 @@ We reproduce their proofs because their ideas are useful in \Cref{sec:integral-f
 		&= \mathbf{x}^{|T|} q^{\maj(T)} t^{\coinv(T) - 1} (-t)^{\operatorname{neg}(T) + 1} \\
 		&= - \mathbf{x}^{|T|} q^{\maj(T)} t^{\coinv(T)} (-t)^{\operatorname{neg}(T)},
 	\end{align*}
-	which implies that the contributions of fillings in \(\Fill[\interval{n}_\pm](\mu) \setminus \NAF[\interval{n}_\pm](\mu)\) to the sum in \Cref{eq:J-Fill-signed} cancel out, and the result follows.
+	which implies that the contributions of fillings in \(\Fill[\interval{n}_\pm](\mu) \setminus \NAF[\interval{n}_\pm](\mu)\) to the sum in \eqref{eq:J-Fill-signed} cancel out, and the result follows.
 \end{proof}
 
 \begin{proposition} \label{prop:J-NAF-unsigned}
 	For a partition \(\mu\) with at most \(n\) parts,
-	the integral form Macdonald polynomial \(J_\mu(\mathbf{x}; q, t)\) can be expressed as a sum one over all non-attacking fillings using the unsigned alphabet \(\interval{n}\),
+	the integral form Macdonald polynomial \(J_\mu(\mathbf{x}; q, t)\) can be expressed as a sum over all non-attacking fillings using the unsigned alphabet \(\interval{n}\),
 	\begin{equation} \label{eq:J-NAF-unsigned}
 		J_\mu(\mathbf{x}; q, t)
 		=
@@ -1024,7 +1030,7 @@ We reproduce their proofs because their ideas are useful in \Cref{sec:integral-f
 	\end{equation*}
 	Note that, since \(\ind{a, a} = 0\) for all \(a \in \interval{n}_\pm\), we have \(\operatorname{smaj}(|S|) = 0\) and consequently \(\operatorname{amaj}(S) = \operatorname{amaj}(|S|) = \maj(|S|)\).
 
-	We group the fillings \(S \in \NAF[\interval{n}_\pm](\mu)\) by their absolute filling \(|S|\) to rewrite \Cref{eq:J-NAF-signed} as
+	We group the fillings \(S \in \NAF[\interval{n}_\pm](\mu)\) by their absolute filling \(|S|\) to rewrite \eqref{eq:J-NAF-signed} as
 	\begin{equation*}
 		J_\mu(\mathbf{x}; q, t)
 		= \sum_{T \in \NAF[\interval{n}](\mu)}
@@ -1092,16 +1098,16 @@ We reproduce their proofs because their ideas are useful in \Cref{sec:integral-f
 \subsection{Symmetric Macdonald polynomials \texorpdfstring{\(P_\mu\)}{Pμ}}
 
 Recall that the symmetric Macdonald polynomials \(P_\mu\) are a family of polynomials indexed by partitions \(\mu\).
-The integral form Macdonald polynomials \(J_\mu\) is a scalar multiple of \(P_\mu\), with relationship given by \Cref{eq:J-algebraic-definition}:
+The integral form Macdonald polynomials \(J_\mu\) is a scalar multiple of \(P_\mu\), with relationship given by \eqref{eq:J-algebraic-definition}:
 \begin{equation*}
 	J_\mu(\mathbf{x}; q, t)
 	=
 	c_\mu(q, t)
 	P_\mu(\mathbf{x}; q, t),
 \end{equation*}
-where the normalization factor \(c_\mu(q, t)\) is given in \Cref{eq:normalization-factor-c-mu}.
+where the normalization factor \(c_\mu(q, t)\) is given in \eqref{eq:normalization-factor-c-mu}.
 
-Therefore, from \Cref{eq:J-NAF-unsigned}, we obtain a tableaux formula for \(P_\mu\) as
+Therefore, from \eqref{eq:J-NAF-unsigned}, we obtain a tableaux formula for \(P_\mu\) as
 \begin{equation*}
 	P_\mu(\mathbf{x}; q, t)
 	=
@@ -1111,7 +1117,7 @@ Therefore, from \Cref{eq:J-NAF-unsigned}, we obtain a tableaux formula for \(P_\
 	\prod_{\substack{u \in \dg(\mu) \\ T(u) \neq T(\south{u})}}
 	\frac{1 - t}{1 - q^{1 + \leg(u)} t^{1 + \arm(u)}},
 \end{equation*}
-where the factor \(d_\mu(q, t)\) is given in \Cref{eq:normalization-factor-d-alpha}.
+where the factor \(d_\mu(q, t)\) is given in \eqref{eq:normalization-factor-d-alpha}.
 
 The normalization factors make this formula less appealing.
 See \cite[Section~4]{CHMMW22} for more details and other tableaux formulas for \(P_\mu\).
@@ -1130,9 +1136,9 @@ Recall that the permuted-basement Macdonald polynomials \(E_\alpha^\sigma\) are 
 	\frac{1 - t}{1 - q^{1 + \leg(u)} t^{1 + \arm(u)}}.
 \end{equation}
 
-\subsection{Integral form permuted-basement Macdonald polynomials \texorpdfstring{\(\mathcal{E}_\alpha^\sigma\)}{Eασ}} \label{sec:integral-form-permuted-basement}
+\subsection{\texorpdfstring{\textls[-8]{Integral form permuted-basement Macdonald polynomials~\(\mathcal{E}_\alpha^\sigma\)}}{Integral form permuted-basement Macdonald polynomials Eασ}} \label{sec:integral-form-permuted-basement}
 
-Recall that the integral form permuted-basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\) are defined in \Cref{eq:integral-form-permuted-basement-macdonald-polynomial} by
+Recall that the integral form permuted-basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\) are defined in \eqref{eq:integral-form-permuted-basement-macdonald-polynomial} by
 \begin{equation*}
 	\mathcal{E}_\alpha^\sigma(\mathbf{x}; q, t)
 	=
@@ -1141,7 +1147,7 @@ Recall that the integral form permuted-basement Macdonald polynomials \(\mathcal
 	\right)
 	E_\alpha^\sigma(\mathbf{x}; q, t).
 \end{equation*}
-Therefore, from \Cref{eq:E-NAF-unsigned}, we obtain a tableaux formula for \(\mathcal{E}_\alpha^\sigma\) as
+Therefore, from \eqref{eq:E-NAF-unsigned}, we obtain a tableaux formula for \(\mathcal{E}_\alpha^\sigma\) as
 \begin{equation} \label{eq:calE-NAF-unsigned}
 	\mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
 	\mkern 15mu
@@ -1150,7 +1156,7 @@ Therefore, from \Cref{eq:E-NAF-unsigned}, we obtain a tableaux formula for \(\ma
 	\mathbf{x}^{T}
 	q^{\maj(T)} t^{\coinv(T)}
 	\mkern 15mu
-	\prod_{\mathclap{\substack{u \in \dg(\alpha) \\ T(u) \neq T(\south{u})}}}
+	\prod_{\mathclap{\substack{u \in \dg(\alpha) \\ T(u) = T(\south{u})}}}
 	\mkern 15mu
 	(1 - q^{1 + \leg(u)} t^{1 + \arm(u)})
 	\mkern 15mu
@@ -1159,16 +1165,16 @@ Therefore, from \Cref{eq:E-NAF-unsigned}, we obtain a tableaux formula for \(\ma
 	(1 - t).
 \end{equation}
 
-Note the similarity of \Cref{eq:calE-NAF-unsigned} for the integral form permuted-basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\)
-with \Cref{eq:J-NAF-unsigned} for the integral form symmetric Macdonald polynomials \(J_\mu\), the third of three formulas for \(J_\mu\) given in \Cref{subsec:integral-form-macdonald}.
+Note the similarity of \eqref{eq:calE-NAF-unsigned} for the integral form permuted-basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\)
+with \eqref{eq:J-NAF-unsigned} for the integral form symmetric Macdonald polynomials \(J_\mu\), the third of three formulas for \(J_\mu\) given in \Cref{subsec:integral-form-macdonald}.
 
-We can repeat the arguments used in \Cref{prop:J-NAF-unsigned,prop:J-NAF-signed} (in reverse order) to obtain formulas for \(\mathcal{E}_\alpha^\sigma\) that are similar to \Cref{eq:J-NAF-signed}, the second formula for \(J_\mu\), and \Cref{eq:J-Fill-signed}, the first formula for \(J_\mu\).
+We can repeat the arguments used in \Cref{prop:J-NAF-unsigned,prop:J-NAF-signed} (in reverse order) to obtain formulas for \(\mathcal{E}_\alpha^\sigma\) that are similar to \eqref{eq:J-NAF-signed}, the second formula for \(J_\mu\), and \eqref{eq:J-Fill-signed}, the first formula for \(J_\mu\).
 The arguments are nearly identical, with some minor adjustments to account for the basement \(\sigma\) and to account for the reverse order of the steps.
 We nevertheless fully reproduce them below for self-containment.
 
 \begin{proposition} \label{prop:calE-NAF-signed}
 	For a composition \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\) and a permutation \(\sigma\) of \(\interval{n}\),
-	the integral form permuted-basement Macdonald polynomial \(\mathcal{E}_\alpha^\sigma(\mathbf{x}; q, t)\) can be expressed as a sum one over all non-attacking augmented fillings using the signed alphabet \(\interval{n}_\pm\),
+	the integral form permuted-basement Macdonald polynomial \(\mathcal{E}_\alpha^\sigma(\mathbf{x}; q, t)\) can be expressed as a sum over all non-attacking augmented fillings using the signed alphabet \(\interval{n}_\pm\),
 	\begin{equation} \label{eq:calE-NAF-signed}
 		\mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
 		\sum_{T \in \NAF[\interval{n}_\pm](\alpha, \sigma)}
@@ -1203,7 +1209,7 @@ We nevertheless fully reproduce them below for self-containment.
 	\end{equation*}
 	Note that, since \(\ind{a, a} = 0\) for all \(a \in \interval{n}_\pm\), we have \(\operatorname{smaj}(|S|) = 0\) and consequently \(\operatorname{amaj}(S) = \operatorname{amaj}(|S|) = \maj(|S|)\).
 
-	We group the augmented fillings \(S \in \NAF[\interval{n}_\pm](\mu, \sigma)\) by their absolute augmented filling \(|S|\) to rewrite the right-hand side of \Cref{eq:calE-NAF-signed} as
+	We group the augmented fillings \(S \in \NAF[\interval{n}_\pm](\mu, \sigma)\) by their absolute augmented filling \(|S|\) to rewrite the right-hand side of \eqref{eq:calE-NAF-signed} as
 	\begin{equation*}
 		\sum_{T \in \NAF[\interval{n}](\mu, \sigma)}
 		\sum_{\substack{S \in {\NAF[\interval{n}_\pm](\mu, \sigma)} \\ |S| = T}}
@@ -1276,7 +1282,7 @@ We nevertheless fully reproduce them below for self-containment.
 
 \begin{proposition} \label{prop:calE-Fill-signed}
 	For a composition \(\alpha = \composition{\alpha_1, \ldots, \alpha_n}\) and a permutation \(\sigma\) of \(\interval{n}\),
-	the integral form permuted-basement Macdonald polynomial \(\mathcal{E}_\alpha^\sigma(\mathbf{x}; q, t)\) can be expressed as a sum one over all augmented fillings using the signed alphabet \(\interval{n}_\pm\),
+	the integral form permuted-basement Macdonald polynomial \(\mathcal{E}_\alpha^\sigma(\mathbf{x}; q, t)\) can be expressed as a sum over all augmented fillings using the signed alphabet \(\interval{n}_\pm\),
 	\begin{equation} \label{eq:calE-Fill-signed}
 		\mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
 		\sum_{T \in \Fill[\interval{n}_\pm](\alpha, \sigma)}
@@ -1288,7 +1294,7 @@ We nevertheless fully reproduce them below for self-containment.
 
 \begin{proof}
 	We define a sign-reversing involution on the set of attacking augmented fillings in \(\Fill[\interval{n}_\pm](\alpha, \sigma) \setminus \NAF[\interval{n}_\pm](\alpha, \sigma)\).
-	Recall that, in \(\interval{n}_\pm\), we have \( 1 < \bar{1} < 2 < \bar{2} < \cdots < n < \bar{n}\), which has the useful properties given in \Cref{eq:involution-property-1,eq:involution-property-2}.
+	Recall that, in \(\interval{n}_\pm\), we have \( 1 < \bar{1} < 2 < \bar{2} < \cdots < n < \bar{n}\), which has the useful properties given in \eqref{eq:involution-property-1} and \eqref{eq:involution-property-2}.
 
 	Given an attacking augmented filling \(T \in \Fill[\interval{n}_\pm](\alpha, \sigma) \setminus \NAF[\interval{n}_\pm](\alpha, \sigma)\),
 	let \(a\) be the smallest label which is the absolute value of two attacking entries in \(T\), which exists since \(T\) is attacking.
@@ -1310,18 +1316,18 @@ We nevertheless fully reproduce them below for self-containment.
 	Let \(w\) be the box directly above \(u\), if it exists.
 	For any box \(b \notin \{w, u\}\), the fillings \(T\) and \(T'\) agree on the entries in boxes \(b\) and \(\south{b}\),
 	so \(b\) is a descent in \(T\) if and only if it is a descent in \(T'\).
-	For \(w\), if it exists, we can apply \Cref{eq:involution-property-1} to conclude that \(w\) is a descent in \(T\) if and only if it is a descent in \(T'\).
+	For \(w\), if it exists, we can apply \eqref{eq:involution-property-1} to conclude that \(w\) is a descent in \(T\) if and only if it is a descent in \(T'\).
 	For \(u\), note that \( d(u) \) is attacked by \(v\) and is earlier than \(v\) in reading order.
-	Therefore, by minimality of \(v\), we have \(|T(d(u))| \neq a\), so we can apply \Cref{eq:involution-property-2} to conclude that \(u\) is a descent in \(T\) if and only if it is a descent in \(T'\).
+	Therefore, by minimality of \(v\), we have \(|T(d(u))| \neq a\), so we can apply \eqref{eq:involution-property-2} to conclude that \(u\) is a descent in \(T\) if and only if it is a descent in \(T'\).
 	Thus, we have shown that \(\Des(T') = \Des(T)\), which implies that \(\maj(T') = \maj(T)\).
 
 	I claim that \(\inv(T') = \inv(T) + 1\).
 	Using \Cref{prop:inv-via-inversion-pairs-augmented}, since \(\Des(T') = \Des(T)\), it suffices to show that \(\left|\InversionPairs(T')\right| = \left|\InversionPairs(T)\right| + 1\).
 	Any pair of attacking boxes that does not involve box \(u\) is an inversion pair in \(T\) if and only if it is an inversion pair in \(T'\).
-	Moreover, by \Cref{eq:involution-property-1}, any box \(b\) that attacks \(u\) forms an inversion pair \((b, u)\) in \(T\) if and only if it forms an inversion pair \((b, u)\) in \(T'\).
+	Moreover, by \eqref{eq:involution-property-1}, any box \(b\) that attacks \(u\) forms an inversion pair \((b, u)\) in \(T\) if and only if it forms an inversion pair \((b, u)\) in \(T'\).
 	Consider a box \(b\) that is attacked by \(u\).
 	If \(b = v\), then \((u, v)\) is an inversion pair in \(T'\) but not in \(T\).
-	If \(b \neq v\), then by minimality of \(u\), we have \(|T(b)| \neq a\), so by \Cref{eq:involution-property-2}, \((u, b)\) is an inversion pair in \(T\) if and only if it is an inversion pair in \(T'\).
+	If \(b \neq v\), then by minimality of \(u\), we have \(|T(b)| \neq a\), so by \eqref{eq:involution-property-2}, \((u, b)\) is an inversion pair in \(T\) if and only if it is an inversion pair in \(T'\).
 	Therefore, \(\InversionPairs(T')\) has exactly one more inversion pair than \(\InversionPairs(T)\), namely \((u, v)\),
 	which proves the claim.
 	Consequently, \(\coinv(T') = \coinv(T) - 1\).

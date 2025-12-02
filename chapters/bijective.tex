@@ -16,7 +16,7 @@ The left-hand sum over \(\Fill[\positives](\mu)\) is the celebrated combinatoria
 In \cite{HHL08}, the rearrangement property was established by proving that the right-hand sum over \(\Fill[\positives](\alpha)\) is also equal to \(\tilde{H}_{\mu'}(\mathbf{x}; q, t)\),
 by showing that it also satisfies the conditions of \Cref{prop:modified-macdonald-characterization}.
 
-We present a bijective proof of \Cref{eq:tildeH-rearrangement}, without going through the algebraic characterization of
+We present a bijective proof of \eqref{eq:tildeH-rearrangement}, without going through the algebraic characterization of
 \(\tilde{H}_\mu(\mathbf{x}; q, t)\) from \Cref{prop:modified-macdonald-characterization}.
 The key step is \Cref{thm:phi-maj-inv},
 which guarantees the existence of a bijection \(\phi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) that preserves the content, the inversion number, and the major index.
@@ -41,8 +41,8 @@ we prove \Cref{theorem:three-term}, which gives an identity for permuted-basemen
 \end{equation}
 whenever \(\alpha_i > \alpha_{i+1}\), where \(c_{\alpha, \sigma, i}(q, t)\) is an explicit rational function in \(q\) and \(t\).
 
-We present a bijective proof of \Cref{eq:three-term-intro}.
-We use the bijection \(\phi\) on non-augmented fillings from \Cref{sec:bijective-non-augmented} and an auxiliary bijection \(\psi\) as a building blocks for a bijection on augmented fillings that implies \Cref{eq:three-term-intro}.
+We present a bijective proof of \eqref{eq:three-term-intro}.
+We use the bijection \(\phi\) on non-augmented fillings from \Cref{sec:bijective-non-augmented} and an auxiliary bijection \(\psi\) as a building blocks for a bijection on augmented fillings that implies \eqref{eq:three-term-intro}.
 
 \section{Bijections on non-augmented fillings and the rearrangement property of \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ}} \label{sec:bijective-non-augmented}
 
@@ -52,6 +52,8 @@ we also define another bijection \(\psi \colon \Fill(\alpha) \to \Fill(s_i \perm
 This auxiliary bijection \(\psi\) is also important in \Cref{sec:bijective-augmented}.
 % Without loss of generality, we restrict to the case \(\alpha_{i} > \alpha_{i+1}\), and use the inverse bijections to handle the case \(\alpha_{i} < \alpha_{i+1}\).
 % \todo{Can I remove this ``without loss of generality''?}
+
+We assume \(\alpha_i \neq \alpha_{i+1}\) throughout this section, since the case \(\alpha_i = \alpha_{i+1}\) has \(\alpha = s_i \permact \alpha\) and the identity map serves as a suitable choice for \(\phi\).
 
 Both of \(\phi\) and \(\psi\) follow a very rigid structure.
 For a non-augmented filling \(T \in \Fill(\alpha)\) mapped
@@ -71,15 +73,91 @@ and the entries in each row \(r \in \interval{\max(\alpha_i, \alpha_{i+1})}\) of
 \end{equation}
 We refer to these as the \vocab{local restrictions}.
 
-When \(r > \min(\alpha_i, \alpha_{i+1})\) in \Cref{eq:restriction-swap-per-row}, exactly one of the two entries involved is undefined in each filling, so the condition should be interpreted as stating that the defined entry in \(T\) is copied to the corresponding defined position in \(U\).
+When \(r > \min(\alpha_i, \alpha_{i+1})\) in \eqref{eq:restriction-swap-per-row}, exactly one of the two entries involved is undefined in each filling, so the condition should be interpreted as stating that the defined entry in \(T\) is copied to the corresponding defined position in \(U\).
 
 By requiring that \(\phi\) and \(\psi\) satisfy these local restrictions, the only remaining freedom in determining \(\phi\) and \(\psi\) is to decide, for each \(r \in \interval{\min(\alpha_i, \alpha_{i+1})}\), whether to set
-\begin{multline}
-    \big(U(i,r), U(i+1,r)\big) = \big(T(i,r), T(i+1,r)\big) \text{ or }\\ \big(U(i,r), U(i+1,r)\big) = \big(T(i+1,r), T(i,r)\big).
-\end{multline}
+\begin{equation*}
+    \begin{aligned}
+        \big(U(i,r), U(i+1,r)\big) &= \big(T(i,r), T(i+1,r)\big) \text{ or }\\
+        \big(U(i,r), U(i+1,r)\big) &= \big(T(i+1,r), T(i,r)\big).
+    \end{aligned}
+\end{equation*}
 In the first case, we say the entries of \(T\) and \(U\) in row \(r\) of columns \(i\) and \(i+1\) are \vocab{not swapped};
 in the second case, we say they are \vocab{swapped}.
 Below, we present two different algorithms to decide, for each \(r \in \interval{\min(\alpha_i, \alpha_{i+1})}\), whether the entries in row \(r\) of columns \(i\) and \(i+1\) are swapped or not swapped.
+See \Cref{fig:local-restrictions} for an illustration of the local restrictions.
+
+\begin{figure}[htbp]
+    \centering
+\begin{tikzpicture}[scale=.5, decorate, decoration={snake,amplitude=2pt,segment length=15pt}]
+  % Blue block with wavy top
+  \draw[pattern = north east lines, pattern color = blue]
+    (0,0) -- (3,0) -- (3,3)
+    decorate{ -- (0,3) } -- cycle;
+
+  \draw[pattern = north west lines, pattern color = magenta] (3,4) rectangle (4,7);
+
+  % Second blue block with wavy top
+  \draw[pattern = north east lines, pattern color = blue]
+    (5,0) -- (9,0) -- (9,3)
+    decorate{ -- (5,3) } -- cycle;
+
+  \draw[fill = green!50] (3,0) rectangle (5,1);
+  \draw[fill = green!40] (3,1) rectangle (5,2);
+  \draw[fill = green!30] (3,2) rectangle (5,3);
+  \draw[fill = green!20] (3,3) rectangle (5,4);
+
+  \node at (3.2,-.95) {\scriptsize \(i\)};
+  \node at (4.6,-1) {\scriptsize \(i+1\)};
+\end{tikzpicture}
+\raisebox{4em}{\(\xrightarrow{\quad \phi \text{ or } \psi \quad}\)}
+\begin{tikzpicture}[scale=.5, decorate, decoration={snake,amplitude=2pt,segment length=15pt}]
+  % Blue block with wavy top
+  \draw[pattern = north east lines, pattern color = blue]
+    (0,0) -- (3,0) -- (3,3)
+    decorate{ -- (0,3) } -- cycle;
+
+  \draw[pattern = north west lines, pattern color = magenta] (4,4) rectangle (5,7);
+
+  % Second blue block with wavy top
+  \draw[pattern = north east lines, pattern color = blue]
+    (5,0) -- (9,0) -- (9,3)
+    decorate{ -- (5,3) } -- cycle;
+
+  \draw[fill = green!50] (3,0) rectangle (5,1);
+  \draw[fill = green!40] (3,1) rectangle (5,2);
+  \draw[fill = green!30] (3,2) rectangle (5,3);
+  \draw[fill = green!20] (3,3) rectangle (5,4);
+
+  \node at (3.2,-.95) {\scriptsize \(i\)};
+  \node at (4.6,-1) {\scriptsize \(i+1\)};
+
+  \draw[<->] (3.5,0.5) -- (4.5,0.5);
+  \draw[<->] (3.5,1.5) -- (4.5,1.5);
+  \draw[<->] (3.5,2.5) -- (4.5,2.5);
+  \draw[<->] (3.5,3.5) -- (4.5,3.5);
+\end{tikzpicture}
+\caption[Illustration of the local restrictions for \(\phi\) and \(\psi\).]{%
+	Illustration of the local restrictions for \(\phi\) and \(\psi\).
+	The blue region
+	(\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm]
+		\protect\draw[pattern color=blue, pattern=north east lines] (0,0) rectangle ++(1,1);
+	\end{tikzpicture}}\,)
+	indicates the fixed columns \(j \notin \{i,i+1\}\) from \eqref{eq:restriction-other-columns}.
+	The magenta region
+	(\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm]
+		\protect\draw[pattern color=magenta, pattern=north west lines] (0,0) rectangle ++(1,1);
+	\end{tikzpicture}}\,)
+	shows the rows \(r > \min(\alpha_i,\alpha_{i+1})\) where the unique defined entry is copied.
+	The green region
+	(\,\raisebox{-.7ex}{\begin{tikzpicture}[x=.45cm, y=.45cm]
+		\protect\draw[fill=green!40] (0,0) rectangle ++(1,1);
+	\end{tikzpicture}}\,)
+	marks the rows \(r \le \min(\alpha_i,\alpha_{i+1})\) where the entries may be kept or swapped according to \eqref{eq:restriction-swap-per-row}.
+}
+
+    \label{fig:local-restrictions}
+\end{figure}
 
 \subsection{Block structure algorithm} \label{subsec:block-structure}
 
@@ -364,7 +442,7 @@ In all cases, the values \(\ind{c, d, f}\) and \(\ind{e, a, b}\) are uniquely de
 \begin{definition}[The bijection \(\phi\) via blocks] \label{def:phi-via-blocks}
     Let \(T \in \Fill(\alpha)\).
     We define \(U = \phi(T) \in \Fill(s_i \permact \alpha)\)
-    by requiring the local restrictions (i.e., \Cref{eq:restriction-other-columns,eq:restriction-swap-per-row})
+    by requiring the local restrictions (i.e., \eqref{eq:restriction-other-columns} and \eqref{eq:restriction-swap-per-row})
     and requiring that, for each block of \(T\) with signature entries \((a, b, c, d, e, f)\),
     the rows of the block are swapped in \(U\) if and only if
     \begin{equation}
@@ -375,7 +453,7 @@ In all cases, the values \(\ind{c, d, f}\) and \(\ind{e, a, b}\) are uniquely de
 \begin{definition}[The bijection \(\psi\) via blocks] \label{def:psi-via-blocks}
     Let \(T \in \Fill(\alpha)\).
     We define \(U = \psi(T) \in \Fill(s_i \permact \alpha)\)
-    by requiring the local restrictions (i.e., \Cref{eq:restriction-other-columns,eq:restriction-swap-per-row})
+    by requiring the local restrictions (i.e., \eqref{eq:restriction-other-columns} and \eqref{eq:restriction-swap-per-row})
     and requiring that, for each block of \(T\) with signature entries \((a, b, c, d, e, f)\),
     the rows of the block are swapped in \(U\) if and only if
     \begin{equation}
@@ -529,7 +607,7 @@ Let \(c = T(i,h)\), and let \(d = T(i+1,h)\).
     Let \(T \in \Fill(\alpha)\).
     The row-by-row algorithm described above, with initial coin value \(\coinphi\) (resp.~\(\coinpsi\)), produces a label for each row \(r \in \interval{h}\).
     We define \(U = \phi(T) \in \Fill(s_i \permact \alpha)\) (resp.~\(U = \psi(T) \in \Fill(s_i \permact \alpha)\))
-    by requiring the local restrictions (i.e., \Cref{eq:restriction-other-columns,eq:restriction-swap-per-row}) and requiring that, for each row \(r \in \interval{h}\),
+    by requiring the local restrictions (i.e., \eqref{eq:restriction-other-columns} and \eqref{eq:restriction-swap-per-row}) and requiring that, for each row \(r \in \interval{h}\),
     \begin{itemize}
         \item if row \(r\) is labeled \(\labelN\), then row \(r\) is not swapped in \(U\);
         \item if row \(r\) is labeled \(\labelS\), then row \(r\) is swapped in \(U\);
@@ -664,7 +742,7 @@ We do so by applying the row-by-row algorithm and observing what happens to each
     \end{equation}
     If \(r_1 = 1\), then by definition, \(\operatorname{coin}_{r_1} = \coinphi\),
     and by convention, \(\ind{c, f} - \ind{d, f} = 0\) since \(f = \infty\).
-    Thus, \Cref{eq:coin-r1} holds independently of whether \(r_1 = 1\) or \(r_1 > 1\).
+    Thus, \eqref{eq:coin-r1} holds independently of whether \(r_1 = 1\) or \(r_1 > 1\).
 
     Second, for each \(r \in \{r_1, r_1 + 1, \dots, r_2 - 1\}\),
     since rows \(r\) and \(r + 1\) are intertwined,
@@ -704,13 +782,13 @@ We do so by applying the row-by-row algorithm and observing what happens to each
     Therefore, the two definitions of \(\phi\) are equivalent.
 
     The analysis for \(\psi\) is analogous.
-    For \(\psi\), \Cref{eq:coin-r1} becomes
+    For \(\psi\), \eqref{eq:coin-r1} becomes
     \begin{equation*}
         \operatorname{coin}_{r_1} = \coinphi
         \quad \text{if and only if} \quad
         (\ind{c, f_1} - \ind{d, f_1} = 0) \mathrel{\text{xor}} (r_1 = 1),
     \end{equation*}
-    while \Cref{eq:coin-r2-coin-r1,eq:label-r2} remain unchanged.
+    while \eqref{eq:coin-r2-coin-r1} and \eqref{eq:label-r2} remain unchanged.
     Therefore, the conclusion becomes
     \begin{equation*}
         \operatorname{label}_{r_2} = \labelS
@@ -832,16 +910,16 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     \end{equation}
 \end{theorem}
 
-\begin{proof}[Proof of \cref{eq:phi-maj}, independent of \textup{\cite{KLO22}}]
+\begin{proof}[Proof of \eqref{eq:phi-maj}, independent of \textup{\cite{KLO22}}]
     Without loss of generality, assume that \(\alpha_i > \alpha_{i+1}\).
     Let \(T \in \Fill(\alpha)\) and \(U = \phi(T)\).
     We first study how \(\Des(T)\) and \(\Des(U)\) relate to each other.
 
-    Clearly, for all boxes \(u\) not in columns \(i\) or \(i+1\), we have \(u \in \Des(T)\) if and only if \(u \in \Des(U)\), by \Cref{eq:restriction-other-columns}.
+    Clearly, for all boxes \(u\) not in columns \(i\) or \(i+1\), we have \(u \in \Des(T)\) if and only if \(u \in \Des(U)\), by \eqref{eq:restriction-other-columns}.
     Since \(\leg_\alpha(u) = \leg_{s_i \permact \alpha}(u)\) for such boxes \(u\),
     these descents contribute equally to \(\maj(T)\) and \(\maj(U)\).
     Moreover, for all boxes \(u = (i, r)\) with \(r \geq \alpha_{i+1} + 2\),
-    we have \(u \in \Des(T)\) if and only if \(s_i \cdot u \in \Des(U)\), by \Cref{eq:restriction-swap-per-row}.
+    we have \(u \in \Des(T)\) if and only if \(s_i \cdot u \in \Des(U)\), by \eqref{eq:restriction-swap-per-row}.
     Note that \(\leg_\alpha(u) = \alpha_{i} - r = \leg_{s_i \permact \alpha}(s_i \cdot u)\) for such boxes \(u\),
     so these descents contribute equally to \(\maj(T)\) and \(\maj(U)\).
     Therefore, it suffices to show that the contribution to \(\maj\) from the boxes in columns \(i\) and \(i+1\) at rows \(2\) through \(\alpha_{i+1} + 1\) are the same in both \(T\) and \(U\).
@@ -1051,7 +1129,7 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     Since each unbalanced row is assigned to exactly one block, we conclude that \(\maj(T) = \maj(U)\), completing the proof.
 \end{proof}
 
-\begin{proof}[Proof of \cref{eq:phi-inv}, independent of \textup{\cite{KLO22}}]
+\begin{proof}[Proof of \eqref{eq:phi-inv}, independent of \textup{\cite{KLO22}}]
     Without loss of generality, assume that \(\alpha_i > \alpha_{i+1}\).
     Let \(T \in \Fill(\alpha)\) and \(U = \phi(T)\).
     Let \(\beta = \composition{0, \dots, 0, \alpha_{i+1}, \alpha_{i+1}, 0, \dots, 0}\).
@@ -1075,7 +1153,7 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
 
     Note that a pair of boxes both not in columns \(i\) or \(i+1\) is an inversion pair in \(T\) if and only if it is an inversion pair in \(U\).
     Note that a box \((i', r')\) with \(i' \notin \{i, i+1\}\) attacks (resp.~is attacked by) either none or both of \((i, r)\) and \((i+1, r)\).
-    Moreover, by \Cref{eq:restriction-swap-per-row}, 
+    Moreover, by \eqref{eq:restriction-swap-per-row}, 
     for each row \(r\), we have
     \begin{equation*}
         \{T(i, r), T(i+1, r)\} = \{U(i, r), U(i+1, r)\}.
@@ -1089,7 +1167,7 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
         - \sum_{u \in \Des(U)} \arm_{s_i \permact \alpha}(u).
     \end{equation*}
     Note that a box \(u\) not in columns \(i\) or \(i+1\) has the same arm length in \(\alpha\) and in \(s_i \permact \alpha\).
-    Moreover, by \Cref{eq:restriction-other-columns}, such a box \(u\) is a descent of \(T\) if and only if it is a descent of \(U\).
+    Moreover, by \eqref{eq:restriction-other-columns}, such a box \(u\) is a descent of \(T\) if and only if it is a descent of \(U\).
     Therefore, the contributions to the above difference from boxes not in columns \(i\) or \(i+1\) cancel out.
     Consequently, changing the summations to only consider descents in \(\dg(\beta)\) and \(\dg(s_i \cdot \beta)\), respectively, does not change the value of the difference.
     Define
@@ -1108,25 +1186,25 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
         = 0.
     \end{equation}
 
-    Consider the definitions of balanced rows, left-unbalanced rows, right-unbalanced, assignment of rows to blocks in the proof of \Cref{eq:phi-maj}.
-    Consider a block \(B = [r_1, r_2]\) in \(T\), and let's analyse the contributions to each side of \Cref{eq:arm-prime-descent-sum} from descents assigned to \(B\).
+    Consider the definitions of balanced rows, left-unbalanced rows, right-unbalanced, assignment of rows to blocks in the proof of \eqref{eq:phi-maj}.
+    Consider a block \(B = [r_1, r_2]\) in \(T\), and let's analyse the contributions to each side of \eqref{eq:arm-prime-descent-sum} from descents assigned to \(B\).
 
     If \(B\) is swapped between \(T\) and \(U\),
     then for each descent \(u\) in \(T\) assigned to \(B\), the box \(s_i \cdot u\) is a descent in \(U\) assigned to \(B\), and vice versa.
     Since \(\arm_{\alpha}'(u) = \arm_{s_i \permact \alpha}'(s_i \cdot u)\),
-    the contributions to each side of \Cref{eq:arm-prime-descent-sum} from descents assigned to \(B\) are equal.
+    the contributions to each side of \eqref{eq:arm-prime-descent-sum} from descents assigned to \(B\) are equal.
 
     If \(B\) is not swapped between \(T\) and \(U\) and it is not the topmost block,
-    then in the proof of \Cref{eq:phi-maj}, we showed that the number of left-unbalanced rows assigned to \(B\) is equal to the number of right-unbalanced rows assigned to \(B\).
+    then in the proof of \eqref{eq:phi-maj}, we showed that the number of left-unbalanced rows assigned to \(B\) is equal to the number of right-unbalanced rows assigned to \(B\).
     Therefore, we can pair each left-unbalanced row assigned to \(B\) with a unique right-unbalanced row assigned to \(B\).
     By \Cref{lem:arm-cancelation},
-    the contributions to each side of \Cref{eq:arm-prime-descent-sum} from each such pair are equal.
+    the contributions to each side of \eqref{eq:arm-prime-descent-sum} from each such pair are equal.
 
     Finally, if \(B\) is the topmost block and it is not swapped between \(T\) and \(U\),
-    then in the proof of \Cref{eq:phi-maj},
+    then in the proof of \eqref{eq:phi-maj},
     we showed that either
     \begin{itemize}
-        \item the number of left-unbalanced rows assigned to \(B\) is equal to the number of right-unbalanced rows assigned to \(B\), in which case we can pair each left-unbalanced row assigned to \(B\) with a unique right-unbalanced row assigned to \(B\), and by \Cref{lem:arm-cancelation}, the contributions to each side of \Cref{eq:arm-prime-descent-sum} from each such pair are equal; or
+        \item the number of left-unbalanced rows assigned to \(B\) is equal to the number of right-unbalanced rows assigned to \(B\), in which case we can pair each left-unbalanced row assigned to \(B\) with a unique right-unbalanced row assigned to \(B\), and by \Cref{lem:arm-cancelation}, the contributions to each side of \eqref{eq:arm-prime-descent-sum} from each such pair are equal; or
         \item there is one extra right-unbalanced row \(r\) assigned to \(B\), the box \((i, \alpha_{i+1} + 1)\) is a descent of \(T\), and the box \((i+1, \alpha_{i+1} + 1)\) is not a descent of \(U\), in which case we check that
         \begin{multline*}
             \arm_{\alpha}'(i+1, r)
@@ -1147,7 +1225,7 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
             \arm_{s_i \permact \alpha}'(i+1, r),
             \end{aligned}
         \end{multline*}
-        so the contributions to each side of \Cref{eq:arm-prime-descent-sum} from the extra left-unbalanced row \(r\) and the row \(\alpha_{i+1} + 1\) are equal; or
+        so the contributions to each side of \eqref{eq:arm-prime-descent-sum} from the extra left-unbalanced row \(r\) and the row \(\alpha_{i+1} + 1\) are equal; or
         \item there is one extra left-unbalanced row \(r\) assigned to \(B\), the box \((i, \alpha_{i+1} + 1)\) is not a descent of \(T\), and the box \((i+1, \alpha_{i+1} + 1)\) is a descent of \(U\), in which case we check that 
         \begin{align*}
             \arm_{\alpha}'(i, r)
@@ -1163,9 +1241,9 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
             \arm_{s_i \permact \alpha}'(i, r)
             + \arm_{s_i \permact \alpha}'(i+1, \alpha_{i+1} + 1),
         \end{align*}
-        so the contributions to each side of \Cref{eq:arm-prime-descent-sum} from the extra left-unbalanced row \(r\) and the row \(\alpha_{i+1} + 1\) are equal.
+        so the contributions to each side of \eqref{eq:arm-prime-descent-sum} from the extra left-unbalanced row \(r\) and the row \(\alpha_{i+1} + 1\) are equal.
     \end{itemize}
-    In all cases, the contributions to each side of \Cref{eq:arm-prime-descent-sum} from descents assigned to \(B\) are equal.
+    In all cases, the contributions to each side of \eqref{eq:arm-prime-descent-sum} from descents assigned to \(B\) are equal.
 
     Therefore, we have
     \begin{align*}
@@ -1342,7 +1420,7 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
         \end{cases}
     \end{equation}
 
-    On hthe other hand, for each non-bottommost block, the sum of \(\arm_{\alpha}'(u)\) over descents \(u\) assigned to the block in \(T\) is equal to the sum of \(\arm_{s_i \permact \alpha}'(u)\) over descents \(u\) assigned to the block in \(U\), by the same analysis as in the proof of \Cref{thm:phi-maj-inv}.
+    On the other hand, for each non-bottommost block, the sum of \(\arm_{\alpha}'(u)\) over descents \(u\) assigned to the block in \(T\) is equal to the sum of \(\arm_{s_i \permact \alpha}'(u)\) over descents \(u\) assigned to the block in \(U\), by the same analysis as in the proof of \Cref{thm:phi-maj-inv}.
     Therefore, it remains to analyze the contributions to the difference
     \begin{equation*}
         \sum_{u \in \Des(T_1)} \arm_{\alpha}'(u)
@@ -1419,10 +1497,10 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
         \end{cases}
     \end{equation}
 
-    Adding \Cref{eq:inversion-pair-difference-psi,eq:arm-prime-descent-sum-bottommost} gives the desired result.
+    Adding \eqref{eq:inversion-pair-difference-psi} and \eqref{eq:arm-prime-descent-sum-bottommost} gives the desired result.
 \end{proof}
 
-One important consequence of \Cref{thm:phi-maj-inv} is \Cref{eq:tildeH-rearrangement}, which shows that the combinatorial formula for \(\tilde{H}_{\mu'}(\mathbf{x}; q, t)\) can be taken over \(\Fill[\positives](\alpha)\) for any rearrangement \(\alpha\) of the partition \(\mu\).
+One important consequence of \Cref{thm:phi-maj-inv} is \eqref{eq:tildeH-rearrangement}, which shows that the combinatorial formula for \(\tilde{H}_{\mu'}(\mathbf{x}; q, t)\) can be taken over \(\Fill[\positives](\alpha)\) for any rearrangement \(\alpha\) of the partition \(\mu\).
 
 \begin{theorem}[{\cite{HHL08}}]
     \label{thm:tildeH-rearrangement}
@@ -1497,7 +1575,7 @@ Our proof uses the integral form permuted-basement Macdonald polynomials \(\math
 % 	(-t)^{\operatorname{neg}(T)}.
 % \end{equation}
 
-Recall that the integral forms have a combinatorial formula in terms of augmented fillings using the signed alphabet \(\interval{n}_\pm\), as given in \Cref{eq:calE-Fill-signed}:
+Recall that the integral forms have a combinatorial formula in terms of augmented fillings using the signed alphabet \(\interval{n}_\pm\), as given in \eqref{eq:calE-Fill-signed}:
 \begin{equation*}
     \mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
     \sum_{T \in \Fill[\interval{n}_\pm](\alpha, \sigma)}
@@ -1582,7 +1660,7 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
 \end{proof}
 
 We split \Cref{theorem:three-term} into two cases, depending on the relative order of \(\sigma_i\) and \(\sigma_{i+1}\).
-The case \(\sigma_i < \sigma_{i+1}\) is established in \Cref{thm:three-term-a-non-integral}, while the case \(\sigma_i > \sigma_{i+1}\) is established in \Cref{lem:three-term-bijective-a}.
+The case \(\sigma_i > \sigma_{i+1}\) is established in \Cref{thm:three-term-a-non-integral}, while the case \(\sigma_i < \sigma_{i+1}\) is established in \Cref{thm:three-term-b-non-integral}.
 
 \subsection{Case \texorpdfstring{$\sigma_i > \sigma_{i+1}$}{σi > σi+1}}
 
@@ -1598,7 +1676,7 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
     Let \(T\) be an augmented filling in \(\Fill(\alpha, \sigma)\).
     Let \(U = f(T)\) and \(V = g(T)\).
     Then
-    \begin{equation}
+    \begin{equation} \label{eq:three-term-bijective-a}
         \left( 1 - q^{L+1} t^{A + 2} \right) \wt(T)
         =
         \left( 1 - q^{L+1} t^{A + 1} \right) \wt(U)
@@ -1664,7 +1742,7 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
         \left( 1 - q^{L+1} t^{A+2} \right) \wt(T).
         \end{aligned}
     \end{multline*}
-    Therefore, in either case, the equation holds.
+    Therefore, in either case, \eqref{eq:three-term-bijective-a} holds.
 \end{proof}
 
 \begin{corollary} \label{cor:three-term-a}
@@ -1681,13 +1759,13 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
 \end{corollary}
 
 \begin{proof}
-    The result follows by summing the equation in \Cref{lem:three-term-bijective-a} over all \(T \in \Fill(\alpha, \sigma)\).
+    The result follows by summing \eqref{eq:three-term-bijective-a} in \Cref{lem:three-term-bijective-a} over all \(T \in \Fill(\alpha, \sigma)\).
 \end{proof}
 
 \begin{theorem} \label{thm:three-term-a-non-integral}
     Let \(\alpha\) be a composition such that \(\alpha_i > \alpha_{i+1}\) and \(\sigma \in S_n\) such that \(\sigma_i > \sigma_{i+1}\).
     Then,
-    \begin{equation}
+    \begin{equation} \label{eq:three-term-a-non-integral}
         E_{\alpha}^\sigma(X;q;t)
         =
         E_{s_i \permact \alpha}^{\sigma s_i}(X;q;t)
@@ -1698,7 +1776,7 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
 \end{theorem}
 
 \begin{proof}
-    The result follows from \Cref{lem:three-term-bijective-a} by dividing both sides of \Cref{eq:three-term-a-integral} by the appropriate factors to convert the integral forms to non-integral forms.
+    The result follows from \Cref{lem:three-term-bijective-a} by dividing both sides of \eqref{eq:three-term-a-integral} by the appropriate factor to convert the integral forms to non-integral forms.
 \end{proof}
 
 % -------
@@ -1718,7 +1796,7 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
     Let \(T\) be an augmented filling in \(\Fill(\alpha, \sigma)\).
     Let \(U = f(T)\) and \(V = g(T)\).
     Then
-    \begin{equation}
+    \begin{equation} \label{eq:three-term-bijective-b}
         \left( 1 - q^{L+1} t^{A + 2} \right) \wt(T)
         =
         \left( 1 - q^{L+1} t^{A + 1} \right) \wt(U)
@@ -1795,7 +1873,7 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
         \left( 1 - q^{L+1} t^{A+2} \right) \wt(T).
         \end{aligned}
     \end{multline*}
-    Therefore, in either case, the equation holds.
+    Therefore, in either case, \eqref{eq:three-term-bijective-b} holds.
 \end{proof}
 
 \begin{corollary} \label{cor:three-term-b}
@@ -1803,7 +1881,7 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
     \(\alpha = \composition{\alpha_1, \dots, \alpha_n}\) be a composition with \(\alpha_i > \alpha_{i+1}\),
     and \(\sigma = \window{\sigma_1, \dots, \sigma_n} \in \sym{n}\) be a permutation with \(\sigma_i < \sigma_{i+1}\).
     Then, we have
-    \begin{equation}
+    \begin{equation} \label{eq:three-term-b-integral}
         \left( 1 - q^{L+1} t^{A + 2} \right) \mathcal{E}_{\alpha}^\sigma
         = 
         \left( 1 - q^{L+1} t^{A + 1} \right) \mathcal{E}_{s_i \permact \alpha}^{\sigma s_i} 
@@ -1815,18 +1893,18 @@ Together with \(\alpha_i > \alpha_{i+1}\), we compute that in this case
 \end{corollary}
 
 \begin{proof}
-    The result follows by summing the equation in \Cref{lem:three-term-bijective-b} over all \(T \in \Fill(\alpha, \sigma)\).
+    The result follows by summing \eqref{eq:three-term-bijective-b} in \Cref{lem:three-term-bijective-b} over all \(T \in \Fill(\alpha, \sigma)\).
 \end{proof}
 
 \begin{theorem} \label{thm:three-term-b-non-integral}
     Let \(\alpha\) be a composition such that \(\alpha_i > \alpha_{i+1}\) and \(\sigma \in S_n\) such that \(\sigma_i < \sigma_{i+1}\).
     Then,
-    \begin{equation}
+    \begin{equation} \label{eq:three-term-b-non-integral}
         E_{\alpha}^\sigma(X;q;t)=E_{s_i \permact \alpha}^{\sigma s_i}(X;q;t)+(q^{L+1}t^{A+1})t^{\rho(\alpha,\sigma,i)}\frac{1-t}{1-q^{L+1}t^{A+1}}E_{s_i \permact \alpha}^\sigma(X;q;t)
     \end{equation}
     where \(L = \leg(u) = \alpha_i - \alpha_{i+1} - 1\) and \(A = \arm(u)\) for \(u = (i,\alpha_{i+1} +1)\in\dg(\alpha)\).
 \end{theorem}
 
 \begin{proof}
-    The result follows from \Cref{lem:three-term-bijective-b} by dividing both sides of \Cref{cor:three-term-b} by the appropriate factors to convert the integral forms to non-integral forms.
+    The result follows from \Cref{lem:three-term-bijective-b} by dividing both sides of \eqref{eq:three-term-b-integral} by the appropriate factor to convert the integral forms to non-integral forms.
 \end{proof}
