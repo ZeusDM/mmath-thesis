@@ -326,7 +326,7 @@ We define
 For example, the filling \(T\) in \cref{fig:non-attacking-filling} has content \(\content(T) = \composition{2, 1, 1, 3, 2}\) and \(\mathbf{x}^T = \mathbf{x}^{\content(T)} = x_1^2 x_2^1 x_3^1 x_4^3 x_5^2\).
 
 Recall that boxes in row \(0\), which are not in \(\dg(\alpha)\),
-are obtained as the south of boxes in row \(1\).
+are obtained as the south \(\south{u}\) of boxes \(u\) in row \(1\).
 By convention, if \(w\) is a box in row \(0\),
 then we define \(T(w) = \infty\).
 
@@ -652,8 +652,8 @@ We define
 For example, the augmented filling \(T\) in \cref{fig:non-attacking-augmented-filling} has content \(\content(T) = \composition{2, 1, 1, 3, 2}\) and \(\mathbf{x}^T = \mathbf{x}^{\content(T)} = x_1^2 x_2^1 x_3^1 x_4^3 x_5^2\).
 
 The definitions of descents, and major index for augmented fillings are as in \cref{subsec:non-augmented-fillings}.
-Note that boxes in row \(1\) can be descents, since the label of the south of a box in row \(1\) is now given by the basement, rather than being \(\infty\) by convention.
-However, boxes in row \(0\) are never descents, since they do not have a south.
+Note that a box \(u\) in row \(1\) can be a descent, since the label of its south \(\south{u}\) is now a basement entry (rather than \(\infty\) by convention).
+However, a box \(u\) in row \(0\) is never a descent, since its south \(d(u)\) is undefined.
 
 A triple \((u, v, w)\) is defined as in \cref{subsec:non-augmented-fillings}.
 Since boxes in row \(0\) do not have a south, \(u\) cannot be in row \(0\).
@@ -845,16 +845,19 @@ Note that the correction term in \eqref{eq:symcoinv-coinv} is \(\twinv(\sigma, \
 \subsection{Modified Macdonald polynomials \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ}} \label{subsec:modified-macdonald}
 
 Recall that the Modified Macdonald polynomials \(\tilde{H}_\mu\) are a family of polynomials indexed by partitions \(\mu\).
-
-In \cite{HHL05}, \citeauthor{HHL05} give a combinatorial formula for \(\tilde{H}_{\mu'}\) as%
-\footnote{Here, we use the conjugate partition \(\mu'\) instead of \(\mu\) to match the conventions in \cite{HHL05}. This is because the combinatorial model in \cite{HHL05} is based on Ferrers diagrams, which correspond to the conjugate of the skyline diagrams used in this work.}
+\citeauthor{HHL05} \cite[Theorem~2.2]{HHL05} give a combinatorial formula for \(\tilde{H}_{\mu}\) as%
+\footnote{
+	We remark that \eqref{eq:modified-macdonald-Fill} uses the skyline diagram of \(\mu\), while \cite{HHL05} use the Ferrers diagram of \(\mu\) that corresponds to the skyline diagram of the conjugate partition \(\mu'\);
+	and \eqref{eq:modified-macdonald-Fill} interchanges the roles of \(q\) and \(t\) compared to \cite[Equation~(14)]{HHL05}.
+	Nevertheless, these choices yield the same polynomial \(\tilde{H}_{\mu}(\mathbf{x}; q, t)\) as in \cite{HHL05} due to the symmetry \(\tilde{H}_{\mu}(\mathbf{x}; q, t) = \tilde{H}_{\mu'}(\mathbf{x}; t, q)\) \cite[Chapter~VI,~(8.6)]{Mac04}.
+}
 \begin{equation} \label{eq:modified-macdonald-Fill}
-	\tilde{H}_{\mu'}(\mathbf{x}; q, t) =
-	\sum_{T \in \Fill[\positives](\mu)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T,
+	\tilde{H}_{\mu}(\mathbf{x}; q, t) =
+	\sum_{T \in \Fill[\positives](\mu)} q^{\maj(T)} t^{\inv(T)} \mathbf{x}^T,
 \end{equation}
 where \(\Fill[\positives](\mu)\) is the set of fillings of shape \(\mu\) with labels in the positive integers \(\positives\).
 
-In \cite{HHL08}, \citeauthor{HHL08} show that the set may be changed to \(\Fill[\positives](\alpha)\) for any rearrangement \(\alpha\) of \(\mu\), and the formula still holds.
+In their subsequent paper \cite{HHL08}, \citeauthor{HHL08} show that the set may be changed to \(\Fill[\positives](\alpha)\) for any rearrangement \(\alpha\) of \(\mu\), and the formula still holds.
 In \Cref{chap:bijective}, we give a bijective proof of this rearrangement property.
 
 \subsection{Integral form symmetric Macdonald polynomials \texorpdfstring{\(J_\mu\)}{Jμ}} \label{subsec:integral-form-macdonald}
@@ -883,11 +886,11 @@ Recall that the integral form Macdonald polynomials \(J_\mu\) are a family of po
 \citeauthor{HHL05} \cite[Section~7]{HHL05} derive a tableaux formula for the integral form Macdonald polynomials \(J_\mu\) from the combinatorial formula for the modified Macdonald polynomials \(\tilde{H}_\mu\) in \eqref{eq:modified-macdonald-Fill}.
 We briefly recall the main steps.  
 
-From the plethystic formula in \eqref{eq:modified-macdonald-plethystic}, and using the symmetry \(\tilde{H}_\mu(\mathbf{x}; q, t) = \tilde{H}_{\mu'}(\mathbf{x}; t, q)\), we have
+From the plethystic formula in \eqref{eq:modified-macdonald-plethystic}, we have
 \begin{equation} \label{eq:J-in-terms-of-tilde-H}
 	J_\mu(\mathbf{x}; q, t)
 	= t^{n(\mu)} \tilde{H}_\mu\left[ X (1 - t); q, t^{-1} \right]
-	= t^{n(\mu)+|\mu|} \tilde{H}_{\mu'}\left[ X (t^{-1} - 1); t^{-1}, q \right],
+	= t^{n(\mu)+|\mu|} \tilde{H}_{\mu}\left[ X (t^{-1} - 1); q, t^{-1} \right],
 \end{equation}
 where \(n(\mu) = \sum_{i} (i-1) \mu_i = \sum_{u \in \dg(\mu)} \arm(u)\) and \(|\mu| = \sum_i \mu_i\).
 Applying a standard technique called \emph{superization},

@@ -8,12 +8,12 @@ we study a rearrangement property of the modified Macdonald polynomials \(\tilde
 \Cref{thm:tildeH-rearrangement},
 which states that, for any partition \(\mu\) and any rearrangement \(\alpha\) of \(\mu\),
 \begin{equation} \label{eq:tildeH-rearrangement}
-    \sum_{T \in \Fill[\positives](\mu)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T
+    \sum_{T \in \Fill[\positives](\mu)} q^{\maj(T)} t^{\inv(T)} \mathbf{x}^T
     =
-    \sum_{T \in \Fill[\positives](\alpha)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T.
+    \sum_{T \in \Fill[\positives](\alpha)} q^{\maj(T)} t^{\inv(T)} \mathbf{x}^T.
 \end{equation}
-The left-hand sum over \(\Fill[\positives](\mu)\) is the celebrated combinatorial expression for \(\tilde{H}_{\mu'}(\mathbf{x}; q, t)\) from \cite{HHL05} (see \Cref{subsec:modified-macdonald}), where they show that the sum satisfies the conditions of \Cref{prop:modified-macdonald-characterization}.
-In \cite{HHL08}, the rearrangement property was established by proving that the right-hand sum over \(\Fill[\positives](\alpha)\) is also equal to \(\tilde{H}_{\mu'}(\mathbf{x}; q, t)\),
+The left-hand sum over \(\Fill[\positives](\mu)\) is the celebrated combinatorial expression for \(\tilde{H}_{\mu}(\mathbf{x}; q, t)\) from \cite{HHL05} (see \Cref{subsec:modified-macdonald}), where they show that the sum satisfies the conditions of \Cref{prop:modified-macdonald-characterization}.
+In \cite{HHL08}, the rearrangement property was established by proving that the right-hand sum over \(\Fill[\positives](\alpha)\) is also equal to \(\tilde{H}_{\mu}(\mathbf{x}; q, t)\),
 by showing that it also satisfies the conditions of \Cref{prop:modified-macdonald-characterization}.
 
 We present a bijective proof of \eqref{eq:tildeH-rearrangement}, without going through the algebraic characterization of
@@ -1500,17 +1500,18 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     Adding \eqref{eq:inversion-pair-difference-psi} and \eqref{eq:arm-prime-descent-sum-bottommost} gives the desired result.
 \end{proof}
 
-One important consequence of \Cref{thm:phi-maj-inv} is \eqref{eq:tildeH-rearrangement}, which shows that the combinatorial formula for \(\tilde{H}_{\mu'}(\mathbf{x}; q, t)\) can be taken over \(\Fill[\positives](\alpha)\) for any rearrangement \(\alpha\) of the partition \(\mu\).
+One important corollary of \Cref{thm:phi-maj-inv} is the identity~\eqref{eq:tildeH-rearrangement}, which shows that the combinatorial formula for \(\tilde{H}_{\mu}(\mathbf{x}; q, t)\) can be taken over \(\Fill[\positives](\alpha)\) for any rearrangement \(\alpha\) of the partition \(\mu\).
 
 \begin{theorem}[{\cite{HHL08}}]
     \label{thm:tildeH-rearrangement}
     Let \(\mu\) be a partition and \(\alpha\) be a rearrangement of \(\mu\).
     Then
-    \begin{equation}
-        \sum_{T \in \Fill[\positives](\mu)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T
+    \begin{equation*}
+        \sum_{T \in \Fill[\positives](\mu)} q^{\maj(T)} t^{\inv(T)} \mathbf{x}^T
         =
-        \sum_{T \in \Fill[\positives](\alpha)} q^{\inv(T)} t^{\maj(T)} \mathbf{x}^T,
-    \end{equation}
+        \sum_{T \in \Fill[\positives](\alpha)} q^{\maj(T)} t^{\inv(T)} \mathbf{x}^T,
+        \tag{\ref{eq:tildeH-rearrangement}}
+    \end{equation*}
     where \(\Fill[\positives](\mu)\) \textup{(}resp. \(\Fill[\positives](\alpha)\)\textup{)} is the set of fillings of shape \(\mu\) \textup{(}resp. \(\alpha\)\textup{)} with labels in the positive integers \(\positives\).
 \end{theorem}
 
