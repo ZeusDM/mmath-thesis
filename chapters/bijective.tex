@@ -171,9 +171,9 @@ Before proceeding, we prove some properties of \(\ind{{}}\) when applied to four
 \begin{proposition} \label{prop:ind-magic}
     Let \(a, b, c, d \in \mathcal{A}\) be four elements of an alphabet \(\mathcal{A}\).
     Then,
-    \begin{equation}
+    \begin{equation*}
         \ind{a, d} + \ind{b, c} - \ind{a, c} - \ind{b, d} \in \{-1, 0, 1\}.
-    \end{equation}
+    \end{equation*}
 \end{proposition}
 
 \begin{proof}
@@ -445,9 +445,9 @@ In all cases, the values \(\ind{c, d, f}\) and \(\ind{e, a, b}\) are uniquely de
     by requiring the local restrictions (i.e., \eqref{eq:restriction-other-columns} and \eqref{eq:restriction-swap-per-row})
     and requiring that, for each block of \(T\) with signature entries \((a, b, c, d, e, f)\),
     the rows of the block are swapped in \(U\) if and only if
-    \begin{equation}
+    \begin{equation*}
         \ind{c, d, f} \neq \ind{e, a, b}.
-    \end{equation}
+    \end{equation*}
 \end{definition}
 
 \begin{definition}[The bijection \(\psi\) via blocks] \label{def:psi-via-blocks}
@@ -456,9 +456,9 @@ In all cases, the values \(\ind{c, d, f}\) and \(\ind{e, a, b}\) are uniquely de
     by requiring the local restrictions (i.e., \eqref{eq:restriction-other-columns} and \eqref{eq:restriction-swap-per-row})
     and requiring that, for each block of \(T\) with signature entries \((a, b, c, d, e, f)\),
     the rows of the block are swapped in \(U\) if and only if
-    \begin{equation}
+    \begin{equation*}
         \ind{c, d, f} \neq \ind{e, a, b} \quad \mathbin{\mathrm{xor}} \quad \text{(the block is the bottommost block)},
-    \end{equation}
+    \end{equation*}
     where \(\mathbin{\mathrm{xor}}\) denotes the exclusive or operation, 
     whose result is true if and only if an odd number of its operands are true.
 \end{definition}
@@ -1198,11 +1198,11 @@ We provide an alternative proof using the block structure algorithm, which is sp
     Therefore, the contributions to the above difference from boxes not in columns \(i\) or \(i+1\) cancel out.
     Consequently, changing the summations to only consider descents in \(\dg(\beta)\) and \(\dg(s_i \cdot \beta)\), respectively, does not change the value of the difference.
     Define
-    \begin{equation}
+    \begin{equation*}
         \arm_{\alpha}'(u) = \arm_{\alpha}(u) - \arm_{\beta}(u),
         \quad\text{and}\quad
         \arm_{s_i \permact \alpha}'(u) = \arm_{s_i \permact \alpha}(u) - \arm_{s_i \permact \beta}(u),
-    \end{equation}
+    \end{equation*}
     which are the contributions to the arm lengths from boxes not in columns \(i\) or \(i+1\).
     This implies that \(\arm{\alpha}'(u) = \arm{s_i \permact \alpha}'(s_i \cdot u)\) for all boxes \(u \in \dg(\beta)\).
     We prove that 
@@ -1321,7 +1321,7 @@ We provide an alternative proof using the block structure algorithm, which is sp
     Let \(T \in \Fill(\alpha)\) and \(U = \psi(T)\).
     Let \(L = \leg(u) = \alpha_i - \alpha_{i+1} - 1\) and \(A = \arm(u)\) for \(u = (i, \alpha_{i+1} + 1) \in \dg(\alpha)\).
     If \(\ind{{T(i,1)},{T(i+1,1)}} = 1\) and \(\ind{{U(i,1)},{U(i+1,1)}} = 1\), then
-    \begin{align}
+    \begin{align*}
         \maj(T) &= \maj(U) - (L+1),
         &&\text{and}& 
         \inv(T) &= \inv(U) + (A+1). \\
@@ -1337,7 +1337,7 @@ We provide an alternative proof using the block structure algorithm, which is sp
         \maj(T) &= \maj(U) + (L+1),
         &&\text{and}&
         \inv(T) &= \inv(U) - (A+1).
-    \end{align}
+    \end{align*}
 \end{theorem}
 
 Again, \cite{KLO22} proves \Cref{thm:psi-maj-inv} using the row-by-row algorithm.
@@ -1631,11 +1631,11 @@ Similarly, define the injection \(\psi \colon \Fill(\alpha, \sigma) \to \Fill(s_
 We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv}.
 \begin{corollary} \label{cor:phi-symcoinv}
     For any \(T \in \Fill(\alpha, \sigma)\) and \(U = \phi(T)\), we have
-    \begin{equation}
+    \begin{equation*}
         \symcoinv(T) = \symcoinv(U)
         \quad \text{and} \quad
         \maj(T) = \maj(U).
-    \end{equation}
+    \end{equation*}
 \end{corollary}
 
 \begin{corollary} \label{cor:psi-symcoinv}
@@ -1643,7 +1643,7 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
     Let \(T \in \Fill(\alpha, \sigma)\) and \(U = \psi(T)\).
     Let \(L = \leg(u) = \alpha_i - \alpha_{i+1} - 1\) and \(A = \arm(u)\) for \(u = (i, \alpha_{i+1} + 1) \in \dg(\alpha)\).
     If \(\sigma_i > \sigma_{i+1}\) and \(\pi_i > \pi_{i+1}\), then
-    \begin{align}
+    \begin{align*}
         \maj(T) &= \maj(U) - (L+1), &&\text{and}&
         \symcoinv(T) &= \symcoinv(U) - (A+1). \\
     \intertext{If \(\sigma_i > \sigma_{i+1}\) and \(\pi_i < \pi_{i+1}\), then}
@@ -1655,13 +1655,13 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
     \intertext{If \(\sigma_i < \sigma_{i+1}\) and \(\pi_i < \pi_{i+1}\), then}
         \maj(T) &= \maj(U) + (L+1), &&\text{and}&
         \symcoinv(T) &= \symcoinv(U) + (A+1).
-    \end{align}
+    \end{align*}
 \end{corollary}
 
 \begin{definition}
     Define \(f \colon \Fill(\alpha, \sigma) \to \Fill(s_i \permact \alpha, \sigma s_i)\)
     and \(g \colon \Fill(\alpha, \sigma) \to \Fill(s_i \permact \alpha, \sigma)\) by
-    \begin{equation}
+    \begin{equation*}
         f(T) =
         \begin{cases}
             \phi(T), & \text{if } \phi(T) \in {\Fill(s_i \cdot \alpha, \sigma s_i)}, \\
@@ -1673,7 +1673,7 @@ We have immediate coloraries of \Cref{thm:phi-maj-inv} and \Cref{thm:psi-maj-inv
             \phi(T), & \text{if } \phi(T) \in {\Fill(s_i \cdot \alpha, \sigma)}, \\
             \psi(T), & \text{if } \psi(T) \in {\Fill(s_i \cdot \alpha, \sigma)}.
         \end{cases}
-    \end{equation}
+    \end{equation*}
 \end{definition}
 
 \begin{proposition}
