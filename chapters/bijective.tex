@@ -20,14 +20,6 @@ We present a bijective proof of \eqref{eq:tildeH-rearrangement}, without going t
 \(\tilde{H}_\mu(\mathbf{x}; q, t)\) from \Cref{prop:modified-macdonald-characterization}.
 The key step is \Cref{thm:phi-maj-inv},
 which guarantees the existence of a bijection \(\phi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) that preserves the content, the inversion number, and the major index.
-
-There are two equivalent constructions of such bijection \(\phi\).
-The first construction partitions the filling into blocks and decides how to transform each block based on local conditions.
-The second construction is an iterative row-by-row algorithm from \cite{KLO22}, which we reformulate in a clearer way than the original presentation.
-Each construction has its advantages, and we include both for completeness.
-We prove that both algorithms coincide in \Cref{subsec:equivalence-of-definitions},
-and then prove that \(\phi\) satisfies the desired properties in \Cref{subsec:properties-of-bijections} using the first construction.
-
 An auxiliary bijection \(\psi \colon \Fill[\mathcal{A}](\alpha) \to \Fill[\mathcal{A}](s_i \permact \alpha)\) is also defined, that preserves \(\content\) but changes \(\inv\) and \(\maj\) in a controlled way, as specified in \Cref{thm:psi-maj-inv}.
 
 In \Cref{sec:bijective-augmented},
@@ -46,14 +38,19 @@ We use the bijection \(\phi\) on non-augmented fillings from \Cref{sec:bijective
 
 \section{Bijections on non-augmented fillings and the rearrangement property of \texorpdfstring{\(\tilde{H}_\mu\)}{H̃μ}} \label{sec:bijective-non-augmented}
 
-In this section, we define the bijection \(\phi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) from \cite{KLO22} that preserves the statistics \(\inv\) and \(\maj\).
+In this section, we define the bijection \(\phi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) that preserves the statistics \(\inv\) and \(\maj\).
+We assume \(\alpha_i \neq \alpha_{i+1}\) throughout this section, since the case \(\alpha_i = \alpha_{i+1}\) has \(\alpha = s_i \permact \alpha\) and the identity map serves as a suitable choice for \(\phi\).
+
+There are two equivalent constructions of such bijections \(\phi\).
+The first construction partitions the filling into blocks and decides how to transform each block based on local conditions.
+The second construction is a reinterpretation of an iterative row-by-row algorithm defined by \citeauthor{KLO22} \cite{KLO22}.
+Each construction has its advantages, and we include both for completeness.
+We prove that both algorithms coincide in \Cref{subsec:equivalence-of-definitions},
+and then prove that \(\phi\) satisfies the desired properties in \Cref{subsec:properties-of-bijections} using the first construction.
+
 As an auxiliary construction,
 we also define another bijection \(\psi \colon \Fill(\alpha) \to \Fill(s_i \permact \alpha)\) that changes the statistics \(\inv\) and \(\maj\) in a controlled way, as specified in \Cref{thm:psi-maj-inv}.
-This auxiliary bijection \(\psi\) is also important in \Cref{sec:bijective-augmented}.
-% Without loss of generality, we restrict to the case \(\alpha_{i} > \alpha_{i+1}\), and use the inverse bijections to handle the case \(\alpha_{i} < \alpha_{i+1}\).
-% \todo{Can I remove this ``without loss of generality''?}
-
-We assume \(\alpha_i \neq \alpha_{i+1}\) throughout this section, since the case \(\alpha_i = \alpha_{i+1}\) has \(\alpha = s_i \permact \alpha\) and the identity map serves as a suitable choice for \(\phi\).
+This secondary map \(\psi\) is a crucial contribution of \cite{KLO22}, since \(\psi\) will play a central role in \Cref{sec:bijective-augmented}.
 
 Both of \(\phi\) and \(\psi\) follow a very rigid structure.
 For a non-augmented filling \(T \in \Fill(\alpha)\) mapped
@@ -387,17 +384,20 @@ We use this freedom to guarantee that the number of inversion triples between di
 
 Consider a block \([r_1, r_2]\) of \(T\).
 Let
-\begin{align*}
+\begin{equation} \label{eq:block-entries}
+    \begin{aligned}
     e_1 &= T(i, r_2 + 1),  & e_2 &= T(i+1, r_2 + 1), \\
     a   &= T(i, r_2),      & b   &= T(i+1, r_2),     \\
     c   &= T(i, r_1),      & d   &= T(i+1, r_1),     \\
-    f_1 &= T(i, r_1 - 1), \text{ and} & f_2 &= T(i+1, r_1 - 1).
-\end{align*}
-Edge cases are when the block is the bottommost one, i.e. \(r_1 = 1\),
+    f_1 &= T(i, r_1 - 1), \text{ and} \qquad & f_2 &= T(i+1, r_1 - 1).
+    \end{aligned}
+\end{equation}
+Edge cases are when the block is the bottommost one, i.e.~\(r_1 = 1\),
 in which case \(f_1 = f_2 = \infty\) by convention;
-and when the block is the topmost one, i.e. \(r_2 = h\), in which case one of \(e_1, e_2\) is undefined.
+and when the block is the topmost one, i.e.~\(r_2 = h\), in which case one of \(e_1, e_2\) is undefined.
 For any well-defined \(e \in \{e_1, e_2\}\) and \(f \in \{f_1, f_2\}\),
 we say that \((a, b, c, d, e, f)\) are \vocab{signature entries} of the block.
+We remark that a block may have multiple choices of signature entries.
 See \Cref{fig:general-block} for an illustration of the entries \(a, b, c, d, e_1, e_2, f_1, f_2\).
  
 \begin{figure}[htbp]
@@ -422,7 +422,7 @@ See \Cref{fig:general-block} for an illustration of the entries \(a, b, c, d, e_
 		\node at (0.5, 0.5) {\(f_1\)};
 		\node at (1.5, 0.5) {\(f_2\)};
 	\end{tikzpicture}
-	\caption{A block of a filling \(T\), with the entries \(a, b, c, d, e_1, e_2, f_1, f_2\) indicated.}
+	\caption{A block of a filling \(T\), with the entries \(a, b, c, d, e_1, e_2, f_1, f_2\) indicated. Any of the four tuples \((a, b, c, d, e_1, f_1)\), \((a, b, c, d, e_1, f_2)\), \((a, b, c, d, e_2, f_1)\), and \((a, b, c, d, e_2, f_2)\) are signature entries of the block, as long as the entries are well-defined.}
 	\label{fig:general-block}
 \end{figure}
 
@@ -530,7 +530,9 @@ We prove this in \Cref{thm:phi-maj-inv}.
 
 \subsection{Row-by-row algorithm} \label{subsec:row-by-row}
 It turns out that the bijections \(\phi\) and \(\psi\) are the same as the bijections defined in \cite{KLO22}.
-We now present the algorithm from \cite{KLO22}, in a clearer form than the original exposition.
+In this subsection, we present a reinterpretation of the algorithm from \cite{KLO22}.
+Instead of the twelve cases in \cite{KLO22},
+we compactify the algorithm into four cases that are characterized by the relationships among the indicators \(\ind{a, b}, \ind{a, c}, \ind{a, d}, \ind{b, c}, \ind{b, d}, \ind{c, d}\).
 
 Let \(h = \min(\alpha_i, \alpha_{i+1})\).
 Let \(T \in \Fill(\alpha)\).
@@ -717,11 +719,11 @@ This recursive interpretation is particularly useful for proving properties abou
 
 \subsection{Equivalence of the two definitions} \label{subsec:equivalence-of-definitions}
 
-We now show that the two definitions of \(\phi\) and \(\psi\) given in \Cref{subsec:block-structure,subsec:row-by-row} are equivalent.
-We do so by applying the row-by-row algorithm and observing what happens to each block.
+In this subsection, we show that the block structure algorthm and the row-by-row algorithm define the same bijections \(\phi\) and \(\psi\).
+We achieve this goal by applying the row-by-row algorithm and analyzing its behavior on each block.
 
 \begin{proposition} \label{prop:equivalence-of-definitions}
-    The definitions of \(\phi\) and \(\psi\) via blocks (\Cref{def:phi-via-blocks,def:psi-via-blocks}) are equivalent to the definitions via the row-by-row algorithm (\Cref{def:phi-psi-via-row-by-row}).
+    The definitions of \(\phi\) and \(\psi\) via blocks (\Cref{def:phi-via-blocks,def:psi-via-blocks}) are equivalent to the definitions of \(\phi\) and \(\psi\) via the row-by-row algorithm (\Cref{def:phi-psi-via-row-by-row}), respectively.
 \end{proposition}
 
 \begin{proof}
@@ -766,8 +768,9 @@ We do so by applying the row-by-row algorithm and observing what happens to each
     \begin{equation} \label{eq:label-r2}
         \operatorname{label}_{r_2} = \labelS
         \quad \text{if and only if} \quad
-        (\ind{e, a} - \ind{e, b} = 0) \mathbin{\mathrm{xor}} (\operatorname{coin}_{r_2} = \coinpsi).
+        (\ind{e, a} - \ind{e, b} = 0) \mathbin{\mathrm{xor}} (\operatorname{coin}_{r_2} = \coinpsi),
     \end{equation}
+    where \(\mathbin{\mathrm{xor}}\) denotes the exclusive or operation, whose result is true if and only if an odd number of its operands are true.
 
     Finally, using that \(\operatorname{coin}_{r_2} = \coinpsi\) if and only if \( (\operatorname{coin}_{r_2} = \operatorname{coin}_{r_1} ) \mathbin{\mathrm{xor}} (\operatorname{coin}_{r_1} = \coinphi) \),
     we have
@@ -910,7 +913,10 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     \end{equation}
 \end{theorem}
 
-\begin{proof}[Proof of \eqref{eq:phi-maj}, independent of \textup{\cite{KLO22}}]
+\citeauthor{KLO22} \cite{KLO22} prove \Cref{thm:phi-maj-inv} using the row-by-row algorithm.
+We provide an alternative proof using the block structure algorithm, which is split into two parts: \eqref{eq:phi-maj} and \eqref{eq:phi-inv}.
+
+\begin{proof}[Proof of \eqref{eq:phi-maj}]
     Without loss of generality, assume that \(\alpha_i > \alpha_{i+1}\).
     Let \(T \in \Fill(\alpha)\) and \(U = \phi(T)\).
     We first study how \(\Des(T)\) and \(\Des(U)\) relate to each other.
@@ -946,7 +952,28 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
 
     As an edge case, row \(\alpha_{i+1} + 1\) is assigned to the topmost block.
     Let \(r \in \interval{2, \alpha_{i+1}}\).
-    Let \(a = T(i, r)\), \(b = T(i+1, r)\), \(c = T(i, r-1)\), and \(d = T(i+1, r-1)\).
+    Let \(a = T(i, r)\), \(b = T(i+1, r)\), \(c = T(i, r-1)\), and \(d = T(i+1, r-1)\). See \Cref{fig:assignment-of-rows}.
+
+    \begin{figure}[htbp]
+        \centering
+        \begin{tikzpicture}[scale=.5]
+            \node[anchor=north] at (0.5, 3) {\(\scriptstyle i\)};
+            \node[anchor=north] at (1.5, 3) {\(\scriptstyle i+1\)};
+            \node[anchor=east] at (0, 4.5) {\(\scriptstyle r\)};
+            \node[anchor=east] at (0, 3.5) {\(\scriptstyle r-1\)};
+            \draw (1, 4) rectangle ++(1, 1);
+            \draw (0, 4) rectangle ++(1, 1);
+            \draw (1, 3) rectangle ++(1, 1);
+            \draw (0, 3) rectangle ++(1, 1);
+            \node[anchor=south] at (0.5, 4) {\(a\)};
+            \node[anchor=south] at (1.5, 4) {\(b\)};
+            \node[anchor=south] at (0.5, 3) {\(c\)};
+            \node[anchor=south] at (1.5, 3) {\(d\)};
+        \end{tikzpicture}
+        \vspace{-.5em}
+        \caption{Entries involved in determining the assignment of row \(r\).}
+        \label{fig:assignment-of-rows}
+    \end{figure}
     
     First, assume rows \(r-1\) and \(r\) are not intertwined in \(T\), that is \(\ind{a, c} + \ind{b, d} = \ind{a, d} + \ind{b, c}\).
     Note that row \(r\) is balanced in \(T\) if and only if \(\ind{a, c} = \ind{a, d} = \ind{b, d} = \ind{b, c}\).
@@ -974,7 +1001,7 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     Note that we can determine whether such row \(r\) is balanced, left-unbalanced, or right-unbalanced by looking only at \(\ind{r-1}\) and \(\ind{r}\): if \(\ind{r-1} = \ind{r}\), then row \(r\) is balanced; if \(\ind{r-1} = 0\) and \(\ind{r} = 1\), then row \(r\) is left-unbalanced; and if \(\ind{r-1} = 1\) and \(\ind{r} = 0\), then row \(r\) is right-unbalanced.
 
     Let \(\Des(B; T)\) be the set of descents of \(T\) in rows assigned to the block \(B\).
-    We define the \vocab{major contributions} of a block \(B\) with respect to the fillings \(T\) and \(U\) as
+    We define the \vocab{major index contributions} of a block \(B\) with respect to the fillings \(T\) and \(U\) as
     \begin{align*}
         \maj(B; T) &= \sum_{u \in \Des(B; T)} (\leg_{\alpha}(u) + 1), \\
         \maj(B; U) &= \sum_{u \in \Des(B; U)} (\leg_{s_i \permact \alpha}(u) + 1).
@@ -1030,7 +1057,7 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     the contributions to \(\maj(B; T)\) and \(\maj(B; U)\) from each such pair are equal, and consequently, \(\maj(B; T) = \maj(B; U)\) for all non-topmost blocks \(B\) that are not swapped between \(T\) and \(U\).
 
     Finally, assume that \(B = [r_1, \alpha_{i+1}]\) is the topmost block of \(T\), and that it is not swapped between \(T\) and \(U\).
-    Let \((a, b, c, d, e, f)\) be signature entries of \(B\).
+    Let \((a, b, c, d, e, f)\) be signature entries of \(B\), as in \eqref{eq:block-entries}.
     This means that \(\ind{c, d} + \ind{d, f} - \ind{c, f} = \ind{e, a} + \ind{a, b} - \ind{e, b}\).
     We know that unbalanced rows \(r_1 + 1\) through \(r_2\) are assigned to \(B\).
     We also know that row \(\alpha_{i+1} + 1\) is assigned to \(B\), as an edge case.
@@ -1129,7 +1156,7 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     Since each unbalanced row is assigned to exactly one block, we conclude that \(\maj(T) = \maj(U)\), completing the proof.
 \end{proof}
 
-\begin{proof}[Proof of \eqref{eq:phi-inv}, independent of \textup{\cite{KLO22}}]
+\begin{proof}[Proof of \eqref{eq:phi-inv}]
     Without loss of generality, assume that \(\alpha_i > \alpha_{i+1}\).
     Let \(T \in \Fill(\alpha)\) and \(U = \phi(T)\).
     Let \(\beta = \composition{0, \dots, 0, \alpha_{i+1}, \alpha_{i+1}, 0, \dots, 0}\).
@@ -1152,7 +1179,7 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     \end{equation*}
 
     Note that a pair of boxes both not in columns \(i\) or \(i+1\) is an inversion pair in \(T\) if and only if it is an inversion pair in \(U\).
-    Note that a box \((i', r')\) with \(i' \notin \{i, i+1\}\) attacks (resp.~is attacked by) either none or both of \((i, r)\) and \((i+1, r)\).
+    Note that a box \((i', r')\) with \(i' \notin \{i, i+1\}\) attacks (resp.~is attacked by) neither or both of \((i, r)\) and \((i+1, r)\).
     Moreover, by \eqref{eq:restriction-swap-per-row}, 
     for each row \(r\), we have
     \begin{equation*}
@@ -1200,12 +1227,15 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     By \Cref{lem:arm-cancelation},
     the contributions to each side of \eqref{eq:arm-prime-descent-sum} from each such pair are equal.
 
-    Finally, if \(B\) is the topmost block and it is not swapped between \(T\) and \(U\),
-    then in the proof of \eqref{eq:phi-maj},
-    we showed that either
+    Finally, if \(B\) is the topmost block and it is not swapped between \(T\) and \(U\), then in the proof of \eqref{eq:phi-maj}, we showed that one of the following three cases holds:
+    % the number of left-unbalanced rows assigned to \(B\) is equal to the number of right-unbalanced rows assigned to \(B\); or
+    % there is one extra right-unbalanced row \(r\) assigned to \(B\), the box \((i, \alpha_{i+1} + 1)\) is a descent of \(T\), and the box \((i+1, \alpha_{i+1} + 1)\) is not a descent of \(U\); or
+    % there is one extra left-unbalanced row \(r\) assigned to \(B\), the box \((i, \alpha_{i+1} + 1)\) is not a descent of \(T\), and the box \((i+1, \alpha_{i+1} + 1)\) is a descent of \(U\).
     \begin{itemize}
-        \item the number of left-unbalanced rows assigned to \(B\) is equal to the number of right-unbalanced rows assigned to \(B\), in which case we can pair each left-unbalanced row assigned to \(B\) with a unique right-unbalanced row assigned to \(B\), and by \Cref{lem:arm-cancelation}, the contributions to each side of \eqref{eq:arm-prime-descent-sum} from each such pair are equal; or
-        \item there is one extra right-unbalanced row \(r\) assigned to \(B\), the box \((i, \alpha_{i+1} + 1)\) is a descent of \(T\), and the box \((i+1, \alpha_{i+1} + 1)\) is not a descent of \(U\), in which case we check that
+        \item The number of left-unbalanced rows assigned to \(B\) equals the number of right-unbalanced rows assigned to \(B\).
+        In this case, we can then pair each left-unbalanced row with a unique right-unbalanced row, and by \Cref{lem:arm-cancelation}, the contributions to each side of \eqref{eq:arm-prime-descent-sum} from each such pair are equal.
+        \item There is one extra right-unbalanced row \(r\) assigned to \(B\), the box \((i, \alpha_{i+1} + 1)\) is a descent of \(T\), and the box \((i+1, \alpha_{i+1} + 1)\) is not a descent of \(U\).
+        In this case, we check that
         \begin{multline*}
             \arm_{\alpha}'(i+1, r)
             +
@@ -1225,8 +1255,9 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
             \arm_{s_i \permact \alpha}'(i+1, r),
             \end{aligned}
         \end{multline*}
-        so the contributions to each side of \eqref{eq:arm-prime-descent-sum} from the extra left-unbalanced row \(r\) and the row \(\alpha_{i+1} + 1\) are equal; or
-        \item there is one extra left-unbalanced row \(r\) assigned to \(B\), the box \((i, \alpha_{i+1} + 1)\) is not a descent of \(T\), and the box \((i+1, \alpha_{i+1} + 1)\) is a descent of \(U\), in which case we check that 
+        so the contributions to each side of \eqref{eq:arm-prime-descent-sum} from the extra left-unbalanced row \(r\) and the row \(\alpha_{i+1} + 1\) are equal.
+        \item There is one extra left-unbalanced row \(r\) assigned to \(B\), the box \((i, \alpha_{i+1} + 1)\) is not a descent of \(T\), and the box \((i+1, \alpha_{i+1} + 1)\) is a descent of \(U\).
+        In this case, we check that
         \begin{align*}
             \arm_{\alpha}'(i, r)
             &= \left|\{ j < i : \alpha_j + 1 \in \interval{r, \alpha_{i}} \}\right| +
@@ -1244,7 +1275,6 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
         so the contributions to each side of \eqref{eq:arm-prime-descent-sum} from the extra left-unbalanced row \(r\) and the row \(\alpha_{i+1} + 1\) are equal.
     \end{itemize}
     In all cases, the contributions to each side of \eqref{eq:arm-prime-descent-sum} from descents assigned to \(B\) are equal.
-
     Therefore, we have
     \begin{align*}
         \inv(T) - \inv(U) 
@@ -1281,12 +1311,10 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     Note that this associates each triple in \(T_1\) to exactly one block, and similarly for \(U_1\).
     For each \(r \in \interval{r_1+1, r_2}\),
     since rows \(r\) and \(r-1\) are intertwined,
-    the triple \(a_r\) in \(T\) has same inversion type as the triple \(b_{r+1}\) in \(U\).
-    Finally, the remaining unmatched triples, \(a_{r_1}\) in \(T\) and \(b_{r_2}\) in \(U\),
-    the condition to swap or not swap the block ensures that they also have the same inversion type.
+    the triple \(a_r\) in \(T\) has the same inversion type as the triple \(b_{r+1}\) in \(U\).
+    Finally, for the remaining unmatched triples \(a_{r_1}\) in \(T\) and \(b_{r_2}\) in \(U\), the condition determining whether the block is swapped ensures that the triples \(a_{r_1}\) in \(T\) and \(b_{r_2}\) in \(U\) also have the same inversion type.
     Therefore, the contributions to \(\inv(T_1)\) and \(\inv(U_1)\) from each block are equal, and consequently, \(\inv(T_1) = \inv(U_1)\).
 \end{proof}
-
 
 \begin{theorem}[{\cite[14]{KLO22}}] \label{thm:psi-maj-inv}
     Assume that \(\alpha_i > \alpha_{i+1}\).
@@ -1312,12 +1340,15 @@ Given a box \(u = (j, r)\), let \(s_i \cdot u = (s_i(j), r)\) be the box obtaine
     \end{align}
 \end{theorem}
 
-\begin{proof}[Proof, independent of {\cite{KLO22}}] 
-    We assume the language in the proof of \Cref{thm:phi-maj-inv}.
+Again, \cite{KLO22} proves \Cref{thm:psi-maj-inv} using the row-by-row algorithm.
+We provide an alternative proof using the block-by-block algorithm.
+
+\begin{proof}[Proof of \Cref{thm:psi-maj-inv}]
+    We assume the notation in the proof of \Cref{thm:phi-maj-inv}.
     Let \(T \in \Fill(\alpha)\) and \(U = \psi(T)\).
     Most of the analysis is unchanged, except for the contributions to \(\maj(T)\) and \(\inv(U)\) from the bottommost block \(B = [1, r_2]\).
 
-    For the major statistic,
+    For the major index statistic,
     if the bottommost block \(B\) is swapped between \(T\) and \(U\),
     then the contributions to \(\maj(T)\) and \(\maj(U)\) from descents assigned to \(B\) are equal.
     This establishes the second and third cases of the theorem.
@@ -1518,6 +1549,7 @@ One important corollary of \Cref{thm:phi-maj-inv} is the identity~\eqref{eq:tild
 \section{Bijections on augmented fillings and a three-term identity for \texorpdfstring{\(E_\alpha^\sigma\)}{Eασ}} \label{sec:bijective-augmented}
 
 In this section, we present bijections on augmented signed fillings to prove a three-term identity for permuted-basement Macdonald polynomials \(E_\alpha^\sigma(\mathbf{x}; q, t)\), in \cref{theorem:three-term}.
+We adapt the bijections \(\phi\) and \(\psi\) from \Cref{sec:bijective-non-augmented} defined on non-augmented fillings to create bijections on augmented fillings to obtain the desired identity.
 
 \begin{theorem}
 	\label{theorem:three-term}
@@ -1537,12 +1569,6 @@ In this section, we present bijections on augmented signed fillings to prove a t
 	\end{equation*}
 	where \(L = \leg(u) = \alpha_i - \alpha_{i+1} - 1\) and \(A = \arm(u)\) for \(u = (i, \alpha_{i+1} + 1) \in \dg(\alpha)\), and \(\rho(\alpha, \sigma, i) = \twinv(s_i \permact \alpha, \sigma) - \twinv(\alpha, \sigma)\).
 \end{theorem}
-
-\textcite[Proposition~17]{Ale19} proves \cref{theorem:three-term} for the case where \(\sigma_i = \sigma_{i+1} + 1\).
-The specialization for \(q=0\) is proved in \cite[Proposition~5.5]{AS19}.
-
-Our proof uses the integral form permuted-basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\) defined in \Cref{sec:integral-form-permuted-basement}.
-
 % \begin{proof}[Algebraic proof]
 %     By \cref{thm:Ale}, if $\alpha_i > \alpha_{i+1}$ and $\sigma_i=\sigma_{i+1}+1$, we have
 %     \begin{equation}
@@ -1576,6 +1602,10 @@ Our proof uses the integral form permuted-basement Macdonald polynomials \(\math
 % 	(-t)^{\operatorname{neg}(T)}.
 % \end{equation}
 
+\textcite[Proposition~17]{Ale19} proves \cref{theorem:three-term} for the case where \(\sigma_i = \sigma_{i+1} + 1\).
+The specialization for \(q=0\) is proved by \citeauthor{AS19} \cite[Proposition~5.5]{AS19}.
+
+Our proof uses the integral form permuted-basement Macdonald polynomials \(\mathcal{E}_\alpha^\sigma\) defined in \Cref{sec:integral-form-permuted-basement}.
 Recall that the integral forms have a combinatorial formula in terms of augmented fillings using the signed alphabet \(\interval{n}_\pm\), as given in \eqref{eq:calE-Fill-signed}:
 \begin{equation*}
     \mathcal{E}^{\sigma}_{\alpha}(\mathbf{x}; q, t) =
