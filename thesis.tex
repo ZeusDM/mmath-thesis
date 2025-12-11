@@ -45,13 +45,14 @@
 
 % messing with the table of contents
 \usepackage{tocloft}
-\setlength\cftparskip{3pt}
-%\renewcommand\cftchapafterpnum{\vskip8pt}
-%\renewcommand\cftsecafterpnum{\vskip-2pt}
-%\renewcommand\cftsubsecafterpnum{\vskip-2pt}
-% \setlength\cftbeforechapskip{22pt}
-% \setlength\cftbeforesecskip{0pt}
-% \setlength\cftbeforesubsecskip{-3pt}
+\setlength\cftparskip{0pt}
+\setlength\cftbeforechapskip{8pt}
+\setlength\cftbeforesecskip{5pt}
+\setlength\cftbeforesubsecskip{3pt}
+\renewcommand{\cftaftertoctitle}{\hfill\strut}
+\renewcommand{\cfttoctitlefont}{\hfill\Large\bfseries} %!some command to make the heading huge and bold
+\renewcommand{\cftbeforetoctitleskip}{-0.15in}        % Title is 1in from top
+\renewcommand{\cftaftertoctitleskip}{2.0\baselineskip}% 1 double space after title
 
 \usepackage[style=alphabetic,backend=biber,backref=true,maxbibnames=99,maxalphanames=5,doi=false,url=false,isbn=false]{biblatex}
 \addbibresource{references.bib}
