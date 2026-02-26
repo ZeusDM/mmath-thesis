@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch: # Allow manual triggering
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -25,22 +25,28 @@ jobs:
 
       - name: Build PDF
         run: |
-          # Build the thesis using latexmk
           latexmk -lualatex thesis.tex
 
       - name: Set timestamp
         id: timestamp
         run: |
-          echo "TIMESTAMP=$(date '+%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
-          echo "READABLE=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_OUTPUT
+          echo "READABLE=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
 
-      - name: Create Release
+      - name: Update Corrections Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: build-${{ steps.timestamp.outputs.TIMESTAMP }}
-          name: Draft - ${{ steps.timestamp.outputs.READABLE }}
+          tag_name: corrections
+          name: Thesis Corrections (Latest)
           files: thesis.pdf
           body: |
-            Automated thesis build from commit ${{ github.sha }}
-            Built on: ${{ steps.timestamp.outputs.READABLE }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+            This release contains the latest corrections, made after the official UWSpace submission.
+            It is intended for personal use and reference, and is not an official version of the thesis.
+            For the official version, please refer to the UWSpace submission.
+
+            Last updated on: ${{ steps.timestamp.outputs.READABLE }}
+            From commit: ${{ github.sha }}
+          draft: false
+          prerelease: true
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
