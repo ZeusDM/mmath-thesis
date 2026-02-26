@@ -7,19 +7,13 @@ supervised by Olya Mandelshtam
 
 ---
 
-Published version at [University of Waterloo repository, UWSpace](https://uwspace.uwaterloo.ca/handle/10012/22733).
-
-## Thesis Versions
-
-* **Official Publication**
 The version of record as submitted to the university is archived at [University of Waterloo repository, UWSpace](https://uwspace.uwaterloo.ca/handle/10012/22733).  
 To access the source code of the published version, check out the `uwspace` tag in this repository [here](https://github.com/ZeusDM/mmath-thesis/tree/uwspace).
 
-* **Post-Publication Corrections**
-I maintain a living version of this thesis to corrected typos, whose latest version is available [here](https://github.com/ZeusDM/mmath-thesis/releases/download/corrections/thesis.pdf).
-We list the corrections made since the official publication below.
+### Errata / List of Corrections
 
-## Errata / List of Corrections
+I maintain an updated version of the thesis with corrected typos, available [here](https://github.com/ZeusDM/mmath-thesis/releases/download/corrections/thesis.pdf).
+The corrections made since the official publication are listed below:
 
-- **p. 25** Equations (3.4) and (3.5) reads "$\sigma_i > \sigma_j = 1$" and "$\sigma_i > \sigma_j = 0$", respectively. They should read "$\sigma_i > \sigma_j$" and "$\sigma_i < \sigma_j$", respectively.
-- **p. 63** The displayed equation in Theorem 4.15 contains an extra comma. The extra comma should be removed.
+- **p. 25:** Equations (3.4) and (3.5) contain "$`\sigma_i > \sigma_j = 1`$" and "$`\sigma_i > \sigma_j = 0`$", respectively. They should contain "$`\sigma_i > \sigma_j`$" and "$`\sigma_i < \sigma_j`$", respectively.
+- **p. 63:** The displayed equation in Theorem 4.15 contains an extra comma. The extra comma should be removed.
