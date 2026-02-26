@@ -21,4 +21,5 @@ We list the corrections made since the official publication below.
 
 ## Errata / List of Corrections
 
-No corrections yet.
+- **p. 25** Equations (3.4) and (3.5) reads "$\sigma_i > \sigma_j = 1$" and "$\sigma_i > \sigma_j = 0$", respectively. They should read "$\sigma_i > \sigma_j$" and "$\sigma_i < \sigma_j$", respectively.
+- **p. 63** The displayed equation in Theorem 4.15 contains an extra comma. The extra comma should be removed.
