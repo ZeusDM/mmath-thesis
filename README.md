@@ -16,4 +16,5 @@ I maintain an updated version of the thesis with corrected typos, available [her
 The corrections made since the official publication are listed below:
 
 - **p. 25:** Equations (3.4) and (3.5) contain "$`\sigma_i > \sigma_j = 1`$" and "$`\sigma_i > \sigma_j = 0`$", respectively. They should contain "$`\sigma_i > \sigma_j`$" and "$`\sigma_i < \sigma_j`$", respectively.
+- **p. 32** The definition of _absolute coinversion number_ contains "$`|S(u) \neq |S(w)|`$". It should contain "$`|S(u)| \neq |S(w)|`$".
 - **p. 63:** The displayed equation in Theorem 4.15 contains an extra comma. The extra comma should be removed.
