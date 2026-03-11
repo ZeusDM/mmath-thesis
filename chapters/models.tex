@@ -675,7 +675,7 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 	Let \(T \in \Fill(\alpha)\).
 	Then
 	\begin{equation*}
-		\inv(T) = \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u) - \left|\{(i, j) \suchthat i < j \text{ and } \alpha_i < \alpha_j \text{ and } \sigma_i > \sigma_j\}\right|.
+		\inv(T) = \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u) + \left|\{(i, j) \suchthat i < j \text{ and } \alpha_i < \alpha_j \text{ and } \sigma_i > \sigma_j\}\right|.
 	\end{equation*}
 \end{proposition}
 
@@ -695,8 +695,8 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 		+ \sum_{\substack{v, w \in \adg(\alpha) \\ v \text{ attacks } w \\ \leg(w) > \leg(v)}} \ind{T(v), T(w)}
 		- \sum_{u \in \dg(\alpha)} \ind{T(u), T(\south{u})} \arm(u) \\
 		&= \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u)
-		- \sum_{\substack{v, w \text{ in row } 0 \\ v \text{ attacks } w \\ \leg(w) > \leg(v)}} \ind{T(v), T(w)} \\
-		&= \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u) - \left|\{(i, j) \suchthat i < j \text{ and } \alpha_i < \alpha_j \text{ and } \sigma_i > \sigma_j\}\right|,
+		+ \sum_{\substack{v, w \text{ in row } 0 \\ v \text{ attacks } w \\ \leg(w) > \leg(v)}} \ind{T(v), T(w)} \\
+		&= \left|\InversionPairs(T)\right| - \sum_{u \in \Des(T)} \arm(u) + \left|\{(i, j) \suchthat i < j \text{ and } \alpha_i < \alpha_j \text{ and } \sigma_i > \sigma_j\}\right|,
 		\end{aligned}
 	\end{multline*}
 	as desired.
@@ -706,7 +706,7 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 Together with \eqref{eq:total-triples-augmented}, we also obtain an alternative description of \(\coinv(T)\) by
 \begin{align*}
 	\coinv(T) &= \sum_{u \in \dg(\alpha)} \arm(u) - \inv(T) \\
-	&= \sum_{u \in \dg(\alpha) \setminus \Des(T)} \arm(u) - \left|\InversionPairs(T)\right| + \left|\{(i, j) \suchthat i < j \text{ and } \alpha_i < \alpha_j \text{ and } \sigma_i > \sigma_j\}\right|.
+	&= \sum_{u \in \dg(\alpha) \setminus \Des(T)} \arm(u) - \left|\InversionPairs(T)\right| - \left|\{(i, j) \suchthat i < j \text{ and } \alpha_i < \alpha_j \text{ and } \sigma_i > \sigma_j\}\right|.
 \end{align*}
 
 \subsection{Mistaking augmented fillings for non-augmented fillings} \label{subsec:augmented-to-non-augmented}
