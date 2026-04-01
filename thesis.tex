@@ -132,6 +132,16 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
+% --- Hyperref Compatibility Fixes ---
+% Ensures PDF links point to the correct theorem
+\renewcommand*{\theHtheorem}{\theHchapter.\the\value{theorem}}
+\renewcommand*{\theHproposition}{\theHchapter.\the\value{theorem}}
+\renewcommand*{\theHlemma}{\theHchapter.\the\value{theorem}}
+\renewcommand*{\theHcorollary}{\theHchapter.\the\value{theorem}}
+\renewcommand*{\theHdefinition}{\theHchapter.\the\value{theorem}}
+\renewcommand*{\theHexample}{\theHchapter.\the\value{theorem}}
+\renewcommand*{\theHremark}{\theHchapter.\the\value{theorem}}
+
 %%%%%%%%%%
 % Graphics
 %%%%%%%%%%
