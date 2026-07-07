@@ -536,13 +536,6 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 	nevertheless, those boxes \(w \in \dg(\alpha)\) that are not attained as the south of some \(u \in \dg(\alpha)\) have \(\leg(w) = 0\), and therefore are not included in the sum since \(\leg(w) > \leg(v) \geq 0\) cannot hold.
 \end{proof}
 
-\Cref{prop:inv-via-inversion-pairs} gives an alternative description of \(\inv(T)\).
-Together with \eqref{eq:inv-plus-coinv}, we also obtain an alternative description of \(\coinv(T)\) by
-\begin{equation*}
-	\coinv(T) = \sum_{u \in \dg(\alpha)} \arm(u) - \inv(T)
-	= \sum_{u \in \dg(\alpha) \setminus \Des(T)} \arm(u) - \left|\InversionPairs(T)\right|.
-\end{equation*}
-
 \subsection{Augmented fillings} \label{subsec:augmented-fillings}
 
 In the context of augmented fillings,
@@ -701,13 +694,6 @@ Let \(\InversionPairs(T)\) denote the set of inversion pairs in \(T\).
 	\end{multline*}
 	as desired.
 \end{proof}
-
-\Cref{prop:inv-via-inversion-pairs-augmented} gives an alternative description of \(\inv(T)\).
-Together with \eqref{eq:total-triples-augmented}, we also obtain an alternative description of \(\coinv(T)\) by
-\begin{align*}
-	\coinv(T) &= \sum_{u \in \dg(\alpha)} \arm(u) - \inv(T) \\
-	&= \sum_{u \in \dg(\alpha) \setminus \Des(T)} \arm(u) - \left|\InversionPairs(T)\right| - \left|\{(i, j) \suchthat i < j \text{ and } \alpha_i < \alpha_j \text{ and } \sigma_i > \sigma_j\}\right|.
-\end{align*}
 
 \subsection{Mistaking augmented fillings for non-augmented fillings} \label{subsec:augmented-to-non-augmented}
 
